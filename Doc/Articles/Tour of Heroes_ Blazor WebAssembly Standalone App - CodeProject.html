@@ -1,0 +1,2060 @@
+<!DOCTYPE html>
+<!-- saved from url=(0093)https://www.codeproject.com/Articles/5383736/Tour-of-Heroes-Blazor-WebAssembly-Standalone-App -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="preload" as="image" imagesrcset="/_next/image?url=%2Flogo250x135.gif&amp;w=256&amp;q=75 1x, /_next/image?url=%2Flogo250x135.gif&amp;w=640&amp;q=75 2x"><link rel="stylesheet" href="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/f00fbee724adea66.css" data-precedence="next"><link rel="preload" as="script" fetchpriority="low" href="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/webpack-5ed466aeca77ac7a.js.download"><script src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/4bd1b696-4098621b6d81f3cf.js.download" async=""></script><script src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/684-7067fe44ff85ebe6.js.download" async=""></script><script src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/main-app-f38f0d9153b95312.js.download" async=""></script><script async="" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/f.txt"></script><link rel="preload" href="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/js" as="script"><meta name="next-size-adjust" content=""><link rel="apple-touch-icon" sizes="144x144" href="https://www.codeproject.com/favicon/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://www.codeproject.com/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="https://www.codeproject.com/favicon/favicon-16x16.png"><link rel="manifest" href="https://www.codeproject.com/favicon/manifest.json"><link rel="mask-icon" href="https://www.codeproject.com/favicon/safari-pinned-tab.svg" color="#ff9900"><meta property="og:title" content="CodeProject"><meta property="og:image" content="https://www.codeproject.com/favicon/mstile-150x150.png"><meta property="og:description" content="For those who code"><meta property="og:url" content="https://www.codeproject.com"><title>Tour of Heroes: Blazor WebAssembly Standalone App - CodeProject</title><link rel="manifest" href="https://www.codeproject.com/manifest.json"><script>document.querySelectorAll('body link[rel="icon"], body link[rel="apple-touch-icon"]').forEach(el => document.head.appendChild(el))</script><script src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/polyfills-42372ed130431b0a.js.download" nomodule=""></script><link rel="preload" href="https://www.codeproject.com/_next/static/media/945b7384c5256ec3-s.p.ttf" as="font" crossorigin="" type="font/ttf"><link rel="preload" href="https://www.codeproject.com/_next/static/media/b55e164a6e7ce445-s.p.ttf" as="font" crossorigin="" type="font/ttf"><link rel="preload" href="https://www.codeproject.com/_next/static/media/e337cf18f0f81cb9-s.p.ttf" as="font" crossorigin="" type="font/ttf"><link rel="preload" href="https://www.codeproject.com/_next/static/media/f7794ce32483498f-s.p.ttf" as="font" crossorigin="" type="font/ttf"><meta http-equiv="origin-trial" content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhPC9flq/oYkRBwsAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A9wSqI5i0iwGdf6L1CERNdmsTPgVu44ewj8QxTBYgsv1LCPUVF7YmWOvTappqB1139jAymxUW/RO8zmMqo4zlAAAAACNeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MzY4MTI4MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A+d7vJfYtay4OUbdtRPZA3y7bKQLsxaMEPmxgfhBGqKXNrdkCQeJlUwqa6EBbSfjwFtJWTrWIioXeMW+y8bWAgQAAACTeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MzY4MTI4MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><script src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/f(1).txt" async=""></script><link href="https://securepubads.g.doubleclick.net/pagead/managed/dict/m202505080101/gpt" rel="compression-dictionary"><script async="" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/6839"></script><script async="" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/AGSKWxXVX0q4Biy0qKSfQ7oMsHSZoCIhFCrOpPMlCMq1WGx4iNX_L5dJ3lZHcJIS0kmaJAjQ8vofFh59URPTDhxScUhnJvtuHF8I-Q7HiwssMCMhGgDovS3cUKMATJCMKi49LMK"></script><script async="" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/AGSKWxUp4uGtdDIRfsaoHFdfPn2nVFrSU8iuWA0hKfa8KGAKGZHg81z3fz8KnUkufga_nGT8LA3Y8mBmysW0xucOeyAFE3DwvLo9QgUp8CzWY_gUVjtrIvit3zbK2oT49SfTpRV"></script><script async="" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/AGSKWxW-bu37jL25sQAe_DvfP6b2hYZRhIJZPw4APliYU-nRTLFqBR6SRG-YP9xr9dEDDeM7GkjEmPzNBgYD3sdW1R4hSZf7xh7KVQUymZLq49zB1GOkK2dytJKVPiWHMTMfWbp"></script></head><body class="__className_2277ee"><header><div class="custom-container gap-2 py-1 text-gray-light flex justify-between whitespace-nowrap z-10 relative px-1 md:px-0"><div class="flex-1 md:ml-20"><span class="hidden md:block">65.938<!-- --> articles</span><span class="block md:hidden">65.9<!-- -->K</span></div><div class="flex-1">CodeProject is changing.<!-- --> <a class="!text-gray-lightest" href="https://www.codeproject.com/info/Changes.aspx">Read more.</a></div><div class="flex-1"></div><div class="flex-1"></div></div><div class="mb-2 mt-2 md:mt-0"><div class="h-[94px] bg-primary"><div class="custom-container relative h-full"><a href="https://www.codeproject.com/"><img alt="Home" width="250" height="135" decoding="async" data-nimg="1" class="absolute -top-[31px]" style="color:transparent" srcset="/_next/image?url=%2Flogo250x135.gif&amp;w=256&amp;q=75 1x, /_next/image?url=%2Flogo250x135.gif&amp;w=640&amp;q=75 2x" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/logo250x135.gif"></a><div class="w-[calc(100%-300px)] translate-x-[300px] translate-y-[2px] h-[90px] relative overflow-hidden"><div id="div-gpt-ad-1738591571151-0" style="min-width:728px;min-height:90px" class="absolute top-0 left-0" data-google-query-id="CKbB8-H2l40DFfYGgwMdAj0dEA"><div id="google_ads_iframe_/67541884/CPLeader728_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/67541884/CPLeader728_0" name="google_ads_iframe_/67541884/CPLeader728_0" title="3rd party ad content" width="728" height="91" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" aria-label="Advertisement" tabindex="0" allow="private-state-token-redemption;attribution-reporting" data-load-complete="true" data-google-container-id="1" style="border: 0px; vertical-align: bottom;" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/saved_resource.html"></iframe></div></div></div></div></div></div><nav class="custom-container py-1 px-2 whitespace-nowrap"><ul class="flex gap-2 border-b border-border-gray"><li class="relative leading-normal hidden md:block"><a class="block py-0.5 px-2 font-bold cursor-pointer !text-gray-light border border-transparent" href="https://www.codeproject.com/">home</a></li><li class="relative leading-normal"><a class="block py-0.5 px-2 font-bold cursor-pointer !text-gray-light border border-transparent" href="https://www.codeproject.com/script/Articles/Latest.aspx">articles</a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden bottom-0 left-0 translate-y-full translate-x-0"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/SiteMap.aspx">Browse topics<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=AI">Artificial Intelligence<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Automation">Automation</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=big-data">big-data</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=machine-learning">machine-learning</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Containers">Containers<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=docker">docker</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=virtual-machine">virtual-machine</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=database">Database Development<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Elasticsearch">Elasticsearch</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Lucene">Lucene</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=MongoDB">mongodb</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=MySQL">MySQL</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=NoSQL">NoSQL</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=PostgreSQL">PostgreSQL</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Redis">Redis</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=SQL-Server">SQL Server</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Desktop">Desktop Programming<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=ATL">ATL</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Cocoa">Cocoa</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=MFC">MFC</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=QT">QT</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Swing">Swing</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=system">system</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=UWP">UWP</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Win32">Win32</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=WinForms">WinForms</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=WPF">WPF</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=WTL">WTL</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=X11">X11</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=XAML">XAML</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=DevOps">DevOps<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Agile">Agile</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Continuous-build">Continuous-build</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Continuous-delivery">Continuous-delivery</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Deployment">Deployment</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Git">Git</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=load-testing">load-testing</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=testing">testing</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=TFS">TFS</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=unit-testing">unit-testing</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Game">Game Development<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Unity">Unity</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Unreal">Unreal</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=XBox">XBox</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=performance">High Performance Computing<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=GPU">GPU</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=optimization">optimization</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=IoT">Internet of Things<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=wearables">wearable</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Mobile">Mobile Apps<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Android">Android</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=AWS">AWS</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Azure">Azure</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Cordova">Cordova</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=ExtJS">ExtJS</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=google-cloud">google-cloud</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=iOS">iOS</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=nativescript">nativescript</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=PhoneGap">PhoneGap</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=storage">storage</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=WinMobile">Windows Mobile</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Xamarin">Xamarin</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Multimedia">Multimedia<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=ASM">ASM</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=ASP">ASP</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=audio">audio</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=audio-video">audio video</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Bash">Bash</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Basic">Basic</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Csharp">C#</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Cplusplus">C++</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=COBOL">cobol</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Compression">Compression</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Dart">Dart</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=dbase">dbase</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Design">Design/Graphics</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=DirectX">DirectX</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Emulation">Emulation</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Exceptions">Exceptions</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Fsharp">F#</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=file">file</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=GDI">GDI</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=GDIplus">GDI+</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Image-Processing">Image-Processing</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Internet">Internet</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Java">Java</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Javascript">Javascript</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=localization">localization</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Lua">Lua</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=MSIL">MSIL</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Objective-C">Objective C</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=OpenGL">OpenGL</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Pascal">Pascal</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Perl">Perl</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=PHP">PHP</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=PowerShell">PowerShell</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=printing">printing</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Python">Python</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Razor">Razor</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=regular-expression">regular expression</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Ruby">Ruby</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Scala">scala</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Shell">Shell</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Sorting">Sorting</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=SQL">SQL</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=string">string</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Swift">Swift</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=threads">threads</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=usability">usability</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=VB">VB</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=VB.NET">VB.NET</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=VBScript">VBScript</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Video">Video</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=XML">XML</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=security">Security<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=blockchain">blockchain</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=cryptography">cryptography</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Encryption">Encryption</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Web">Web Development<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Apache">Apache</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=ASP.NET">ASP.NET</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=CSS">CSS</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=CSS3">CSS3</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=HTML">HTML</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=HTML5">HTML5</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=IIS">IIS</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Kestrel">Kestrel</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=LESS">LESS</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Node.js">Node.js</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=React">React</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Spring">Spring</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=XHTML">XHTML</a></li></ul></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Articles/Latest.aspx">Latest articles</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Articles/TopArticles.aspx">Top articles</a></li></ul></li><li class="relative leading-normal"><a class="block py-0.5 px-2 font-bold cursor-pointer !text-gray-light border border-transparent" href="https://www.codeproject.com/Feature">features</a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden bottom-0 left-0 translate-y-full translate-x-0"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/News/List.aspx">News</a></li><li class="cursor-pointer block relative leading-normal box-border"><a href="https://sdnews.io/" class="py-0.5 px-5 block !text-inherit relative" rel="nofollow noreferrer">The Insider Newsletter</a></li><li class="cursor-pointer block relative leading-normal box-border"><a href="https://sdnews.io/" class="py-0.5 px-5 block !text-inherit relative" rel="nofollow noreferrer">The Daily Build Newsletter</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/Info/Stuff.aspx">CodeProject Stuff</a></li></ul></li><li class="relative leading-normal"><a class="block py-0.5 px-2 font-bold cursor-pointer !text-gray-light border border-transparent" href="https://www.codeproject.com/KB/FAQs">help</a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden bottom-0 left-0 translate-y-full translate-x-0"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/info/guide.aspx">What is 'CodeProject'?</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/KB/FAQs">General FAQ</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/info/about.aspx">About Us</a></li></ul></li></ul></nav></header><main class="px-2 py-10"><div class="custom-container flex px-2 gap-8 overflow-hidden"><div class="w-[948px] max-w-full"><div class="flex gap-2 mb-2 flex-wrap"><a rel="tag" href="https://www.codeproject.com/Tags/Blazor" class="px-2 border border-border-yellow rounded-l-full text-gray-light visited:text-gray-light hover:underline hover:bg-yellow-light">Blazor</a><a rel="tag" href="https://www.codeproject.com/Tags/ASP.NET-Core" class="px-2 border border-border-yellow rounded-l-full text-gray-light visited:text-gray-light hover:underline hover:bg-yellow-light">ASP.NET Core</a><a rel="tag" href="https://www.codeproject.com/Tags/C#" class="px-2 border border-border-yellow rounded-l-full text-gray-light visited:text-gray-light hover:underline hover:bg-yellow-light">C#</a></div><h1 class="text-4xl text-text-gray">Tour of Heroes: Blazor WebAssembly Standalone App</h1><div class="max-w-[600px]"><div class="flex pt-4 justify-between"><div class="text-base hover:underline font-bold"><a class="text-gray-lightest" href="https://www.codeproject.com/script/Membership/View.aspx?mid=3627575">Zijian</a></div><div class="flex items-center gap-2"><div class="flex"><img alt="starIcon" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" style="color:transparent" srcset="/_next/image?url=%2Ficons%2FstarIcon.png&amp;w=32&amp;q=75 1x, /_next/image?url=%2Ficons%2FstarIcon.png&amp;w=48&amp;q=75 2x" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/starIcon.png"><img alt="starIcon" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" style="color:transparent" srcset="/_next/image?url=%2Ficons%2FstarIcon.png&amp;w=32&amp;q=75 1x, /_next/image?url=%2Ficons%2FstarIcon.png&amp;w=48&amp;q=75 2x" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/starIcon.png"><img alt="starIcon" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" style="color:transparent" srcset="/_next/image?url=%2Ficons%2FstarIcon.png&amp;w=32&amp;q=75 1x, /_next/image?url=%2Ficons%2FstarIcon.png&amp;w=48&amp;q=75 2x" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/starIcon.png"><img alt="starIcon" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" style="color:transparent" srcset="/_next/image?url=%2Ficons%2FstarIcon.png&amp;w=32&amp;q=75 1x, /_next/image?url=%2Ficons%2FstarIcon.png&amp;w=48&amp;q=75 2x" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/starIcon.png"><img alt="starIcon" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" style="color:transparent" srcset="/_next/image?url=%2Ficons%2FstarIcon.png&amp;w=32&amp;q=75 1x, /_next/image?url=%2Ficons%2FstarIcon.png&amp;w=48&amp;q=75 2x" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/starIcon.png"></div><p class="text-sm">5.00<!-- -->/5 (<!-- -->5<!-- --> vote<!-- -->s<!-- -->)</p></div></div><div class="flex pt-2 gap-4"><p class="text-gray-lightest text-[13px]">Jun 13, 2024</p><a class="text-[13px] flex" href="http://www.codeproject.com/info/cpol10.aspx">CPOL</a><p class="text-gray-lightest text-[13px]">4<!-- --> min read</p><div class="flex gap-1 items-center"><img alt="viewsIcon" loading="lazy" width="16" height="16" decoding="async" data-nimg="1" class="w-4 h-4" style="color:transparent" srcset="/_next/image?url=%2Ficons%2FviewsIcon.png&amp;w=16&amp;q=75 1x, /_next/image?url=%2Ficons%2FviewsIcon.png&amp;w=32&amp;q=75 2x" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/viewsIcon.png"><p class="text-gray-lightest text-[13px] pl-0.5">6720</p></div></div></div><p class="pt-6 pb-4 text-gray-lightest">Blazor WebAssembly Standalone App talking to ASP.NET Core Web API with generated client API codes in C#</p><div class="max-w-full"><template shadowrootmode="open"><style>/*
+  This is the legacy article critical styles
+  They are added in order to reduce mvp development time
+  They should be refactored or completely replaced woth nextjs css modules in future
+*/
+
+::selection {
+  background-color: #f90;
+  color: #fff;
+  text-shadow: none;
+}
+.blank-background {
+  background-color: white;
+}
+html,
+div,
+span,
+applet,
+object,
+iframe,
+a,
+abbr,
+acronym,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+fieldset,
+form,
+label,
+table,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+li,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  font-smooth: always;
+}
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+tr,
+td,
+th,
+dd,
+dt {
+  font-size: 16px;
+  line-height: 1.4;
+  color: #111111;
+}
+body {
+  margin: 0;
+}
+h1,
+h3,
+h4,
+h5,
+th {
+  font-weight: bold;
+}
+h1 {
+  color: #333333;
+  padding: 0px;
+  margin: 0 0 7px;
+  text-align: left;
+}
+h2 {
+  margin: 20px 0 11px;
+  padding: 0;
+  padding-bottom: 10px;
+  color: #333333;
+}
+h3 {
+  color: #ff9900;
+}
+h1 {
+  font-size: 38px;
+  font-weight: 400;
+}
+h2 {
+  font-size: 29px;
+  font-weight: 400;
+}
+h3 {
+  font-size: 19px;
+  font-weight: normal;
+}
+h4 {
+  font-size: 17px;
+}
+pre {
+  color: black;
+  background-color: #fbedbb;
+  padding: 6px;
+  font: 14px Consolas, monospace, mono;
+  white-space: pre;
+  overflow: auto;
+  border: solid 1px #fbedbb;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  -webkit-tab-size: 4;
+  tab-size: 4;
+}
+code {
+  color: #990000;
+  font: 15px Consolas, monospace, mono;
+}
+table {
+  background-color: Transparent;
+}
+img {
+  -ms-interpolation-mode: bicubic;
+}
+a {
+  text-decoration: none;
+  color: #005782;
+}
+a:visited {
+  color: #800080;
+}
+a:hover {
+  text-decoration: underline;
+}
+a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+input[type="text"],
+input[type="url"],
+input[type="search"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+select,
+textarea {
+  border: 1px solid #d7d7d7;
+  font-size: 16px;
+  padding: 5px;
+}
+a.button,
+a.button-large,
+.button,
+.button-large {
+  color: white;
+  background-color: #e08900;
+  border: 1px solid #cccccc;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 100%;
+  padding: 4px;
+  cursor: pointer;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+table.small-text td,
+ul.small-text li,
+ol.small-text li,
+.small-text {
+  font-size: 14px;
+}
+.invisible {
+  display: none;
+}
+.subdue,
+.subdue li,
+tr.subdue td {
+  color: #808080;
+}
+.bold {
+  font-weight: bold;
+}
+.align-left {
+  text-align: left;
+}
+.align-right {
+  text-align: right;
+}
+.align-center {
+  text-align: center;
+}
+.float-right {
+  float: right;
+}
+.float-left {
+  float: left;
+}
+.sticky {
+  position: sticky;
+  top: 0;
+}
+.extended {
+  width: 100%;
+  box-sizing: border-box;
+}
+.padded-top {
+  padding-top: 20px;
+}
+.tight {
+  margin: 0px;
+  padding: 0px;
+}
+.nowrap {
+  white-space: nowrap;
+}
+.fixed-layout {
+  table-layout: fixed;
+}
+.clip-text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.raised {
+  background-color: #fff8df;
+  border: 1px solid #cccccc;
+  -moz-box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);
+}
+ol,
+ul {
+  padding-left: 40px;
+  margin: 10px 0;
+}
+ol.compact li,
+ul.compact li,
+ol li.compact,
+ul li.compact {
+  font-size: 14px;
+}
+ul.download {
+  margin-top: 25px;
+}
+ul.download li,
+ul li.download,
+ul.Download li,
+ul li.Download {
+  background: url("/images/download24.png") no-repeat scroll left center
+    transparent;
+  font-weight: bold;
+  list-style-type: none;
+  margin: 0px 0 6px -40px;
+  padding: 0 0 1px 30px;
+  vertical-align: middle;
+}
+.callout {
+  margin: 20px 0;
+  background-color: #ffffe1;
+  color: #333333;
+  border: 1px solid #cccccc;
+  padding: 15px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+.trace {
+  padding: 20px;
+  background-color: #eeeeee;
+  color: #333333;
+  border: 1px solid red;
+  font-size: 13px;
+}
+textarea,
+input[type="text"],
+input[type="button"],
+input[type="submit"] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+.container-content {
+  background-color: white;
+  position: relative;
+  zoom: 1;
+  padding: 0 9px;
+  cursor: default;
+}
+.container-content-wrap {
+  margin: auto;
+  max-width: 1270px;
+}
+.container-content pre,
+.container-code pre,
+.answer pre {
+  white-space: pre-wrap;
+  /* css-3 */
+  white-space: -moz-pre-wrap;
+  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  word-wrap: break-word;
+  /* Internet Explorer 5.5+ */
+  _white-space: pre;
+  /* IE only hack to re-specify in addition to word-wrap  */
+  word-break: break-word;
+  -ms-word-break: break-word;
+}
+.flex-container {
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
+  display: flex;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+.flex-extend {
+  justify-content: space-between;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-item {
+  -webkit-box-flex: 1;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-flex: 1;
+  /* OLD - Firefox 19- */
+  -webkit-flex: 1;
+  /* Chrome */
+  -ms-flex: 1;
+  /* IE 10 */
+  flex: 1;
+}
+.flex-item-tight {
+  flex: 0 1 auto;
+}
+.hover-container {
+  display: block;
+  position: relative;
+}
+.clearfix:after,
+.container:after {
+  display: block;
+  content: ".";
+  visibility: hidden;
+  height: 0px;
+  clear: both;
+}
+.clearfix,
+.container {
+  display: inline-block;
+  /* Mac IE5 sees this */
+  /* Mac IE5 comment hack \*/
+  display: block;
+  /* Mac IE5 doesn't see this, but everyone else does */
+}
+.access-link,
+.access-link img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 1px;
+  height: 1px;
+  z-index: 101;
+  border-style: none;
+  margin-top: -1px;
+  overflow: hidden;
+}
+.site-top-menu {
+  white-space: nowrap;
+  position: absolute;
+  z-index: 101;
+  width: 100%;
+}
+.site-top-menu .main-content {
+  width: 100%;
+}
+.site-top-menu .main-content .memberbar {
+  margin-left: 90px;
+  margin-right: 10px;
+}
+.site-top-menu.fixed .main-content {
+  margin: auto;
+  max-width: 1270px;
+}
+.site-header {
+  background-image: url("/App_Themes/CodeProject/Img/logo135-bg.gif");
+  white-space: nowrap;
+  overflow: hidden;
+}
+.site-header .main-content {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.site-header .logo {
+  display: inline-block;
+}
+.site-header .promo {
+  display: inline-block;
+  position: absolute;
+  top: 33px;
+  right: 0;
+}
+.site-header.fixed .main-content {
+  margin: auto;
+  max-width: 1270px;
+}
+.sub-headerbar {
+  padding-right: 9px;
+  position: relative;
+  margin: auto;
+  max-width: 1270px;
+}
+.sub-headerbar-divider {
+  margin-left: 10px;
+  height: 1px;
+  border-bottom: 1px solid #cccccc;
+  position: absolute;
+  bottom: 2px;
+  left: 0px;
+  right: 9px;
+}
+.memberbar {
+  height: 25px;
+  padding-top: 10px;
+  color: #999999;
+  font-size: 14px;
+}
+.memberbar a {
+  color: #808080;
+  font-size: 14px;
+}
+div.navbar {
+  white-space: nowrap;
+}
+.navmenu {
+  background: white;
+  color: #4d4d4d;
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+  height: 25px;
+}
+.navmenu ul,
+.navmenu li {
+  margin: 0;
+  padding: 0;
+}
+.navmenu .has-submenu {
+  position: absolute;
+  right: 5px;
+  padding-left: 10px;
+}
+.navmenu > li:hover > a,
+.navmenu > li > a:active {
+  border: 1px solid #cccccc;
+}
+.navmenu ul,
+.navmenu > li.open:hover > a,
+.navmenu > li.open > a:active {
+  border: 1px solid #cccccc;
+  border-bottom-color: white;
+}
+.navmenu > li {
+  margin: 0 11px 2px 2px;
+}
+.navmenu > li:active,
+.navmenu > li:active > a,
+.navmenu > li:hover,
+.navmenu > li > a:active {
+  background: white;
+  color: #4d4d4d;
+}
+.navmenu > li.openable > a:active,
+.navmenu > li.openable:hover > a {
+  /*border-bottom: 1px solid @ColourBack-Menu; */
+}
+.navmenu > li > a {
+  padding: 2px 7px 6px 7px;
+  border: 1px solid transparent;
+  font-weight: bold;
+}
+.navmenu a {
+  display: block;
+  float: left;
+  color: #666666;
+  background: white;
+  font-size: 17px;
+  padding: 0px 9px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.navmenu a.fly {
+  white-space: nowrap;
+}
+.navmenu ul {
+  background: white;
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  list-style: none;
+}
+.navmenu li {
+  float: left;
+  color: #4d4d4d;
+}
+.navmenu li.last {
+  height: 9px;
+}
+.navmenu li a:active,
+.navmenu li a:hover {
+  color: white;
+  background-color: #ff9900;
+}
+.navmenu li > a:active,
+.navmenu li:hover,
+.navmenu li:hover > a,
+.navmenu li:hover.heading,
+.navmenu li a.selected {
+  position: relative;
+  color: white;
+  background-color: #ff9900;
+}
+.navmenu li.openable:hover ul {
+  left: 0px;
+  top: 30px;
+  z-index: 500;
+}
+.navmenu li.openable:hover > ul ul {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  width: auto;
+}
+.navmenu li ul {
+  border-bottom: 5px solid #ff9900;
+}
+.navmenu li li {
+  float: none;
+}
+.navmenu li li a {
+  float: none;
+  font-size: 16px;
+  font-weight: normal;
+}
+.navmenu li li a.fly {
+  color: #4d4d4d;
+  background-color: white;
+  padding: 2px 20px;
+}
+.navmenu li li a.break {
+  margin-bottom: 15px;
+}
+.navmenu li li a.highlight1,
+.navmenu li li a.highlight1:active,
+.navmenu li li a.highlight1:hover {
+  background-color: #009900;
+}
+.navmenu li li a.highlight2,
+.navmenu li li a.highlight2:active,
+.navmenu li li a.highlight2:hover {
+  background-color: #ff9900;
+}
+.navmenu li li a.highlight3,
+.navmenu li li a.highlight3:active,
+.navmenu li li a.highlight3:hover {
+  background-color: #000000;
+}
+.navmenu li li a.highlight1,
+.navmenu li li a.highlight2,
+.navmenu li li a.highlight3 {
+  color: white;
+  font-size: 16px;
+  margin: 5px 0;
+  padding: 9px 20px;
+}
+.site-footer {
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
+  display: flex;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  padding-top: 5px;
+  width: 100%;
+  font-size: 13px;
+  color: #999999;
+}
+.site-footer .align-left,
+.site-footer .align-center,
+.site-footer .align-right {
+  -webkit-box-flex: 1;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-flex: 1;
+  /* OLD - Firefox 19- */
+  -webkit-flex: 1;
+  /* Chrome */
+  -ms-flex: 1;
+  /* IE 10 */
+  flex: 1;
+}
+.site-footer .align-left {
+  flex: 1 0 100px;
+}
+.site-footer .align-center {
+  flex: 0 1 0%;
+  white-space: nowrap;
+}
+.site-footer .align-right {
+  flex: 1 0 100px;
+}
+.site-footer .page-width .active {
+  border-bottom: 2px solid #ff9900;
+}
+.searchbar {
+  padding: 0;
+}
+.searchbar .search {
+  margin-bottom: 4px;
+  padding: 2px 5px 0px;
+  border: 1px solid #cccccc;
+}
+.searchbar .search.subdue {
+  color: #cccccc;
+}
+.searchbar input.search {
+  width: 190px;
+  border: none;
+  font-size: 13px;
+  padding: 4px 2px;
+}
+.searchbar .search-advanced {
+  padding: 8px;
+  width: 203px;
+  z-index: 1000;
+  background-color: white;
+  border: solid 1px #cccccc;
+  position: absolute;
+  top: -4px;
+  right: 0px;
+}
+.searchbar .popup {
+  display: none;
+}
+.sub-headerbar .searchbar {
+  /*
+	.search-advanced
+	{
+        .transition(width, .1s, linear);
+
+        &.open
+        {
+    		width: 320px;
+        }
+    }
+    */
+}
+.sub-headerbar .searchbar input.search {
+  /*
+        &:focus,&:active
+        {
+            position     : absolute;
+            top          : 3px;
+            right        : 36px;
+            height       : 19px;
+            border       : 1px solid #ccc;
+            border-right : none;
+            width:         300px;
+
+            .transition(width, .1s, linear);
+        }
+        */
+}
+.search td {
+  background-color: white;
+}
+.article-container-parts {
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
+  display: flex;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+.article-container {
+  -webkit-box-flex: 1;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-flex: 1;
+  /* OLD - Firefox 19- */
+  -webkit-flex: 1;
+  /* Chrome */
+  -ms-flex: 1;
+  /* IE 10 */
+  flex: 1;
+  background-color: white;
+  color: #111111;
+  zoom: 1;
+  position: relative;
+  max-width: 100%;
+  min-height: 675px;
+}
+.article-container .article {
+  margin: 0 20px 0 10px;
+  line-height: 143%;
+}
+.article-container span.stats {
+  margin-left: 30px;
+}
+.article-left-sidebar {
+  width: 120px;
+  min-width: 120px;
+  min-height: 400px;
+  font-size: 14px;
+  border-right: 1px solid #f2f2f2;
+  padding: 0;
+  /* Old school style */
+  /*
+    .license {
+        font-weight: bold;
+        display: inline-block;
+        margin-top: 10px;
+    }
+    */
+}
+.article-left-sidebar .article-left-sidebar-inner {
+  width: 120px;
+  min-width: 120px;
+}
+.article-left-sidebar .tabs > div {
+  padding: 5px 0 5px 10px;
+}
+.article-left-sidebar .selected {
+  font-weight: bold;
+  background: transparent url("/images/right-selected.gif") no-repeat scroll
+    right 9px;
+}
+.article-left-sidebar h4 {
+  color: #ff9900;
+  font-size: 14px;
+  font-weight: bold;
+}
+.article-left-sidebar .stats div div div {
+  padding: 0px 0 10px 10px;
+  color: #666666;
+}
+.article-right-sidebar {
+  width: 300px;
+  margin-left: 10px;
+  font-size: 14px;
+}
+.article-right-sidebar .header {
+  font-size: 22px;
+  color: white;
+  background-color: #ff9900;
+  padding: 8px;
+  font-weight: 400;
+  margin: 0;
+}
+.article-right-sidebar .reading-list-toc {
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 6px;
+  margin-top: 5px;
+}
+.article-right-sidebar .reading-list-toc .count {
+  font-weight: normal;
+  font-size: 13px;
+}
+.article-right-sidebar .reading-list-toc .title {
+  font-size: 16px;
+}
+.article-right-sidebar .content-list-item {
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
+  display: flex;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  justify-content: space-between;
+  font-size: 14px;
+  margin: 4px 0;
+}
+.article-right-sidebar .content-list-item .count {
+  width: 15%;
+  padding: 0px;
+}
+.article-right-sidebar .content-list-item .title {
+  width: 85%;
+  font-weight: normal;
+}
+.article-right-sidebar .gototop {
+  text-align: center;
+  padding: 10px 0;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s linear 0ms;
+  -moz-transition: opacity 0.3s linear 0ms;
+  -o-transition: opacity 0.3s linear 0ms;
+  transition: opacity 0.3s linear 0ms;
+}
+.container-content .edit-links {
+  margin: 21px 0 0 10px;
+}
+.article-summary {
+  padding: 0px 10px 0px 10px;
+  overflow: hidden;
+}
+.article h1 {
+  margin: 0 0 15px 0;
+}
+.article h2 {
+  color: #ff9900;
+}
+.article pre {
+  overflow: auto;
+}
+.article .header .title {
+  color: #808080;
+}
+.article .header .author {
+  font-weight: bold;
+  min-width: 100px;
+}
+.article .header .author a {
+  color: #808080;
+}
+.article .header .avatar {
+  max-width: 48px;
+  max-height: 48px;
+  overflow: unset;
+}
+.article .header .avatar-wrap {
+  width: 48px;
+  height: 48px;
+  margin-right: 10px;
+  text-align: center;
+}
+.article .header .date {
+  white-space: nowrap;
+}
+.article .header .license {
+  margin-left: 15px;
+}
+.article .header .stats {
+  margin-left: 30px;
+}
+.article img.lazyload,
+.article img.lazyloading {
+  opacity: 0;
+}
+.article img {
+  max-width: 700px;
+  height: auto;
+}
+.article img.lazyloaded {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+.article .summary {
+  color: #808080;
+  padding: 40px 0 15px 0;
+}
+.article .text {
+  padding-top: 10px;
+}
+.article .reading-list-nav {
+  border-top: 1px #dedede solid;
+  border-bottom: 1px #dedede solid;
+  padding: 10px 0;
+}
+.article .reading-list-nav .prev {
+  padding-left: 20px;
+}
+.article .reading-list-nav .next {
+  margin-left: 5px;
+  padding-right: 20px;
+  text-align: right;
+}
+.article-nav {
+  text-align: right;
+  margin-top: 21px;
+  vertical-align: middle;
+  line-height: 15px;
+}
+.msg-728x90 {
+  width: 728px;
+  height: 90px;
+  overflow: hidden;
+}
+.msg-300x250 {
+  width: 300px;
+  height: 250px;
+  overflow: hidden;
+}
+.content-list {
+  margin-bottom: 17px;
+}
+.content-list .count {
+  font-weight: bold;
+  font-size: 16px;
+  color: #ff9900;
+  padding: 3px;
+  text-align: center;
+}
+.content-list-item {
+  margin: 10px 0;
+}
+.content-list-item .title {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0px 0;
+}
+.content-list-item .title a {
+  color: #005782;
+}
+.tags {
+  line-height: 190%;
+}
+.tags .t {
+  background: none repeat scroll 0 0 transparent;
+  border: 1px solid #fbedbb;
+  border-radius: 12px 0 0 12px;
+  line-height: 1.4;
+  padding: 0 2px 2px 3px;
+  position: relative;
+  text-decoration: none;
+  margin: 2px 5px 4px 0;
+  white-space: nowrap;
+}
+.tags .t a {
+  color: #666666;
+  display: inline-block;
+  margin-right: 3px;
+  padding-left: 5px;
+  text-overflow: ellipsis;
+}
+.container-breadcrumb {
+  font-size: 14px;
+  margin-top: 7px;
+  color: #808080;
+  margin: 12px 0 35px;
+}
+.container-breadcrumb a {
+  color: #808080;
+}
+.pre-lang {
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
+  display: flex;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  background-color: #fbedbb;
+  justify-content: space-between;
+  padding: 4px 8px;
+  margin-top: 5px;
+  color: #999999;
+  border-bottom: solid 1px #ffd044;
+}
+.code-comment {
+  color: #008000;
+  font-style: italic;
+}
+.code-keyword {
+  color: Blue;
+}
+.code-sdkkeyword {
+  color: #339999;
+}
+.code-string {
+  color: Purple;
+}
+.code-attribute {
+  color: red;
+}
+.code-leadattribute {
+  color: #800000;
+}
+.pre-action-link {
+  font-size: 13px;
+  color: #999999;
+}
+.pre-action-link span {
+  cursor: pointer;
+  margin: 0;
+  -webkit-transition: color 0.1s linear;
+  -moz-transition: color 0.1s linear;
+  -o-transition: color 0.1s linear;
+  transition: color 0.1s linear;
+}
+.speech-bubble-container-down,
+.speech-bubble-container-up,
+.speech-bubble-container-up-right,
+.speech-bubble-container-left,
+.speech-bubble-container-right {
+  position: relative;
+}
+.speech-bubble-up,
+.speech-bubble-down,
+.speech-bubble-left,
+.speech-bubble-right,
+.speech-bubble-up-right {
+  padding: 0.6em;
+  border: 1px solid #cccccc;
+  background-color: white;
+  margin: 15px;
+  text-decoration: none;
+  font-weight: normal;
+  text-align: left;
+  white-space: normal;
+  color: #333333;
+  font-size: 14px;
+  line-height: 1.3;
+}
+.speech-bubble-down {
+  margin-bottom: 0px;
+}
+.tooltip .speech-bubble-up,
+.tooltip .speech-bubble-up-right,
+.tooltip .speech-bubble-down,
+.tooltip .speech-bubble-left,
+.tooltip .speech-bubble-right {
+  -moz-box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  min-width: 75px;
+}
+.speech-bubble-pointer-down,
+.speech-bubble-pointer-down-inner {
+  width: 0;
+  height: 0;
+  border-bottom-width: 0;
+  background: none;
+}
+.speech-bubble-pointer-down {
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 1px solid #cccccc;
+  border-top-width: 14px;
+  margin-left: 35px;
+  margin-bottom: 15px;
+  _display: none;
+}
+.speech-bubble-pointer-up,
+.speech-bubble-pointer-up-right,
+.speech-bubble-pointer-up-inner,
+.speech-bubble-pointer-up-right-inner {
+  width: 0;
+  height: 0;
+  border-top-width: 0;
+  background: none;
+}
+.speech-bubble-pointer-up,
+.speech-bubble-pointer-up-right {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 1px solid #cccccc;
+  border-bottom-width: 14px;
+  margin-left: 35px;
+  position: absolute;
+  top: -12px;
+  _display: none;
+}
+.speech-bubble-container-up-right .speech-bubble-pointer-up-right {
+  margin-left: 0;
+  margin-right: 0px;
+  right: 35px;
+}
+.tooltip {
+  position: relative;
+  text-decoration: none;
+}
+.tooltip .speech-bubble-container-up,
+.tooltip .speech-bubble-container-down,
+.tooltip .speech-bubble-container-left,
+.tooltip .speech-bubble-container-right,
+.tooltip .speech-bubble-container-up-right,
+.tooltip .tooltip-flyout {
+  display: none;
+  opacity: 0;
+  -webkit-transition: opacity 0.5s linear 0ms;
+  -moz-transition: opacity 0.5s linear 0ms;
+  -o-transition: opacity 0.5s linear 0ms;
+  transition: opacity 0.5s linear 0ms;
+}
+.micromodal {
+  display: none;
+}
+.micromodal .modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 1000;
+}
+.micromodal .modal__container {
+  box-sizing: border-box;
+  overflow-y: auto;
+  max-width: 500px;
+  max-height: 100vh;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 4px;
+}
+.micromodal .modal__container,
+.micromodal .modal__overlay {
+  will-change: transform;
+}
+.micromodal .modal_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.micromodal .modal_title {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #ff9900;
+  box-sizing: border-box;
+}
+.bottom-promo {
+  height: 90px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+.bottom-promo .msg-728x90 {
+  width: 728px;
+  margin: 0 auto;
+}
+.msg-728x90 {
+  overflow: hidden;
+  position: relative;
+  height: 90px;
+  min-width: 728px;
+}
+table.forum {
+  table-layout: fixed;
+  margin: 0 0 20px 0;
+  padding: 0px;
+  width: 100%;
+}
+.forum {
+  /*
+    .indent
+    {
+        padding-left:5px; padding-right: 5px;
+    }
+    */
+}
+.forum table {
+  border-collapse: separate;
+}
+.forum .header1,
+.forum .header1 TD {
+  color: #333333;
+  font-size: 14px;
+  vertical-align: middle;
+}
+.forum .header2,
+.forum .header2 TD {
+  color: white;
+  background-color: #ff9900;
+  font-size: 14px;
+  vertical-align: middle;
+}
+.forum .header2 input,
+.forum .header2 TD input,
+.forum .header2 select,
+.forum .header2 TD select {
+  padding: 2px;
+}
+.forum .button {
+  border: 1px solid #ffcc66;
+  margin: 1px;
+}
+.forum .searchbar {
+  border: 1px solid #cccccc;
+  padding: 4px 0 0 0;
+  margin: 3px 0;
+}
+.forum .searchbar .search {
+  width: 200px;
+}
+.forum .searchbar input[type="image"] {
+  vertical-align: middle;
+}
+.forum .dropdown {
+  background-color: #fffdfa;
+  font-size: 95%;
+  margin-left: 5px;
+}
+.forum .footer,
+.forum .footer td,
+.forum .navbar,
+.forum .navbar td {
+  font-size: 14px;
+  padding: 8px 0;
+  border: 0;
+  border-top: 1px solid #808080;
+}
+.author-wrapper {
+  position: relative;
+}
+.author-wrapper .profile-pic {
+  border: 1px solid #333;
+  margin: 0 13px 0 0;
+  padding: 10px;
+  -moz-box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.2);
+  max-height: 100px;
+}
+.author-wrapper .container-member .author {
+  font-size: 29px;
+  color: #333333;
+  font-weight: 600;
+}
+.member-signin .forgot {
+  padding: 0;
+}
+.member-signin a.forgot {
+  color: #808080;
+}
+.rating-container {
+  /*
+	.rating-close
+	{
+		font-size       : @FontSize-MediumSmall;
+		font-weight     : bold;
+		// display         : inline-block;
+		// height          : 19px;
+		padding         : 0px 7px 3px 5px;
+		text-decoration : none;
+		border          : 1px solid transparent;
+		position        : absolute;
+		right           : 1px;
+		top             : -1px;
+
+		&:hover { border : 1px solid @Colour-Theme1; }
+	}*/
+}
+.rating-container .rating-prompt {
+  padding-right: 5px;
+  white-space: nowrap;
+  line-height: 25px;
+  margin-right: 2px;
+  font-weight: bold;
+  color: #808080;
+}
+.rating-container .rating-votes {
+  margin-left: 5px;
+}
+.rating-container.large-stars,
+.rating-container.medium-stars,
+.rating-container.small-stars {
+  margin-left: 7px;
+}
+.rating-container.large-stars .rating-votes,
+.rating-container.large-stars .rating-prompt,
+.rating-container.large-stars .rating-poor,
+.rating-container.large-stars .rating-good {
+  line-height: 25px;
+}
+.tablet-only,
+.tablet-block-only {
+  display: none;
+}
+.mobile-only,
+.mobile-block-only {
+  display: none;
+}
+.desktop-only.tablet-only {
+  display: inherit;
+}
+.tablet-only.desktop-only {
+  display: inherit;
+}
+.rrssb-buttons,
+.rrssb-buttons li,
+.rrssb-buttons li a {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+.rrssb-buttons {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+.rrssb-buttons li {
+  float: left;
+  height: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0 2.5px;
+  line-height: 13px;
+}
+.rrssb-buttons li.email a {
+  background-color: #0a88ff;
+}
+.rrssb-buttons li.facebook a {
+  background-color: #306199;
+}
+.rrssb-buttons li.linkedin a {
+  background-color: #007bb6;
+}
+.rrssb-buttons li.twitter a {
+  background-color: #26c4f1;
+}
+.rrssb-buttons li.reddit a {
+  background-color: #8bbbe3;
+}
+.rrssb-buttons li.pinterest a {
+  background-color: #b81621;
+}
+.rrssb-buttons li.compact {
+  padding: 0 4.5px;
+}
+.rrssb-buttons li.compact a {
+  border-radius: 50%;
+  padding: 0px 7px 0 32px;
+}
+.rrssb-buttons li.compact a .icon {
+  left: 7px;
+  top: -3px;
+  width: 5%;
+  transform: scale(0.85);
+}
+.rrssb-buttons li.compact a .icon svg {
+  height: auto;
+  width: auto;
+}
+.rrssb-buttons li a {
+  background-color: #ccc;
+  border-radius: 3px;
+  display: block;
+  font-size: 11px;
+  font-weight: bold;
+  height: 100%;
+  padding: 11px 7px 12px 27px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  -webkit-transition: background-color 0.2s ease-in-out;
+  -moz-transition: background-color 0.2s ease-in-out;
+  -o-transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
+}
+.rrssb-buttons li a .icon {
+  display: block;
+  height: 100%;
+  left: 10px;
+  padding-top: 9px;
+  position: absolute;
+  top: 0;
+  width: 10%;
+}
+.rrssb-buttons li a .icon svg {
+  height: 17px;
+  width: 17px;
+}
+.rrssb-buttons li a .icon svg path,
+.rrssb-buttons li a .icon svg polygon {
+  fill: #fff;
+}
+.cc-window {
+  opacity: 1;
+  background-color: #ff9900;
+  /*
+  -webkit-transition: opacity .25s ease;
+  -moz-transition: opacity .25s ease;
+  -ms-transition: opacity .25s ease;
+  -o-transition: opacity .25s ease;
+  transition: opacity .25s ease;
+  */
+}
+.cc-window.cc-invisible {
+  opacity: 0;
+}
+.cc-animate.cc-revoke {
+  /*
+  -webkit-transition: transform .25s ease;
+  -moz-transition: transform .25s ease;
+  -ms-transition: transform .25s ease;
+  -o-transition: transform .25s ease;
+  transition: transform .25s ease;
+  */
+}
+.cc-animate.cc-revoke.cc-bottom {
+  transform: translateY(2em);
+}
+.cc-window,
+.cc-revoke {
+  position: fixed;
+  overflow: hidden;
+  box-sizing: border-box;
+  /* exclude padding when dealing with width */
+  font-family: "Segoe UI", Arial, Sans-Serif;
+  font-size: 13px;
+  /* by setting the base font here, we can size the rest of the popup using CSS `em` */
+  line-height: 1.5em;
+  display: flex;
+  flex-wrap: nowrap;
+  /* the following are random unjustified styles - just because - should probably be removed */
+  z-index: 9999;
+}
+.cc-window.cc-banner {
+  padding: 0.7em 1.8em;
+  width: 100%;
+  flex-direction: row;
+}
+.cc-revoke {
+  padding: 0.5em;
+}
+.cc-btn,
+.cc-link,
+.cc-close,
+.cc-revoke {
+  cursor: pointer;
+}
+.cc-link {
+  opacity: 0.8;
+  display: inline-block;
+  padding: 0.2em;
+  text-decoration: underline;
+}
+.cc-link:active,
+.cc-link:visited {
+  color: initial;
+}
+.cc-btn {
+  display: block;
+  padding: 0.4em 0.8em;
+  font-size: 0.9em;
+  font-weight: bold;
+  border-width: 2px;
+  border-style: solid;
+  text-align: center;
+  white-space: nowrap;
+}
+.cc-banner .cc-btn:last-child {
+  min-width: 110px;
+  margin-left: 10px;
+}
+.cc-highlight .cc-btn:first-child {
+  background-color: transparent;
+  border-color: transparent;
+}
+.cc-revoke.cc-bottom {
+  bottom: 0;
+  left: 3em;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+}
+.cc-bottom {
+  bottom: 1em;
+}
+.cc-window.cc-banner {
+  align-items: center;
+}
+.cc-banner.cc-bottom {
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.cc-banner .cc-message {
+  flex: 1;
+}
+.cc-compliance {
+  display: flex;
+  align-items: center;
+  align-content: space-between;
+}
+.cc-compliance > .cc-btn {
+  flex: 1;
+}
+.cc-btn + .cc-btn {
+  margin-left: 0.5em;
+}
+
+@keyframes showcopied {
+  0% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+</style><div><div><div class="article"><ul class="download">
+	<li><a href="https://github.com/zijianhuang/DemoCoreWeb">DemoCoreWeb with "Tour of Heroes" built on different platforms</a></li></ul>
+
+<h2>Background</h2>
+
+<p>"Tour of Heroes" is the&nbsp;<a href="https://angular.io/tutorial/tour-of-heroes">official tutorial app of Angular 2+</a>. The app contains some functional features and technical features which are common when building a real-world business application talking to Web API:</p>
+
+<ol>
+	<li>A few screens presenting tables and nested data</li>	<li>Data binding</li>	<li>Navigation</li>	<li><a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete">CRUD</a>&nbsp;operations over a backend, and optionally through a generated client API</li>	<li>Unit testing and integration testing</li></ol>
+
+<p>In this series of articles, I will demonstrate the programmer experiences of various frontend development platforms when building the same functional features: "Tour of Heroes", a fat client talking to a backend.</p>
+
+<p>The frontend apps on Angular, Aurelia, React, Vue, Xamarin and MAUI are talking to the same ASP.NET (Core) backend through generated client APIs. To find the other articles in the same series, please search "<strong>Tour of Heroes</strong>" in&nbsp;<a href="https://www.codeproject.com/script/Articles/MemberArticles.aspx?amid=3627575">my articles</a>. And at the end of the series, some technical factors of programmer experiences will be discussed:</p>
+
+<ol>
+	<li>Computing science</li>	<li>Software engineering</li>	<li>Learning curve</li>	<li>Build size</li>	<li>Runtime performance</li>	<li>Debugging</li></ol>
+
+<p>Choosing a development platform involves a lot of non-technical factors which won't be discussed in this series.</p>
+
+<h3>References</h3>
+
+<ul>
+	<li><a href="https://www.codeproject.com/Articles/5372596/Tour-of-Heroes-Angular-with-ASP-NET-Core-backend" id="ctl00_MC_AR_ctl42_CAR_Title">Tour of Heroes: Angular, with ASP.NET Core Backend</a></li>	<li><a href="https://www.codeproject.com/Articles/5372876/Tour-of-Heroes-React-with-ASP-NET-Core-Backend" id="ctl00_MC_AR_ctl43_CAR_Title">Tour of Heroes: React, with ASP.NET Core Backend</a></li>	<li><a href="https://www.codeproject.com/Articles/5373078/Tour-of-Heroes-Aurelia-with-ASP-NET-Core-Backend" id="ctl00_MC_AR_ctl38_CAR_Title">Tour of Heroes: Aurelia, with ASP.NET Core Backend</a></li>	<li><a href="https://www.codeproject.com/Articles/5372639/Tour-of-Heroes-Xamarin-with-ASP-NET-Backend" id="ctl00_MC_AR_ctl17_CAR_Title">Tour of Heroes: Xamarin, with ASP.NET Backend</a></li>	<li><a href="https://www.codeproject.com/Articles/5373931/Tour-of-Heroes-MAUI-with-ASP-NET-Core-8-Backend" id="ctl00_MC_AR_ctl56_CAR_Title">Tour of Heroes: MAUI, with ASP.NET Core 8 Backend</a></li></ul>
+
+<h2>Introduction</h2>
+
+<p>It is assumed that you have already walked through the first few chapters of <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor">ASP.NET Core Blazor documentation</a>, and have played the WeatherForecast app through the scaffolding codes as well as <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/tutorials/build-a-blazor-app">the todolist demo</a>.</p>
+
+<p>This article is focused on <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/hosting-models#blazor-webassembly">Blazor WebAssembly</a> standalone app running in a Web browser, with functionality of "Tour of Heroes", talking to an ASP.NET Core Web API backend.</p>
+
+<h3>Demo Repository</h3>
+
+<p>Checkout&nbsp;<a href="https://github.com/zijianhuang/DemoCoreWeb">DemoCoreWeb&nbsp;</a>in GitHub, and focus on the following areas:</p>
+
+<h4><a href="https://github.com/zijianhuang/DemoCoreWeb/tree/master/Core3WebApi">Core3WebApi</a></h4>
+
+<p>ASP.NET Core Web API csproj provides only Web APIs, including Heroes API.</p>
+
+<h4><a href="https://github.com/zijianhuang/DemoCoreWeb/tree/master/BlazorHeroesWAStandalone">Blazor Heroes</a></h4>
+
+<p>Blazor Web Assembly standalone app.</p>
+
+<p><img src="https://www.codeproject.com/KB/Articles/5383736/Screenshot_2024-06-13_111938.png?r=5583fb70-e00c-498f-893c-d55962eed87f"></p>
+
+<h4>Remarks</h4>
+
+<p><a href="https://github.com/zijianhuang/DemoCoreWeb">DemoCoreWeb</a>&nbsp;was established for testing NuGet packages of&nbsp;<a href="https://github.com/zijianhuang/webapiclientgen">WebApiClientGen,&nbsp;</a>and demonstrating how to use the library&nbsp;in real world projects. And the generated client API codes in C# can be utilized in a Web browser via WebAssembly.</p>
+
+<h2>Using the code</h2>
+
+<h3>Prerequisites</h3>
+
+<ol>
+	<li><em>Core3WebApi.csproj</em>&nbsp;has NuGet package&nbsp;<code>Fonlow.WebApiClientGenCore</code>&nbsp;imported.</li>	<li>Add&nbsp;<a href="https://github.com/zijianhuang/DemoCoreWeb/blob/master/DemoWebApi.ControllersShared/CodeGenController.cs">CodeGenController.cs</a>&nbsp;to&nbsp;<em>Core3WebApi.csproj</em>.</li>	<li><em>Core3WebApi.csproj</em>&nbsp;includes&nbsp;<a href="https://github.com/zijianhuang/DemoCoreWeb/blob/master/Core3WebApi/CodeGen.json">CodeGen.json</a>. This is optional, just for the convenience of running some PowerShell script to generate client APIs.</li>	<li><a href="https://github.com/zijianhuang/DemoCoreWeb/blob/master/CreateWebApiClientApi3.ps1">CreateWebApiClientApi3.ps1</a>. This is optional. This script will launch the Web API on Kestrel and post the data in&nbsp;<em>CodeGen.json</em>.</li></ol>
+
+<ul>
+</ul>
+
+<h3>Generate Client API</h3>
+
+<p>Run&nbsp;<a href="https://github.com/zijianhuang/DemoCoreWeb/blob/master/CreateWebApiClientApi3.ps1">CreateWebApiClientApi3.ps1</a>, the generated codes will be written to&nbsp;<a href="https://github.com/zijianhuang/DemoCoreWeb/tree/master/CoreWebApi.ClientApi">CoreWebApi.ClientApi</a>.</p>
+
+<h4>Remarks</h4>
+
+<ul>
+	<li>Depending on your CI/CD process, you may adjust item 3 and 4 above. For more details, please check:&nbsp;"<a href="https://www.codeproject.com/Articles/1243908/Generate-Csharp-Client-API-for-ASP-NET-Core-Web-AP" id="ctl00_MC_AR_ctl42_CAR_Title">Generate C# Client API for ASP.NET Core Web API</a>"&nbsp;. The repository has the client API codes generated already.</li></ul>
+
+<h3>Data Models and API Functions</h3>
+
+<div><div style="background-color: rgb(251, 237, 187); border-bottom: 1px solid rgb(255, 208, 68); color: rgb(153, 153, 153); display: flex; padding: 4px 8px; justify-content: space-between;"><div>C#</div><div style="align-items: center; display: flex; gap: 0.5rem; justify-content: space-between; position: relative;"><div style="color: inherit; cursor: pointer; font-size: 13px; transition: color 0.1s linear;">Shrink ▲</div><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 460 460" width="16px" height="16px" fill="currentColor" style="color: inherit; cursor: pointer; transition: color 0.1s linear;"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272 c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068 c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></div></div></div><pre lang="cs" style="margin-top: 0px;">namespace DemoWebApi.Controllers.Client;
+
+public class Hero : object
+{
+    
+    public DemoWebApi.DemoData.Client.Address Address { get; set; }
+    
+    public System.Nullable&lt;System.DateOnly&gt; Death { get; set; }
+    
+    public System.DateOnly DOB { get; set; }
+    
+    public string EmailAddress { get; set; }
+    
+    public long Id { get; set; }
+    
+    [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+    [System.ComponentModel.DataAnnotations.StringLength(120, MinimumLength=2)]
+    public string Name { get; set; }
+    
+    public System.Collections.Generic.IList&lt;DemoWebApi.DemoData.Client.PhoneNumber&gt; PhoneNumbers { get; set; }
+    
+    [System.ComponentModel.DataAnnotations.MinLength(6)]
+    [System.ComponentModel.DataAnnotations.RegularExpressionAttribute(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&amp;//=]*)")]
+    public string WebAddress { get; set; }
+}
+</pre>
+
+<p><strong>Remarks:</strong></p>
+
+<ul>
+	<li>In the demo app, just only Id and Name are used, while the other properties were for testing some code gen features:
+	<ul>
+		<li>Copy some server side attributes to the client side. And for TypeScript codes, the attributes may be transformed to <a href="https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html">JsDoc for TypeScript</a>.</li>		<li>Some validation attributes may be transformed to Angular Reactive Forms.</li>	</ul>
+	</li></ul>
+
+<p><strong>Heroes Client API:</strong></p>
+
+<div><div style="background-color: rgb(251, 237, 187); border-bottom: 1px solid rgb(255, 208, 68); color: rgb(153, 153, 153); display: flex; padding: 4px 8px; justify-content: space-between;"><div>C#</div><div style="align-items: center; display: flex; gap: 0.5rem; justify-content: space-between; position: relative;"><div style="color: inherit; cursor: pointer; font-size: 13px; transition: color 0.1s linear;">Shrink ▲</div><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 460 460" width="16px" height="16px" fill="currentColor" style="color: inherit; cursor: pointer; transition: color 0.1s linear;"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272 c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068 c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></div></div></div><pre lang="cs" style="margin-top: 0px;">public partial class Heroes
+{
+    
+    private System.Net.Http.HttpClient client;
+    
+    private JsonSerializerOptions jsonSerializerSettings;
+    
+    public Heroes(System.Net.Http.HttpClient client, JsonSerializerOptions jsonSerializerSettings=null)
+    {
+        if (client == null)
+            throw new ArgumentNullException(nameof(client), "Null HttpClient.");
+
+        if (client.BaseAddress == null)
+            throw new ArgumentNullException(nameof(client), "HttpClient has no BaseAddress");
+
+        this.client = client;
+        this.jsonSerializerSettings = jsonSerializerSettings;
+    }
+    
+    /// &lt;summary&gt;
+    /// DELETE api/Heroes/{id}
+    /// &lt;/summary&gt;
+    public async Task DeleteAsync(long id, Action&lt;System.Net.Http.Headers.HttpRequestHeaders&gt; handleHeaders = null)
+    {
+        var requestUri = "api/Heroes/"+id;
+        using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+        handleHeaders?.Invoke(httpRequestMessage.Headers);
+        var responseMessage = await client.SendAsync(httpRequestMessage);
+        try
+        {
+            responseMessage.EnsureSuccessStatusCodeEx();
+        }
+        finally
+        {
+            responseMessage.Dispose();
+        }
+    }
+    
+    /// &lt;summary&gt;
+    /// GET api/Heroes/{id}
+    /// &lt;/summary&gt;
+    [return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+    public async Task&lt;DemoWebApi.Controllers.Client.Hero&gt; GetHeroAsync(long id, Action&lt;System.Net.Http.Headers.HttpRequestHeaders&gt; handleHeaders = null)
+    {
+        var requestUri = "api/Heroes/"+id;
+        using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+        handleHeaders?.Invoke(httpRequestMessage.Headers);
+        var responseMessage = await client.SendAsync(httpRequestMessage);
+        try
+        {
+            responseMessage.EnsureSuccessStatusCodeEx();
+            if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+            var contentString = await responseMessage.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize&lt;DemoWebApi.Controllers.Client.Hero&gt;(contentString, jsonSerializerSettings);
+        }
+        finally
+        {
+            responseMessage.Dispose();
+        }
+    }
+        
+    /// &lt;summary&gt;
+    /// GET api/Heroes
+    /// &lt;/summary&gt;
+    public async Task&lt;DemoWebApi.Controllers.Client.Hero[]&gt; GetHeroesAsync(Action&lt;System.Net.Http.Headers.HttpRequestHeaders&gt; handleHeaders = null)
+    {
+        var requestUri = "api/Heroes";
+        using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+        handleHeaders?.Invoke(httpRequestMessage.Headers);
+        var responseMessage = await client.SendAsync(httpRequestMessage);
+        try
+        {
+            responseMessage.EnsureSuccessStatusCodeEx();
+            if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+            var contentString = await responseMessage.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize&lt;DemoWebApi.Controllers.Client.Hero[]&gt;(contentString, jsonSerializerSettings);
+        }
+        finally
+        {
+            responseMessage.Dispose();
+        }
+    }
+    
+    /// &lt;summary&gt;
+    /// GET api/Heroes
+    /// &lt;/summary&gt;
+    public DemoWebApi.Controllers.Client.Hero[] GetHeroes(Action&lt;System.Net.Http.Headers.HttpRequestHeaders&gt; handleHeaders = null)
+    {
+        var requestUri = "api/Heroes";
+        using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+        handleHeaders?.Invoke(httpRequestMessage.Headers);
+        var responseMessage = client.SendAsync(httpRequestMessage).Result;
+        try
+        {
+            responseMessage.EnsureSuccessStatusCodeEx();
+            if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+            var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonSerializer.Deserialize&lt;DemoWebApi.Controllers.Client.Hero[]&gt;(contentString, jsonSerializerSettings);
+        }
+        finally
+        {
+            responseMessage.Dispose();
+        }
+    }
+    
+...
+}</pre>
+
+<p>&nbsp;</p>
+
+<h3>Razor Components</h3>
+
+<p><img src="https://www.codeproject.com/KB/Articles/5383736/Screenshot_2024-06-13_111938.png?r=36499ac3-9e57-40c6-9819-8ed3bab382a2"></p>
+
+<p><strong>Dashboard.razor:</strong></p>
+
+<div><div style="background-color: rgb(251, 237, 187); border-bottom: 1px solid rgb(255, 208, 68); color: rgb(153, 153, 153); display: flex; padding: 4px 8px; justify-content: space-between;"><div>asp</div><div style="align-items: center; display: flex; gap: 0.5rem; justify-content: space-between; position: relative;"><div style="color: inherit; cursor: pointer; font-size: 13px; transition: color 0.1s linear;">Shrink ▲</div><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 460 460" width="16px" height="16px" fill="currentColor" style="color: inherit; cursor: pointer; transition: color 0.1s linear;"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272 c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068 c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></div></div></div><pre lang="asp" style="margin-top: 0px;">@page "/dashboard"
+
+@inject DemoWebApi.Controllers.Client.Heroes heroesApi
+
+&lt;PageTitle&gt;Dashboard&lt;/PageTitle&gt;
+&lt;h2&gt;Top Heroes&lt;/h2&gt;
+
+@if (heroes == null)
+{
+    &lt;p&gt;&lt;em&gt;Loading Heroes...&lt;/em&gt;&lt;/p&gt;
+}
+else
+{
+    &lt;div class="heroes-menu"&gt;
+        @foreach (var hero in heroes.Take(4))
+        {
+            string href = $"/detail/{hero.Id}";
+            &lt;a href="@href"&gt;@hero.Name&lt;/a&gt;
+        }
+
+    &lt;/div&gt;
+}
+
+@code {
+    private DemoWebApi.Controllers.Client.Hero[]? heroes;
+    DemoWebApi.Controllers.Client.Heroes? heroesClient;
+
+    protected override async Task OnInitializedAsync()
+    {
+        heroes = await heroesApi.GetAsyncHeroesAsync();
+    }
+}
+</pre>
+
+<p>&nbsp;</p>
+
+<h2><img height="271" src="https://cloudfront.codeproject.com/articles/5383736/screenshot_2024-06-13_112724-small.png" width="640"></h2>
+
+<p><strong>Heroes List:</strong></p>
+
+<div><div style="background-color: rgb(251, 237, 187); border-bottom: 1px solid rgb(255, 208, 68); color: rgb(153, 153, 153); display: flex; padding: 4px 8px; justify-content: space-between;"><div>ASP.NET</div><div style="align-items: center; display: flex; gap: 0.5rem; justify-content: space-between; position: relative;"><div style="color: inherit; cursor: pointer; font-size: 13px; transition: color 0.1s linear;">Shrink ▲</div><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 460 460" width="16px" height="16px" fill="currentColor" style="color: inherit; cursor: pointer; transition: color 0.1s linear;"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272 c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068 c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></div></div></div><pre lang="aspnet" style="margin-top: 0px;">@page "/heroes"
+@inject DemoWebApi.Controllers.Client.Heroes heroesApi
+
+&lt;PageTitle&gt;List&lt;/PageTitle&gt;
+&lt;h2&gt;My Heroes&lt;/h2&gt;
+
+@if (heroes == null)
+{
+    &lt;p&gt;&lt;em&gt;Loading Heroes...&lt;/em&gt;&lt;/p&gt;
+}
+else
+{
+    &lt;div&gt;
+        &lt;label for="new-hero"&gt;Hero name: &lt;/label&gt;
+        &lt;input id="new-hero" @bind="@newHeroName" /&gt;
+
+        &lt;button type="button" class="add-button" @onclick="AddAndClear"&gt;
+            Add hero
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;ul class="heroes"&gt;
+        @foreach (var hero in heroes)
+        {
+            string href = $"/detail/{hero.Id}";
+            &lt;li&gt;
+                &lt;a href="@href"&gt;
+                    &lt;span class="badge"&gt;@hero.Id&lt;/span&gt; @hero.Name
+                &lt;/a&gt;
+                &lt;button type="button" class="delete" title="delete hero" @onclick="()=&gt;Delete(hero)"&gt;x&lt;/button&gt;
+            &lt;/li&gt;
+        }
+
+    &lt;/ul&gt;
+}
+
+@code {
+    private List&lt;DemoWebApi.Controllers.Client.Hero&gt; heroes;
+    private DemoWebApi.Controllers.Client.Hero? selectedHero;
+    string? newHeroName;
+
+    protected override async Task OnInitializedAsync()
+    {
+        heroes = new List&lt;DemoWebApi.Controllers.Client.Hero&gt;(await heroesApi.GetHeroesAsync());
+    }
+
+    async Task Add(string name)
+    {
+        name = name.Trim();
+        if (string.IsNullOrEmpty(name))
+        {
+            return;
+        }
+
+        var newHero = await heroesApi.PostAsync(name);
+        this.selectedHero = null;
+        heroes.Add(newHero);
+
+    }
+
+    async Task AddAndClear()
+    {
+        await Add(newHeroName);
+        newHeroName = null;
+
+    }
+
+    async Task Delete(DemoWebApi.Controllers.Client.Hero hero)
+    {
+        await heroesApi.DeleteAsync(hero.Id);
+        heroes.Remove(hero);
+        if (selectedHero == hero)
+        {
+            selectedHero = null;
+        }
+    }
+}
+</pre>
+
+<p><img height="477" src="https://cloudfront.codeproject.com/articles/5383736/screenshot_2024-06-13_112943-small.png" width="640"></p>
+
+<h3>Dependency Injection of HttpClient</h3>
+
+<p>While HttpClient has implemented IDisposable, however often Microsoft would advise not to instantiate it for a HTTP request then dispose, depending on the application host.&nbsp;Instead, use <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection">dependency injection</a>&nbsp;of Blazor so the host will&nbsp;manage the lifecycle of a HttpClient instance.</p>
+
+<p>The sample codes with this article follow the advices from&nbsp;"<a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/call-web-api">Call a Web API from ASP.NET Core Blazor</a>", utilizing both named HttpClient and typed HttpClient.</p>
+
+<h4>Named HttpClient</h4>
+
+<p><strong>Program.cs:</strong></p>
+
+<div><div style="background-color: rgb(251, 237, 187); border-bottom: 1px solid rgb(255, 208, 68); color: rgb(153, 153, 153); display: flex; padding: 4px 8px; justify-content: space-between;"><div></div><div style="align-items: center; display: flex; gap: 0.5rem; justify-content: space-between; position: relative;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 460 460" width="16px" height="16px" fill="currentColor" style="color: inherit; cursor: pointer; transition: color 0.1s linear;"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272 c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068 c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></div></div></div><pre style="margin-top: 0px;">builder.Services.AddHttpClient("Core3WebAPI", client =&gt;
+{
+    client.BaseAddress = new Uri("http://localhost:5000");
+});</pre>
+
+<p><strong>Weather.razor:</strong></p>
+
+<div><div style="background-color: rgb(251, 237, 187); border-bottom: 1px solid rgb(255, 208, 68); color: rgb(153, 153, 153); display: flex; padding: 4px 8px; justify-content: space-between;"><div>ASP.NET</div><div style="align-items: center; display: flex; gap: 0.5rem; justify-content: space-between; position: relative;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 460 460" width="16px" height="16px" fill="currentColor" style="color: inherit; cursor: pointer; transition: color 0.1s linear;"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272 c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068 c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></div></div></div><pre lang="aspnet" style="margin-top: 0px;">@page "/weather"
+@inject IHttpClientFactory ClientFactory
+@inject System.Text.Json.JsonSerializerOptions jsonSerializerOptions
+
+...
+
+@code {
+    private WebApplication1.Client.WeatherForecast[]? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = ClientFactory.CreateClient("Core3WebAPI");
+        WebApplication1.Controllers.Client.WeatherForecast weatherForecastClient = new WebApplication1.Controllers.Client.WeatherForecast(client, jsonSerializerOptions);
+        forecasts = (await weatherForecastClient.GetAsync()).ToArray();
+    }
+}</pre>
+
+<p>&nbsp;</p>
+
+<h4>Typed HttpClient</h4>
+
+<p><strong>Program.cs:</strong></p>
+
+<div><div style="background-color: rgb(251, 237, 187); border-bottom: 1px solid rgb(255, 208, 68); color: rgb(153, 153, 153); display: flex; padding: 4px 8px; justify-content: space-between;"><div>C#</div><div style="align-items: center; display: flex; gap: 0.5rem; justify-content: space-between; position: relative;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 460 460" width="16px" height="16px" fill="currentColor" style="color: inherit; cursor: pointer; transition: color 0.1s linear;"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272 c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068 c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></div></div></div><pre lang="cs" style="margin-top: 0px;">builder.Services.AddHttpClient&lt;DemoWebApi.Controllers.Client.Heroes&gt;(heroesApiClient =&gt;
+{
+    heroesApiClient.BaseAddress = new Uri("http://localhost:5000");
+});</pre>
+
+<p><strong>Heroes.razor:</strong></p>
+
+<div><div style="background-color: rgb(251, 237, 187); border-bottom: 1px solid rgb(255, 208, 68); color: rgb(153, 153, 153); display: flex; padding: 4px 8px; justify-content: space-between;"><div>ASP.NET</div><div style="align-items: center; display: flex; gap: 0.5rem; justify-content: space-between; position: relative;"><div style="color: inherit; cursor: pointer; font-size: 13px; transition: color 0.1s linear;">Shrink ▲</div><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 460 460" width="16px" height="16px" fill="currentColor" style="color: inherit; cursor: pointer; transition: color 0.1s linear;"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272 c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068 c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></div></div></div><pre lang="aspnet" style="margin-top: 0px;">@page "/heroes"
+@inject DemoWebApi.Controllers.Client.Heroes heroesApi
+...
+@code {
+    private List&lt;DemoWebApi.Controllers.Client.Hero&gt; heroes;
+    private DemoWebApi.Controllers.Client.Hero? selectedHero;
+    string? newHeroName;
+
+    protected override async Task OnInitializedAsync()
+    {
+        heroes = new List&lt;DemoWebApi.Controllers.Client.Hero&gt;(await heroesApi.GetHeroesAsync());
+    }
+
+    async Task Add(string name)
+    {
+        name = name.Trim();
+        if (string.IsNullOrEmpty(name))
+        {
+            return;
+        }
+
+        var newHero = await heroesApi.PostAsync(name);
+        this.selectedHero = null;
+        heroes.Add(newHero);
+    }
+
+    async Task AddAndClear()
+    {
+        await Add(newHeroName);
+        newHeroName = null;
+
+    }
+
+    async Task Delete(DemoWebApi.Controllers.Client.Hero hero)
+    {
+        await heroesApi.DeleteAsync(hero.Id);
+        heroes.Remove(hero);
+        if (selectedHero == hero)
+        {
+            selectedHero = null;
+        }
+    }
+}
+</pre>
+
+<p>The generated client API codes support typed HttpClient through DI:</p>
+
+<div><div style="background-color: rgb(251, 237, 187); border-bottom: 1px solid rgb(255, 208, 68); color: rgb(153, 153, 153); display: flex; padding: 4px 8px; justify-content: space-between;"><div>C#</div><div style="align-items: center; display: flex; gap: 0.5rem; justify-content: space-between; position: relative;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 460 460" width="16px" height="16px" fill="currentColor" style="color: inherit; cursor: pointer; transition: color 0.1s linear;"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272 c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068 c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></div></div></div><pre lang="cs" style="margin-top: 0px;">public partial class Heroes
+{
+    
+    private System.Net.Http.HttpClient client;
+    
+    private JsonSerializerOptions jsonSerializerSettings;
+    
+    public Heroes(System.Net.Http.HttpClient client, JsonSerializerOptions jsonSerializerSettings=null)
+    {
+...</pre>
+
+<p>.NET runtime can inject a HttpClient instance and a scoped JsonSerializerOptions instance to the container class "Heroes".</p>
+
+<h2>Points of Interest</h2>
+
+<h3>HttpClient in Web Browsers</h3>
+
+<p>According to&nbsp;"<a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/call-web-api">Call a Web API from ASP.NET Core Blazor</a>":</p>
+
+<blockquote class="quote">
+<div class="op">Quote:</div>
+
+<p><a data-linktype="absolute-path" href="https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpclient">HttpClient</a>&nbsp;is implemented using the browser's&nbsp;<a data-linktype="external" href="https://developer.mozilla.org/docs/Web/API/Fetch_API">Fetch API</a>&nbsp;and is subject to its limitations, including enforcement of the same-origin policy, which is discussed later in this article in the&nbsp;<em>Cross-Origin Resource Sharing (CORS)</em>&nbsp;section.</p>
+</blockquote>
+
+<p>In addition to the limitations mentioned, the actual operations of "<code>System.Net.Http.HttpClient</code>" in a Web browser are subject to other limitations of JavaScript when handling integral numbers larger than 53-bit, as discussed in these articles:</p>
+
+<ul>
+	<li><a href="https://www.codeproject.com/Articles/5377807/Dealing-with-Large-Integral-Numbers-in-JavaScript">Dealing with Large Integral Numbers in JavaScript for Integral Types of ASP.NET Core Web API</a></li>	<li><a href="https://www.codeproject.com/Articles/5378038/Enjoy-Rich-Integral-Types-of-NET-and-Overcome-the">Enjoy Rich Integral Types of .NET and Overcome the 53-bit Limitation of JavaScript</a></li></ul>
+
+<p>To support Int64 (long), the Core3WebApi utilizes&nbsp;<code>Int64JsonConverter</code></p>
+
+<div><div style="background-color: rgb(251, 237, 187); border-bottom: 1px solid rgb(255, 208, 68); color: rgb(153, 153, 153); display: flex; padding: 4px 8px; justify-content: space-between;"><div>C#</div><div style="align-items: center; display: flex; gap: 0.5rem; justify-content: space-between; position: relative;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 460 460" width="16px" height="16px" fill="currentColor" style="color: inherit; cursor: pointer; transition: color 0.1s linear;"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272 c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068 c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></div></div></div><pre lang="cs" style="margin-top: 0px;">builder.Services.AddJsonOptions(options =&gt;
+{
+    options.JsonSerializerOptions.Converters.Add(new Int64JsonConverter());
+</pre>
+
+<p>The Web API will then respond with a JSON string object for Int64 rather than rather than a JSON number object.</p>
+
+<p>On the client side built on Blazor WebAssembly, the same converter class is needed:</p>
+
+<div><div style="background-color: rgb(251, 237, 187); border-bottom: 1px solid rgb(255, 208, 68); color: rgb(153, 153, 153); display: flex; padding: 4px 8px; justify-content: space-between;"><div>C#</div><div style="align-items: center; display: flex; gap: 0.5rem; justify-content: space-between; position: relative;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 460 460" width="16px" height="16px" fill="currentColor" style="color: inherit; cursor: pointer; transition: color 0.1s linear;"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272 c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068 c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></div></div></div><pre lang="cs" style="margin-top: 0px;"> builder.Services.AddScoped&lt;JsonSerializerOptions&gt;(sp =&gt;
+{
+    var options = new JsonSerializerOptions
+    {
+        PropertyNameCaseInsensitive = true,
+    };
+
+    options.Converters.Add(new Int64JsonConverter()); //Hero.Id is long, 64-bit, exceeding 53-bit precision of JS number
+    return options;
+});</pre>
+
+<p>Otherwise, there will be runtime error in the browser:</p>
+
+<p><img height="138" src="https://cloudfront.codeproject.com/articles/5383736/screenshot_2024-06-13_154056-small.png" width="640"></p>
+
+<p>After the scoped JsonSerializatioOptions is injected to both named HttpClient and typed HttpClient (Heroes client API) by the WebAssembly runtime, the standalone app can handle Int64 gracefully since you have enjoyed strongly typed coding with Int64.</p>
+
+<h2>&nbsp;</h2></div></div></div></template></div></div><div><div id="div-gpt-ad-1738591766860-0" style="min-width:300px;min-height:600px" class="mt-40 sticky top-40" data-google-query-id="COC58-H2l40DFWQtgwMd85ctlQ"><div id="google_ads_iframe_/67541884/CPLargeSky160600_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/67541884/CPLargeSky160600_0" name="google_ads_iframe_/67541884/CPLargeSky160600_0" title="3rd party ad content" width="300" height="600" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" aria-label="Advertisement" tabindex="0" allow="private-state-token-redemption;attribution-reporting" data-load-complete="true" data-google-container-id="2" style="border: 0px; vertical-align: bottom;" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/saved_resource(1).html"></iframe></div></div></div></div><!--$--><!--/$--><!--$--><!--/$--></main><footer class="custom-container flex flex-col gap-3 px-2"><div class="mt-2 py-4 min-h-36 bg-primary"></div><div class="border-t-4 border-primary p-3 flex justify-between"><nav class="flex-1"><ul><li><a href="http://developermedia.com/" rel="nofollow noreferrer">Advertise</a></li><li><a href="https://www.codeproject.com/info/privacy.aspx">Privacy</a></li><li><a href="https://www.codeproject.com/info/cookie.aspx">Cookies</a></li><li><a href="https://www.codeproject.com/info/TermsOfUse.aspx">Terms of Use</a></li></ul></nav><div class="flex-1"></div><div class="flex-1 text-gray text-sm text-right">Copyright © <a href="mailto:webmaster@codeproject.com">CodeProject</a>, 1999-2025<br>All Rights Reserved.</div></div></footer><script src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/webpack-5ed466aeca77ac7a.js.download" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[387,[\"869\",\"static/chunks/869-095b567be01917e3.js\",\"177\",\"static/chunks/app/layout-12dfdcc6fc1e5fcf.js\"],\"default\"]\n3:I[6874,[\"869\",\"static/chunks/869-095b567be01917e3.js\",\"76\",\"static/chunks/app/(article)/Articles/%5BarticleId%5D/%5BarticleSlug%5D/page-ade9d0789736a960.js\"],\"\"]\n4:I[3063,[\"869\",\"static/chunks/869-095b567be01917e3.js\",\"76\",\"static/chunks/app/(article)/Articles/%5BarticleId%5D/%5BarticleSlug%5D/page-ade9d0789736a960.js\"],\"Image\"]\n5:I[6932,[\"869\",\"static/chunks/869-095b567be01917e3.js\",\"76\",\"static/chunks/app/(article)/Articles/%5BarticleId%5D/%5BarticleSlug%5D/page-ade9d0789736a960.js\"],\"default\"]\n6:I[7231,[\"869\",\"static/chunks/869-095b567be01917e3.js\",\"177\",\"static/chunks/app/layout-12dfdcc6fc1e5fcf.js\"],\"default\"]\n7:I[7555,[],\"\"]\n8:I[1295,[],\"\"]\na:I[9665,[],\"MetadataBoundary\"]\nc:I[9665,[],\"OutletBoundary\"]\nf:I[4911,[],\"AsyncMetadataOutlet\"]\n11:I[9665,[],\"ViewportBoundary\"]\n13:I[6614,[],\"\"]\n14:\"$Sreact.suspense\"\n15:I[4911,[],\"AsyncMetadata\"]\n:HL[\"/_next/static/media/945b7384c5256ec3-s.p.ttf\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/ttf\"}]\n:HL[\"/_next/static/media/b55e164a6e7ce445-s.p.ttf\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/ttf\"}]\n:HL[\"/_next/static/media/e337cf18f0f81cb9-s.p.ttf\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/ttf\"}]\n:HL[\"/_next/static/media/f7794ce32483498f-s.p.ttf\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/ttf\"}]\n:HL[\"/_next/static/css/f00fbee724adea66.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"b\":\"RM4oGDTGwzcUK8vU4hkUW\",\"p\":\"\",\"c\":[\"\",\"Articles\",\"5383736\",\"Tour-of-Heroes-Blazor-WebAssembly-Standalone-App\"],\"i\":false,\"f\":[[[\"\",{\"children\":[\"(article)\",{\"children\":[\"Articles\",{\"children\":[[\"articleId\",\"5383736\",\"d\"],{\"children\":[[\"articleSlug\",\"Tour-of-Heroes-Blazor-WebAssembly-Standalone-App\",\"d\"],{\"children\":[\"__PAGE__\",{}]}]}]}]}]},\"$undefined\",\"$undefined\",true],[\"\",[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/f00fbee724adea66.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"en\",\"children\":[[\"$\",\"head\",null,{\"children\":[[\"$\",\"link\",null,{\"rel\":\"apple-touch-icon\",\"sizes\":\"144x144\",\"href\":\"/favicon/apple-touch-icon.png\"}],[\"$\",\"link\",null,{\"rel\":\"icon\",\"type\":\"image/png\",\"sizes\":\"32x32\",\"href\":\"/favicon/favicon-32x32.png\"}],[\"$\",\"link\",null,{\"rel\":\"icon\",\"type\":\"image/png\",\"sizes\":\"16x16\",\"href\":\"/favicon/favicon-16x16.png\"}],[\"$\",\"link\",null,{\"rel\":\"manifest\",\"href\":\"/favicon/manifest.json\"}],[\"$\",\"link\",null,{\"rel\":\"mask-icon\",\"href\":\"/favicon/safari-pinned-tab.svg\",\"color\":\"#ff9900\"}],[\"$\",\"meta\",null,{\"property\":\"og:title\",\"content\":\"CodeProject\"}],[\"$\",\"meta\",null,{\"property\":\"og:image\",\"content\":\"https://www.codeproject.com/favicon/mstile-150x150.png\"}],[\"$\",\"meta\",null,{\"property\":\"og:description\",\"content\":\"For those who code\"}],[\"$\",\"meta\",null,{\"property\":\"og:url\",\"content\":\"https://www.codeproject.com\"}],[\"$\",\"script\",null,{\"async\":true,\"src\":\"https://securepubads.g.doubleclick.net/tag/js/gpt.js\"}],[\"$\",\"$L2\",null,{}]]}],[\"$\",\"body\",null,{\"className\":\"__className_2277ee\",\"children\":[[\"$\",\"header\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"custom-container gap-2 py-1 text-gray-light flex justify-between whitespace-nowrap z-10 relative px-1 md:px-0\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex-1 md:ml-20\",\"children\":[[\"$\",\"span\",null,{\"className\":\"hidden md:block\",\"children\":[65.938,\" articles\"]}],[\"$\",\"span\",null,{\"className\":\"block md:hidden\",\"children\":[\"65.9\",\"K\"]}]]}],[\"$\",\"div\",null,{\"className\":\"flex-1\",\"children\":[\"CodeProject is changing.\",\" \",[\"$\",\"$L3\",null,{\"href\":\"/info/Changes.aspx\",\"className\":\"!text-gray-lightest\",\"children\":\"Read more.\"}]]}],[\"$\",\"div\",null,{\"className\":\"flex-1\"}],[\"$\",\"div\",null,{\"className\":\"flex-1\"}]]}],[\"$\",\"div\",null,{\"className\":\"mb-2 mt-2 md:mt-0\",\"children\":[\"$\",\"div\",null,{\"className\":\"h-[94px] bg-primary\",\"children\":[\"$\",\"div\",null,{\"className\":\"custom-container relative h-full\",\"children\":[[\"$\",\"$L3\",null,{\"href\":\"/\",\"children\":[\"$\",\"$L4\",null,{\"className\":\"absolute -top-[31px]\",\"src\":\"/logo250x135.gif\",\"priority\":true,\"alt\":\"Home\",\"width\":250,\"height\":135}]}],[\"$\",\"div\",null,{\"className\":\"w-[calc(100%-300px)] translate-x-[300px] translate-y-[2px] h-[90px] relative overflow-hidden\",\"children\":[\"$\",\"$L5\",null,{\"adUnit\":\"/67541884/CPLeader728\",\"adSlotId\":\"div-gpt-ad-1738591571151-0\",\"adSize\":[728,90],\"className\":\"absolute top-0 left-0\"}]}]]}]}]}],[\"$\",\"$L6\",null,{}]]}],[\"$\",\"main\",null,{\"className\":\"px-2 py-10\",\"children\":[\"$\",\"$L7\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L8\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}],[\"$\",\"footer\",null,{\"className\":\"custom-container flex flex-col gap-3 px-2\",\"children\":[[\"$\",\"div\",null,{\"className\":\"mt-2 py-4 min-h-36 bg-primary\"}],[\"$\",\"div\",null,{\"className\":\"border-t-4 border-primary p-3 flex justify-between\",\"children\":[[\"$\",\"nav\",null,{\"className\":\"flex-1\",\"children\":[\"$\",\"ul\",null,{\"children\":[[\"$\",\"li\",null,{\"children\":[\"$\",\"a\",null,{\"href\":\"http://developermedia.com/\",\"rel\":\"nofollow noreferrer\",\"children\":\"Advertise\"}]}],[\"$\",\"li\",null,{\"children\":[\"$\",\"$L3\",null,{\"href\":\"/info/privacy.aspx\",\"children\":\"Privacy\"}]}],[\"$\",\"li\",null,{\"children\":[\"$\",\"$L3\",null,{\"href\":\"/info/cookie.aspx\",\"children\":\"Cookies\"}]}],[\"$\",\"li\",null,{\"children\":[\"$\",\"$L3\",null,{\"href\":\"/info/TermsOfUse.aspx\",\"children\":\"Terms of Use\"}]}]]}]}],[\"$\",\"div\",null,{\"className\":\"flex-1\"}],[\"$\",\"div\",null,{\"className\":\"flex-1 text-gray text-sm text-right\",\"children\":[\"Copyright © \",[\"$\",\"a\",null,{\"href\":\"mailto:webmaster@codeproject.com\",\"children\":\"CodeProject\"}],\", 1999-2025\",[\"$\",\"br\",null,{}],\"All Rights Reserved.\"]}]]}]]}]]}]]}]]}],{\"children\":[\"(article)\",[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L7\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L8\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":\"$0:f:0:1:1:props:children:1:props:children:1:props:children:1:props:children:props:notFound:0:1:props:style\",\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":\"$0:f:0:1:1:props:children:1:props:children:1:props:children:1:props:children:props:notFound:0:1:props:children:props:children:1:props:style\",\"children\":404}],[\"$\",\"div\",null,{\"style\":\"$0:f:0:1:1:props:children:1:props:children:1:props:children:1:props:children:props:notFound:0:1:props:children:props:children:2:props:style\",\"children\":[\"$\",\"h2\",null,{\"style\":\"$0:f:0:1:1:props:children:1:props:children:1:props:children:1:props:children:props:notFound:0:1:props:children:props:children:2:props:children:props:style\",\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[\"Articles\",[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L7\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L8\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"articleId\",\"5383736\",\"d\"],[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L7\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L8\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"articleSlug\",\"Tour-of-Heroes-Blazor-WebAssembly-Standalone-App\",\"d\"],[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L7\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L8\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[\"__PAGE__\",[\"$\",\"$1\",\"c\",{\"children\":[\"$L9\",[\"$\",\"$La\",null,{\"children\":\"$Lb\"}],null,[\"$\",\"$Lc\",null,{\"children\":[\"$Ld\",\"$Le\",[\"$\",\"$Lf\",null,{\"promise\":\"$@10\"}]]}]]}],{},null,false]},null,false]},null,false]},null,false]},null,false]},null,false],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$1\",\"NdU3OTBR4dPNgf4Qceq0s\",{\"children\":[[\"$\",\"$L11\",null,{\"children\":\"$L12\"}],[\"$\",\"meta\",null,{\"name\":\"next-size-adjust\",\"content\":\"\"}]]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$13\",\"$undefined\"],\"s\":false,\"S\":false}\n"])</script><script>self.__next_f.push([1,"b:[\"$\",\"$14\",null,{\"fallback\":null,\"children\":[\"$\",\"$L15\",null,{\"promise\":\"$@16\"}]}]\ne:null\n12:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\nd:null\n"])</script><script>self.__next_f.push([1,"16:{\"metadata\":[[\"$\",\"title\",\"0\",{\"children\":\"Tour of Heroes: Blazor WebAssembly Standalone App - CodeProject\"}],[\"$\",\"link\",\"1\",{\"rel\":\"manifest\",\"href\":\"/manifest.json\",\"crossOrigin\":\"$undefined\"}]],\"error\":null,\"digest\":\"$undefined\"}\n10:{\"metadata\":\"$16:metadata\",\"error\":null,\"digest\":\"$undefined\"}\n"])</script><script>self.__next_f.push([1,"17:I[9741,[\"869\",\"static/chunks/869-095b567be01917e3.js\",\"76\",\"static/chunks/app/(article)/Articles/%5BarticleId%5D/%5BarticleSlug%5D/page-ade9d0789736a960.js\"],\"default\"]\n19:I[6947,[\"869\",\"static/chunks/869-095b567be01917e3.js\",\"76\",\"static/chunks/app/(article)/Articles/%5BarticleId%5D/%5BarticleSlug%5D/page-ade9d0789736a960.js\"],\"default\"]\n18:T706f,"])</script><script>self.__next_f.push([1,"/*\n  This is the legacy article critical styles\n  They are added in order to reduce mvp development time\n  They should be refactored or completely replaced woth nextjs css modules in future\n*/\n\n::selection {\n  background-color: #f90;\n  color: #fff;\n  text-shadow: none;\n}\n.blank-background {\n  background-color: white;\n}\nhtml,\ndiv,\nspan,\napplet,\nobject,\niframe,\na,\nabbr,\nacronym,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nfont,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nfieldset,\nform,\nlabel,\ntable,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\nli,\nol,\nul {\n  margin: 0;\n  padding: 0;\n  border: 0;\n}\nhtml {\n  font-size: 16px;\n  -webkit-font-smoothing: antialiased;\n  font-smooth: always;\n}\nbody,\np,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nli,\ntr,\ntd,\nth,\ndd,\ndt {\n  font-size: 16px;\n  line-height: 1.4;\n  color: #111111;\n}\nbody {\n  margin: 0;\n}\nh1,\nh3,\nh4,\nh5,\nth {\n  font-weight: bold;\n}\nh1 {\n  color: #333333;\n  padding: 0px;\n  margin: 0 0 7px;\n  text-align: left;\n}\nh2 {\n  margin: 20px 0 11px;\n  padding: 0;\n  padding-bottom: 10px;\n  color: #333333;\n}\nh3 {\n  color: #ff9900;\n}\nh1 {\n  font-size: 38px;\n  font-weight: 400;\n}\nh2 {\n  font-size: 29px;\n  font-weight: 400;\n}\nh3 {\n  font-size: 19px;\n  font-weight: normal;\n}\nh4 {\n  font-size: 17px;\n}\npre {\n  color: black;\n  background-color: #fbedbb;\n  padding: 6px;\n  font: 14px Consolas, monospace, mono;\n  white-space: pre;\n  overflow: auto;\n  border: solid 1px #fbedbb;\n  -moz-tab-size: 4;\n  -o-tab-size: 4;\n  -webkit-tab-size: 4;\n  tab-size: 4;\n}\ncode {\n  color: #990000;\n  font: 15px Consolas, monospace, mono;\n}\ntable {\n  background-color: Transparent;\n}\nimg {\n  -ms-interpolation-mode: bicubic;\n}\na {\n  text-decoration: none;\n  color: #005782;\n}\na:visited {\n  color: #800080;\n}\na:hover {\n  text-decoration: underline;\n}\na:not([href]) {\n  color: inherit;\n  text-decoration: none;\n}\ninput[type=\"text\"],\ninput[type=\"url\"],\ninput[type=\"search\"],\ninput[type=\"email\"],\ninput[type=\"number\"],\ninput[type=\"password\"],\nselect,\ntextarea {\n  border: 1px solid #d7d7d7;\n  font-size: 16px;\n  padding: 5px;\n}\na.button,\na.button-large,\n.button,\n.button-large {\n  color: white;\n  background-color: #e08900;\n  border: 1px solid #cccccc;\n  text-decoration: none;\n  white-space: nowrap;\n  font-size: 100%;\n  padding: 4px;\n  cursor: pointer;\n  border-radius: 3px;\n  -webkit-border-radius: 3px;\n  -moz-border-radius: 3px;\n}\ntable.small-text td,\nul.small-text li,\nol.small-text li,\n.small-text {\n  font-size: 14px;\n}\n.invisible {\n  display: none;\n}\n.subdue,\n.subdue li,\ntr.subdue td {\n  color: #808080;\n}\n.bold {\n  font-weight: bold;\n}\n.align-left {\n  text-align: left;\n}\n.align-right {\n  text-align: right;\n}\n.align-center {\n  text-align: center;\n}\n.float-right {\n  float: right;\n}\n.float-left {\n  float: left;\n}\n.sticky {\n  position: sticky;\n  top: 0;\n}\n.extended {\n  width: 100%;\n  box-sizing: border-box;\n}\n.padded-top {\n  padding-top: 20px;\n}\n.tight {\n  margin: 0px;\n  padding: 0px;\n}\n.nowrap {\n  white-space: nowrap;\n}\n.fixed-layout {\n  table-layout: fixed;\n}\n.clip-text {\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.raised {\n  background-color: #fff8df;\n  border: 1px solid #cccccc;\n  -moz-box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);\n  -webkit-box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);\n  box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);\n}\nol,\nul {\n  padding-left: 40px;\n  margin: 10px 0;\n}\nol.compact li,\nul.compact li,\nol li.compact,\nul li.compact {\n  font-size: 14px;\n}\nul.download {\n  margin-top: 25px;\n}\nul.download li,\nul li.download,\nul.Download li,\nul li.Download {\n  background: url(\"/images/download24.png\") no-repeat scroll left center\n    transparent;\n  font-weight: bold;\n  list-style-type: none;\n  margin: 0px 0 6px -40px;\n  padding: 0 0 1px 30px;\n  vertical-align: middle;\n}\n.callout {\n  margin: 20px 0;\n  background-color: #ffffe1;\n  color: #333333;\n  border: 1px solid #cccccc;\n  padding: 15px;\n  border-radius: 3px;\n  -webkit-border-radius: 3px;\n  -moz-border-radius: 3px;\n}\n.trace {\n  padding: 20px;\n  background-color: #eeeeee;\n  color: #333333;\n  border: 1px solid red;\n  font-size: 13px;\n}\ntextarea,\ninput[type=\"text\"],\ninput[type=\"button\"],\ninput[type=\"submit\"] {\n  -webkit-appearance: none;\n  border-radius: 0;\n}\n.container-content {\n  background-color: white;\n  position: relative;\n  zoom: 1;\n  padding: 0 9px;\n  cursor: default;\n}\n.container-content-wrap {\n  margin: auto;\n  max-width: 1270px;\n}\n.container-content pre,\n.container-code pre,\n.answer pre {\n  white-space: pre-wrap;\n  /* css-3 */\n  white-space: -moz-pre-wrap;\n  /* Mozilla, since 1999 */\n  white-space: -pre-wrap;\n  /* Opera 4-6 */\n  white-space: -o-pre-wrap;\n  /* Opera 7 */\n  word-wrap: break-word;\n  /* Internet Explorer 5.5+ */\n  _white-space: pre;\n  /* IE only hack to re-specify in addition to word-wrap  */\n  word-break: break-word;\n  -ms-word-break: break-word;\n}\n.flex-container {\n  display: -webkit-box;\n  /* OLD - iOS 6-, Safari 3.1-6 */\n  display: -moz-box;\n  /* OLD - Firefox 19- (buggy but mostly works) */\n  display: -ms-flexbox;\n  /* TWEENER - IE 10 */\n  display: -webkit-flex;\n  /* NEW - Chrome */\n  display: flex;\n  /* NEW, Spec - Opera 12.1, Firefox 20+ */\n}\n.flex-extend {\n  justify-content: space-between;\n}\n.flex-wrap {\n  flex-wrap: wrap;\n}\n.flex-item {\n  -webkit-box-flex: 1;\n  /* OLD - iOS 6-, Safari 3.1-6 */\n  -moz-box-flex: 1;\n  /* OLD - Firefox 19- */\n  -webkit-flex: 1;\n  /* Chrome */\n  -ms-flex: 1;\n  /* IE 10 */\n  flex: 1;\n}\n.flex-item-tight {\n  flex: 0 1 auto;\n}\n.hover-container {\n  display: block;\n  position: relative;\n}\n.clearfix:after,\n.container:after {\n  display: block;\n  content: \".\";\n  visibility: hidden;\n  height: 0px;\n  clear: both;\n}\n.clearfix,\n.container {\n  display: inline-block;\n  /* Mac IE5 sees this */\n  /* Mac IE5 comment hack \\*/\n  display: block;\n  /* Mac IE5 doesn't see this, but everyone else does */\n}\n.access-link,\n.access-link img {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 1px;\n  height: 1px;\n  z-index: 101;\n  border-style: none;\n  margin-top: -1px;\n  overflow: hidden;\n}\n.site-top-menu {\n  white-space: nowrap;\n  position: absolute;\n  z-index: 101;\n  width: 100%;\n}\n.site-top-menu .main-content {\n  width: 100%;\n}\n.site-top-menu .main-content .memberbar {\n  margin-left: 90px;\n  margin-right: 10px;\n}\n.site-top-menu.fixed .main-content {\n  margin: auto;\n  max-width: 1270px;\n}\n.site-header {\n  background-image: url(\"/App_Themes/CodeProject/Img/logo135-bg.gif\");\n  white-space: nowrap;\n  overflow: hidden;\n}\n.site-header .main-content {\n  position: relative;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.site-header .logo {\n  display: inline-block;\n}\n.site-header .promo {\n  display: inline-block;\n  position: absolute;\n  top: 33px;\n  right: 0;\n}\n.site-header.fixed .main-content {\n  margin: auto;\n  max-width: 1270px;\n}\n.sub-headerbar {\n  padding-right: 9px;\n  position: relative;\n  margin: auto;\n  max-width: 1270px;\n}\n.sub-headerbar-divider {\n  margin-left: 10px;\n  height: 1px;\n  border-bottom: 1px solid #cccccc;\n  position: absolute;\n  bottom: 2px;\n  left: 0px;\n  right: 9px;\n}\n.memberbar {\n  height: 25px;\n  padding-top: 10px;\n  color: #999999;\n  font-size: 14px;\n}\n.memberbar a {\n  color: #808080;\n  font-size: 14px;\n}\ndiv.navbar {\n  white-space: nowrap;\n}\n.navmenu {\n  background: white;\n  color: #4d4d4d;\n  padding: 0px;\n  margin: 0px;\n  list-style: none;\n  height: 25px;\n}\n.navmenu ul,\n.navmenu li {\n  margin: 0;\n  padding: 0;\n}\n.navmenu .has-submenu {\n  position: absolute;\n  right: 5px;\n  padding-left: 10px;\n}\n.navmenu \u003e li:hover \u003e a,\n.navmenu \u003e li \u003e a:active {\n  border: 1px solid #cccccc;\n}\n.navmenu ul,\n.navmenu \u003e li.open:hover \u003e a,\n.navmenu \u003e li.open \u003e a:active {\n  border: 1px solid #cccccc;\n  border-bottom-color: white;\n}\n.navmenu \u003e li {\n  margin: 0 11px 2px 2px;\n}\n.navmenu \u003e li:active,\n.navmenu \u003e li:active \u003e a,\n.navmenu \u003e li:hover,\n.navmenu \u003e li \u003e a:active {\n  background: white;\n  color: #4d4d4d;\n}\n.navmenu \u003e li.openable \u003e a:active,\n.navmenu \u003e li.openable:hover \u003e a {\n  /*border-bottom: 1px solid @ColourBack-Menu; */\n}\n.navmenu \u003e li \u003e a {\n  padding: 2px 7px 6px 7px;\n  border: 1px solid transparent;\n  font-weight: bold;\n}\n.navmenu a {\n  display: block;\n  float: left;\n  color: #666666;\n  background: white;\n  font-size: 17px;\n  padding: 0px 9px;\n  text-decoration: none;\n  white-space: nowrap;\n}\n.navmenu a.fly {\n  white-space: nowrap;\n}\n.navmenu ul {\n  background: white;\n  position: absolute;\n  left: -9999px;\n  top: -9999px;\n  list-style: none;\n}\n.navmenu li {\n  float: left;\n  color: #4d4d4d;\n}\n.navmenu li.last {\n  height: 9px;\n}\n.navmenu li a:active,\n.navmenu li a:hover {\n  color: white;\n  background-color: #ff9900;\n}\n.navmenu li \u003e a:active,\n.navmenu li:hover,\n.navmenu li:hover \u003e a,\n.navmenu li:hover.heading,\n.navmenu li a.selected {\n  position: relative;\n  color: white;\n  background-color: #ff9900;\n}\n.navmenu li.openable:hover ul {\n  left: 0px;\n  top: 30px;\n  z-index: 500;\n}\n.navmenu li.openable:hover \u003e ul ul {\n  position: absolute;\n  left: -9999px;\n  top: -9999px;\n  width: auto;\n}\n.navmenu li ul {\n  border-bottom: 5px solid #ff9900;\n}\n.navmenu li li {\n  float: none;\n}\n.navmenu li li a {\n  float: none;\n  font-size: 16px;\n  font-weight: normal;\n}\n.navmenu li li a.fly {\n  color: #4d4d4d;\n  background-color: white;\n  padding: 2px 20px;\n}\n.navmenu li li a.break {\n  margin-bottom: 15px;\n}\n.navmenu li li a.highlight1,\n.navmenu li li a.highlight1:active,\n.navmenu li li a.highlight1:hover {\n  background-color: #009900;\n}\n.navmenu li li a.highlight2,\n.navmenu li li a.highlight2:active,\n.navmenu li li a.highlight2:hover {\n  background-color: #ff9900;\n}\n.navmenu li li a.highlight3,\n.navmenu li li a.highlight3:active,\n.navmenu li li a.highlight3:hover {\n  background-color: #000000;\n}\n.navmenu li li a.highlight1,\n.navmenu li li a.highlight2,\n.navmenu li li a.highlight3 {\n  color: white;\n  font-size: 16px;\n  margin: 5px 0;\n  padding: 9px 20px;\n}\n.site-footer {\n  display: -webkit-box;\n  /* OLD - iOS 6-, Safari 3.1-6 */\n  display: -moz-box;\n  /* OLD - Firefox 19- (buggy but mostly works) */\n  display: -ms-flexbox;\n  /* TWEENER - IE 10 */\n  display: -webkit-flex;\n  /* NEW - Chrome */\n  display: flex;\n  /* NEW, Spec - Opera 12.1, Firefox 20+ */\n  padding-top: 5px;\n  width: 100%;\n  font-size: 13px;\n  color: #999999;\n}\n.site-footer .align-left,\n.site-footer .align-center,\n.site-footer .align-right {\n  -webkit-box-flex: 1;\n  /* OLD - iOS 6-, Safari 3.1-6 */\n  -moz-box-flex: 1;\n  /* OLD - Firefox 19- */\n  -webkit-flex: 1;\n  /* Chrome */\n  -ms-flex: 1;\n  /* IE 10 */\n  flex: 1;\n}\n.site-footer .align-left {\n  flex: 1 0 100px;\n}\n.site-footer .align-center {\n  flex: 0 1 0%;\n  white-space: nowrap;\n}\n.site-footer .align-right {\n  flex: 1 0 100px;\n}\n.site-footer .page-width .active {\n  border-bottom: 2px solid #ff9900;\n}\n.searchbar {\n  padding: 0;\n}\n.searchbar .search {\n  margin-bottom: 4px;\n  padding: 2px 5px 0px;\n  border: 1px solid #cccccc;\n}\n.searchbar .search.subdue {\n  color: #cccccc;\n}\n.searchbar input.search {\n  width: 190px;\n  border: none;\n  font-size: 13px;\n  padding: 4px 2px;\n}\n.searchbar .search-advanced {\n  padding: 8px;\n  width: 203px;\n  z-index: 1000;\n  background-color: white;\n  border: solid 1px #cccccc;\n  position: absolute;\n  top: -4px;\n  right: 0px;\n}\n.searchbar .popup {\n  display: none;\n}\n.sub-headerbar .searchbar {\n  /*\n\t.search-advanced\n\t{\n        .transition(width, .1s, linear);\n\n        \u0026.open\n        {\n    \t\twidth: 320px;\n        }\n    }\n    */\n}\n.sub-headerbar .searchbar input.search {\n  /*\n        \u0026:focus,\u0026:active\n        {\n            position     : absolute;\n            top          : 3px;\n            right        : 36px;\n            height       : 19px;\n            border       : 1px solid #ccc;\n            border-right : none;\n            width:         300px;\n\n            .transition(width, .1s, linear);\n        }\n        */\n}\n.search td {\n  background-color: white;\n}\n.article-container-parts {\n  display: -webkit-box;\n  /* OLD - iOS 6-, Safari 3.1-6 */\n  display: -moz-box;\n  /* OLD - Firefox 19- (buggy but mostly works) */\n  display: -ms-flexbox;\n  /* TWEENER - IE 10 */\n  display: -webkit-flex;\n  /* NEW - Chrome */\n  display: flex;\n  /* NEW, Spec - Opera 12.1, Firefox 20+ */\n}\n.article-container {\n  -webkit-box-flex: 1;\n  /* OLD - iOS 6-, Safari 3.1-6 */\n  -moz-box-flex: 1;\n  /* OLD - Firefox 19- */\n  -webkit-flex: 1;\n  /* Chrome */\n  -ms-flex: 1;\n  /* IE 10 */\n  flex: 1;\n  background-color: white;\n  color: #111111;\n  zoom: 1;\n  position: relative;\n  max-width: 100%;\n  min-height: 675px;\n}\n.article-container .article {\n  margin: 0 20px 0 10px;\n  line-height: 143%;\n}\n.article-container span.stats {\n  margin-left: 30px;\n}\n.article-left-sidebar {\n  width: 120px;\n  min-width: 120px;\n  min-height: 400px;\n  font-size: 14px;\n  border-right: 1px solid #f2f2f2;\n  padding: 0;\n  /* Old school style */\n  /*\n    .license {\n        font-weight: bold;\n        display: inline-block;\n        margin-top: 10px;\n    }\n    */\n}\n.article-left-sidebar .article-left-sidebar-inner {\n  width: 120px;\n  min-width: 120px;\n}\n.article-left-sidebar .tabs \u003e div {\n  padding: 5px 0 5px 10px;\n}\n.article-left-sidebar .selected {\n  font-weight: bold;\n  background: transparent url(\"/images/right-selected.gif\") no-repeat scroll\n    right 9px;\n}\n.article-left-sidebar h4 {\n  color: #ff9900;\n  font-size: 14px;\n  font-weight: bold;\n}\n.article-left-sidebar .stats div div div {\n  padding: 0px 0 10px 10px;\n  color: #666666;\n}\n.article-right-sidebar {\n  width: 300px;\n  margin-left: 10px;\n  font-size: 14px;\n}\n.article-right-sidebar .header {\n  font-size: 22px;\n  color: white;\n  background-color: #ff9900;\n  padding: 8px;\n  font-weight: 400;\n  margin: 0;\n}\n.article-right-sidebar .reading-list-toc {\n  max-height: 250px;\n  overflow-y: auto;\n  padding-right: 6px;\n  margin-top: 5px;\n}\n.article-right-sidebar .reading-list-toc .count {\n  font-weight: normal;\n  font-size: 13px;\n}\n.article-right-sidebar .reading-list-toc .title {\n  font-size: 16px;\n}\n.article-right-sidebar .content-list-item {\n  display: -webkit-box;\n  /* OLD - iOS 6-, Safari 3.1-6 */\n  display: -moz-box;\n  /* OLD - Firefox 19- (buggy but mostly works) */\n  display: -ms-flexbox;\n  /* TWEENER - IE 10 */\n  display: -webkit-flex;\n  /* NEW - Chrome */\n  display: flex;\n  /* NEW, Spec - Opera 12.1, Firefox 20+ */\n  justify-content: space-between;\n  font-size: 14px;\n  margin: 4px 0;\n}\n.article-right-sidebar .content-list-item .count {\n  width: 15%;\n  padding: 0px;\n}\n.article-right-sidebar .content-list-item .title {\n  width: 85%;\n  font-weight: normal;\n}\n.article-right-sidebar .gototop {\n  text-align: center;\n  padding: 10px 0;\n  opacity: 0;\n  -webkit-transition: opacity 0.3s linear 0ms;\n  -moz-transition: opacity 0.3s linear 0ms;\n  -o-transition: opacity 0.3s linear 0ms;\n  transition: opacity 0.3s linear 0ms;\n}\n.container-content .edit-links {\n  margin: 21px 0 0 10px;\n}\n.article-summary {\n  padding: 0px 10px 0px 10px;\n  overflow: hidden;\n}\n.article h1 {\n  margin: 0 0 15px 0;\n}\n.article h2 {\n  color: #ff9900;\n}\n.article pre {\n  overflow: auto;\n}\n.article .header .title {\n  color: #808080;\n}\n.article .header .author {\n  font-weight: bold;\n  min-width: 100px;\n}\n.article .header .author a {\n  color: #808080;\n}\n.article .header .avatar {\n  max-width: 48px;\n  max-height: 48px;\n  overflow: unset;\n}\n.article .header .avatar-wrap {\n  width: 48px;\n  height: 48px;\n  margin-right: 10px;\n  text-align: center;\n}\n.article .header .date {\n  white-space: nowrap;\n}\n.article .header .license {\n  margin-left: 15px;\n}\n.article .header .stats {\n  margin-left: 30px;\n}\n.article img.lazyload,\n.article img.lazyloading {\n  opacity: 0;\n}\n.article img {\n  max-width: 700px;\n  height: auto;\n}\n.article img.lazyloaded {\n  opacity: 1;\n  transition: opacity 300ms;\n}\n.article .summary {\n  color: #808080;\n  padding: 40px 0 15px 0;\n}\n.article .text {\n  padding-top: 10px;\n}\n.article .reading-list-nav {\n  border-top: 1px #dedede solid;\n  border-bottom: 1px #dedede solid;\n  padding: 10px 0;\n}\n.article .reading-list-nav .prev {\n  padding-left: 20px;\n}\n.article .reading-list-nav .next {\n  margin-left: 5px;\n  padding-right: 20px;\n  text-align: right;\n}\n.article-nav {\n  text-align: right;\n  margin-top: 21px;\n  vertical-align: middle;\n  line-height: 15px;\n}\n.msg-728x90 {\n  width: 728px;\n  height: 90px;\n  overflow: hidden;\n}\n.msg-300x250 {\n  width: 300px;\n  height: 250px;\n  overflow: hidden;\n}\n.content-list {\n  margin-bottom: 17px;\n}\n.content-list .count {\n  font-weight: bold;\n  font-size: 16px;\n  color: #ff9900;\n  padding: 3px;\n  text-align: center;\n}\n.content-list-item {\n  margin: 10px 0;\n}\n.content-list-item .title {\n  font-size: 14px;\n  font-weight: bold;\n  padding: 0px 0;\n}\n.content-list-item .title a {\n  color: #005782;\n}\n.tags {\n  line-height: 190%;\n}\n.tags .t {\n  background: none repeat scroll 0 0 transparent;\n  border: 1px solid #fbedbb;\n  border-radius: 12px 0 0 12px;\n  line-height: 1.4;\n  padding: 0 2px 2px 3px;\n  position: relative;\n  text-decoration: none;\n  margin: 2px 5px 4px 0;\n  white-space: nowrap;\n}\n.tags .t a {\n  color: #666666;\n  display: inline-block;\n  margin-right: 3px;\n  padding-left: 5px;\n  text-overflow: ellipsis;\n}\n.container-breadcrumb {\n  font-size: 14px;\n  margin-top: 7px;\n  color: #808080;\n  margin: 12px 0 35px;\n}\n.container-breadcrumb a {\n  color: #808080;\n}\n.pre-lang {\n  display: -webkit-box;\n  /* OLD - iOS 6-, Safari 3.1-6 */\n  display: -moz-box;\n  /* OLD - Firefox 19- (buggy but mostly works) */\n  display: -ms-flexbox;\n  /* TWEENER - IE 10 */\n  display: -webkit-flex;\n  /* NEW - Chrome */\n  display: flex;\n  /* NEW, Spec - Opera 12.1, Firefox 20+ */\n  background-color: #fbedbb;\n  justify-content: space-between;\n  padding: 4px 8px;\n  margin-top: 5px;\n  color: #999999;\n  border-bottom: solid 1px #ffd044;\n}\n.code-comment {\n  color: #008000;\n  font-style: italic;\n}\n.code-keyword {\n  color: Blue;\n}\n.code-sdkkeyword {\n  color: #339999;\n}\n.code-string {\n  color: Purple;\n}\n.code-attribute {\n  color: red;\n}\n.code-leadattribute {\n  color: #800000;\n}\n.pre-action-link {\n  font-size: 13px;\n  color: #999999;\n}\n.pre-action-link span {\n  cursor: pointer;\n  margin: 0;\n  -webkit-transition: color 0.1s linear;\n  -moz-transition: color 0.1s linear;\n  -o-transition: color 0.1s linear;\n  transition: color 0.1s linear;\n}\n.speech-bubble-container-down,\n.speech-bubble-container-up,\n.speech-bubble-container-up-right,\n.speech-bubble-container-left,\n.speech-bubble-container-right {\n  position: relative;\n}\n.speech-bubble-up,\n.speech-bubble-down,\n.speech-bubble-left,\n.speech-bubble-right,\n.speech-bubble-up-right {\n  padding: 0.6em;\n  border: 1px solid #cccccc;\n  background-color: white;\n  margin: 15px;\n  text-decoration: none;\n  font-weight: normal;\n  text-align: left;\n  white-space: normal;\n  color: #333333;\n  font-size: 14px;\n  line-height: 1.3;\n}\n.speech-bubble-down {\n  margin-bottom: 0px;\n}\n.tooltip .speech-bubble-up,\n.tooltip .speech-bubble-up-right,\n.tooltip .speech-bubble-down,\n.tooltip .speech-bubble-left,\n.tooltip .speech-bubble-right {\n  -moz-box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);\n  -webkit-box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);\n  box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);\n  border-radius: 5px;\n  -webkit-border-radius: 5px;\n  -moz-border-radius: 5px;\n  min-width: 75px;\n}\n.speech-bubble-pointer-down,\n.speech-bubble-pointer-down-inner {\n  width: 0;\n  height: 0;\n  border-bottom-width: 0;\n  background: none;\n}\n.speech-bubble-pointer-down {\n  border-left: 7px solid transparent;\n  border-right: 7px solid transparent;\n  border-top: 1px solid #cccccc;\n  border-top-width: 14px;\n  margin-left: 35px;\n  margin-bottom: 15px;\n  _display: none;\n}\n.speech-bubble-pointer-up,\n.speech-bubble-pointer-up-right,\n.speech-bubble-pointer-up-inner,\n.speech-bubble-pointer-up-right-inner {\n  width: 0;\n  height: 0;\n  border-top-width: 0;\n  background: none;\n}\n.speech-bubble-pointer-up,\n.speech-bubble-pointer-up-right {\n  border-left: 5px solid transparent;\n  border-right: 5px solid transparent;\n  border-bottom: 1px solid #cccccc;\n  border-bottom-width: 14px;\n  margin-left: 35px;\n  position: absolute;\n  top: -12px;\n  _display: none;\n}\n.speech-bubble-container-up-right .speech-bubble-pointer-up-right {\n  margin-left: 0;\n  margin-right: 0px;\n  right: 35px;\n}\n.tooltip {\n  position: relative;\n  text-decoration: none;\n}\n.tooltip .speech-bubble-container-up,\n.tooltip .speech-bubble-container-down,\n.tooltip .speech-bubble-container-left,\n.tooltip .speech-bubble-container-right,\n.tooltip .speech-bubble-container-up-right,\n.tooltip .tooltip-flyout {\n  display: none;\n  opacity: 0;\n  -webkit-transition: opacity 0.5s linear 0ms;\n  -moz-transition: opacity 0.5s linear 0ms;\n  -o-transition: opacity 0.5s linear 0ms;\n  transition: opacity 0.5s linear 0ms;\n}\n.micromodal {\n  display: none;\n}\n.micromodal .modal__overlay {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background: rgba(0, 0, 0, 0.65);\n  z-index: 1000;\n}\n.micromodal .modal__container {\n  box-sizing: border-box;\n  overflow-y: auto;\n  max-width: 500px;\n  max-height: 100vh;\n  padding: 30px;\n  background-color: #fff;\n  border-radius: 4px;\n}\n.micromodal .modal__container,\n.micromodal .modal__overlay {\n  will-change: transform;\n}\n.micromodal .modal_header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 1rem;\n}\n.micromodal .modal_title {\n  margin-top: 0;\n  margin-bottom: 0;\n  color: #ff9900;\n  box-sizing: border-box;\n}\n.bottom-promo {\n  height: 90px;\n  margin-top: 10px;\n  overflow: hidden;\n}\n.bottom-promo .msg-728x90 {\n  width: 728px;\n  margin: 0 auto;\n}\n.msg-728x90 {\n  overflow: hidden;\n  position: relative;\n  height: 90px;\n  min-width: 728px;\n}\ntable.forum {\n  table-layout: fixed;\n  margin: 0 0 20px 0;\n  padding: 0px;\n  width: 100%;\n}\n.forum {\n  /*\n    .indent\n    {\n        padding-left:5px; padding-right: 5px;\n    }\n    */\n}\n.forum table {\n  border-collapse: separate;\n}\n.forum .header1,\n.forum .header1 TD {\n  color: #333333;\n  font-size: 14px;\n  vertical-align: middle;\n}\n.forum .header2,\n.forum .header2 TD {\n  color: white;\n  background-color: #ff9900;\n  font-size: 14px;\n  vertical-align: middle;\n}\n.forum .header2 input,\n.forum .header2 TD input,\n.forum .header2 select,\n.forum .header2 TD select {\n  padding: 2px;\n}\n.forum .button {\n  border: 1px solid #ffcc66;\n  margin: 1px;\n}\n.forum .searchbar {\n  border: 1px solid #cccccc;\n  padding: 4px 0 0 0;\n  margin: 3px 0;\n}\n.forum .searchbar .search {\n  width: 200px;\n}\n.forum .searchbar input[type=\"image\"] {\n  vertical-align: middle;\n}\n.forum .dropdown {\n  background-color: #fffdfa;\n  font-size: 95%;\n  margin-left: 5px;\n}\n.forum .footer,\n.forum .footer td,\n.forum .navbar,\n.forum .navbar td {\n  font-size: 14px;\n  padding: 8px 0;\n  border: 0;\n  border-top: 1px solid #808080;\n}\n.author-wrapper {\n  position: relative;\n}\n.author-wrapper .profile-pic {\n  border: 1px solid #333;\n  margin: 0 13px 0 0;\n  padding: 10px;\n  -moz-box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.2);\n  -webkit-box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.2);\n  box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.2);\n  max-height: 100px;\n}\n.author-wrapper .container-member .author {\n  font-size: 29px;\n  color: #333333;\n  font-weight: 600;\n}\n.member-signin .forgot {\n  padding: 0;\n}\n.member-signin a.forgot {\n  color: #808080;\n}\n.rating-container {\n  /*\n\t.rating-close\n\t{\n\t\tfont-size       : @FontSize-MediumSmall;\n\t\tfont-weight     : bold;\n\t\t// display         : inline-block;\n\t\t// height          : 19px;\n\t\tpadding         : 0px 7px 3px 5px;\n\t\ttext-decoration : none;\n\t\tborder          : 1px solid transparent;\n\t\tposition        : absolute;\n\t\tright           : 1px;\n\t\ttop             : -1px;\n\n\t\t\u0026:hover { border : 1px solid @Colour-Theme1; }\n\t}*/\n}\n.rating-container .rating-prompt {\n  padding-right: 5px;\n  white-space: nowrap;\n  line-height: 25px;\n  margin-right: 2px;\n  font-weight: bold;\n  color: #808080;\n}\n.rating-container .rating-votes {\n  margin-left: 5px;\n}\n.rating-container.large-stars,\n.rating-container.medium-stars,\n.rating-container.small-stars {\n  margin-left: 7px;\n}\n.rating-container.large-stars .rating-votes,\n.rating-container.large-stars .rating-prompt,\n.rating-container.large-stars .rating-poor,\n.rating-container.large-stars .rating-good {\n  line-height: 25px;\n}\n.tablet-only,\n.tablet-block-only {\n  display: none;\n}\n.mobile-only,\n.mobile-block-only {\n  display: none;\n}\n.desktop-only.tablet-only {\n  display: inherit;\n}\n.tablet-only.desktop-only {\n  display: inherit;\n}\n.rrssb-buttons,\n.rrssb-buttons li,\n.rrssb-buttons li a {\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n.clearfix:after {\n  clear: both;\n}\n.clearfix:before,\n.clearfix:after {\n  content: \" \";\n  display: table;\n}\n.rrssb-buttons {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  height: 40px;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n}\n.rrssb-buttons li {\n  float: left;\n  height: 100%;\n  list-style: none;\n  margin: 0;\n  padding: 0 2.5px;\n  line-height: 13px;\n}\n.rrssb-buttons li.email a {\n  background-color: #0a88ff;\n}\n.rrssb-buttons li.facebook a {\n  background-color: #306199;\n}\n.rrssb-buttons li.linkedin a {\n  background-color: #007bb6;\n}\n.rrssb-buttons li.twitter a {\n  background-color: #26c4f1;\n}\n.rrssb-buttons li.reddit a {\n  background-color: #8bbbe3;\n}\n.rrssb-buttons li.pinterest a {\n  background-color: #b81621;\n}\n.rrssb-buttons li.compact {\n  padding: 0 4.5px;\n}\n.rrssb-buttons li.compact a {\n  border-radius: 50%;\n  padding: 0px 7px 0 32px;\n}\n.rrssb-buttons li.compact a .icon {\n  left: 7px;\n  top: -3px;\n  width: 5%;\n  transform: scale(0.85);\n}\n.rrssb-buttons li.compact a .icon svg {\n  height: auto;\n  width: auto;\n}\n.rrssb-buttons li a {\n  background-color: #ccc;\n  border-radius: 3px;\n  display: block;\n  font-size: 11px;\n  font-weight: bold;\n  height: 100%;\n  padding: 11px 7px 12px 27px;\n  position: relative;\n  text-align: center;\n  text-decoration: none;\n  text-transform: uppercase;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  width: 100%;\n  -webkit-transition: background-color 0.2s ease-in-out;\n  -moz-transition: background-color 0.2s ease-in-out;\n  -o-transition: background-color 0.2s ease-in-out;\n  transition: background-color 0.2s ease-in-out;\n}\n.rrssb-buttons li a .icon {\n  display: block;\n  height: 100%;\n  left: 10px;\n  padding-top: 9px;\n  position: absolute;\n  top: 0;\n  width: 10%;\n}\n.rrssb-buttons li a .icon svg {\n  height: 17px;\n  width: 17px;\n}\n.rrssb-buttons li a .icon svg path,\n.rrssb-buttons li a .icon svg polygon {\n  fill: #fff;\n}\n.cc-window {\n  opacity: 1;\n  background-color: #ff9900;\n  /*\n  -webkit-transition: opacity .25s ease;\n  -moz-transition: opacity .25s ease;\n  -ms-transition: opacity .25s ease;\n  -o-transition: opacity .25s ease;\n  transition: opacity .25s ease;\n  */\n}\n.cc-window.cc-invisible {\n  opacity: 0;\n}\n.cc-animate.cc-revoke {\n  /*\n  -webkit-transition: transform .25s ease;\n  -moz-transition: transform .25s ease;\n  -ms-transition: transform .25s ease;\n  -o-transition: transform .25s ease;\n  transition: transform .25s ease;\n  */\n}\n.cc-animate.cc-revoke.cc-bottom {\n  transform: translateY(2em);\n}\n.cc-window,\n.cc-revoke {\n  position: fixed;\n  overflow: hidden;\n  box-sizing: border-box;\n  /* exclude padding when dealing with width */\n  font-family: \"Segoe UI\", Arial, Sans-Serif;\n  font-size: 13px;\n  /* by setting the base font here, we can size the rest of the popup using CSS `em` */\n  line-height: 1.5em;\n  display: flex;\n  flex-wrap: nowrap;\n  /* the following are random unjustified styles - just because - should probably be removed */\n  z-index: 9999;\n}\n.cc-window.cc-banner {\n  padding: 0.7em 1.8em;\n  width: 100%;\n  flex-direction: row;\n}\n.cc-revoke {\n  padding: 0.5em;\n}\n.cc-btn,\n.cc-link,\n.cc-close,\n.cc-revoke {\n  cursor: pointer;\n}\n.cc-link {\n  opacity: 0.8;\n  display: inline-block;\n  padding: 0.2em;\n  text-decoration: underline;\n}\n.cc-link:active,\n.cc-link:visited {\n  color: initial;\n}\n.cc-btn {\n  display: block;\n  padding: 0.4em 0.8em;\n  font-size: 0.9em;\n  font-weight: bold;\n  border-width: 2px;\n  border-style: solid;\n  text-align: center;\n  white-space: nowrap;\n}\n.cc-banner .cc-btn:last-child {\n  min-width: 110px;\n  margin-left: 10px;\n}\n.cc-highlight .cc-btn:first-child {\n  background-color: transparent;\n  border-color: transparent;\n}\n.cc-revoke.cc-bottom {\n  bottom: 0;\n  left: 3em;\n  border-top-left-radius: 0.5em;\n  border-top-right-radius: 0.5em;\n}\n.cc-bottom {\n  bottom: 1em;\n}\n.cc-window.cc-banner {\n  align-items: center;\n}\n.cc-banner.cc-bottom {\n  left: 0;\n  right: 0;\n  bottom: 0;\n}\n.cc-banner .cc-message {\n  flex: 1;\n}\n.cc-compliance {\n  display: flex;\n  align-items: center;\n  align-content: space-between;\n}\n.cc-compliance \u003e .cc-btn {\n  flex: 1;\n}\n.cc-btn + .cc-btn {\n  margin-left: 0.5em;\n}\n\n@keyframes showcopied {\n  0% {\n    opacity: 0;\n  }\n  70% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n"])</script><script>self.__next_f.push([1,"1a:T55ae,"])</script><script>self.__next_f.push([1,"\u003cul class=\"download\"\u003e\r\n\t\u003cli\u003e\u003ca href=\"https://github.com/zijianhuang/DemoCoreWeb\"\u003eDemoCoreWeb with \"Tour of Heroes\" built on different platforms\u003c/a\u003e\u003c/li\u003e\u003c/ul\u003e\r\n\r\n\u003ch2\u003eBackground\u003c/h2\u003e\r\n\r\n\u003cp\u003e\"Tour of Heroes\" is the\u0026nbsp;\u003ca href=\"https://angular.io/tutorial/tour-of-heroes\"\u003eofficial tutorial app of Angular 2+\u003c/a\u003e. The app contains some functional features and technical features which are common when building a real-world business application talking to Web API:\u003c/p\u003e\r\n\r\n\u003col\u003e\r\n\t\u003cli\u003eA few screens presenting tables and nested data\u003c/li\u003e\t\u003cli\u003eData binding\u003c/li\u003e\t\u003cli\u003eNavigation\u003c/li\u003e\t\u003cli\u003e\u003ca href=\"https://en.wikipedia.org/wiki/Create,_read,_update_and_delete\"\u003eCRUD\u003c/a\u003e\u0026nbsp;operations over a backend, and optionally through a generated client API\u003c/li\u003e\t\u003cli\u003eUnit testing and integration testing\u003c/li\u003e\u003c/ol\u003e\r\n\r\n\u003cp\u003eIn this series of articles, I will demonstrate the programmer experiences of various frontend development platforms when building the same functional features: \"Tour of Heroes\", a fat client talking to a backend.\u003c/p\u003e\r\n\r\n\u003cp\u003eThe frontend apps on Angular, Aurelia, React, Vue, Xamarin and MAUI are talking to the same ASP.NET (Core) backend through generated client APIs. To find the other articles in the same series, please search \"\u003cstrong\u003eTour of Heroes\u003c/strong\u003e\" in\u0026nbsp;\u003ca href=\"https://www.codeproject.com/script/Articles/MemberArticles.aspx?amid=3627575\"\u003emy articles\u003c/a\u003e. And at the end of the series, some technical factors of programmer experiences will be discussed:\u003c/p\u003e\r\n\r\n\u003col\u003e\r\n\t\u003cli\u003eComputing science\u003c/li\u003e\t\u003cli\u003eSoftware engineering\u003c/li\u003e\t\u003cli\u003eLearning curve\u003c/li\u003e\t\u003cli\u003eBuild size\u003c/li\u003e\t\u003cli\u003eRuntime performance\u003c/li\u003e\t\u003cli\u003eDebugging\u003c/li\u003e\u003c/ol\u003e\r\n\r\n\u003cp\u003eChoosing a development platform involves a lot of non-technical factors which won't be discussed in this series.\u003c/p\u003e\r\n\r\n\u003ch3\u003eReferences\u003c/h3\u003e\r\n\r\n\u003cul\u003e\r\n\t\u003cli\u003e\u003ca href=\"https://www.codeproject.com/Articles/5372596/Tour-of-Heroes-Angular-with-ASP-NET-Core-backend\" id=\"ctl00_MC_AR_ctl42_CAR_Title\"\u003eTour of Heroes: Angular, with ASP.NET Core Backend\u003c/a\u003e\u003c/li\u003e\t\u003cli\u003e\u003ca href=\"https://www.codeproject.com/Articles/5372876/Tour-of-Heroes-React-with-ASP-NET-Core-Backend\" id=\"ctl00_MC_AR_ctl43_CAR_Title\"\u003eTour of Heroes: React, with ASP.NET Core Backend\u003c/a\u003e\u003c/li\u003e\t\u003cli\u003e\u003ca href=\"https://www.codeproject.com/Articles/5373078/Tour-of-Heroes-Aurelia-with-ASP-NET-Core-Backend\" id=\"ctl00_MC_AR_ctl38_CAR_Title\"\u003eTour of Heroes: Aurelia, with ASP.NET Core Backend\u003c/a\u003e\u003c/li\u003e\t\u003cli\u003e\u003ca href=\"https://www.codeproject.com/Articles/5372639/Tour-of-Heroes-Xamarin-with-ASP-NET-Backend\" id=\"ctl00_MC_AR_ctl17_CAR_Title\"\u003eTour of Heroes: Xamarin, with ASP.NET Backend\u003c/a\u003e\u003c/li\u003e\t\u003cli\u003e\u003ca href=\"https://www.codeproject.com/Articles/5373931/Tour-of-Heroes-MAUI-with-ASP-NET-Core-8-Backend\" id=\"ctl00_MC_AR_ctl56_CAR_Title\"\u003eTour of Heroes: MAUI, with ASP.NET Core 8 Backend\u003c/a\u003e\u003c/li\u003e\u003c/ul\u003e\r\n\r\n\u003ch2\u003eIntroduction\u003c/h2\u003e\r\n\r\n\u003cp\u003eIt is assumed that you have already walked through the first few chapters of \u003ca href=\"https://learn.microsoft.com/en-us/aspnet/core/blazor\"\u003eASP.NET Core Blazor documentation\u003c/a\u003e, and have played the WeatherForecast app through the scaffolding codes as well as \u003ca href=\"https://learn.microsoft.com/en-us/aspnet/core/blazor/tutorials/build-a-blazor-app\"\u003ethe todolist demo\u003c/a\u003e.\u003c/p\u003e\r\n\r\n\u003cp\u003eThis article is focused on \u003ca href=\"https://learn.microsoft.com/en-us/aspnet/core/blazor/hosting-models#blazor-webassembly\"\u003eBlazor WebAssembly\u003c/a\u003e standalone app running in a Web browser, with functionality of \"Tour of Heroes\", talking to an ASP.NET Core Web API backend.\u003c/p\u003e\r\n\r\n\u003ch3\u003eDemo Repository\u003c/h3\u003e\r\n\r\n\u003cp\u003eCheckout\u0026nbsp;\u003ca href=\"https://github.com/zijianhuang/DemoCoreWeb\"\u003eDemoCoreWeb\u0026nbsp;\u003c/a\u003ein GitHub, and focus on the following areas:\u003c/p\u003e\r\n\r\n\u003ch4\u003e\u003ca href=\"https://github.com/zijianhuang/DemoCoreWeb/tree/master/Core3WebApi\"\u003eCore3WebApi\u003c/a\u003e\u003c/h4\u003e\r\n\r\n\u003cp\u003eASP.NET Core Web API csproj provides only Web APIs, including Heroes API.\u003c/p\u003e\r\n\r\n\u003ch4\u003e\u003ca href=\"https://github.com/zijianhuang/DemoCoreWeb/tree/master/BlazorHeroesWAStandalone\"\u003eBlazor Heroes\u003c/a\u003e\u003c/h4\u003e\r\n\r\n\u003cp\u003eBlazor Web Assembly standalone app.\u003c/p\u003e\r\n\r\n\u003cp\u003e\u003cimg src=\"https://www.codeproject.com/KB/Articles/5383736/Screenshot_2024-06-13_111938.png?r=5583fb70-e00c-498f-893c-d55962eed87f\"\u003e\u003c/p\u003e\r\n\r\n\u003ch4\u003eRemarks\u003c/h4\u003e\r\n\r\n\u003cp\u003e\u003ca href=\"https://github.com/zijianhuang/DemoCoreWeb\"\u003eDemoCoreWeb\u003c/a\u003e\u0026nbsp;was established for testing NuGet packages of\u0026nbsp;\u003ca href=\"https://github.com/zijianhuang/webapiclientgen\"\u003eWebApiClientGen,\u0026nbsp;\u003c/a\u003eand demonstrating how to use the library\u0026nbsp;in real world projects. And the generated client API codes in C# can be utilized in a Web browser via WebAssembly.\u003c/p\u003e\r\n\r\n\u003ch2\u003eUsing the code\u003c/h2\u003e\r\n\r\n\u003ch3\u003ePrerequisites\u003c/h3\u003e\r\n\r\n\u003col\u003e\r\n\t\u003cli\u003e\u003cem\u003eCore3WebApi.csproj\u003c/em\u003e\u0026nbsp;has NuGet package\u0026nbsp;\u003ccode\u003eFonlow.WebApiClientGenCore\u003c/code\u003e\u0026nbsp;imported.\u003c/li\u003e\t\u003cli\u003eAdd\u0026nbsp;\u003ca href=\"https://github.com/zijianhuang/DemoCoreWeb/blob/master/DemoWebApi.ControllersShared/CodeGenController.cs\"\u003eCodeGenController.cs\u003c/a\u003e\u0026nbsp;to\u0026nbsp;\u003cem\u003eCore3WebApi.csproj\u003c/em\u003e.\u003c/li\u003e\t\u003cli\u003e\u003cem\u003eCore3WebApi.csproj\u003c/em\u003e\u0026nbsp;includes\u0026nbsp;\u003ca href=\"https://github.com/zijianhuang/DemoCoreWeb/blob/master/Core3WebApi/CodeGen.json\"\u003eCodeGen.json\u003c/a\u003e. This is optional, just for the convenience of running some PowerShell script to generate client APIs.\u003c/li\u003e\t\u003cli\u003e\u003ca href=\"https://github.com/zijianhuang/DemoCoreWeb/blob/master/CreateWebApiClientApi3.ps1\"\u003eCreateWebApiClientApi3.ps1\u003c/a\u003e. This is optional. This script will launch the Web API on Kestrel and post the data in\u0026nbsp;\u003cem\u003eCodeGen.json\u003c/em\u003e.\u003c/li\u003e\u003c/ol\u003e\r\n\r\n\u003cul\u003e\r\n\u003c/ul\u003e\r\n\r\n\u003ch3\u003eGenerate Client API\u003c/h3\u003e\r\n\r\n\u003cp\u003eRun\u0026nbsp;\u003ca href=\"https://github.com/zijianhuang/DemoCoreWeb/blob/master/CreateWebApiClientApi3.ps1\"\u003eCreateWebApiClientApi3.ps1\u003c/a\u003e, the generated codes will be written to\u0026nbsp;\u003ca href=\"https://github.com/zijianhuang/DemoCoreWeb/tree/master/CoreWebApi.ClientApi\"\u003eCoreWebApi.ClientApi\u003c/a\u003e.\u003c/p\u003e\r\n\r\n\u003ch4\u003eRemarks\u003c/h4\u003e\r\n\r\n\u003cul\u003e\r\n\t\u003cli\u003eDepending on your CI/CD process, you may adjust item 3 and 4 above. For more details, please check:\u0026nbsp;\"\u003ca href=\"https://www.codeproject.com/Articles/1243908/Generate-Csharp-Client-API-for-ASP-NET-Core-Web-AP\" id=\"ctl00_MC_AR_ctl42_CAR_Title\"\u003eGenerate C# Client API for ASP.NET Core Web API\u003c/a\u003e\"\u0026nbsp;. The repository has the client API codes generated already.\u003c/li\u003e\u003c/ul\u003e\r\n\r\n\u003ch3\u003eData Models and API Functions\u003c/h3\u003e\r\n\r\n\u003cpre lang=\"cs\"\u003e\r\nnamespace DemoWebApi.Controllers.Client;\r\n\r\npublic class Hero : object\r\n{\r\n    \r\n    public DemoWebApi.DemoData.Client.Address Address { get; set; }\r\n    \r\n    public System.Nullable\u0026lt;System.DateOnly\u0026gt; Death { get; set; }\r\n    \r\n    public System.DateOnly DOB { get; set; }\r\n    \r\n    public string EmailAddress { get; set; }\r\n    \r\n    public long Id { get; set; }\r\n    \r\n    [System.ComponentModel.DataAnnotations.RequiredAttribute()]\r\n    [System.ComponentModel.DataAnnotations.StringLength(120, MinimumLength=2)]\r\n    public string Name { get; set; }\r\n    \r\n    public System.Collections.Generic.IList\u0026lt;DemoWebApi.DemoData.Client.PhoneNumber\u0026gt; PhoneNumbers { get; set; }\r\n    \r\n    [System.ComponentModel.DataAnnotations.MinLength(6)]\r\n    [System.ComponentModel.DataAnnotations.RegularExpressionAttribute(@\"https?:\\\\/\\\\/(www\\\\.)?[-a-zA-Z0-9@:%._\\\\+~#=]{1,256}\\\\.[a-zA-Z0-9()]{1,6}\\\\b([-a-zA-Z0-9()@:%_\\\\+.~#?\u0026amp;//=]*)\")]\r\n    public string WebAddress { get; set; }\r\n}\r\n\u003c/pre\u003e\r\n\r\n\u003cp\u003e\u003cstrong\u003eRemarks:\u003c/strong\u003e\u003c/p\u003e\r\n\r\n\u003cul\u003e\r\n\t\u003cli\u003eIn the demo app, just only Id and Name are used, while the other properties were for testing some code gen features:\r\n\t\u003cul\u003e\r\n\t\t\u003cli\u003eCopy some server side attributes to the client side. And for TypeScript codes, the attributes may be transformed to \u003ca href=\"https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html\"\u003eJsDoc for TypeScript\u003c/a\u003e.\u003c/li\u003e\t\t\u003cli\u003eSome validation attributes may be transformed to Angular Reactive Forms.\u003c/li\u003e\t\u003c/ul\u003e\r\n\t\u003c/li\u003e\u003c/ul\u003e\r\n\r\n\u003cp\u003e\u003cstrong\u003eHeroes Client API:\u003c/strong\u003e\u003c/p\u003e\r\n\r\n\u003cpre lang=\"cs\"\u003e\r\npublic partial class Heroes\r\n{\r\n    \r\n    private System.Net.Http.HttpClient client;\r\n    \r\n    private JsonSerializerOptions jsonSerializerSettings;\r\n    \r\n    public Heroes(System.Net.Http.HttpClient client, JsonSerializerOptions jsonSerializerSettings=null)\r\n    {\r\n        if (client == null)\r\n            throw new ArgumentNullException(nameof(client), \"Null HttpClient.\");\r\n\r\n        if (client.BaseAddress == null)\r\n            throw new ArgumentNullException(nameof(client), \"HttpClient has no BaseAddress\");\r\n\r\n        this.client = client;\r\n        this.jsonSerializerSettings = jsonSerializerSettings;\r\n    }\r\n    \r\n    /// \u0026lt;summary\u0026gt;\r\n    /// DELETE api/Heroes/{id}\r\n    /// \u0026lt;/summary\u0026gt;\r\n    public async Task DeleteAsync(long id, Action\u0026lt;System.Net.Http.Headers.HttpRequestHeaders\u0026gt; handleHeaders = null)\r\n    {\r\n        var requestUri = \"api/Heroes/\"+id;\r\n        using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);\r\n        handleHeaders?.Invoke(httpRequestMessage.Headers);\r\n        var responseMessage = await client.SendAsync(httpRequestMessage);\r\n        try\r\n        {\r\n            responseMessage.EnsureSuccessStatusCodeEx();\r\n        }\r\n        finally\r\n        {\r\n            responseMessage.Dispose();\r\n        }\r\n    }\r\n    \r\n    /// \u0026lt;summary\u0026gt;\r\n    /// GET api/Heroes/{id}\r\n    /// \u0026lt;/summary\u0026gt;\r\n    [return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]\r\n    public async Task\u0026lt;DemoWebApi.Controllers.Client.Hero\u0026gt; GetHeroAsync(long id, Action\u0026lt;System.Net.Http.Headers.HttpRequestHeaders\u0026gt; handleHeaders = null)\r\n    {\r\n        var requestUri = \"api/Heroes/\"+id;\r\n        using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);\r\n        handleHeaders?.Invoke(httpRequestMessage.Headers);\r\n        var responseMessage = await client.SendAsync(httpRequestMessage);\r\n        try\r\n        {\r\n            responseMessage.EnsureSuccessStatusCodeEx();\r\n            if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }\r\n            var contentString = await responseMessage.Content.ReadAsStringAsync();\r\n            return JsonSerializer.Deserialize\u0026lt;DemoWebApi.Controllers.Client.Hero\u0026gt;(contentString, jsonSerializerSettings);\r\n        }\r\n        finally\r\n        {\r\n            responseMessage.Dispose();\r\n        }\r\n    }\r\n        \r\n    /// \u0026lt;summary\u0026gt;\r\n    /// GET api/Heroes\r\n    /// \u0026lt;/summary\u0026gt;\r\n    public async Task\u0026lt;DemoWebApi.Controllers.Client.Hero[]\u0026gt; GetHeroesAsync(Action\u0026lt;System.Net.Http.Headers.HttpRequestHeaders\u0026gt; handleHeaders = null)\r\n    {\r\n        var requestUri = \"api/Heroes\";\r\n        using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);\r\n        handleHeaders?.Invoke(httpRequestMessage.Headers);\r\n        var responseMessage = await client.SendAsync(httpRequestMessage);\r\n        try\r\n        {\r\n            responseMessage.EnsureSuccessStatusCodeEx();\r\n            if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }\r\n            var contentString = await responseMessage.Content.ReadAsStringAsync();\r\n            return JsonSerializer.Deserialize\u0026lt;DemoWebApi.Controllers.Client.Hero[]\u0026gt;(contentString, jsonSerializerSettings);\r\n        }\r\n        finally\r\n        {\r\n            responseMessage.Dispose();\r\n        }\r\n    }\r\n    \r\n    /// \u0026lt;summary\u0026gt;\r\n    /// GET api/Heroes\r\n    /// \u0026lt;/summary\u0026gt;\r\n    public DemoWebApi.Controllers.Client.Hero[] GetHeroes(Action\u0026lt;System.Net.Http.Headers.HttpRequestHeaders\u0026gt; handleHeaders = null)\r\n    {\r\n        var requestUri = \"api/Heroes\";\r\n        using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);\r\n        handleHeaders?.Invoke(httpRequestMessage.Headers);\r\n        var responseMessage = client.SendAsync(httpRequestMessage).Result;\r\n        try\r\n        {\r\n            responseMessage.EnsureSuccessStatusCodeEx();\r\n            if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }\r\n            var contentString = responseMessage.Content.ReadAsStringAsync().Result;\r\n            return JsonSerializer.Deserialize\u0026lt;DemoWebApi.Controllers.Client.Hero[]\u0026gt;(contentString, jsonSerializerSettings);\r\n        }\r\n        finally\r\n        {\r\n            responseMessage.Dispose();\r\n        }\r\n    }\r\n    \r\n...\r\n}\u003c/pre\u003e\r\n\r\n\u003cp\u003e\u0026nbsp;\u003c/p\u003e\r\n\r\n\u003ch3\u003eRazor Components\u003c/h3\u003e\r\n\r\n\u003cp\u003e\u003cimg src=\"https://www.codeproject.com/KB/Articles/5383736/Screenshot_2024-06-13_111938.png?r=36499ac3-9e57-40c6-9819-8ed3bab382a2\"\u003e\u003c/p\u003e\r\n\r\n\u003cp\u003e\u003cstrong\u003eDashboard.razor:\u003c/strong\u003e\u003c/p\u003e\r\n\r\n\u003cpre lang=\"asp\"\u003e\r\n@page \"/dashboard\"\r\n\r\n@inject DemoWebApi.Controllers.Client.Heroes heroesApi\r\n\r\n\u0026lt;PageTitle\u0026gt;Dashboard\u0026lt;/PageTitle\u0026gt;\r\n\u0026lt;h2\u0026gt;Top Heroes\u0026lt;/h2\u0026gt;\r\n\r\n@if (heroes == null)\r\n{\r\n    \u0026lt;p\u0026gt;\u0026lt;em\u0026gt;Loading Heroes...\u0026lt;/em\u0026gt;\u0026lt;/p\u0026gt;\r\n}\r\nelse\r\n{\r\n    \u0026lt;div class=\"heroes-menu\"\u0026gt;\r\n        @foreach (var hero in heroes.Take(4))\r\n        {\r\n            string href = $\"/detail/{hero.Id}\";\r\n            \u0026lt;a href=\"@href\"\u0026gt;@hero.Name\u0026lt;/a\u0026gt;\r\n        }\r\n\r\n    \u0026lt;/div\u0026gt;\r\n}\r\n\r\n@code {\r\n    private DemoWebApi.Controllers.Client.Hero[]? heroes;\r\n    DemoWebApi.Controllers.Client.Heroes? heroesClient;\r\n\r\n    protected override async Task OnInitializedAsync()\r\n    {\r\n        heroes = await heroesApi.GetAsyncHeroesAsync();\r\n    }\r\n}\r\n\u003c/pre\u003e\r\n\r\n\u003cp\u003e\u0026nbsp;\u003c/p\u003e\r\n\r\n\u003ch2\u003e\u003cimg height=\"271\" src=\"https://cloudfront.codeproject.com/articles/5383736/screenshot_2024-06-13_112724-small.png\" width=\"640\"\u003e\u003c/h2\u003e\r\n\r\n\u003cp\u003e\u003cstrong\u003eHeroes List:\u003c/strong\u003e\u003c/p\u003e\r\n\r\n\u003cpre lang=\"aspnet\"\u003e\r\n@page \"/heroes\"\r\n@inject DemoWebApi.Controllers.Client.Heroes heroesApi\r\n\r\n\u0026lt;PageTitle\u0026gt;List\u0026lt;/PageTitle\u0026gt;\r\n\u0026lt;h2\u0026gt;My Heroes\u0026lt;/h2\u0026gt;\r\n\r\n@if (heroes == null)\r\n{\r\n    \u0026lt;p\u0026gt;\u0026lt;em\u0026gt;Loading Heroes...\u0026lt;/em\u0026gt;\u0026lt;/p\u0026gt;\r\n}\r\nelse\r\n{\r\n    \u0026lt;div\u0026gt;\r\n        \u0026lt;label for=\"new-hero\"\u0026gt;Hero name: \u0026lt;/label\u0026gt;\r\n        \u0026lt;input id=\"new-hero\" @bind=\"@newHeroName\" /\u0026gt;\r\n\r\n        \u0026lt;button type=\"button\" class=\"add-button\" @onclick=\"AddAndClear\"\u0026gt;\r\n            Add hero\r\n        \u0026lt;/button\u0026gt;\r\n    \u0026lt;/div\u0026gt;\r\n\r\n    \u0026lt;ul class=\"heroes\"\u0026gt;\r\n        @foreach (var hero in heroes)\r\n        {\r\n            string href = $\"/detail/{hero.Id}\";\r\n            \u0026lt;li\u0026gt;\r\n                \u0026lt;a href=\"@href\"\u0026gt;\r\n                    \u0026lt;span class=\"badge\"\u0026gt;@hero.Id\u0026lt;/span\u0026gt; @hero.Name\r\n                \u0026lt;/a\u0026gt;\r\n                \u0026lt;button type=\"button\" class=\"delete\" title=\"delete hero\" @onclick=\"()=\u0026gt;Delete(hero)\"\u0026gt;x\u0026lt;/button\u0026gt;\r\n            \u0026lt;/li\u0026gt;\r\n        }\r\n\r\n    \u0026lt;/ul\u0026gt;\r\n}\r\n\r\n@code {\r\n    private List\u0026lt;DemoWebApi.Controllers.Client.Hero\u0026gt; heroes;\r\n    private DemoWebApi.Controllers.Client.Hero? selectedHero;\r\n    string? newHeroName;\r\n\r\n    protected override async Task OnInitializedAsync()\r\n    {\r\n        heroes = new List\u0026lt;DemoWebApi.Controllers.Client.Hero\u0026gt;(await heroesApi.GetHeroesAsync());\r\n    }\r\n\r\n    async Task Add(string name)\r\n    {\r\n        name = name.Trim();\r\n        if (string.IsNullOrEmpty(name))\r\n        {\r\n            return;\r\n        }\r\n\r\n        var newHero = await heroesApi.PostAsync(name);\r\n        this.selectedHero = null;\r\n        heroes.Add(newHero);\r\n\r\n    }\r\n\r\n    async Task AddAndClear()\r\n    {\r\n        await Add(newHeroName);\r\n        newHeroName = null;\r\n\r\n    }\r\n\r\n    async Task Delete(DemoWebApi.Controllers.Client.Hero hero)\r\n    {\r\n        await heroesApi.DeleteAsync(hero.Id);\r\n        heroes.Remove(hero);\r\n        if (selectedHero == hero)\r\n        {\r\n            selectedHero = null;\r\n        }\r\n    }\r\n}\r\n\u003c/pre\u003e\r\n\r\n\u003cp\u003e\u003cimg height=\"477\" src=\"https://cloudfront.codeproject.com/articles/5383736/screenshot_2024-06-13_112943-small.png\" width=\"640\"\u003e\u003c/p\u003e\r\n\r\n\u003ch3\u003eDependency Injection of HttpClient\u003c/h3\u003e\r\n\r\n\u003cp\u003eWhile HttpClient has implemented IDisposable, however often Microsoft would advise not to instantiate it for a HTTP request then dispose, depending on the application host.\u0026nbsp;Instead, use \u003ca href=\"https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection\"\u003edependency injection\u003c/a\u003e\u0026nbsp;of Blazor so the host will\u0026nbsp;manage the lifecycle of a HttpClient instance.\u003c/p\u003e\r\n\r\n\u003cp\u003eThe sample codes with this article follow the advices from\u0026nbsp;\"\u003ca href=\"https://learn.microsoft.com/en-us/aspnet/core/blazor/call-web-api\"\u003eCall a Web API from ASP.NET Core Blazor\u003c/a\u003e\", utilizing both named HttpClient and typed HttpClient.\u003c/p\u003e\r\n\r\n\u003ch4\u003eNamed HttpClient\u003c/h4\u003e\r\n\r\n\u003cp\u003e\u003cstrong\u003eProgram.cs:\u003c/strong\u003e\u003c/p\u003e\r\n\r\n\u003cpre\u003e\r\nbuilder.Services.AddHttpClient(\"Core3WebAPI\", client =\u0026gt;\r\n{\r\n    client.BaseAddress = new Uri(\"http://localhost:5000\");\r\n});\u003c/pre\u003e\r\n\r\n\u003cp\u003e\u003cstrong\u003eWeather.razor:\u003c/strong\u003e\u003c/p\u003e\r\n\r\n\u003cpre lang=\"aspnet\"\u003e\r\n@page \"/weather\"\r\n@inject IHttpClientFactory ClientFactory\r\n@inject System.Text.Json.JsonSerializerOptions jsonSerializerOptions\r\n\r\n...\r\n\r\n@code {\r\n    private WebApplication1.Client.WeatherForecast[]? forecasts;\r\n\r\n    protected override async Task OnInitializedAsync()\r\n    {\r\n        var client = ClientFactory.CreateClient(\"Core3WebAPI\");\r\n        WebApplication1.Controllers.Client.WeatherForecast weatherForecastClient = new WebApplication1.Controllers.Client.WeatherForecast(client, jsonSerializerOptions);\r\n        forecasts = (await weatherForecastClient.GetAsync()).ToArray();\r\n    }\r\n}\u003c/pre\u003e\r\n\r\n\u003cp\u003e\u0026nbsp;\u003c/p\u003e\r\n\r\n\u003ch4\u003eTyped HttpClient\u003c/h4\u003e\r\n\r\n\u003cp\u003e\u003cstrong\u003eProgram.cs:\u003c/strong\u003e\u003c/p\u003e\r\n\r\n\u003cpre lang=\"cs\"\u003e\r\nbuilder.Services.AddHttpClient\u0026lt;DemoWebApi.Controllers.Client.Heroes\u0026gt;(heroesApiClient =\u0026gt;\r\n{\r\n    heroesApiClient.BaseAddress = new Uri(\"http://localhost:5000\");\r\n});\u003c/pre\u003e\r\n\r\n\u003cp\u003e\u003cstrong\u003eHeroes.razor:\u003c/strong\u003e\u003c/p\u003e\r\n\r\n\u003cpre lang=\"aspnet\"\u003e\r\n@page \"/heroes\"\r\n@inject DemoWebApi.Controllers.Client.Heroes heroesApi\r\n...\r\n@code {\r\n    private List\u0026lt;DemoWebApi.Controllers.Client.Hero\u0026gt; heroes;\r\n    private DemoWebApi.Controllers.Client.Hero? selectedHero;\r\n    string? newHeroName;\r\n\r\n    protected override async Task OnInitializedAsync()\r\n    {\r\n        heroes = new List\u0026lt;DemoWebApi.Controllers.Client.Hero\u0026gt;(await heroesApi.GetHeroesAsync());\r\n    }\r\n\r\n    async Task Add(string name)\r\n    {\r\n        name = name.Trim();\r\n        if (string.IsNullOrEmpty(name))\r\n        {\r\n            return;\r\n        }\r\n\r\n        var newHero = await heroesApi.PostAsync(name);\r\n        this.selectedHero = null;\r\n        heroes.Add(newHero);\r\n    }\r\n\r\n    async Task AddAndClear()\r\n    {\r\n        await Add(newHeroName);\r\n        newHeroName = null;\r\n\r\n    }\r\n\r\n    async Task Delete(DemoWebApi.Controllers.Client.Hero hero)\r\n    {\r\n        await heroesApi.DeleteAsync(hero.Id);\r\n        heroes.Remove(hero);\r\n        if (selectedHero == hero)\r\n        {\r\n            selectedHero = null;\r\n        }\r\n    }\r\n}\r\n\u003c/pre\u003e\r\n\r\n\u003cp\u003eThe generated client API codes support typed HttpClient through DI:\u003c/p\u003e\r\n\r\n\u003cpre lang=\"cs\"\u003e\r\npublic partial class Heroes\r\n{\r\n    \r\n    private System.Net.Http.HttpClient client;\r\n    \r\n    private JsonSerializerOptions jsonSerializerSettings;\r\n    \r\n    public Heroes(System.Net.Http.HttpClient client, JsonSerializerOptions jsonSerializerSettings=null)\r\n    {\r\n...\u003c/pre\u003e\r\n\r\n\u003cp\u003e.NET runtime can inject a HttpClient instance and a scoped JsonSerializerOptions instance to the container class \"Heroes\".\u003c/p\u003e\r\n\r\n\u003ch2\u003ePoints of Interest\u003c/h2\u003e\r\n\r\n\u003ch3\u003eHttpClient in Web Browsers\u003c/h3\u003e\r\n\r\n\u003cp\u003eAccording to\u0026nbsp;\"\u003ca href=\"https://learn.microsoft.com/en-us/aspnet/core/blazor/call-web-api\"\u003eCall a Web API from ASP.NET Core Blazor\u003c/a\u003e\":\u003c/p\u003e\r\n\r\n\u003cblockquote class=\"quote\"\u003e\r\n\u003cdiv class=\"op\"\u003eQuote:\u003c/div\u003e\r\n\r\n\u003cp\u003e\u003ca data-linktype=\"absolute-path\" href=\"https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpclient\"\u003eHttpClient\u003c/a\u003e\u0026nbsp;is implemented using the browser's\u0026nbsp;\u003ca data-linktype=\"external\" href=\"https://developer.mozilla.org/docs/Web/API/Fetch_API\"\u003eFetch API\u003c/a\u003e\u0026nbsp;and is subject to its limitations, including enforcement of the same-origin policy, which is discussed later in this article in the\u0026nbsp;\u003cem\u003eCross-Origin Resource Sharing (CORS)\u003c/em\u003e\u0026nbsp;section.\u003c/p\u003e\r\n\u003c/blockquote\u003e\r\n\r\n\u003cp\u003eIn addition to the limitations mentioned, the actual operations of \"\u003ccode\u003eSystem.Net.Http.HttpClient\u003c/code\u003e\" in a Web browser are subject to other limitations of JavaScript when handling integral numbers larger than 53-bit, as discussed in these articles:\u003c/p\u003e\r\n\r\n\u003cul\u003e\r\n\t\u003cli\u003e\u003ca href=\"https://www.codeproject.com/Articles/5377807/Dealing-with-Large-Integral-Numbers-in-JavaScript\"\u003eDealing with Large Integral Numbers in JavaScript for Integral Types of ASP.NET Core Web API\u003c/a\u003e\u003c/li\u003e\t\u003cli\u003e\u003ca href=\"https://www.codeproject.com/Articles/5378038/Enjoy-Rich-Integral-Types-of-NET-and-Overcome-the\"\u003eEnjoy Rich Integral Types of .NET and Overcome the 53-bit Limitation of JavaScript\u003c/a\u003e\u003c/li\u003e\u003c/ul\u003e\r\n\r\n\u003cp\u003eTo support Int64 (long), the Core3WebApi utilizes\u0026nbsp;\u003ccode\u003eInt64JsonConverter\u003c/code\u003e\u003c/p\u003e\r\n\r\n\u003cpre lang=\"cs\"\u003e\r\nbuilder.Services.AddJsonOptions(options =\u0026gt;\r\n{\r\n    options.JsonSerializerOptions.Converters.Add(new Int64JsonConverter());\r\n\u003c/pre\u003e\r\n\r\n\u003cp\u003eThe Web API will then respond with a JSON string object for Int64 rather than rather than a JSON number object.\u003c/p\u003e\r\n\r\n\u003cp\u003eOn the client side built on Blazor WebAssembly, the same converter class is needed:\u003c/p\u003e\r\n\r\n\u003cpre lang=\"cs\"\u003e\r\n builder.Services.AddScoped\u0026lt;JsonSerializerOptions\u0026gt;(sp =\u0026gt;\r\n{\r\n    var options = new JsonSerializerOptions\r\n    {\r\n        PropertyNameCaseInsensitive = true,\r\n    };\r\n\r\n    options.Converters.Add(new Int64JsonConverter()); //Hero.Id is long, 64-bit, exceeding 53-bit precision of JS number\r\n    return options;\r\n});\u003c/pre\u003e\r\n\r\n\u003cp\u003eOtherwise, there will be runtime error in the browser:\u003c/p\u003e\r\n\r\n\u003cp\u003e\u003cimg height=\"138\" src=\"https://cloudfront.codeproject.com/articles/5383736/screenshot_2024-06-13_154056-small.png\" width=\"640\"\u003e\u003c/p\u003e\r\n\r\n\u003cp\u003eAfter the scoped JsonSerializatioOptions is injected to both named HttpClient and typed HttpClient (Heroes client API) by the WebAssembly runtime, the standalone app can handle Int64 gracefully since you have enjoyed strongly typed coding with Int64.\u003c/p\u003e\r\n\r\n\u003ch2\u003e\u0026nbsp;\u003c/h2\u003e"])</script><script>self.__next_f.push([1,"9:[\"$\",\"div\",null,{\"className\":\"custom-container flex px-2 gap-8 overflow-hidden\",\"children\":[[\"$\",\"div\",null,{\"className\":\"w-[948px] max-w-full\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex gap-2 mb-2 flex-wrap\",\"children\":[[\"$\",\"a\",\"Blazor\",{\"rel\":\"tag\",\"href\":\"/Tags/Blazor\",\"className\":\"px-2 border border-border-yellow rounded-l-full text-gray-light visited:text-gray-light hover:underline hover:bg-yellow-light\",\"children\":\"Blazor\"}],[\"$\",\"a\",\"ASP.NET Core\",{\"rel\":\"tag\",\"href\":\"/Tags/ASP.NET-Core\",\"className\":\"px-2 border border-border-yellow rounded-l-full text-gray-light visited:text-gray-light hover:underline hover:bg-yellow-light\",\"children\":\"ASP.NET Core\"}],[\"$\",\"a\",\"C#\",{\"rel\":\"tag\",\"href\":\"/Tags/C#\",\"className\":\"px-2 border border-border-yellow rounded-l-full text-gray-light visited:text-gray-light hover:underline hover:bg-yellow-light\",\"children\":\"C#\"}]]}],[\"$\",\"h1\",null,{\"className\":\"text-4xl text-text-gray\",\"children\":\"Tour of Heroes: Blazor WebAssembly Standalone App\"}],[\"$\",\"div\",null,{\"className\":\"max-w-[600px]\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex pt-4 justify-between\",\"children\":[[\"$\",\"div\",null,{\"className\":\"text-base hover:underline font-bold\",\"children\":[\"$\",\"$L3\",null,{\"href\":\"/script/Membership/View.aspx?mid=3627575\",\"className\":\"text-gray-lightest\",\"children\":\"Zijian\"}]}],[\"$\",\"div\",null,{\"className\":\"flex items-center gap-2\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex\",\"children\":[[\"$\",\"$L4\",\"0\",{\"src\":\"/icons/starIcon.png\",\"alt\":\"starIcon\",\"width\":24,\"height\":24}],[\"$\",\"$L4\",\"1\",{\"src\":\"/icons/starIcon.png\",\"alt\":\"starIcon\",\"width\":24,\"height\":24}],[\"$\",\"$L4\",\"2\",{\"src\":\"/icons/starIcon.png\",\"alt\":\"starIcon\",\"width\":24,\"height\":24}],[\"$\",\"$L4\",\"3\",{\"src\":\"/icons/starIcon.png\",\"alt\":\"starIcon\",\"width\":24,\"height\":24}],[\"$\",\"$L4\",\"4\",{\"src\":\"/icons/starIcon.png\",\"alt\":\"starIcon\",\"width\":24,\"height\":24}]]}],[\"$\",\"p\",null,{\"className\":\"text-sm\",\"children\":[\"5.00\",\"/5 (\",5,\" vote\",\"s\",\")\"]}]]}]]}],[\"$\",\"div\",null,{\"className\":\"flex pt-2 gap-4\",\"children\":[[\"$\",\"p\",null,{\"className\":\"text-gray-lightest text-[13px]\",\"children\":\"Jun 13, 2024\"}],[\"$\",\"$L3\",null,{\"href\":\"http://www.codeproject.com/info/cpol10.aspx\",\"className\":\"text-[13px] flex\",\"children\":\"CPOL\"}],[\"$\",\"p\",null,{\"className\":\"text-gray-lightest text-[13px]\",\"children\":[4,\" min read\"]}],[\"$\",\"div\",null,{\"className\":\"flex gap-1 items-center\",\"children\":[[\"$\",\"$L4\",null,{\"src\":\"/icons/viewsIcon.png\",\"alt\":\"viewsIcon\",\"width\":16,\"height\":16,\"className\":\"w-4 h-4\"}],[\"$\",\"p\",null,{\"className\":\"text-gray-lightest text-[13px] pl-0.5\",\"children\":6720}]]}],null]}]]}],[\"$\",\"p\",null,{\"className\":\"pt-6 pb-4 text-gray-lightest\",\"children\":\"Blazor WebAssembly Standalone App talking to ASP.NET Core Web API with generated client API codes in C#\"}],[\"$\",\"$L17\",null,{\"css\":\"$18\",\"children\":[\"$\",\"$L19\",null,{\"children\":[\"$\",\"div\",null,{\"className\":\"article\",\"dangerouslySetInnerHTML\":{\"__html\":\"$1a\"}}]}]}]]}],[\"$\",\"div\",null,{\"children\":[\"$\",\"$L5\",null,{\"adUnit\":\"/67541884/CPLargeSky160600\",\"adSlotId\":\"div-gpt-ad-1738591766860-0\",\"adSize\":[300,600],\"className\":\"mt-40 sticky top-40\"}]}]]}]\n"])</script><script src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/js" data-nscript="afterInteractive"></script><script id="gtag" data-nscript="afterInteractive">
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-VW6LK9H6PP');
+        </script><next-route-announcer style="position: absolute;"><template shadowrootmode="open"><div aria-live="assertive" id="__next-route-announcer__" role="alert" style="position: absolute; border: 0px; height: 1px; margin: -1px; padding: 0px; width: 1px; clip: rect(0px, 0px, 0px, 0px); overflow: hidden; white-space: nowrap; overflow-wrap: normal;"></div></template></next-route-announcer><iframe name="googlefcPresent" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/saved_resource(2).html"></iframe><iframe name="__tcfapiLocator" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/saved_resource(3).html" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe name="googlefcInactive" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/saved_resource(4).html" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe name="googlefcLoaded" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/saved_resource(5).html" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe name="google_ads_top_frame" id="google_ads_top_frame" style="display: none; position: fixed; left: -999px; top: -999px; width: 0px; height: 0px;" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/saved_resource(6).html"></iframe><iframe src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/aframe.html" width="0" height="0" style="display: none;"></iframe></body><iframe name="goog_topics_frame" src="./Tour of Heroes_ Blazor WebAssembly Standalone App - CodeProject_files/topics_frame.html" style="display: none;"></iframe></html>

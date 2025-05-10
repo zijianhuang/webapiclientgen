@@ -181,12 +181,12 @@ Nevertheless, if your application involves complex POCO structures, using Newton
 For more details, please check:
 1. [WIKI](https://github.com/zijianhuang/webapiclientgen/wiki)
 1. [Settings Explained](SettingsExplained.md)
-1. [Generate C# .NET Client API for ASP.NET Web API](https://www.codeproject.com/Articles/1074039/Generate-Csharp-Client-API-for-ASP-NET-Web-API)
-1. [Generate TypeScript Client API for ASP.NET Web API](https://www.codeproject.com/articles/1053601/generate-typescript-client-api-for-asp-net-web-api)
-1. [ASP.NET Web API, Angular2, TypeScript and WebApiClientGen](https://www.codeproject.com/Articles/1165571/ASP-NET-Web-API-Angular-TypeScript-and-WebApiClie)
-1. [Generate C# Client API for ASP.NET Core Web API](https://www.codeproject.com/Articles/1243908/Generate-Csharp-Client-API-for-ASP-NET-Core-Web-AP)
-1. [Intended Solutions for Intentional Limitations of Strongly Typed OpenAPI Client Generators](https://www.codeproject.com/Articles/5376030/Intended-Solutions-for-Intentional-Limitations-of). The article is just using OpenApiClientGen as an example, while the principles and solutions can be applied to generated codes by WebApiClientGen for your client apps.
-1. [DateOnly in ASP.NET Core 6](https://www.codeproject.com/Articles/5325820/DateOnly-in-NET-6-and-ASP-NET-Core-6)
+1. [Generate C# .NET Client API for ASP.NET Web API](https://www.codeproject.com/Articles/1074039/Generate-Csharp-Client-API-for-ASP-NET-Web-API) / [Loca Copy](Doc/Articles/Generate%20C#%20Client%20API%20for%20ASP.NET%20Web%20API%20-%20CodeProject.html)
+1. [Generate TypeScript Client API for ASP.NET Web API](https://www.codeproject.com/articles/1053601/generate-typescript-client-api-for-asp-net-web-api) / [Loca Copy](Doc/Articles/Generate%20TypeScript%20Client%20API%20for%20ASP.NET%20Web%20API-%20CodeProject.html)
+1. [ASP.NET Web API, Angular2, TypeScript and WebApiClientGen](https://www.codeproject.com/Articles/1165571/ASP-NET-Web-API-Angular-TypeScript-and-WebApiClie) / [Loca Copy](Doc/Articles/ASP.NET%20Web%20API,%20Angular2,%20TypeScript%20and%20WebApiClientGen%20-%20CodeProject.html)
+1. [Generate C# Client API for ASP.NET Core Web API](https://www.codeproject.com/Articles/1243908/Generate-Csharp-Client-API-for-ASP-NET-Core-Web-AP) / [Loca Copy](Doc/Articles/Generate%20C#%20Client%20API%20for%20ASP.NET%20Core%20Web%20API%20-%20CodeProject.html)
+1. [Intended Solutions for Intentional Limitations of Strongly Typed OpenAPI Client Generators](https://www.codeproject.com/Articles/5376030/Intended-Solutions-for-Intentional-Limitations-of) / [Loca Copy](Doc/Articles/Intended%20Solutions%20for%20Intentional%20Limitations%20of%20Strongly%20Typed%20OpenAPI%20Client%20Generators%20-%20CodeProject.html). The article is just using OpenApiClientGen as an example, while the principles and solutions can be applied to generated codes by WebApiClientGen for your client apps.
+1. [DateOnly in ASP.NET Core 6](https://www.codeproject.com/Articles/5325820/DateOnly-in-NET-6-and-ASP-NET-Core-6) / [Loca Copy](Doc/Articles/DateOnly%20in%20.NET%206%20and%20ASP.NET%20Core%206%20-%20CodeProject.html)
 
 ## Demo Applications
 
@@ -204,12 +204,12 @@ These demo applications are actively maintained and kept up-to-date with the lat
 
 To illustrate the programmer experience of using WebApiClientGen, the following demo apps are crafted with similar architectural design for the same functional features on various development frameworks or libraries, however, talking to a real backend.
 
-1. [Angular 2+](https://github.com/zijianhuang/webapiclientgen/tree/master/HeroesDemo), and [Typed Reactive Forms](https://www.codeproject.com/Articles/5374226/Generate-Typed-FormGroup-of-Angular-Reactive-Forms)
+1. [Angular 2+](https://github.com/zijianhuang/webapiclientgen/tree/master/HeroesDemo), and article: [Generate Typed FormGroup of Angular Reactive Forms with ASP.NET Core Web API](https://www.codeproject.com/Articles/5374226/Generate-Typed-FormGroup-of-Angular-Reactive-Forms) / [Local Copy](Doc/Articles/Generate%20Typed%20FormGroup%20of%20Angular%20Reactive%20Forms%20with%20ASP.NET%20Core%20Web%20API%20-%20CodeProject.html)
 1. [Xamarin](https://github.com/zijianhuang/webapiclientgenexamples/tree/master/Mobile)
 1. [MAUI](https://github.com/zijianhuang/DemoCoreWeb/tree/master/mobile). Migrated from Xamarin Heroes.
 1. [Aurelia](https://github.com/zijianhuang/DemoCoreWeb/tree/master/AureliaHeroes). Integration test suite included.
 1. [React](https://github.com/zijianhuang/DemoCoreWeb/tree/master/ReactHeroes).  Integration test suite included.
-1. [Blazor Standalone](https://www.codeproject.com/Articles/5383736/Tour-of-Heroes-Blazor-WebAssembly-Standalone-App)
+1. Article: [Tour of Heroes: Blazor WebAssembly Standalone App](https://www.codeproject.com/Articles/5383736/Tour-of-Heroes-Blazor-WebAssembly-Standalone-App) / [Local Copy](Doc/Articles/Tour%20of%20Heroes_%20Blazor%20WebAssembly%20Standalone%20App%20-%20CodeProject.html)
 
 ## NewtonSoft.Json or System.Text.Json
 

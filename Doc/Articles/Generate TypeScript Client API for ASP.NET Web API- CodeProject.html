@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<!-- saved from url=(0095)https://www.codeproject.com/articles/1053601/generate-typescript-client-api-for-asp-net-web-api -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	
+	<link rel="preconnect" href="https://www.google-analytics.com/">
+
+	<link rel="preconnect" href="https://www.codeproject.com/">
+
+
+	<link rel="preload" href="./Generate TypeScript Client API for ASP.NET Web API- CodeProject_files/logo250x135.gif" as="image">
+
+
+	<link rel="preload" href="https://www.codeproject.com/App_Themes/CodeProject/Img/logo135-bg.gif" as="image">
+	<link rel="preload" href="./Generate TypeScript Client API for ASP.NET Web API- CodeProject_files/jquery-3.4.1.min.js.download" as="script" type="text/javascript">
+
+
+	<title>Generate TypeScript Client API for ASP.NET Web API- CodeProject</title> 
+    
+	<link type="text/css" rel="stylesheet" href="./Generate TypeScript Client API for ASP.NET Web API- CodeProject_files/Article.min.css">
+
+
+    <script type="text/javascript" async="" src="./Generate TypeScript Client API for ASP.NET Web API- CodeProject_files/analytics.js.download"></script><script type="text/javascript" src="./Generate TypeScript Client API for ASP.NET Web API- CodeProject_files/jquery-3.4.1.min.js.download" defer=""></script>
+<script type="text/javascript" src="./Generate TypeScript Client API for ASP.NET Web API- CodeProject_files/article.min.js.download" defer=""></script>
+
+	
+<meta http-equiv="content-language" content="en-US">
+
+<meta name="Description" content="Generate strongly typed client API in TypeScript for ASP.NET Web API">
+<meta name="Keywords" content="C#, Javascript, .NET, Dev, Ajax, Advanced, jQuery, Typescript">
+<meta name="Author" content="Zijian">
+<meta name="Rating" content="General">
+<meta name="Revisit-After" content="1 days">
+<meta name="application-name" content="CodeProject">
+<meta name="google-translate-customization" content="d908bb7ce7aff658-4c2f3a504525c916-g629383f736781a8a-13">
+
+
+
+<link rel="dns-prefetch" href="https://ajax.googleapis.com/"> 
+<link rel="canonical" href="https://www.codeproject.com/Articles/1053601/Generate-TypeScript-Client-API-for-ASP-NET-Web-API">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@CodeProject">
+<meta name="og:site_name" content="CodeProject">
+<meta name="twitter:creator" content="@CodeProject">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="11/10/2015 9:10:00 AM">
+<meta property="article:modified_time" content="11/12/2019 1:47:00 AM">
+<meta name="twitter:label1" content="Written by">
+<meta name="twitter:data1" content="Zijian">
+<meta name="twitter:label2" content="Reading time">
+<meta name="twitter:data2" content="11 min read">
+<meta property="og:url" content="https://www.codeproject.com/Articles/1053601/Generate-TypeScript-Client-API-for-ASP-NET-Web-API">
+<meta property="og:title" content="Generate TypeScript Client API for ASP.NET Web API">
+<meta property="og:description" content="Generate strongly typed client API in TypeScript for ASP.NET Web API">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="apple-touch-icon" sizes="144x144" href="https://www.codeproject.com/favicon/apple-touch-icon.png"> 
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.codeproject.com/favicon/favicon-32x32.png"> 
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.codeproject.com/favicon/favicon-16x16.png"> 
+<link rel="manifest" href="https://www.codeproject.com/favicon/manifest.json"> 
+<link rel="mask-icon" href="https://www.codeproject.com/favicon/safari-pinned-tab.svg" color="#ff9900">
+	<script type="application/ld+json">{
+  "@context": "http://schema.org",
+  "@type": "TechArticle",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.codeproject.com/Articles/1053601/Generate-TypeScript-Client-API-for-ASP-NET-Web-API"
+   },
+  "name": "Generate TypeScript Client API for ASP.NET Web API",
+  "headline": "Generate TypeScript Client API for ASP.NET Web API",
+  "url": "https://www.codeproject.com/Articles/1053601/Generate-TypeScript-Client-API-for-ASP-NET-Web-API",
+  "discussionUrl": "https://www.codeproject.com/Articles/1053601/Generate-TypeScript-Client-API-for-ASP-NET-Web-API#_comments",
+  "isFamilyFriendly": "true",
+  "image": "https://www.codeproject.com/App_Themes/CodeProject/Img/Article100.png",
+  "keywords": "C#,Javascript,.NET,Dev,Ajax,Advanced,jQuery,Typescript",
+  "commentCount": "0",
+  "editor" : {
+    "@type" : "Person",
+    "name" : "Editor",
+    "url" : "https://www.codeproject.com/script/Membership/View.aspx?mid=3873871"
+  },
+  "license": "http://www.codeproject.com/info/cpol10.aspx",
+  "publisher" : {
+    "@type" : "Organization",
+    "name" : "CodeProject"
+  },
+  "description": "Generate strongly typed client API in TypeScript for ASP.NET Web API",
+  "articleSection": "Typescript",
+  "author" : [{
+      "@type" : "Person",
+      "name" : "Zijian",
+      "url" : "https://www.codeproject.com/script/Membership/View.aspx?mid=3627575"
+    }],
+  "datePublished": "2015-11-10",
+  "dateCreated": "2015-11-10",
+  "dateModified": "2019-11-12"
+,
+  "contentRating" : {
+    "@type" : "Rating",
+    "ratingValue" : 4.88,
+    "bestRating" : 5,
+    "worstRating" : 1
+  }
+}</script>
+
+<script type="application/ld+json">{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "item" : {
+      "@id" : "/script/Content/Tag.aspx?tags=Languages",
+      "name" : "Languages"
+    }
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "item" : {
+      "@id" : "/script/Content/Tag.aspx?tags=Typescript",
+      "name" : "Typescript"
+    }
+  }]
+}</script>
+
+
+	<!--<base target="_top">--><base href="." target="_top">
+	
+    
+
+
+<script type="text/javascript">
+function defrm () { /* thanks twitter */
+    document.write = '';
+    window.top.location = window.self.location;
+    setTimeout(function() { document.body.innerHTML = ''; }, 0);
+    window.self.onload = function(evt) { document.body.innerHTML = ''; };
+}
+
+if (window.top !== window.self) {
+    try {
+        if (window.top.location.host) { /* will throw for all except chrome */ }
+        else { defrm(); /* chrome */ }
+    } catch (ex) { defrm(); /* everyone else */ }
+}
+
+// Specific case where a site is screwing with us.
+if (typeof(DemoUrl) !== 'undefined') {
+    document.write(unescape('%3Cme') + 'ta http' + '-equiv="re' + 'fresh con' +
+                           'tent="1;url=' + DemoUrl + unescape('"%3CE'));
+}
+</script>
+	
+
+
+
+
+
+    <script async="" type="text/javascript" src="./Generate TypeScript Client API for ASP.NET Web API- CodeProject_files/js"></script>
+    <script type="text/javascript">
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-1735123-1' , {'user_id': '04545f5a-e13b-49d2-be90-f2b3945c188c'});
+    </script>
+
+<style type="text/css"></style></head>	
+
+<body class="chrome chrome136">
+
+
+
+<a class="access-link" href="https://www.codeproject.com/articles/1053601/generate-typescript-client-api-for-asp-net-web-api#Main"><img alt="Click here to Skip to main content" src="./Generate TypeScript Client API for ASP.NET Web API- CodeProject_files/t.gif"></a>
+
+
+
+
+<div class="page-background">
+
+	
+	
+
+	
+
+	
+    <div id="ctl00_STM" class="site-top-menu fixed narrow">
+        <div class="main-content">
+            
+
+<div class="container memberbar clearfix flex-container flex-extend">
+
+	<div id="ctl00_MemberBar_GenInfo" class="flex-item align-left">65,938 articles</div>
+	
+	<div id="ctl00_MemberBar_ChangeNotice" class="flex-item align-left">CodeProject
+	is changing. <a href="https://www.codeproject.com/info/Changes.aspx">Read more</a>.</div>
+
+	<div class="flex-item">
+		
+	</div>
+
+	<div class="flex-item align-right">
+
+		
+
+		
+
+		
+	</div>
+</div>
+        </div>
+    </div>
+
+	
+    <div id="ctl00_SH" class="site-header fixed narrow">
+        <div class="main-content">
+            <div class="logo"><a href="https://www.codeproject.com/"><img id="ctl00_Logo" tabindex="1" title="CodeProject" src="./Generate TypeScript Client API for ASP.NET Web API- CodeProject_files/logo250x135.gif" alt="Home" style="height:135px;width:250px;border-width:0px;"></a></div>
+            <div class="promo"></div>
+        </div>
+    </div>
+
+	
+			
+	
+
+	<div id="A" class="container-content-wrap fixed narrow"> 
+
+	<div class="container-content">
+
+        
+		<div class="clearfix">
+			<div class="container-breadcrumb float-left ">
+				<div><a rel="nofollow" href="https://www.codeproject.com/script/Content/SiteMap.aspx">Articles</a> / <a rel="nofollow" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Languages">Languages</a> / <a rel="nofollow" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Typescript">Typescript</a></div>
+			</div>
+
+            <div class="float-left">
+				
+			</div>
+
+			<div class="edit-links float-right">
+				
+
+
+
+ 
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+			</div>
+
+			<div class="article-nav float-right">
+				
+
+
+<div style="display:inline-block;position:relative;top:-6px;margin-right:20px">
+    
+</div>
+
+
+
+ 
+
+<a id="ctl00_ActionLinks_PrintMd" data-tooltip="Print" data-enabletooltip="true" data-width="auto" href="https://www.codeproject.com/Articles/1053601/Generate-TypeScript-Client-API-for-ASP-NET-Web-API?display=Print" class="tooltip" title="">
+   <img src="./Generate TypeScript Client API for ASP.NET Web API- CodeProject_files/print48.png" width="24" height="24" style="border:0">
+<div class="speech-bubble-container-up" style="width:auto">  <div class="speech-bubble-up" style="text-align:center"> Print</div>  <div class="speech-bubble-pointer-up">    <div class="speech-bubble-pointer-up-inner"></div>  </div></div></a>
+
+
+
+<span id="ctl00_ActionLinks_R">
+    
+    
+</span>
+			</div>
+		</div>
+
+        
+		<div class="extended article-container-parts">
+
+			
+		    
+            
+
+			
+			<div id="AT" class="article-container  fixed narrow" style="max-width:inherit;"> 
+
+				<div class="article">
+
+					<form name="aspnetForm" method="post" action="https://www.codeproject.com/articles/1053601/View.aspx" id="aspnetForm" style="margin:0;padding:0">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="lwV92iOfk+uNeGQ91okK8hxX4G7ymB7HLXdImNMaLb6dQySfM8YDCSo7RPIr6Of73+nrG1H6CGIw25gI9CwVb32gY0/C+lfNJ+NVgWIzO22FIPNcVU72Rhaecvnr3E9Z0VZ7Ci/fLh+C5cae+CJgTPko1Pg3TL08jzu7oYaWN5/d2rDrZvf3VCYNM88js5c3RC6Zcmm0szTHU0phuu/X2Lw9JZdfG0guw9bVFiINKmQWL0ABVGHCcX5oAC5bckDs4l+I4KY0DwdGQXoxYkEubrNjTqD4Gcxbv5qj0ooM20ASCbyhcZtG0oeqQBxv8LnR0oLkZmvrxmgHAgC0P6QwSbLvVuqgPK+H8KpPId1ZBq5uIpmLWFRLGZem/88dtM8dOgLLnU+wALDkIUYszg1HnNgCDffSKMYogUPEG1Ct8TMteke2Gp9RNLi//K7tkmrUhunPjXuYavajeIwBPtaq8/BAq8/WHwp0fSxUnD8KOwfP5gu7f+WWF6EaLCerpcYtafSccpwM+CKSFKa7pK2OvjWPdaqIUDz/kLOwFEduTPd03f9+vNiir7hXLjBevzUtt0OCKemI/wlLVssOkc/z9hpUXddBFJ84iDNgSZkhp1zlR9LC+GR3+4gRi3zHf4RhP70TnwL5iK/NAHX9Z+VOdeByht7A22378sqGoLHUYQS/Sl4SqJtrgENYnny4VWGH6vfbnXiaZDDgIYl6GT9WtfkjDbzyyw6C7hXwA+MXRdBKiYPAzQg6TGTDvXZmKx8pLvatOQuvdhA2DtheTU4v2s2s5t6fUxyH06cd9OXgkByc2e6FJwqB8NLbFZsYbomlZuvZMrGxMuUNZAWrqjBnog/1zrPQJqpemyrmCO+k1B32snTrIURM/6VnXZ8B5h82NyHXwLZeV4gLCkc3SpmQjRSB8yTdBEEwsQS2drBjhbs3bRfgVW6Z32u0qiGk+ajt5Gzxbfd7c/wJv7K1lnbszsj1qFQAxpZvmsgBNplmyqFBtJ52XvUhnLP+r8772NCdJiaAQUrtg9VBZBhfJGAXHRGlkax9hKp3StbSMy2MSeRmq/vuHlrMTL0Xlgmvdciz2noYGmUJ0RtfRV6Lc+Ugyl+MUKlXHnNvlIajoQIe5KR0lLQE7iXtZaMUu/Nyqk6jT/hYoAZ7lWMUXGGjryj+DR73lOTMSEBItAnvqhWN0XcYKKAvKCdJRWiNTG2G0mp/jD6VB8n9OJds5R8H5QAzOPTQPUXDLoFxPK3XeoL5VppKWo+F19SUn1ANBGh7PTL7+xMp0fHzVWgIofkdVHhpD4dapCFUQbrbdJCAF1d312UojdjqYdHftMtsbNmf14EC5kM4NcFnafxe0v2dBtawWXpb65R62En/GpAHh8JC2wvaZIJ/sDz4X2e7t4c3g+Aeu8oVXUnnytlBtwd7xKwRF8cIsmiWond+MQmCtq69ijObmjkCji4FwKyi3gJB2PEr+aBlgrBYIR/8TsPUL0G6SbQ9YvsTzqd6ozytG8noj7at9CTRg6k+xVePzZ1hkRHBYsDfMXKJO3muzpzuh4Y9ZF8pCoCcbJ3GjUC4Hdvi/0g/JenuuHvuaViR7odVPjRNmLZSoivtTw0V0Cg/Yjup+G216k/XrX0UfBXsM6KMG5bLrBtO6TRk0X5KKS7XXHvLPXaou6EapA5NDvdChljPW9nLiGaLv87YJpixG5VQ3lq0KnrzptsyHc352nvgaTWv2ULwdYpYE9R3rmaoqMPPJ7ytnNsljLlE4hQhKdJAZE8qiXt4OzMzRvqgerVGMBkEI6WdgkILMn0BsFdH8hMyEeTTF+1tzRX9jLuvI9woNZ/Cx+D6hCFB6wDfkAQq20rwDfUhHxY6Srm4/F7wCw5kr76hwqeehQubKKmTx38IjQEuKLw8U1H+YX/1TRO+b+wK3skvoUQQCcdVSS8qGgRVUFZB85KcaCPxP2JTTC5yyLot1v0XYkWYvCmbd4s7N0Wd/szTh9nP0ATpaQ5YOqmJBNGCwl9EVStISYubS6NEIf1WCfgrIcGcAqrJOZzxUevKMAbkiRzQXM4RWOyWirC6Km2+pJxUNsx1iqs5/1ttSyaDEYtwEfVZ7tCAVwX53LmVVDv5wzHpoZ61pKxsWlzCZgVw4OFoyetYmN0DxlH112FiMV0hzv5IGtLVPq4at7JOX2rJ/5e7hmZVwZ966JipSy3zPdAerPEkxVVa+VN/v8zpcUyk">
+</div>
+
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="10C1FD69">
+</div>
+
+					
+					 
+					<div class="header">
+					    <a name="Main"></a>
+					    <a name="_articleTop" id="_articleTop"></a>
+
+					    
+						<div>
+							<span id="ctl00_TagListHorz_TagWrp" class="tags horizontal">
+
+	
+	
+
+	
+	<span id="ctl00_TagListHorz_VisibleTags"><div class="t"><a rel="tag" href="https://www.codeproject.com/Tags/Csharp" data-id="81">C#</a></div><div class="t"><a rel="tag" href="https://www.codeproject.com/Tags/Javascript" data-id="87">Javascript</a></div><div class="t"><a rel="tag" href="https://www.codeproject.com/Tags/.NET" data-id="98">.NET</a></div><div class="t"><a rel="tag" href="https://www.codeproject.com/Tags/Ajax" data-id="147">Ajax</a></div><div class="t"><a rel="tag" href="https://www.codeproject.com/Tags/jQuery" data-id="317">jQuery</a></div><div class="t"><a rel="tag" href="https://www.codeproject.com/Tags/Typescript" data-id="2331">Typescript</a></div></span> 
+
+	
+	
+</span>
+
+
+						</div>
+					    <div class="title">
+					        <h1 id="ctl00_ArticleTitle">Generate TypeScript Client API for ASP.NET Web API</h1>
+					    </div>
+
+                        <div>
+					        
+					        <div class="entry flex-container">
+
+								
+
+                                <div class="flex-item" style="flex:1 1 auto">
+                                    <div class="flex-container" style="justify-content:space-between;flex-wrap:wrap-reverse">
+                                       <span id="ctl00_Authors" class="author flex-item"><a href="https://www.codeproject.com/script/Membership/View.aspx?mid=3627575" rel="author">Zijian</a></span> 
+
+                                        <div class="flex-item" style="margin-top:-4px;">
+                                            <div id="ctl00_RateArticle_RatingTable" class="small-text" data-objectref="2_1053601">
+
+	<meta itemprop="upvoteCount" content="56">
+
+
+	<div id="ctl00_RateArticle_RatingRow" class="flex-container rating-container large-stars">
+
+					
+		
+
+		
+		<div class="nowrap tooltip">
+
+			
+			<div id="ctl00_RateArticle_ResultNoHist" class="rating-result"><div class="flex-container rating-stars large-stars"><div><img src="./Generate TypeScript Client API for ASP.NET Web API- CodeProject_files/star-fill-lg.png" style="width:24px;height:24px"></div><div><img src="./Generate TypeScript Client API for ASP.NET Web API- CodeProject_files/star-fill-lg.png" style="width:24px;height:24px"></div><div><img src="./Generate TypeScript Client API for ASP.NET Web API- CodeProject_files/star-fill-lg.png" style="width:24px;height:24px"></div><div><img src="./Generate TypeScript Client API for ASP.NET Web API- CodeProject_files/star-fill-lg.png" style="width:24px;height:24px"></div><div style="width:21px;" class="clipped"><img src="./Generate TypeScript Client API for ASP.NET Web API- CodeProject_files/star-fill-lg.png" style="width:24px;height:24px"></div><div style="width:3px;position:relative" class="clipped"><img src="./Generate TypeScript Client API for ASP.NET Web API- CodeProject_files/star-empty-lg.png" style="width:24px;height:24px;position:absolute;top:0px;right:0"></div></div></div>
+			
+
+			
+			
+
+			
+            
+
+			
+                
+
+		</div>
+		
+	
+		
+		<div id="ctl00_RateArticle_VoteCountNoHist" class="rating-votes nowrap">4.88/5  (57 votes)</div>	
+
+		
+
+		
+		<div class="rating-undo" title="Undo vote" style="margin-left:5px;display:none"></div>
+
+		
+		
+	</div>
+
+	
+	
+
+</div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="flex-container" style="color:#666;font-size:smaller">
+                                        <span id="ctl00_LastUpdated" class="date flex-item-tight" title="Date last updated">11 Nov 2019</span><a id="ctl00_LicenseLink" title="The Code Project Open License (CPOL)" class="license flex-item-tight" href="http://www.codeproject.com/info/cpol10.aspx">CPOL</a><span id="ctl00_ReadingTime" class="stats flex-item-tight">11 min read</span><span id="ctl00_HorizontalStats" class="stats flex-item-tight"><span class="stats"><span title="Views"><img src="./Generate TypeScript Client API for ASP.NET Web API- CodeProject_files/views32.png" style="width:16px"> 124.2K</span> &nbsp; </span></span>
+                                    </div>
+                                </div>
+					        </div>
+
+                            
+
+                        </div>
+
+                        <div id="ctl00_DescriptionSpot" class="summary">Generate strongly typed client API in TypeScript for ASP.NET Web API</div><span id="ctl00_ThumbnailUrl" class="date" content="https://www.codeproject.com/script/Articles/Images/article100x80.png"></span>			
+
+                    </div>
+                    
+					
+					
+
+					
+
+					
+					
+
+					
+					
+
+						
+					
+
+					
+
+						
+						<div id="contentdiv" class="text">
+						
+
+
+
+<!-- Article Starts -->
+
+<ul class="download">
+	<li><a href="https://github.com/zijianhuang/webapiclientgenexamples">Code examples at GitHub</a></li></ul>
+
+<h2>Introduction</h2>
+
+<p>For developing client programs of <a href="https://dotnet.microsoft.com/apps/aspnet/apis">ASP.NET Web API</a> or <a href="https://docs.microsoft.com/en-us/aspnet/core/" target="_blank">ASP. NET Core Web API</a>,&nbsp;<a href="https://github.com/zijianhuang/webapiclientgen">Strongly Typed Client API Generators</a> generate strongly typed client API in C# codes and TypeScript codes for minimizing repetitive tasks and improving the productivity of application developers and the quality of the products. You may then provide or publish either the generated source codes or the compiled client API libraries to yourself and other developers in your team or B2B partners.</p>
+
+<p>This project provides these products:</p>
+
+<ol>
+	<li><a href="https://www.codeproject.com/Articles/1074039/Generate-Csharp-Client-API-for-ASP-NET-Web-API">Code generator for strongly typed client API in C#</a> supporting desktop, Universal Windows, Android and iOS.</li>	<li><a href="https://github.com/zijianhuang/webapiclientgen/wiki/Code-generator-for-strongly-typed-client-API-in-TypeScript">Code generator for strongly typed client API in TypeScript</a> for jQuery, Angular 2+ and&nbsp;Aurelia, as well as TypeScript/JavaScript applications that use <a href="https://github.com/axios/axios">Axios</a>.</li>	<li><a href="https://github.com/zijianhuang/webapiclientgen/wiki/TypeScript-CodeDOM">TypeScript CodeDOM</a>, a CodeDOM component for TypeScript, derived from CodeDOM of .NET Framework.</li>	<li><a href="https://github.com/zijianhuang/webapiclientgen/wiki/POCO2TS.exe">POCO2TS.exe</a>, a command line program that generates TypsScript interfaces from POCO classes.</li>	<li><a href="https://github.com/zijianhuang/webapiclientgen/wiki/Fonlow.Poco2Ts">Fonlow.Poco2Ts</a>, a component that generates TypsScript interfaces from POCO classes</li></ol>
+
+<p>This article is focused on generating TypeScript Client API for jQuery.&nbsp;</p>
+
+<h4>Remarks</h4>
+
+<p>The support for Angular2 is available since <code>WebApiClientGen</code> v1.9.0-beta in June 2016 when Angular 2 was still in RC1. And the support for Angular 2 production release is available since&nbsp;<code>WebApiClientGen</code> v2.0. Please refer to article "<a href="https://www.codeproject.com/Articles/1165571/ASP-NET-Web-API-Angular-TypeScript-and-WebApiClie">ASP.NET Web API, Angular2, TypeScript and WebApiClientGen</a>".&nbsp;</p>
+
+<p>Even if you are doing JavaScript programming, you may still use WebApiClientGen since the generated TypeScript file could be compiled into a JavaScript file. Though you won't get design time type checking and compile time type checking, you may still enjoy design time intellisense with in-source documents provided your JS editors support such feature.</p>
+
+<h2>Background</h2>
+
+<p>If you have ever developed SOAP base Web services using WCF, you might have enjoyed using the client API codes generated by <em>SvcUtil.exe</em> or Web Service References of Visual Studio IDE. When moving to Web API, I felt that I had got back to the Stone Age, since I had to do a lot of data type checking at design time using my precious brain power while computers should have done the job.</p>
+
+<p>I had developed some RESTful Web services on top of <code>IHttpHandler</code>/<code>IHttpModule</code> in 2010 for some Web services that did not handle strongly typed data but arbitrary data like documents and streams. However, I have been getting more Web projects with complex business logic and data types, and I would utilize highly abstraction and semantic data types throughout SDLC.</p>
+
+<p>I see that ASP.NET Web API does support highly abstraction and strongly typed function prototypes through class <code>ApiController</code>, and ASP.NET MVC framework optionally provides nicely <a href="http://www.asp.net/web-api/overview/getting-started-with-aspnet-web-api/creating-api-help-pages">generated Help Page</a> describing the API functions. However, after developing the Web API, I had to hand-craft some very primitive and repetitive client codes to consume the Web services. If the Web API was developed by others, I had to read the online help pages and then craft.</p>
+
+<p>Therefore, I had searched and tried to find some solutions that could release me from crafting primitive and repetitive codes so I could focus on building business logic at the client sides on higher technical abstractions. Here's a list of open source projects assisting the development of client programs:</p>
+
+<ol>
+	<li>WADL</li>	<li><a href="https://github.com/mulesoft-labs/raml-dotnet-tools">RAML with .NET</a></li>	<li><a href="https://github.com/faniereynders/WebApiProxy/">WebApiProxy</a></li>	<li><a href="https://github.com/domaindrivendev/Swashbuckle">Swashbuckle</a></li>	<li><a href="https://github.com/Azure/autorest">AutoRest</a></li>	<li><a href="http://odata.github.io/WebApi/">OData</a></li>	<li><a href="http://type.litesolutions.net/">TypeLITE</a></li>	<li><a href="http://frhagn.github.io/Typewriter/">TypeWriter</a></li></ol>
+
+<p>While these solutions could generated strongly typed client codes and reduce repetitive tasks at some degree, I found none of them could give me all the efficient programming experiences that I would expect:</p>
+
+<ol>
+	<li>Strongly typed client data models mapping to the data models of the service.</li>	<li>Strongly typed function prototypes mapping to the functions of derived classes of <code>ApiController</code>.</li>	<li>Code generations in the wholesale style like the way of WCF programming.</li>	<li>Cherry-picking data models through data annotations using popular attributes like <code>DataContractAttribute</code> and <code>JsonObjectAttribute</code>, etc.</li>	<li>Type checking at design time and compile time.</li>	<li>Intellisense for client data models, function prototypes and doc comments.</li></ol>
+
+<p>Here comes <a href="https://github.com/zijianhuang/webapiclientgen">WebApiClientGen</a>.</p>
+
+<h2>Presumptions</h2>
+
+<ol>
+	<li>You are developing ASP.NET Web API 2.x applications, and will be developing the JavaScript libraries for the Web front end based on AJAX, with jQuery or SPA with Angular2.</li>	<li>You and fellow developers prefer high abstraction through strongly typed functions in both the server side and the client side, and TypeScript is utilized.</li>	<li>The POCO classes are used by both Web API&nbsp;and Entity Framework Code First, and you may not want to publish all data classes and members to client programs.</li></ol>
+
+<p>And optionally, it is better if you or your team is endorsing Trunk based development, since the design of <code>WebApiClientGen</code> and the workflow of utilizing&nbsp;<code>WebApiClientGen</code> were considering Trunk based development which is more efficient for Continuous Integration than other branching strategies like Feature Branching and Gitflow etc.</p>
+
+<p>For following up this new way of developing client programs,&nbsp;it is better for you&nbsp;to have an ASP.NET Web API project, or a MVC project which contains Web API. You may use an existing project, or create a demo one.</p>
+
+<h2>Using the Code</h2>
+
+<p>This article is focused on the code example with jQuery. Similar code example for Angular 2+ is available at "<a href="https://www.codeproject.com/Articles/1165571/ASP-NET-Web-API-Angular-TypeScript-and-WebApiClie">ASP.NET Web API, Angular2, TypeScript and WebApiClientGen</a>".</p>
+
+<h3>Step 0: Install <a href="https://www.nuget.org/packages/Fonlow.WebApiClientGen/"> NuGet package WebApiClientGen</a>&nbsp;and <a href="https://www.nuget.org/packages/Fonlow.WebApiClientGen.jQuery/">WebApiClientGen.jQuery</a> to the Web API Project</h3>
+
+<p>The installation will also install dependent NuGet packages <code>Fonlow.TypeScriptCodeDOM</code> and <code>Fonlow.Poco2Ts</code> to the project references.</p>
+
+<p>A&nbsp;<a href="https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Scripts/ClientApi/HttpClient.ts">HttpClient helper library</a>&nbsp;should be copied to the Scripts folder along side with the generated codes&nbsp;which will be updated every time the CodeGen is executed.</p>
+
+<p>Additionally, <em>CodeGenController.cs</em> for triggering the CodeGen is added to the project's <em>Controllers</em> folder.</p>
+
+<p>The <code>CodeGenController</code> should be available only during development in the debug build, since the client API should be generated once for each version of the Web API.</p>
+
+<div class="pre-lang" id="premain722009"><div>C#</div><div class="pre-action-link"><span id="copycode722009" class="copy-code" data-index="722009" style="visibility: visible;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 460 460" style="width: 16px;height:16px;" xml:space="preserve"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272     c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068    c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></span></div></div>
+<pre id="pre722009" style="margin-top:0;" class="lang-csharp notranslate" data-language="cs" data-allowshrink="True" data-collapse="False" data-codeblock-processed="true"><span class="code-preprocessor">#if DEBUG  //This controller is not needed in production release, 
+</span>	<span class="code-comment">//</span><span class="code-comment"> since the client API should be generated during development of the Web Api.</span>
+...
+
+<span class="code-keyword">namespace</span> Fonlow.WebApiClientGen
+{
+    [System.Web.Http.Description.ApiExplorerSettings(IgnoreApi = <span class="code-keyword">true</span>)]<span class="code-comment">//</span><span class="code-comment">this controller is a </span>
+			<span class="code-comment">//</span><span class="code-comment">dev backdoor during development, no need to be visible in ApiExplorer.</span>
+    <span class="code-keyword">public</span> <span class="code-keyword">class</span> CodeGenController : ApiController
+    {
+        <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">summary</span><span class="code-summarycomment">&gt;</span>
+</span>        <span class="code-summarycomment">///</span><span class="code-comment"> Trigger the API to generate WebApiClientAuto.cs for an established client API project.
+</span>        <span class="code-summarycomment">///</span><span class="code-comment"> POST to  http://localhost:10965/api/CodeGen with json object CodeGenParameters
+</span>        <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">/summary</span><span class="code-summarycomment">&gt;</span>
+</span>        <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">param</span><span class="code-summarycomment"> </span><span class="code-summarycomment">name="parameters"</span><span class="code-summarycomment">&gt;</span><span class="code-summarycomment">&lt;</span><span class="code-summarycomment">/param</span><span class="code-summarycomment">&gt;</span>
+</span>        <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">returns</span><span class="code-summarycomment">&gt;</span>OK if OK<span class="code-summarycomment">&lt;</span><span class="code-summarycomment">/returns</span><span class="code-summarycomment">&gt;</span>
+</span>        [HttpPost]
+        <span class="code-keyword">public</span> <span class="code-keyword">string</span> TriggerCodeGen(CodeGenParameters parameters)
+        {
+...
+        }
+    }</pre>
+
+<h4>Remarks</h4>
+
+<ol>
+	<li><code>CodeGenController</code> is installed in <em>YourMvcOrWebApiProject/Controllers</em>, even though the scaffolding of a MVC project might has folder API for derived classes of <code>ApiController</code>. However, generally it is good to have the Web API implemented in a standalone Web API project. And if you want the MVC project and the Web API project run in the same Website, you may just installed the Web API as an application of the MVC Website.</li>	<li><a href="https://www.nuget.org/packages/Fonlow.WebApiClientGenCore/">WebApiClientGenCore</a>&nbsp;does not install&nbsp;CodeGenController, and you ought to <a href="https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb/Controllers/CodeGenController.cs">copy the file over</a>.</li></ol>
+
+<h4>Enable Doc Comments of Web API</h4>
+
+<p>In <em>C:\YourWebSlnPath\Your.WebApi\Areas\HelpPage\App_Start\HelpPageConfig.cs</em>, there is such line:</p>
+
+<div class="pre-lang" id="premain384033"><div>C#</div><div class="pre-action-link"><span id="copycode384033" class="copy-code" data-index="384033" style="visibility: visible;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 460 460" style="width: 16px;height:16px;" xml:space="preserve"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272     c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068    c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></span></div></div>
+<pre id="pre384033" style="margin-top:0;" class="lang-csharp notranslate" data-language="cs" data-allowshrink="True" data-collapse="False" data-codeblock-processed="true"><span class="code-comment">//</span><span class="code-comment">config.SetDocumentationProvider(new XmlDocumentationProvider</span>
+(HttpContext.Current.Server.MapPath(<span class="code-string">"</span><span class="code-string">~/App_Data/XmlDocument.xml"</span>)));</pre>
+
+<p>Uncomment it and make it be like this:</p>
+
+<div class="pre-lang" id="premain122461"><div>C#</div><div class="pre-action-link"><span id="copycode122461" class="copy-code" data-index="122461" style="visibility: visible;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 460 460" style="width: 16px;height:16px;" xml:space="preserve"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272     c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068    c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></span></div></div>
+<pre id="pre122461" style="margin-top:0;" class="lang-csharp notranslate" data-language="cs" data-allowshrink="True" data-collapse="False" data-codeblock-processed="true">config.SetDocumentationProvider(<span class="code-keyword">new</span> XmlDocumentationProvider
+(HttpContext.Current.Server.MapPath(<span class="code-string">"</span><span class="code-string">~/bin/Your.WebApi.xml"</span>)));</pre>
+
+<p>In the Build tab of the project Properties page, check Output/XML Document File and set "<em>bin\Your.WebApi.xml</em>", while the output path is "<em>bin</em>" by default.</p>
+
+<p>If you have other assemblies for data models, you may do the same to ensure doc comments to be generated and copied over to the client API.</p>
+
+<h3>Step 1: Prepare JSON Config Data</h3>
+
+<p>Your Web API project may have POCO classes and API functions like the ones blow. [Full code examples for <a href="https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi.DemoData/Entities.cs">data models </a>and <a href="https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Controllers/EntitiesController.cs">ApiController</a>]</p>
+
+<div class="pre-lang" id="premain215648"><div>C#</div><div class="pre-action-link"><span class="code-collapse" data-index="215648" id="preShrink215648">Shrink ▲</span> &nbsp; <span id="copycode215648" class="copy-code" data-index="215648" style="visibility: visible;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 460 460" style="width: 16px;height:16px;" xml:space="preserve"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272     c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068    c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></span></div></div>
+<pre id="pre215648" style="margin-top:0;" class="lang-csharp notranslate" data-language="cs" data-allowshrink="True" data-collapse="False" data-codeblock-processed="true"><span class="code-keyword">namespace</span> DemoWebApi.DemoData
+{
+    <span class="code-keyword">public</span> <span class="code-keyword">sealed</span> <span class="code-keyword">class</span> Constants
+    {
+        <span class="code-keyword">public</span> <span class="code-keyword">const</span> <span class="code-keyword">string</span> DataNamespace = <span class="code-string">"</span><span class="code-string">http://fonlow.com/DemoData/2014/02"</span>;
+    }
+
+    [DataContract(Namespace = Constants.DataNamespace)]
+    <span class="code-keyword">public</span> <span class="code-keyword">enum</span> AddressType
+    {
+        [EnumMember]
+        Postal,
+        [EnumMember]
+        Residential,
+    };
+
+    [DataContract(Namespace = Constants.DataNamespace)]
+    <span class="code-keyword">public</span> <span class="code-keyword">enum</span> Days
+    {
+        [EnumMember]
+        Sat = <span class="code-digit">1</span>,
+        [EnumMember]
+        Sun,
+        [EnumMember]
+        Mon,
+        [EnumMember]
+        Tue,
+        [EnumMember]
+        Wed,
+        [EnumMember]
+        Thu,
+        [EnumMember]
+        Fri
+    };
+
+    [DataContract(Namespace = Constants.DataNamespace)]
+    <span class="code-keyword">public</span> <span class="code-keyword">class</span> Address
+    {
+        [DataMember]
+        <span class="code-keyword">public</span> Guid Id { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+
+        <span class="code-keyword">public</span> Entity Entity { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+
+        <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">summary</span><span class="code-summarycomment">&gt;</span>
+</span>        <span class="code-summarycomment">///</span><span class="code-comment"> Foreign key to Entity
+</span>        <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">/summary</span><span class="code-summarycomment">&gt;</span>
+</span>        <span class="code-keyword">public</span> Guid EntityId { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+
+        [DataMember]
+        <span class="code-keyword">public</span> <span class="code-keyword">string</span> Street1 { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+
+        [DataMember]
+        <span class="code-keyword">public</span> <span class="code-keyword">string</span> Street2 { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+
+        [DataMember]
+        <span class="code-keyword">public</span> <span class="code-keyword">string</span> City { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+
+        [DataMember]
+        <span class="code-keyword">public</span> <span class="code-keyword">string</span> State { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+
+        [DataMember]
+        <span class="code-keyword">public</span> <span class="code-keyword">string</span> PostalCode { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+
+        [DataMember]
+        <span class="code-keyword">public</span> <span class="code-keyword">string</span> Country { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+
+        [DataMember]
+        <span class="code-keyword">public</span> AddressType Type { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+
+        [DataMember]
+        <span class="code-keyword">public</span> DemoWebApi.DemoData.Another.MyPoint Location;
+    }
+
+    [DataContract(Namespace = Constants.DataNamespace)]
+    <span class="code-keyword">public</span> <span class="code-keyword">class</span> Entity
+    {
+        <span class="code-keyword">public</span> Entity()
+        {
+            Addresses = <span class="code-keyword">new</span> List&lt;Address&gt;();
+        }
+
+        [DataMember]
+        <span class="code-keyword">public</span> Guid Id { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+
+        
+        [DataMember(IsRequired =<span class="code-keyword">true</span>)]<span class="code-comment">//</span><span class="code-comment">MVC and Web API does not care</span>
+        [System.ComponentModel.DataAnnotations.Required]<span class="code-comment">//</span><span class="code-comment">MVC and Web API care about only this</span>
+        <span class="code-keyword">public</span> <span class="code-keyword">string</span> Name { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+
+        [DataMember]
+        <span class="code-keyword">public</span> IList&lt;Address&gt; Addresses { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+
+        <span class="code-keyword">public</span> <span class="code-keyword">override</span> <span class="code-keyword">string</span> ToString()
+        {
+            <span class="code-keyword">return</span> Name;
+        }
+    }
+
+    [DataContract(Namespace = Constants.DataNamespace)]
+    <span class="code-keyword">public</span> <span class="code-keyword">class</span> Person : Entity
+    {
+        [DataMember]
+        <span class="code-keyword">public</span> <span class="code-keyword">string</span> Surname { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+        [DataMember]
+        <span class="code-keyword">public</span> <span class="code-keyword">string</span> GivenName { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+        [DataMember]
+        <span class="code-keyword">public</span> DateTime? BirthDate { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+
+        <span class="code-keyword">public</span> <span class="code-keyword">override</span> <span class="code-keyword">string</span> ToString()
+        {
+            <span class="code-keyword">return</span> Surname + <span class="code-string">"</span><span class="code-string">, "</span> + GivenName;
+        }
+
+    }
+
+    [DataContract(Namespace = Constants.DataNamespace)]
+    <span class="code-keyword">public</span> <span class="code-keyword">class</span> Company : Entity
+    {
+        [DataMember]
+        <span class="code-keyword">public</span> <span class="code-keyword">string</span> BusinessNumber { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+
+        [DataMember]
+        <span class="code-keyword">public</span> <span class="code-keyword">string</span> BusinessNumberType { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+
+        [DataMember]
+        <span class="code-keyword">public</span> string[][] TextMatrix
+        { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+
+        [DataMember]
+        <span class="code-keyword">public</span> int[][] Int2DJagged;
+
+        [DataMember]
+        <span class="code-keyword">public</span> int[,] Int2D;
+
+        [DataMember]
+        <span class="code-keyword">public</span> IEnumerable&lt;string&gt; Lines;
+    }
+
+...
+...
+
+<span class="code-keyword">namespace</span> DemoWebApi.Controllers
+{
+    [RoutePrefix(<span class="code-string">"</span><span class="code-string">api/SuperDemo"</span>)]
+    <span class="code-keyword">public</span> <span class="code-keyword">class</span> EntitiesController : ApiController
+    {
+        <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">summary</span><span class="code-summarycomment">&gt;</span>
+</span>        <span class="code-summarycomment">///</span><span class="code-comment"> Get a person
+</span>        <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">/summary</span><span class="code-summarycomment">&gt;</span>
+</span>        <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">param</span><span class="code-summarycomment"> </span><span class="code-summarycomment">name="id"</span><span class="code-summarycomment">&gt;</span>unique id of that guy<span class="code-summarycomment">&lt;</span><span class="code-summarycomment">/param</span><span class="code-summarycomment">&gt;</span>
+</span>        <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">returns</span><span class="code-summarycomment">&gt;</span>person in db<span class="code-summarycomment">&lt;</span><span class="code-summarycomment">/returns</span><span class="code-summarycomment">&gt;</span>
+</span>        [HttpGet]
+        <span class="code-keyword">public</span> Person GetPerson(<span class="code-keyword">long</span> id)
+        {
+            <span class="code-keyword">return</span> <span class="code-keyword">new</span> Person()
+            {
+                Surname = <span class="code-string">"</span><span class="code-string">Huang"</span>,
+                GivenName = <span class="code-string">"</span><span class="code-string">Z"</span>,
+                Name = <span class="code-string">"</span><span class="code-string">Z Huang"</span>,
+                BirthDate = DateTime.Now.AddYears(-20),
+            };
+        }
+
+        [HttpPost]
+        <span class="code-keyword">public</span> <span class="code-keyword">long</span> CreatePerson(Person p)
+        {
+            Debug.WriteLine(<span class="code-string">"</span><span class="code-string">CreatePerson: "</span> + p.Name);
+
+            <span class="code-keyword">if</span> (p.Name == <span class="code-string">"</span><span class="code-string">Exception"</span>)
+                <span class="code-keyword">throw</span> <span class="code-keyword">new</span> InvalidOperationException(<span class="code-string">"</span><span class="code-string">It is exception"</span>);
+
+            Debug.WriteLine(<span class="code-string">"</span><span class="code-string">Create "</span> + p);
+            <span class="code-keyword">return</span> <span class="code-digit">1000</span>;
+        }
+
+        [HttpPut]
+        <span class="code-keyword">public</span> <span class="code-keyword">void</span> UpdatePerson(Person person)
+        {
+            Debug.WriteLine(<span class="code-string">"</span><span class="code-string">Update "</span> + person);
+        }
+
+        [HttpPut]
+        [Route(<span class="code-string">"</span><span class="code-string">link"</span>)]
+        <span class="code-keyword">public</span> <span class="code-keyword">bool</span> LinkPerson(<span class="code-keyword">long</span> id, <span class="code-keyword">string</span> relationship, [FromBody] Person person)
+        {
+            <span class="code-keyword">return</span> person != <span class="code-keyword">null</span> &amp;&amp; !String.IsNullOrEmpty(relationship);
+        }
+
+        [HttpDelete]
+        <span class="code-keyword">public</span> <span class="code-keyword">void</span> Delete(<span class="code-keyword">long</span> id)
+        {
+            Debug.WriteLine(<span class="code-string">"</span><span class="code-string">Delete "</span> + id);
+        }
+
+        [Route(<span class="code-string">"</span><span class="code-string">Company"</span>)]
+        [HttpGet]
+        <span class="code-keyword">public</span> Company GetCompany(<span class="code-keyword">long</span> id)
+        {</pre>
+
+<p>The JSON config data below is to <code>POST</code> to the CodeGen Web API:</p>
+
+<div class="pre-lang" id="premain123809"><div>JavaScript</div><div class="pre-action-link"><span class="code-collapse" data-index="123809" id="preShrink123809">Shrink ▲</span> &nbsp; <span id="copycode123809" class="copy-code" data-index="123809" style="visibility: visible;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 460 460" style="width: 16px;height:16px;" xml:space="preserve"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272     c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068    c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></span></div></div>
+<pre id="pre123809" style="margin-top:0;" class="lang-javascript notranslate" data-language="jscript" data-allowshrink="True" data-collapse="False" data-codeblock-processed="true">{
+&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">ApiSelections"</span>: {
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">ExcludedControllerNames"</span>: [
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">DemoWebApi.Controllers.Account"</span>,
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">DemoWebApi.Controllers.FileUpload"</span>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;],
+
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">DataModelAssemblyNames"</span>: [
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">DemoWebApi.DemoData"</span>,
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">DemoWebApi"</span>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;],
+
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">CherryPickingMethods"</span>: <span class="code-digit">3</span>
+&nbsp;&nbsp; &nbsp;},
+
+&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">ClientApiOutputs"</span>: {
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">ClientLibraryProjectFolderName"</span>: <span class="code-string">"</span><span class="code-string">..\\DemoWebApi.ClientApi"</span>,
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">GenerateBothAsyncAndSync"</span>: <span class="code-keyword">true</span>,
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">CamelCase"</span>: <span class="code-keyword">true</span>,
+
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">Plugins"</span>: [
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;{
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">AssemblyName"</span>: <span class="code-string">"</span><span class="code-string">Fonlow.WebApiClientGen.jQuery"</span>,
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">TargetDir"</span>: <span class="code-string">"</span><span class="code-string">Scripts\\ClientApi"</span>,
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">TSFile"</span>: <span class="code-string">"</span><span class="code-string">WebApiJQClientAuto.ts"</span>,
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">AsModule"</span>: <span class="code-keyword">false</span>,
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">ContentType"</span>: <span class="code-string">"</span><span class="code-string">application/json;charset=UTF-8"</span>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;},
+
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;{
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">AssemblyName"</span>: <span class="code-string">"</span><span class="code-string">Fonlow.WebApiClientGen.NG2"</span>,
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">TargetDir"</span>: <span class="code-string">"</span><span class="code-string">..\\DemoNGCli\\NGSource\\src\\ClientApi"</span>,
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">TSFile"</span>: <span class="code-string">"</span><span class="code-string">WebApiNG2ClientAuto.ts"</span>,
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">AsModule"</span>: <span class="code-keyword">true</span>,
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<span class="code-string">"</span><span class="code-string">ContentType"</span>: <span class="code-string">"</span><span class="code-string">application/json;charset=UTF-8"</span>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;}
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;]
+
+
+&nbsp;&nbsp; &nbsp;}
+}</pre>
+
+<p>It is recommended to save the JSON config data into a file like<a href="https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/CodeGen.json"> this one</a> located in the Web API project folder.</p>
+
+<p>If you have all POCO classes defined in the Web API project, you should put the assembly name of the Web API project to the array of "<code>DataModelAssemblyNames</code>". If you have some dedicated data model assemblies for good separation of concerns, you should put respective assembly names to the array.</p>
+
+<p>"<em>TypeScriptNG2Folder</em>" is an absolute path or relative path to the Angular2 project. For example, "<em>..\\DemoAngular2\\ClientApi</em>" indicates an Angular 2 project created as a sibling project of the Web API project.</p>
+
+<p>The CodeGen generates strongly typed TypeScript interfaces from POCO classes according to "<code>CherryPickingMethods</code>" which is described in the doc comment below:</p>
+
+<div class="pre-lang" id="premain180166"><div>C#</div><div class="pre-action-link"><span class="code-collapse" data-index="180166" id="preShrink180166">Shrink ▲</span> &nbsp; <span id="copycode180166" class="copy-code" data-index="180166" style="visibility: visible;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 460 460" style="width: 16px;height:16px;" xml:space="preserve"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272     c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068    c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></span></div></div>
+<pre id="pre180166" style="margin-top:0;" class="lang-csharp notranslate" data-language="cs" data-allowshrink="True" data-collapse="False" data-codeblock-processed="true"><span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">summary</span><span class="code-summarycomment">&gt;</span>
+</span><span class="code-summarycomment">///</span><span class="code-comment"> Flagged options for cherry picking in various development processes.
+</span><span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">/summary</span><span class="code-summarycomment">&gt;</span>
+</span>[Flags]
+<span class="code-keyword">public</span> <span class="code-keyword">enum</span> CherryPickingMethods
+{
+    <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">summary</span><span class="code-summarycomment">&gt;</span>
+</span>    <span class="code-summarycomment">///</span><span class="code-comment"> Include all public classes, properties and properties.
+</span>    <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">/summary</span><span class="code-summarycomment">&gt;</span>
+</span>    All = <span class="code-digit">0</span>,
+
+    <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">summary</span><span class="code-summarycomment">&gt;</span>
+</span>    <span class="code-summarycomment">///</span><span class="code-comment"> Include all public classes decorated by DataContractAttribute,
+</span>    <span class="code-summarycomment">///</span><span class="code-comment"> and public properties or fields decorated by DataMemberAttribute.
+</span>    <span class="code-summarycomment">///</span><span class="code-comment"> And use DataMemberAttribute.IsRequired
+</span>    <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">/summary</span><span class="code-summarycomment">&gt;</span>
+</span>    DataContract =<span class="code-digit">1</span>,
+
+    <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">summary</span><span class="code-summarycomment">&gt;</span>
+</span>    <span class="code-summarycomment">///</span><span class="code-comment"> Include all public classes decorated by JsonObjectAttribute,
+</span>    <span class="code-summarycomment">///</span><span class="code-comment"> and public properties or fields decorated by JsonPropertyAttribute.
+</span>    <span class="code-summarycomment">///</span><span class="code-comment"> And use JsonPropertyAttribute.Required
+</span>    <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">/summary</span><span class="code-summarycomment">&gt;</span>
+</span>    NewtonsoftJson = <span class="code-digit">2</span>,
+
+    <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">summary</span><span class="code-summarycomment">&gt;</span>
+</span>    <span class="code-summarycomment">///</span><span class="code-comment"> Include all public classes decorated by SerializableAttribute,
+</span>    <span class="code-summarycomment">///</span><span class="code-comment"> and all public properties or fields
+</span>    <span class="code-summarycomment">///</span><span class="code-comment"> but excluding those decorated by NonSerializedAttribute.
+</span>    <span class="code-summarycomment">///</span><span class="code-comment"> And use System.ComponentModel.DataAnnotations.RequiredAttribute.
+</span>    <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">/summary</span><span class="code-summarycomment">&gt;</span>
+</span>    Serializable = <span class="code-digit">4</span>,
+
+    <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">summary</span><span class="code-summarycomment">&gt;</span>
+</span>    <span class="code-summarycomment">///</span><span class="code-comment"> Include all public classes, properties and properties.
+</span>    <span class="code-summarycomment">///</span><span class="code-comment"> And use System.ComponentModel.DataAnnotations.RequiredAttribute.
+</span>    <span class="code-summarycomment">///</span><span class="code-comment"> <span class="code-summarycomment">&lt;</span><span class="code-summarycomment">/summary</span><span class="code-summarycomment">&gt;</span>
+</span>    AspNet = <span class="code-digit">8</span>,
+}</pre>
+
+<p>The default one is <code>DataContract</code> for opt-in. And you may use any or combinations of methods.</p>
+
+<h2>Step 2: Run the DEBUG Build of the Web API Project and POST JSON Config Data to Trigger the Generation of Client API Codes</h2>
+
+<p>Run the Web project in IDE on IIS Express.</p>
+
+<p>You then use <a href="http://curl.haxx.se/">Curl</a> or <a href="https://addons.mozilla.org/en-US/firefox/addon/poster/">Poster</a> or any of your favorite client tools to <code><strong>POST</strong></code> to <em>http://localhost:10965/api/CodeGen</em>, with <code>content-type=application/json</code>.</p>
+
+<h4>Hints</h4>
+
+<p>So basically, you just need step 2 to generate the client API whenever the Web API is updated, since you don't need to install the NuGet package or craft new JSON config data every time.</p>
+
+<p>It shouldn't be hard for you to write some batch scripts to launch the Web API and POST the JSON config data. And I have actually drafted one for your convenience: a <a href="https://github.com/zijianhuang/webapiclientgen/blob/master/CreateClientApi.ps1">Powershell script file that launch the Web (API) project on IIS Express then post the JSON config file to trigger the code generation</a>.</p>
+
+<h2>Publish Client API Libraries</h2>
+
+<p>Now you have the client API in TypeScript generated, similar to this example:</p>
+
+<div class="pre-lang" id="premain406423"><div>JavaScript</div><div class="pre-action-link"><span class="code-collapse" data-index="406423" id="preShrink406423">Shrink ▲</span> &nbsp; <span id="copycode406423" class="copy-code" data-index="406423" style="visibility: visible;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 460 460" style="width: 16px;height:16px;" xml:space="preserve"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272     c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068    c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></span></div></div>
+<pre id="pre406423" style="margin-top:0;" class="lang-javascript notranslate" data-language="jscript" data-allowshrink="True" data-collapse="False" data-codeblock-processed="true"><span class="code-comment">//</span><span class="code-comment">/ &lt;reference path="../typings/jquery/jquery.d.ts" /&gt;</span>
+<span class="code-comment">//</span><span class="code-comment">/ &lt;reference path="HttpClient.ts" /&gt;</span>
+namespace DemoWebApi_DemoData_Client {
+    <span class="code-keyword">export</span> <span class="code-keyword">enum</span> AddressType {Postal, Residential}
+
+    <span class="code-keyword">export</span> <span class="code-keyword">enum</span> Days {Sat=<span class="code-digit">1</span>, Sun=<span class="code-digit">2</span>, Mon=<span class="code-digit">3</span>, Tue=<span class="code-digit">4</span>, Wed=<span class="code-digit">5</span>, Thu=<span class="code-digit">6</span>, Fri=<span class="code-digit">7</span>}
+
+    <span class="code-keyword">export</span> <span class="code-keyword">interface</span> Address {
+        Id?: string;
+        Street1?: string;
+        Street2?: string;
+        City?: string;
+        State?: string;
+        PostalCode?: string;
+        Country?: string;
+        Type?: DemoWebApi_DemoData_Client.AddressType;
+        Location?: DemoWebApi_DemoData_Another_Client.MyPoint;
+    }
+
+    <span class="code-keyword">export</span> <span class="code-keyword">interface</span> Entity {
+        Id?: string;
+        Name: string;
+        Addresses?: Array&lt;DemoWebApi_DemoData_Client.Address&gt;;
+    }
+
+    <span class="code-keyword">export</span> <span class="code-keyword">interface</span> Person <span class="code-keyword">extends</span> DemoWebApi_DemoData_Client.Entity {
+        Surname?: string;
+        GivenName?: string;
+        BirthDate?: Date;
+    }
+
+    <span class="code-keyword">export</span> <span class="code-keyword">interface</span> Company <span class="code-keyword">extends</span> DemoWebApi_DemoData_Client.Entity {
+        BusinessNumber?: string;
+        BusinessNumberType?: string;
+        TextMatrix?: Array&lt;Array&lt;string&gt;&gt;;
+        Int3D?: Array&lt;Array&lt;Array&lt;number&gt;&gt;&gt;;
+        Lines?: Array&lt;string&gt;;
+    }
+}
+
+namespace DemoWebApi_DemoData_Another_Client {
+    <span class="code-keyword">export</span> <span class="code-keyword">interface</span> MyPoint {
+        X?: number;
+        Y?: number;
+    }
+}
+
+namespace DemoWebApi_Controllers_Client {
+
+    <span class="code-keyword">export</span> <span class="code-keyword">class</span> Entities {
+        httpClient: HttpClient;
+        <span class="code-sdkkeyword">constructor</span>(<span class="code-keyword">public</span> baseUri?: string, <span class="code-keyword">public</span> error?: 
+        (xhr: JQueryXHR, ajaxOptions: string, thrown: string) =&gt; 
+        any, <span class="code-keyword">public</span> statusCode?: { [key: string]: any; }){
+            <span class="code-keyword">this</span>.httpClient = <span class="code-keyword">new</span> HttpClient();
+        }
+
+        <span class="code-comment">/*</span><span class="code-comment">*
+         * Get a person
+         * GET api/Entities/{id}
+         * @param {number} id unique id of that guy
+         * @return {DemoWebApi_DemoData_Client.Person} person in db
+         */</span>
+        GetPerson(id: number, callback: (<span class="code-sdkkeyword">data</span> : DemoWebApi_DemoData_Client.Person) =&gt; any){
+            <span class="code-keyword">this</span>.httpClient.get(<span class="code-sdkkeyword">encodeURI</span>(<span class="code-keyword">this</span>.baseUri + 
+            <span class="code-string">'</span><span class="code-string">api/Entities/'</span>+id), callback, <span class="code-keyword">this</span>.error, <span class="code-keyword">this</span>.statusCode);
+        }
+
+        <span class="code-comment">/*</span><span class="code-comment">*
+         * POST api/Entities
+         * @param {DemoWebApi_DemoData_Client.Person} person
+         * @return {number}
+         */</span>
+        CreatePerson(person: DemoWebApi_DemoData_Client.Person, 
+        	callback: (<span class="code-sdkkeyword">data</span> : number) =&gt; any){
+            <span class="code-keyword">this</span>.httpClient.post(<span class="code-sdkkeyword">encodeURI</span>(<span class="code-keyword">this</span>.baseUri + 
+            <span class="code-string">'</span><span class="code-string">api/Entities'</span>), person, callback, <span class="code-keyword">this</span>.error, <span class="code-keyword">this</span>.statusCode);
+        }
+
+        <span class="code-comment">/*</span><span class="code-comment">*
+         * PUT api/Entities
+         * @param {DemoWebApi_DemoData_Client.Person} person
+         * @return {void}
+         */</span>
+        UpdatePerson(person: DemoWebApi_DemoData_Client.Person, callback: (<span class="code-sdkkeyword">data</span> : <span class="code-keyword">void</span>) =&gt; any){
+            <span class="code-keyword">this</span>.httpClient.put(<span class="code-sdkkeyword">encodeURI</span>(<span class="code-keyword">this</span>.baseUri + 
+            <span class="code-string">'</span><span class="code-string">api/Entities'</span>), person, callback, <span class="code-keyword">this</span>.error, <span class="code-keyword">this</span>.statusCode);
+        }
+
+        <span class="code-comment">/*</span><span class="code-comment">*
+         * DELETE api/Entities/{id}
+         * @param {number} id
+         * @return {void}
+         */</span>
+        Delete(id: number, callback: (<span class="code-sdkkeyword">data</span> : <span class="code-keyword">void</span>) =&gt; any){
+            <span class="code-keyword">this</span>.httpClient.<span class="code-keyword">delete</span>(<span class="code-sdkkeyword">encodeURI</span>(<span class="code-keyword">this</span>.baseUri + 
+            <span class="code-string">'</span><span class="code-string">api/Entities/'</span>+id), callback, <span class="code-keyword">this</span>.error, <span class="code-keyword">this</span>.statusCode);
+        }
+    }
+
+    <span class="code-keyword">export</span> <span class="code-keyword">class</span> Values {
+        httpClient: HttpClient;
+        <span class="code-sdkkeyword">constructor</span>(<span class="code-keyword">public</span> baseUri?: string, <span class="code-keyword">public</span> error?: 
+        (xhr: JQueryXHR, ajaxOptions: string, thrown: string) =&gt; any, 
+        <span class="code-keyword">public</span> statusCode?: { [key: string]: any; }){
+            <span class="code-keyword">this</span>.httpClient = <span class="code-keyword">new</span> HttpClient();
+        }
+
+        <span class="code-comment">/*</span><span class="code-comment">*
+         * GET api/Values
+         * @return {Array&lt;string&gt;}
+         */</span>
+        Get(callback: (<span class="code-sdkkeyword">data</span> : Array&lt;string&gt;) =&gt; any){
+            <span class="code-keyword">this</span>.httpClient.get(<span class="code-sdkkeyword">encodeURI</span>(<span class="code-keyword">this</span>.baseUri + 
+            <span class="code-string">'</span><span class="code-string">api/Values'</span>), callback, <span class="code-keyword">this</span>.error, <span class="code-keyword">this</span>.statusCode);
+        }
+
+        <span class="code-comment">/*</span><span class="code-comment">*
+         * GET api/Values/{id}?name={name}
+         * @param {number} id
+         * @param {string} name
+         * @return {string}
+         */</span>
+        GetByIdAndName(id: number, name: string, callback: (<span class="code-sdkkeyword">data</span> : string) =&gt; any){
+            <span class="code-keyword">this</span>.httpClient.get(<span class="code-sdkkeyword">encodeURI</span>(<span class="code-keyword">this</span>.baseUri + 
+            <span class="code-string">'</span><span class="code-string">api/Values/'</span>+id+<span class="code-string">'</span><span class="code-string">?name='</span>+name), 
+            callback, <span class="code-keyword">this</span>.error, <span class="code-keyword">this</span>.statusCode);
+        }
+
+        <span class="code-comment">/*</span><span class="code-comment">*
+         * POST api/Values
+         * @param {string} value
+         * @return {string}
+         */</span>
+        Post(value: {<span class="code-string">'</span><span class="code-string">'</span>:string}, callback: (<span class="code-sdkkeyword">data</span> : string) =&gt; any){
+            <span class="code-keyword">this</span>.httpClient.post(<span class="code-sdkkeyword">encodeURI</span>(<span class="code-keyword">this</span>.baseUri + 
+            <span class="code-string">'</span><span class="code-string">api/Values'</span>), value, callback, <span class="code-keyword">this</span>.error, <span class="code-keyword">this</span>.statusCode);
+        }
+
+        <span class="code-comment">/*</span><span class="code-comment">*
+         * PUT api/Values/{id}
+         * @param {number} id
+         * @param {string} value
+         * @return {void}
+         */</span>
+        Put(id: number, value: {<span class="code-string">'</span><span class="code-string">'</span>:string}, callback: (<span class="code-sdkkeyword">data</span> : <span class="code-keyword">void</span>) =&gt; any){
+            <span class="code-keyword">this</span>.httpClient.put(<span class="code-sdkkeyword">encodeURI</span>(<span class="code-keyword">this</span>.baseUri + 
+            <span class="code-string">'</span><span class="code-string">api/Values/'</span>+id), value, callback, <span class="code-keyword">this</span>.error, <span class="code-keyword">this</span>.statusCode);
+        }
+
+        <span class="code-comment">/*</span><span class="code-comment">*
+         * DELETE api/Values/{id}
+         * @param {number} id
+         * @return {void}
+         */</span>
+        Delete(id: number, callback: (<span class="code-sdkkeyword">data</span> : <span class="code-keyword">void</span>) =&gt; any){
+            <span class="code-keyword">this</span>.httpClient.<span class="code-keyword">delete</span>(<span class="code-sdkkeyword">encodeURI</span>(<span class="code-keyword">this</span>.baseUri + 
+            <span class="code-string">'</span><span class="code-string">api/Values/'</span>+id), callback, <span class="code-keyword">this</span>.error, <span class="code-keyword">this</span>.statusCode);
+        }
+    }
+}</pre>
+
+<h4>Hints</h4>
+
+<p style="margin-left: 40px">1. If you want the TypeScript codes generated to conform to the camel casing of JavaScript and JSON, you may add the following line in class <code>WebApiConfig</code> of scaffolding codes of Web API:</p>
+
+<div class="pre-lang" id="premain969767"><div>C#</div><div class="pre-action-link"><span id="copycode969767" class="copy-code" data-index="969767" style="visibility: visible;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 460 460" style="width: 16px;height:16px;" xml:space="preserve"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272     c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068    c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></span></div></div>
+<pre id="pre969767" style="margin-top:0;" class="lang-csharp notranslate" data-language="cs" data-allowshrink="True" data-collapse="False" data-codeblock-processed="true">config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = 
+     <span class="code-keyword">new</span> Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();</pre>
+
+<p style="margin-left: 40px">then the property names and function names will be in camel casing, provided the respective names in C# are in Pascal casing. For more details, please check <a href="https://github.com/zijianhuang/webapiclientgen/wiki/camelCasing-or-PascalCasing_">camelCasing or PascalCasing</a>.</p>
+
+<p style="margin-left: 40px">2. The PowerShell script also compiles the TS file to a JS file.</p>
+
+
+
+<h3>Internal Usages</h3>
+
+<p>When writing client codes in some decent text editors like Visual Studio, you may get nice intellisense.</p>
+
+<p><img alt="Image 1" src="./Generate TypeScript Client API for ASP.NET Web API- CodeProject_files/1.png" style="width: 640px; height: 234px" class="lazyload" data-sizes="auto" data-srcset="/KB/Articles/1053601/1-r-400.png 400w, /KB/Articles/1053601/1.png 640w"></p>
+
+<p><img alt="Image 2" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" style="width: 640px; height: 157px" data-src="/KB/Articles/1053601/2.png" class="lazyload" data-sizes="auto" data-srcset="/KB/Articles/1053601/2-r-400.png 400w, /KB/Articles/1053601/2.png 640w"></p>
+
+<p><img alt="Image 3" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" style="width: 640px; height: 103px" data-src="/KB/Articles/1053601/3.png" class="lazyload" data-sizes="auto" data-srcset="/KB/Articles/1053601/3-r-400.png 400w, /KB/Articles/1053601/3.png 640w"></p>
+
+<p><img alt="Image 4" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" style="width: 640px; height: 118px" data-src="/KB/Articles/1053601/extracted-png-image1.png" class="lazyload" data-sizes="auto" data-srcset="/KB/Articles/1053601/extracted-png-image1-r-400.png 400w, /KB/Articles/1053601/extracted-png-image1.png 640w"></p>
+
+<h3>External Usages</h3>
+
+<p>If you would expect some external developers to use your Web API through JavaScript, you may publish the generated TypeScript client API file or the compiled JavaScript files, along with the help pages generated by ASP.NET MVC framework.</p>
+
+<h2>Points of Interests</h2>
+
+<p>While ASP.NET MVC and Web API use NewtonSoft.Json for JSON applications, NewtonSoft.Json can <a href="http://www.newtonsoft.com/json/help/html/serializationattributes.htm">handle well POCO classes decorated by DataContractAttribute</a>.</p>
+
+<p>The CLR namespaces will be translated to TypeScript namespaces through replacing dot with underscore and adding "<code>Client</code>" as suffix. For example, <code>namespace My.Name.space</code> will be translated to <code>My_Name_space_Client</code>.</p>
+
+<p>From a certain point of view, the one to one mapping between the service namespace/function names and the client namespace/function names is exposing the implementation details of the service, which generally is not recommended. However, traditional RESTful client programming requires programmers to be aware of the URL query templates of service functions, and the query templates are of implementation details of the service. So both approaches expose the implementation details of the service at some degree, but with different consequences.</p>
+
+<p>To client developers, classic function prototype like:</p>
+
+<div class="pre-lang" id="premain403072"><div>C#</div><div class="pre-action-link"><span id="copycode403072" class="copy-code" data-index="403072" style="visibility: visible;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 460 460" style="width: 16px;height:16px;" xml:space="preserve"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272     c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068    c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></span></div></div>
+<pre id="pre403072" style="margin-top:0;" class="lang-csharp notranslate" data-language="cs" data-allowshrink="True" data-collapse="False" data-codeblock-processed="true">ReturnType DoSomething(Type1 t1, Type2 t2 ...)</pre>
+
+<p>is the API function, and the rest is the technical implementation details of transportation: TCP/IP, HTTP, SOAP, resource-oriented, CRUD-based URIs, RESTful, XML and JSON, etc. The function prototype and a piece of API document should be good enough for calling the API functions. Client developers should not have to care about those implementation details of transportation, at least when the operation is successful. Only when errors kick in, developers will have to care about the technical details. For example, in SOAP based web services, you have to know about SOAP faults; and in RESTful Web services, you may have to deal with HTTP status codes and Response.</p>
+
+<p>And the query templates give little sense of semantic meaning of the API functions. In contrast, <code>WebApiClientGen</code> names the client functions after the service functions, just as <em>SvcUtil.exe</em> in WCF will do by default, so the client functions generated have good semantic meaning as long as you as the service developers had named the service functions after good semantic names.</p>
+
+<p>In the big picture of SDLC covering both the service development and the client developments, the service developers have the knowledge of semantic meaning of service functions, and it is generally a good programming practice to name functions after functional descriptions. Resource-oriented CRUD may have semantic meaning or just become a technical translation from functional descriptions.</p>
+
+<p><code>WebApiClientGen</code> copies the doc comments of your Web API to <code>JsDoc3</code> comments in the generated TypeScript codes, thus you have little need of reading the Help Pages generated by MVC, and your client programming with the service will become more seamless.</p>
+
+<p>Many JavaScript frameworks like <a href="https://reactjs.org/community/data-fetching.html">React </a>and <a href="https://vuejs.org/v2/cookbook/using-axios-to-consume-apis.html">Vue.js</a> do not come with a built-in HTTP request library, but depend on a 3rd library like Axios. Since Axios is apparently the most popular among JavaScript programmers in recent years, recommended by both React and Vue.js, it may be more viable to support Axios.</p>
+
+<h4>Hints</h4>
+
+<p>And it shouldn't be hard to write scripts to automate some steps altogether for Continuous Integration. And you can find examples at</p>
+
+<ol>
+	<li><a href="https://github.com/zijianhuang/webapiclientgen">WebApiClientGen</a></li>	<li><a href="https://github.com/zijianhuang/webapiclientgenexamples">WebApiClientGen Examples</a></li>	<li><a href="https://github.com/zijianhuang/DemoCoreWeb">.NET Core Demo</a></li></ol>
+
+<p>And locate those "Create*ClientApi.ps1" file in the root folder.</p>
+
+<h4>Remarks</h4>
+
+<p>The landscapes of developing Web services and clients have been rapidly changing. Since the first release of <code>WebApiClientGen</code> in September 2015, there came Open API Definition Format run by <a href="https://openapis.org/">Open API Initiative</a>, <a href="http://www.linuxfoundation.org/news-media/announcements/2015/11/new-collaborative-project-extend-swagger-specification-building">found in November 2015</a>. Hopefully, the initiative will address <a href="http://webandlife.blogspot.com.au/2015/12/swaggerautorest-vs-webapiclientgen.html">some shortfalls of Swagger specification 2.0</a>, particularly for handling the decimal / monetary type. Nevertheless, the SDLC utilizing WebApiClientGen is optimized for developing&nbsp;client programs upon&nbsp;ASP.NET Web API and ASP.NET Core Web API.</p>
+
+<h2>References</h2>
+
+<ul>
+	<li><a href="http://webandlife.blogspot.com/2018/04/why-typescript.html">Why TypeScript?</a></li></ul>
+
+<p>&nbsp;</p>
+
+
+
+
+						</div>
+						
+
+						
+						<h2>License</h2>
+						<div id="LicenseTerms"><p>This article, along with any associated source code and files, is licensed under <a href="http://www.codeproject.com/info/cpol10.aspx" rel="license">The Code Project Open License (CPOL)</a></p></div>
+						
+
+						
+						<br>
+						
+						    <br>
+						
+						
+
+						<div class="clearfix"></div>
+
+						<div style="padding-top:8px">
+							
+						</div>
+
+					
+
+				    
+					</form>
+
+				</div>
+
+				
+				<div class="bottom-promo"> 
+				    
+				</div>
+				
+                
+                
+
+				
+				
+				
+
+			</div>
+			
+
+            
+            
+            
+
+        </div>
+        
+
+		
+		<div class="site-footer">
+			<div class="align-left">
+				<a id="ctl00_PermaLink" href="https://www.codeproject.com/Articles/1053601/Generate-TypeScript-Client-API-for-ASP-NET-Web-API">Permalink</a><br>
+				<br>
+				<a id="ctl00_PrivacyLink" href="https://www.codeproject.com/info/privacy.aspx">Privacy</a><br>
+    			<a id="ctl00_CookiePolicyLink" href="https://www.codeproject.com/info/cookie.aspx">Cookies</a><br>
+                <a id="ctl00_TermsOfUseLink" href="https://www.codeproject.com/info/TermsOfUse.aspx">Terms of Use</a><br>
+			</div>
+
+            <div class="align-center">
+				
+
+
+<div class="page-width">
+    Layout: <a id="ctl00_PageWidth_FixedT" title="Fixed width layout" rel="nofollow" class=" active" href="https://www.codeproject.com/articles/1053601/generate-typescript-client-api-for-asp-net-web-api?PageFlow=FixedWidth">fixed</a>
+    |
+    <a id="ctl00_PageWidth_FluidT" title="Fluid layout" rel="nofollow" href="https://www.codeproject.com/articles/1053601/generate-typescript-client-api-for-asp-net-web-api?PageFlow=Fluid">fluid</a>
+</div>
+
+
+				
+
+				
+
+	            
+
+                <br>
+			</div>
+                
+			<div class="align-right">
+				Article Copyright 2015 by Zijian<br>Everything else
+				Copyright © <a href="mailto:webmaster@codeproject.com">CodeProject</a>, 1999-2025<br>
+                <br>
+				Web01 
+				2.8:2024-12-08:1<br>
+			</div>
+		</div>
+		
+
+		<br clear="all">
+		
+			
+
+	</div> 
+	</div> 
+</div>
+
+
+
+
+
+
+
+<script type="text/javascript"> // DEFERRED script
+
+document.addEventListener('DOMContentLoaded', function() {
+
+	new CodeBlocks().initialise('#contentdiv');
+	
+	$('.author-wrapper .description').shorten({showChars: 400});
+	
+	anchorAnimate();
+	
+	$('#__EVENTVALIDATION').attr('autocomplete', 'off');
+
+})
+</script>
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">.copied::after {  position: absolute;  right: 0;  display: inline-block; white-space: nowrap; content: 'copied'; color: #fff; background-color: #f90;  border-radius: 3px; padding:1px 8px; opacity: 0;  will-change: opacity, transform; animation: showcopied 1.5s ease; } @keyframes showcopied { 0% { opacity: 0; } 70% { opacity: 1; } 100% { opacity: 0; } } </style><canvas id="cv1" width="1px" height="1px" style="position:absolute;left:0;top:0;pointer-events:none"></canvas><canvas id="cv2" width="1px" height="1px" style="position:absolute;left:0;top:0;pointer-events:none"></canvas></body></html>

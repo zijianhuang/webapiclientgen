@@ -1,0 +1,1924 @@
+<!DOCTYPE html>
+<!-- saved from url=(0081)https://www.codeproject.com/Articles/5325820/DateOnly-in-NET-6-and-ASP-NET-Core-6 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="preload" as="image" imagesrcset="/_next/image?url=%2Flogo250x135.gif&amp;w=256&amp;q=75 1x, /_next/image?url=%2Flogo250x135.gif&amp;w=640&amp;q=75 2x"><link rel="stylesheet" href="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/f00fbee724adea66.css" data-precedence="next"><link rel="preload" as="script" fetchpriority="low" href="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/webpack-5ed466aeca77ac7a.js.download"><script src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/4bd1b696-4098621b6d81f3cf.js.download" async=""></script><script src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/684-7067fe44ff85ebe6.js.download" async=""></script><script src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/main-app-f38f0d9153b95312.js.download" async=""></script><script async="" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/f(1).txt"></script><link rel="preload" href="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/js" as="script"><meta name="next-size-adjust" content=""><link rel="apple-touch-icon" sizes="144x144" href="https://www.codeproject.com/favicon/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://www.codeproject.com/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="https://www.codeproject.com/favicon/favicon-16x16.png"><link rel="manifest" href="https://www.codeproject.com/favicon/manifest.json"><link rel="mask-icon" href="https://www.codeproject.com/favicon/safari-pinned-tab.svg" color="#ff9900"><meta property="og:title" content="CodeProject"><meta property="og:image" content="https://www.codeproject.com/favicon/mstile-150x150.png"><meta property="og:description" content="For those who code"><meta property="og:url" content="https://www.codeproject.com"><title>DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject</title><link rel="manifest" href="https://www.codeproject.com/manifest.json"><script>document.querySelectorAll('body link[rel="icon"], body link[rel="apple-touch-icon"]').forEach(el => document.head.appendChild(el))</script><script src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/polyfills-42372ed130431b0a.js.download" nomodule=""></script><link rel="preload" href="https://www.codeproject.com/_next/static/media/945b7384c5256ec3-s.p.ttf" as="font" crossorigin="" type="font/ttf"><link rel="preload" href="https://www.codeproject.com/_next/static/media/b55e164a6e7ce445-s.p.ttf" as="font" crossorigin="" type="font/ttf"><link rel="preload" href="https://www.codeproject.com/_next/static/media/e337cf18f0f81cb9-s.p.ttf" as="font" crossorigin="" type="font/ttf"><link rel="preload" href="https://www.codeproject.com/_next/static/media/f7794ce32483498f-s.p.ttf" as="font" crossorigin="" type="font/ttf"><meta http-equiv="origin-trial" content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhPC9flq/oYkRBwsAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A9wSqI5i0iwGdf6L1CERNdmsTPgVu44ewj8QxTBYgsv1LCPUVF7YmWOvTappqB1139jAymxUW/RO8zmMqo4zlAAAAACNeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MzY4MTI4MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A+d7vJfYtay4OUbdtRPZA3y7bKQLsxaMEPmxgfhBGqKXNrdkCQeJlUwqa6EBbSfjwFtJWTrWIioXeMW+y8bWAgQAAACTeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MzY4MTI4MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><script src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/f(2).txt" async=""></script><link href="https://securepubads.g.doubleclick.net/pagead/managed/dict/m202505080101/gpt" rel="compression-dictionary"><script async="" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/6839"></script><script async="" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/AGSKWxUWVmxR04xX4819675hbycv9qBCeEdYKfC2CgRw0XfB5d7FN5bpbqA1KF4KwSAHYWiDPU2nHYobOYddRVlc85cyG3uDZ0wINh1O7dOzJHCQpKZoPjdfEQ16IgWOVQ6vj9czPtZf7Q=="></script><script async="" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/AGSKWxXUAfc82lEJYus9gUlfge-vBmIz0QPLfYDF_o3hSdybgrADpgxJVvBHIsvm43W0VcMyVvXdoyQusfMGBYlq9WrUYXg1AmWpWM2t9gruJ6vy6LXaf6aTP-t9I4lwnq2mLMcUYiy1IQ=="></script><script async="" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/AGSKWxUwm6H2ANpCOgdr59ZfWY9IQdECdOUzA7UD3b8FKalj_WoHRqx2ebju8qyU0aHcOktSZJKhgtWv4AUQOLU4Vb2sv_AaDawcbz-GKjiPAFx-7J-SuRvulUI2ctWiCyiRFGy0dXYDyA=="></script></head><body class="__className_2277ee"><header><div class="custom-container gap-2 py-1 text-gray-light flex justify-between whitespace-nowrap z-10 relative px-1 md:px-0"><div class="flex-1 md:ml-20"><span class="hidden md:block">65.938<!-- --> articles</span><span class="block md:hidden">65.9<!-- -->K</span></div><div class="flex-1">CodeProject is changing.<!-- --> <a class="!text-gray-lightest" href="https://www.codeproject.com/info/Changes.aspx">Read more.</a></div><div class="flex-1"></div><div class="flex-1"></div></div><div class="mb-2 mt-2 md:mt-0"><div class="h-[94px] bg-primary"><div class="custom-container relative h-full"><a href="https://www.codeproject.com/"><img alt="Home" width="250" height="135" decoding="async" data-nimg="1" class="absolute -top-[31px]" style="color:transparent" srcset="/_next/image?url=%2Flogo250x135.gif&amp;w=256&amp;q=75 1x, /_next/image?url=%2Flogo250x135.gif&amp;w=640&amp;q=75 2x" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/logo250x135.gif"></a><div class="w-[calc(100%-300px)] translate-x-[300px] translate-y-[2px] h-[90px] relative overflow-hidden"><div id="div-gpt-ad-1738591571151-0" style="min-width:728px;min-height:90px" class="absolute top-0 left-0" data-google-query-id="CMPTrI_1l40DFQU9gwMdcEwY0w"><div id="google_ads_iframe_/67541884/CPLeader728_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/67541884/CPLeader728_0" name="google_ads_iframe_/67541884/CPLeader728_0" title="3rd party ad content" width="728" height="90" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" aria-label="Advertisement" tabindex="0" allow="private-state-token-redemption;attribution-reporting" data-load-complete="true" data-google-container-id="1" style="border: 0px; vertical-align: bottom;" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/saved_resource.html"></iframe></div></div></div></div></div></div><nav class="custom-container py-1 px-2 whitespace-nowrap"><ul class="flex gap-2 border-b border-border-gray"><li class="relative leading-normal hidden md:block"><a class="block py-0.5 px-2 font-bold cursor-pointer !text-gray-light border border-transparent" href="https://www.codeproject.com/">home</a></li><li class="relative leading-normal"><a class="block py-0.5 px-2 font-bold cursor-pointer !text-gray-light border border-transparent" href="https://www.codeproject.com/script/Articles/Latest.aspx">articles</a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden bottom-0 left-0 translate-y-full translate-x-0"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/SiteMap.aspx">Browse topics<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=AI">Artificial Intelligence<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Automation">Automation</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=big-data">big-data</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=machine-learning">machine-learning</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Containers">Containers<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=docker">docker</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=virtual-machine">virtual-machine</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=database">Database Development<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Elasticsearch">Elasticsearch</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Lucene">Lucene</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=MongoDB">mongodb</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=MySQL">MySQL</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=NoSQL">NoSQL</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=PostgreSQL">PostgreSQL</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Redis">Redis</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=SQL-Server">SQL Server</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Desktop">Desktop Programming<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=ATL">ATL</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Cocoa">Cocoa</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=MFC">MFC</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=QT">QT</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Swing">Swing</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=system">system</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=UWP">UWP</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Win32">Win32</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=WinForms">WinForms</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=WPF">WPF</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=WTL">WTL</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=X11">X11</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=XAML">XAML</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=DevOps">DevOps<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Agile">Agile</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Continuous-build">Continuous-build</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Continuous-delivery">Continuous-delivery</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Deployment">Deployment</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Git">Git</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=load-testing">load-testing</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=testing">testing</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=TFS">TFS</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=unit-testing">unit-testing</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Game">Game Development<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Unity">Unity</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Unreal">Unreal</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=XBox">XBox</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=performance">High Performance Computing<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=GPU">GPU</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=optimization">optimization</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=IoT">Internet of Things<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=wearables">wearable</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Mobile">Mobile Apps<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Android">Android</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=AWS">AWS</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Azure">Azure</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Cordova">Cordova</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=ExtJS">ExtJS</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=google-cloud">google-cloud</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=iOS">iOS</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=nativescript">nativescript</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=PhoneGap">PhoneGap</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=storage">storage</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=WinMobile">Windows Mobile</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Xamarin">Xamarin</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Multimedia">Multimedia<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=ASM">ASM</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=ASP">ASP</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=audio">audio</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=audio-video">audio video</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Bash">Bash</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Basic">Basic</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Csharp">C#</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Cplusplus">C++</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=COBOL">cobol</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Compression">Compression</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Dart">Dart</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=dbase">dbase</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Design">Design/Graphics</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=DirectX">DirectX</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Emulation">Emulation</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Exceptions">Exceptions</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Fsharp">F#</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=file">file</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=GDI">GDI</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=GDIplus">GDI+</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Image-Processing">Image-Processing</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Internet">Internet</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Java">Java</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Javascript">Javascript</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=localization">localization</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Lua">Lua</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=MSIL">MSIL</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Objective-C">Objective C</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=OpenGL">OpenGL</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Pascal">Pascal</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Perl">Perl</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=PHP">PHP</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=PowerShell">PowerShell</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=printing">printing</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Python">Python</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Razor">Razor</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=regular-expression">regular expression</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Ruby">Ruby</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Scala">scala</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Shell">Shell</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Sorting">Sorting</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=SQL">SQL</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=string">string</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Swift">Swift</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=threads">threads</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=usability">usability</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=VB">VB</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=VB.NET">VB.NET</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=VBScript">VBScript</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Video">Video</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=XML">XML</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=security">Security<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=blockchain">blockchain</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=cryptography">cryptography</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Encryption">Encryption</a></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Web">Web Development<span class="absolute top-1/2 right-1 -translate-y-1/2">&gt;</span></a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden -top-[1px] right-0 translate-x-full"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Apache">Apache</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=ASP.NET">ASP.NET</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=CSS">CSS</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=CSS3">CSS3</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=HTML">HTML</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=HTML5">HTML5</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=IIS">IIS</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Kestrel">Kestrel</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=LESS">LESS</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Node.js">Node.js</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=React">React</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=Spring">Spring</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Content/Tag.aspx?tags=XHTML">XHTML</a></li></ul></li></ul></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Articles/Latest.aspx">Latest articles</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/Articles/TopArticles.aspx">Top articles</a></li></ul></li><li class="relative leading-normal"><a class="block py-0.5 px-2 font-bold cursor-pointer !text-gray-light border border-transparent" href="https://www.codeproject.com/Feature">features</a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden bottom-0 left-0 translate-y-full translate-x-0"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/script/News/List.aspx">News</a></li><li class="cursor-pointer block relative leading-normal box-border"><a href="https://sdnews.io/" class="py-0.5 px-5 block !text-inherit relative" rel="nofollow noreferrer">The Insider Newsletter</a></li><li class="cursor-pointer block relative leading-normal box-border"><a href="https://sdnews.io/" class="py-0.5 px-5 block !text-inherit relative" rel="nofollow noreferrer">The Daily Build Newsletter</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/Info/Stuff.aspx">CodeProject Stuff</a></li></ul></li><li class="relative leading-normal"><a class="block py-0.5 px-2 font-bold cursor-pointer !text-gray-light border border-transparent" href="https://www.codeproject.com/KB/FAQs">help</a><ul class="absolute border border-border-gray bg-white border-b-4 border-b-primary pb-2 z-10 hidden bottom-0 left-0 translate-y-full translate-x-0"><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/info/guide.aspx">What is 'CodeProject'?</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/KB/FAQs">General FAQ</a></li><li class="cursor-pointer block relative leading-normal box-border"><a class="py-0.5 px-5 block !text-inherit relative" href="https://www.codeproject.com/info/about.aspx">About Us</a></li></ul></li></ul></nav></header><main class="px-2 py-10"><div class="custom-container flex px-2 gap-8 overflow-hidden"><div class="w-[948px] max-w-full"><div class="flex gap-2 mb-2 flex-wrap"><a rel="tag" href="https://www.codeproject.com/Tags/OpenAPI" class="px-2 border border-border-yellow rounded-l-full text-gray-light visited:text-gray-light hover:underline hover:bg-yellow-light">OpenAPI</a><a rel="tag" href="https://www.codeproject.com/Tags/Typescript" class="px-2 border border-border-yellow rounded-l-full text-gray-light visited:text-gray-light hover:underline hover:bg-yellow-light">Typescript</a><a rel="tag" href="https://www.codeproject.com/Tags/.NET" class="px-2 border border-border-yellow rounded-l-full text-gray-light visited:text-gray-light hover:underline hover:bg-yellow-light">.NET</a><a rel="tag" href="https://www.codeproject.com/Tags/ASP.NET" class="px-2 border border-border-yellow rounded-l-full text-gray-light visited:text-gray-light hover:underline hover:bg-yellow-light">ASP.NET</a></div><h1 class="text-4xl text-text-gray">DateOnly in .NET 6 and ASP.NET Core 6</h1><div class="max-w-[600px]"><div class="flex pt-4 justify-between"><div class="text-base hover:underline font-bold"><a class="text-gray-lightest" href="https://www.codeproject.com/script/Membership/View.aspx?mid=3627575">Zijian</a></div><div class="flex items-center gap-2"><div class="flex"><img alt="starIcon" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" style="color:transparent" srcset="/_next/image?url=%2Ficons%2FstarIcon.png&amp;w=32&amp;q=75 1x, /_next/image?url=%2Ficons%2FstarIcon.png&amp;w=48&amp;q=75 2x" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/starIcon.png"><img alt="starIcon" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" style="color:transparent" srcset="/_next/image?url=%2Ficons%2FstarIcon.png&amp;w=32&amp;q=75 1x, /_next/image?url=%2Ficons%2FstarIcon.png&amp;w=48&amp;q=75 2x" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/starIcon.png"><img alt="starIcon" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" style="color:transparent" srcset="/_next/image?url=%2Ficons%2FstarIcon.png&amp;w=32&amp;q=75 1x, /_next/image?url=%2Ficons%2FstarIcon.png&amp;w=48&amp;q=75 2x" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/starIcon.png"><img alt="starIcon" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" style="color:transparent" srcset="/_next/image?url=%2Ficons%2FstarIcon.png&amp;w=32&amp;q=75 1x, /_next/image?url=%2Ficons%2FstarIcon.png&amp;w=48&amp;q=75 2x" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/starIcon.png"><img alt="starIcon" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" style="color:transparent" srcset="/_next/image?url=%2Ficons%2FstarIcon.png&amp;w=32&amp;q=75 1x, /_next/image?url=%2Ficons%2FstarIcon.png&amp;w=48&amp;q=75 2x" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/starIcon.png"></div><p class="text-sm">5.00<!-- -->/5 (<!-- -->4<!-- --> vote<!-- -->s<!-- -->)</p></div></div><div class="flex pt-2 gap-4"><p class="text-gray-lightest text-[13px]">Feb 22, 2022</p><a class="text-[13px] flex" href="http://www.codeproject.com/info/cpol10.aspx">CPOL</a><p class="text-gray-lightest text-[13px]">7<!-- --> min read</p><div class="flex gap-1 items-center"><img alt="viewsIcon" loading="lazy" width="16" height="16" decoding="async" data-nimg="1" class="w-4 h-4" style="color:transparent" srcset="/_next/image?url=%2Ficons%2FviewsIcon.png&amp;w=16&amp;q=75 1x, /_next/image?url=%2Ficons%2FviewsIcon.png&amp;w=32&amp;q=75 2x" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/viewsIcon.png"><p class="text-gray-lightest text-[13px] pl-0.5">35828</p></div></div></div><p class="pt-6 pb-4 text-gray-lightest">Solutions for using DateOnly in ASP.NET Core 6, before 7 (Updated for .NET 7)</p><div class="max-w-full"><template shadowrootmode="open"><style>/*
+  This is the legacy article critical styles
+  They are added in order to reduce mvp development time
+  They should be refactored or completely replaced woth nextjs css modules in future
+*/
+
+::selection {
+  background-color: #f90;
+  color: #fff;
+  text-shadow: none;
+}
+.blank-background {
+  background-color: white;
+}
+html,
+div,
+span,
+applet,
+object,
+iframe,
+a,
+abbr,
+acronym,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+fieldset,
+form,
+label,
+table,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+li,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  font-smooth: always;
+}
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+tr,
+td,
+th,
+dd,
+dt {
+  font-size: 16px;
+  line-height: 1.4;
+  color: #111111;
+}
+body {
+  margin: 0;
+}
+h1,
+h3,
+h4,
+h5,
+th {
+  font-weight: bold;
+}
+h1 {
+  color: #333333;
+  padding: 0px;
+  margin: 0 0 7px;
+  text-align: left;
+}
+h2 {
+  margin: 20px 0 11px;
+  padding: 0;
+  padding-bottom: 10px;
+  color: #333333;
+}
+h3 {
+  color: #ff9900;
+}
+h1 {
+  font-size: 38px;
+  font-weight: 400;
+}
+h2 {
+  font-size: 29px;
+  font-weight: 400;
+}
+h3 {
+  font-size: 19px;
+  font-weight: normal;
+}
+h4 {
+  font-size: 17px;
+}
+pre {
+  color: black;
+  background-color: #fbedbb;
+  padding: 6px;
+  font: 14px Consolas, monospace, mono;
+  white-space: pre;
+  overflow: auto;
+  border: solid 1px #fbedbb;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  -webkit-tab-size: 4;
+  tab-size: 4;
+}
+code {
+  color: #990000;
+  font: 15px Consolas, monospace, mono;
+}
+table {
+  background-color: Transparent;
+}
+img {
+  -ms-interpolation-mode: bicubic;
+}
+a {
+  text-decoration: none;
+  color: #005782;
+}
+a:visited {
+  color: #800080;
+}
+a:hover {
+  text-decoration: underline;
+}
+a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+input[type="text"],
+input[type="url"],
+input[type="search"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+select,
+textarea {
+  border: 1px solid #d7d7d7;
+  font-size: 16px;
+  padding: 5px;
+}
+a.button,
+a.button-large,
+.button,
+.button-large {
+  color: white;
+  background-color: #e08900;
+  border: 1px solid #cccccc;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 100%;
+  padding: 4px;
+  cursor: pointer;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+table.small-text td,
+ul.small-text li,
+ol.small-text li,
+.small-text {
+  font-size: 14px;
+}
+.invisible {
+  display: none;
+}
+.subdue,
+.subdue li,
+tr.subdue td {
+  color: #808080;
+}
+.bold {
+  font-weight: bold;
+}
+.align-left {
+  text-align: left;
+}
+.align-right {
+  text-align: right;
+}
+.align-center {
+  text-align: center;
+}
+.float-right {
+  float: right;
+}
+.float-left {
+  float: left;
+}
+.sticky {
+  position: sticky;
+  top: 0;
+}
+.extended {
+  width: 100%;
+  box-sizing: border-box;
+}
+.padded-top {
+  padding-top: 20px;
+}
+.tight {
+  margin: 0px;
+  padding: 0px;
+}
+.nowrap {
+  white-space: nowrap;
+}
+.fixed-layout {
+  table-layout: fixed;
+}
+.clip-text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.raised {
+  background-color: #fff8df;
+  border: 1px solid #cccccc;
+  -moz-box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);
+}
+ol,
+ul {
+  padding-left: 40px;
+  margin: 10px 0;
+}
+ol.compact li,
+ul.compact li,
+ol li.compact,
+ul li.compact {
+  font-size: 14px;
+}
+ul.download {
+  margin-top: 25px;
+}
+ul.download li,
+ul li.download,
+ul.Download li,
+ul li.Download {
+  background: url("/images/download24.png") no-repeat scroll left center
+    transparent;
+  font-weight: bold;
+  list-style-type: none;
+  margin: 0px 0 6px -40px;
+  padding: 0 0 1px 30px;
+  vertical-align: middle;
+}
+.callout {
+  margin: 20px 0;
+  background-color: #ffffe1;
+  color: #333333;
+  border: 1px solid #cccccc;
+  padding: 15px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+.trace {
+  padding: 20px;
+  background-color: #eeeeee;
+  color: #333333;
+  border: 1px solid red;
+  font-size: 13px;
+}
+textarea,
+input[type="text"],
+input[type="button"],
+input[type="submit"] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+.container-content {
+  background-color: white;
+  position: relative;
+  zoom: 1;
+  padding: 0 9px;
+  cursor: default;
+}
+.container-content-wrap {
+  margin: auto;
+  max-width: 1270px;
+}
+.container-content pre,
+.container-code pre,
+.answer pre {
+  white-space: pre-wrap;
+  /* css-3 */
+  white-space: -moz-pre-wrap;
+  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  word-wrap: break-word;
+  /* Internet Explorer 5.5+ */
+  _white-space: pre;
+  /* IE only hack to re-specify in addition to word-wrap  */
+  word-break: break-word;
+  -ms-word-break: break-word;
+}
+.flex-container {
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
+  display: flex;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+.flex-extend {
+  justify-content: space-between;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-item {
+  -webkit-box-flex: 1;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-flex: 1;
+  /* OLD - Firefox 19- */
+  -webkit-flex: 1;
+  /* Chrome */
+  -ms-flex: 1;
+  /* IE 10 */
+  flex: 1;
+}
+.flex-item-tight {
+  flex: 0 1 auto;
+}
+.hover-container {
+  display: block;
+  position: relative;
+}
+.clearfix:after,
+.container:after {
+  display: block;
+  content: ".";
+  visibility: hidden;
+  height: 0px;
+  clear: both;
+}
+.clearfix,
+.container {
+  display: inline-block;
+  /* Mac IE5 sees this */
+  /* Mac IE5 comment hack \*/
+  display: block;
+  /* Mac IE5 doesn't see this, but everyone else does */
+}
+.access-link,
+.access-link img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 1px;
+  height: 1px;
+  z-index: 101;
+  border-style: none;
+  margin-top: -1px;
+  overflow: hidden;
+}
+.site-top-menu {
+  white-space: nowrap;
+  position: absolute;
+  z-index: 101;
+  width: 100%;
+}
+.site-top-menu .main-content {
+  width: 100%;
+}
+.site-top-menu .main-content .memberbar {
+  margin-left: 90px;
+  margin-right: 10px;
+}
+.site-top-menu.fixed .main-content {
+  margin: auto;
+  max-width: 1270px;
+}
+.site-header {
+  background-image: url("/App_Themes/CodeProject/Img/logo135-bg.gif");
+  white-space: nowrap;
+  overflow: hidden;
+}
+.site-header .main-content {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.site-header .logo {
+  display: inline-block;
+}
+.site-header .promo {
+  display: inline-block;
+  position: absolute;
+  top: 33px;
+  right: 0;
+}
+.site-header.fixed .main-content {
+  margin: auto;
+  max-width: 1270px;
+}
+.sub-headerbar {
+  padding-right: 9px;
+  position: relative;
+  margin: auto;
+  max-width: 1270px;
+}
+.sub-headerbar-divider {
+  margin-left: 10px;
+  height: 1px;
+  border-bottom: 1px solid #cccccc;
+  position: absolute;
+  bottom: 2px;
+  left: 0px;
+  right: 9px;
+}
+.memberbar {
+  height: 25px;
+  padding-top: 10px;
+  color: #999999;
+  font-size: 14px;
+}
+.memberbar a {
+  color: #808080;
+  font-size: 14px;
+}
+div.navbar {
+  white-space: nowrap;
+}
+.navmenu {
+  background: white;
+  color: #4d4d4d;
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+  height: 25px;
+}
+.navmenu ul,
+.navmenu li {
+  margin: 0;
+  padding: 0;
+}
+.navmenu .has-submenu {
+  position: absolute;
+  right: 5px;
+  padding-left: 10px;
+}
+.navmenu > li:hover > a,
+.navmenu > li > a:active {
+  border: 1px solid #cccccc;
+}
+.navmenu ul,
+.navmenu > li.open:hover > a,
+.navmenu > li.open > a:active {
+  border: 1px solid #cccccc;
+  border-bottom-color: white;
+}
+.navmenu > li {
+  margin: 0 11px 2px 2px;
+}
+.navmenu > li:active,
+.navmenu > li:active > a,
+.navmenu > li:hover,
+.navmenu > li > a:active {
+  background: white;
+  color: #4d4d4d;
+}
+.navmenu > li.openable > a:active,
+.navmenu > li.openable:hover > a {
+  /*border-bottom: 1px solid @ColourBack-Menu; */
+}
+.navmenu > li > a {
+  padding: 2px 7px 6px 7px;
+  border: 1px solid transparent;
+  font-weight: bold;
+}
+.navmenu a {
+  display: block;
+  float: left;
+  color: #666666;
+  background: white;
+  font-size: 17px;
+  padding: 0px 9px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.navmenu a.fly {
+  white-space: nowrap;
+}
+.navmenu ul {
+  background: white;
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  list-style: none;
+}
+.navmenu li {
+  float: left;
+  color: #4d4d4d;
+}
+.navmenu li.last {
+  height: 9px;
+}
+.navmenu li a:active,
+.navmenu li a:hover {
+  color: white;
+  background-color: #ff9900;
+}
+.navmenu li > a:active,
+.navmenu li:hover,
+.navmenu li:hover > a,
+.navmenu li:hover.heading,
+.navmenu li a.selected {
+  position: relative;
+  color: white;
+  background-color: #ff9900;
+}
+.navmenu li.openable:hover ul {
+  left: 0px;
+  top: 30px;
+  z-index: 500;
+}
+.navmenu li.openable:hover > ul ul {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  width: auto;
+}
+.navmenu li ul {
+  border-bottom: 5px solid #ff9900;
+}
+.navmenu li li {
+  float: none;
+}
+.navmenu li li a {
+  float: none;
+  font-size: 16px;
+  font-weight: normal;
+}
+.navmenu li li a.fly {
+  color: #4d4d4d;
+  background-color: white;
+  padding: 2px 20px;
+}
+.navmenu li li a.break {
+  margin-bottom: 15px;
+}
+.navmenu li li a.highlight1,
+.navmenu li li a.highlight1:active,
+.navmenu li li a.highlight1:hover {
+  background-color: #009900;
+}
+.navmenu li li a.highlight2,
+.navmenu li li a.highlight2:active,
+.navmenu li li a.highlight2:hover {
+  background-color: #ff9900;
+}
+.navmenu li li a.highlight3,
+.navmenu li li a.highlight3:active,
+.navmenu li li a.highlight3:hover {
+  background-color: #000000;
+}
+.navmenu li li a.highlight1,
+.navmenu li li a.highlight2,
+.navmenu li li a.highlight3 {
+  color: white;
+  font-size: 16px;
+  margin: 5px 0;
+  padding: 9px 20px;
+}
+.site-footer {
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
+  display: flex;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  padding-top: 5px;
+  width: 100%;
+  font-size: 13px;
+  color: #999999;
+}
+.site-footer .align-left,
+.site-footer .align-center,
+.site-footer .align-right {
+  -webkit-box-flex: 1;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-flex: 1;
+  /* OLD - Firefox 19- */
+  -webkit-flex: 1;
+  /* Chrome */
+  -ms-flex: 1;
+  /* IE 10 */
+  flex: 1;
+}
+.site-footer .align-left {
+  flex: 1 0 100px;
+}
+.site-footer .align-center {
+  flex: 0 1 0%;
+  white-space: nowrap;
+}
+.site-footer .align-right {
+  flex: 1 0 100px;
+}
+.site-footer .page-width .active {
+  border-bottom: 2px solid #ff9900;
+}
+.searchbar {
+  padding: 0;
+}
+.searchbar .search {
+  margin-bottom: 4px;
+  padding: 2px 5px 0px;
+  border: 1px solid #cccccc;
+}
+.searchbar .search.subdue {
+  color: #cccccc;
+}
+.searchbar input.search {
+  width: 190px;
+  border: none;
+  font-size: 13px;
+  padding: 4px 2px;
+}
+.searchbar .search-advanced {
+  padding: 8px;
+  width: 203px;
+  z-index: 1000;
+  background-color: white;
+  border: solid 1px #cccccc;
+  position: absolute;
+  top: -4px;
+  right: 0px;
+}
+.searchbar .popup {
+  display: none;
+}
+.sub-headerbar .searchbar {
+  /*
+	.search-advanced
+	{
+        .transition(width, .1s, linear);
+
+        &.open
+        {
+    		width: 320px;
+        }
+    }
+    */
+}
+.sub-headerbar .searchbar input.search {
+  /*
+        &:focus,&:active
+        {
+            position     : absolute;
+            top          : 3px;
+            right        : 36px;
+            height       : 19px;
+            border       : 1px solid #ccc;
+            border-right : none;
+            width:         300px;
+
+            .transition(width, .1s, linear);
+        }
+        */
+}
+.search td {
+  background-color: white;
+}
+.article-container-parts {
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
+  display: flex;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+.article-container {
+  -webkit-box-flex: 1;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-flex: 1;
+  /* OLD - Firefox 19- */
+  -webkit-flex: 1;
+  /* Chrome */
+  -ms-flex: 1;
+  /* IE 10 */
+  flex: 1;
+  background-color: white;
+  color: #111111;
+  zoom: 1;
+  position: relative;
+  max-width: 100%;
+  min-height: 675px;
+}
+.article-container .article {
+  margin: 0 20px 0 10px;
+  line-height: 143%;
+}
+.article-container span.stats {
+  margin-left: 30px;
+}
+.article-left-sidebar {
+  width: 120px;
+  min-width: 120px;
+  min-height: 400px;
+  font-size: 14px;
+  border-right: 1px solid #f2f2f2;
+  padding: 0;
+  /* Old school style */
+  /*
+    .license {
+        font-weight: bold;
+        display: inline-block;
+        margin-top: 10px;
+    }
+    */
+}
+.article-left-sidebar .article-left-sidebar-inner {
+  width: 120px;
+  min-width: 120px;
+}
+.article-left-sidebar .tabs > div {
+  padding: 5px 0 5px 10px;
+}
+.article-left-sidebar .selected {
+  font-weight: bold;
+  background: transparent url("/images/right-selected.gif") no-repeat scroll
+    right 9px;
+}
+.article-left-sidebar h4 {
+  color: #ff9900;
+  font-size: 14px;
+  font-weight: bold;
+}
+.article-left-sidebar .stats div div div {
+  padding: 0px 0 10px 10px;
+  color: #666666;
+}
+.article-right-sidebar {
+  width: 300px;
+  margin-left: 10px;
+  font-size: 14px;
+}
+.article-right-sidebar .header {
+  font-size: 22px;
+  color: white;
+  background-color: #ff9900;
+  padding: 8px;
+  font-weight: 400;
+  margin: 0;
+}
+.article-right-sidebar .reading-list-toc {
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 6px;
+  margin-top: 5px;
+}
+.article-right-sidebar .reading-list-toc .count {
+  font-weight: normal;
+  font-size: 13px;
+}
+.article-right-sidebar .reading-list-toc .title {
+  font-size: 16px;
+}
+.article-right-sidebar .content-list-item {
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
+  display: flex;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  justify-content: space-between;
+  font-size: 14px;
+  margin: 4px 0;
+}
+.article-right-sidebar .content-list-item .count {
+  width: 15%;
+  padding: 0px;
+}
+.article-right-sidebar .content-list-item .title {
+  width: 85%;
+  font-weight: normal;
+}
+.article-right-sidebar .gototop {
+  text-align: center;
+  padding: 10px 0;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s linear 0ms;
+  -moz-transition: opacity 0.3s linear 0ms;
+  -o-transition: opacity 0.3s linear 0ms;
+  transition: opacity 0.3s linear 0ms;
+}
+.container-content .edit-links {
+  margin: 21px 0 0 10px;
+}
+.article-summary {
+  padding: 0px 10px 0px 10px;
+  overflow: hidden;
+}
+.article h1 {
+  margin: 0 0 15px 0;
+}
+.article h2 {
+  color: #ff9900;
+}
+.article pre {
+  overflow: auto;
+}
+.article .header .title {
+  color: #808080;
+}
+.article .header .author {
+  font-weight: bold;
+  min-width: 100px;
+}
+.article .header .author a {
+  color: #808080;
+}
+.article .header .avatar {
+  max-width: 48px;
+  max-height: 48px;
+  overflow: unset;
+}
+.article .header .avatar-wrap {
+  width: 48px;
+  height: 48px;
+  margin-right: 10px;
+  text-align: center;
+}
+.article .header .date {
+  white-space: nowrap;
+}
+.article .header .license {
+  margin-left: 15px;
+}
+.article .header .stats {
+  margin-left: 30px;
+}
+.article img.lazyload,
+.article img.lazyloading {
+  opacity: 0;
+}
+.article img {
+  max-width: 700px;
+  height: auto;
+}
+.article img.lazyloaded {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+.article .summary {
+  color: #808080;
+  padding: 40px 0 15px 0;
+}
+.article .text {
+  padding-top: 10px;
+}
+.article .reading-list-nav {
+  border-top: 1px #dedede solid;
+  border-bottom: 1px #dedede solid;
+  padding: 10px 0;
+}
+.article .reading-list-nav .prev {
+  padding-left: 20px;
+}
+.article .reading-list-nav .next {
+  margin-left: 5px;
+  padding-right: 20px;
+  text-align: right;
+}
+.article-nav {
+  text-align: right;
+  margin-top: 21px;
+  vertical-align: middle;
+  line-height: 15px;
+}
+.msg-728x90 {
+  width: 728px;
+  height: 90px;
+  overflow: hidden;
+}
+.msg-300x250 {
+  width: 300px;
+  height: 250px;
+  overflow: hidden;
+}
+.content-list {
+  margin-bottom: 17px;
+}
+.content-list .count {
+  font-weight: bold;
+  font-size: 16px;
+  color: #ff9900;
+  padding: 3px;
+  text-align: center;
+}
+.content-list-item {
+  margin: 10px 0;
+}
+.content-list-item .title {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0px 0;
+}
+.content-list-item .title a {
+  color: #005782;
+}
+.tags {
+  line-height: 190%;
+}
+.tags .t {
+  background: none repeat scroll 0 0 transparent;
+  border: 1px solid #fbedbb;
+  border-radius: 12px 0 0 12px;
+  line-height: 1.4;
+  padding: 0 2px 2px 3px;
+  position: relative;
+  text-decoration: none;
+  margin: 2px 5px 4px 0;
+  white-space: nowrap;
+}
+.tags .t a {
+  color: #666666;
+  display: inline-block;
+  margin-right: 3px;
+  padding-left: 5px;
+  text-overflow: ellipsis;
+}
+.container-breadcrumb {
+  font-size: 14px;
+  margin-top: 7px;
+  color: #808080;
+  margin: 12px 0 35px;
+}
+.container-breadcrumb a {
+  color: #808080;
+}
+.pre-lang {
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
+  display: flex;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  background-color: #fbedbb;
+  justify-content: space-between;
+  padding: 4px 8px;
+  margin-top: 5px;
+  color: #999999;
+  border-bottom: solid 1px #ffd044;
+}
+.code-comment {
+  color: #008000;
+  font-style: italic;
+}
+.code-keyword {
+  color: Blue;
+}
+.code-sdkkeyword {
+  color: #339999;
+}
+.code-string {
+  color: Purple;
+}
+.code-attribute {
+  color: red;
+}
+.code-leadattribute {
+  color: #800000;
+}
+.pre-action-link {
+  font-size: 13px;
+  color: #999999;
+}
+.pre-action-link span {
+  cursor: pointer;
+  margin: 0;
+  -webkit-transition: color 0.1s linear;
+  -moz-transition: color 0.1s linear;
+  -o-transition: color 0.1s linear;
+  transition: color 0.1s linear;
+}
+.speech-bubble-container-down,
+.speech-bubble-container-up,
+.speech-bubble-container-up-right,
+.speech-bubble-container-left,
+.speech-bubble-container-right {
+  position: relative;
+}
+.speech-bubble-up,
+.speech-bubble-down,
+.speech-bubble-left,
+.speech-bubble-right,
+.speech-bubble-up-right {
+  padding: 0.6em;
+  border: 1px solid #cccccc;
+  background-color: white;
+  margin: 15px;
+  text-decoration: none;
+  font-weight: normal;
+  text-align: left;
+  white-space: normal;
+  color: #333333;
+  font-size: 14px;
+  line-height: 1.3;
+}
+.speech-bubble-down {
+  margin-bottom: 0px;
+}
+.tooltip .speech-bubble-up,
+.tooltip .speech-bubble-up-right,
+.tooltip .speech-bubble-down,
+.tooltip .speech-bubble-left,
+.tooltip .speech-bubble-right {
+  -moz-box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  min-width: 75px;
+}
+.speech-bubble-pointer-down,
+.speech-bubble-pointer-down-inner {
+  width: 0;
+  height: 0;
+  border-bottom-width: 0;
+  background: none;
+}
+.speech-bubble-pointer-down {
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 1px solid #cccccc;
+  border-top-width: 14px;
+  margin-left: 35px;
+  margin-bottom: 15px;
+  _display: none;
+}
+.speech-bubble-pointer-up,
+.speech-bubble-pointer-up-right,
+.speech-bubble-pointer-up-inner,
+.speech-bubble-pointer-up-right-inner {
+  width: 0;
+  height: 0;
+  border-top-width: 0;
+  background: none;
+}
+.speech-bubble-pointer-up,
+.speech-bubble-pointer-up-right {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 1px solid #cccccc;
+  border-bottom-width: 14px;
+  margin-left: 35px;
+  position: absolute;
+  top: -12px;
+  _display: none;
+}
+.speech-bubble-container-up-right .speech-bubble-pointer-up-right {
+  margin-left: 0;
+  margin-right: 0px;
+  right: 35px;
+}
+.tooltip {
+  position: relative;
+  text-decoration: none;
+}
+.tooltip .speech-bubble-container-up,
+.tooltip .speech-bubble-container-down,
+.tooltip .speech-bubble-container-left,
+.tooltip .speech-bubble-container-right,
+.tooltip .speech-bubble-container-up-right,
+.tooltip .tooltip-flyout {
+  display: none;
+  opacity: 0;
+  -webkit-transition: opacity 0.5s linear 0ms;
+  -moz-transition: opacity 0.5s linear 0ms;
+  -o-transition: opacity 0.5s linear 0ms;
+  transition: opacity 0.5s linear 0ms;
+}
+.micromodal {
+  display: none;
+}
+.micromodal .modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 1000;
+}
+.micromodal .modal__container {
+  box-sizing: border-box;
+  overflow-y: auto;
+  max-width: 500px;
+  max-height: 100vh;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 4px;
+}
+.micromodal .modal__container,
+.micromodal .modal__overlay {
+  will-change: transform;
+}
+.micromodal .modal_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.micromodal .modal_title {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #ff9900;
+  box-sizing: border-box;
+}
+.bottom-promo {
+  height: 90px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+.bottom-promo .msg-728x90 {
+  width: 728px;
+  margin: 0 auto;
+}
+.msg-728x90 {
+  overflow: hidden;
+  position: relative;
+  height: 90px;
+  min-width: 728px;
+}
+table.forum {
+  table-layout: fixed;
+  margin: 0 0 20px 0;
+  padding: 0px;
+  width: 100%;
+}
+.forum {
+  /*
+    .indent
+    {
+        padding-left:5px; padding-right: 5px;
+    }
+    */
+}
+.forum table {
+  border-collapse: separate;
+}
+.forum .header1,
+.forum .header1 TD {
+  color: #333333;
+  font-size: 14px;
+  vertical-align: middle;
+}
+.forum .header2,
+.forum .header2 TD {
+  color: white;
+  background-color: #ff9900;
+  font-size: 14px;
+  vertical-align: middle;
+}
+.forum .header2 input,
+.forum .header2 TD input,
+.forum .header2 select,
+.forum .header2 TD select {
+  padding: 2px;
+}
+.forum .button {
+  border: 1px solid #ffcc66;
+  margin: 1px;
+}
+.forum .searchbar {
+  border: 1px solid #cccccc;
+  padding: 4px 0 0 0;
+  margin: 3px 0;
+}
+.forum .searchbar .search {
+  width: 200px;
+}
+.forum .searchbar input[type="image"] {
+  vertical-align: middle;
+}
+.forum .dropdown {
+  background-color: #fffdfa;
+  font-size: 95%;
+  margin-left: 5px;
+}
+.forum .footer,
+.forum .footer td,
+.forum .navbar,
+.forum .navbar td {
+  font-size: 14px;
+  padding: 8px 0;
+  border: 0;
+  border-top: 1px solid #808080;
+}
+.author-wrapper {
+  position: relative;
+}
+.author-wrapper .profile-pic {
+  border: 1px solid #333;
+  margin: 0 13px 0 0;
+  padding: 10px;
+  -moz-box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.2);
+  max-height: 100px;
+}
+.author-wrapper .container-member .author {
+  font-size: 29px;
+  color: #333333;
+  font-weight: 600;
+}
+.member-signin .forgot {
+  padding: 0;
+}
+.member-signin a.forgot {
+  color: #808080;
+}
+.rating-container {
+  /*
+	.rating-close
+	{
+		font-size       : @FontSize-MediumSmall;
+		font-weight     : bold;
+		// display         : inline-block;
+		// height          : 19px;
+		padding         : 0px 7px 3px 5px;
+		text-decoration : none;
+		border          : 1px solid transparent;
+		position        : absolute;
+		right           : 1px;
+		top             : -1px;
+
+		&:hover { border : 1px solid @Colour-Theme1; }
+	}*/
+}
+.rating-container .rating-prompt {
+  padding-right: 5px;
+  white-space: nowrap;
+  line-height: 25px;
+  margin-right: 2px;
+  font-weight: bold;
+  color: #808080;
+}
+.rating-container .rating-votes {
+  margin-left: 5px;
+}
+.rating-container.large-stars,
+.rating-container.medium-stars,
+.rating-container.small-stars {
+  margin-left: 7px;
+}
+.rating-container.large-stars .rating-votes,
+.rating-container.large-stars .rating-prompt,
+.rating-container.large-stars .rating-poor,
+.rating-container.large-stars .rating-good {
+  line-height: 25px;
+}
+.tablet-only,
+.tablet-block-only {
+  display: none;
+}
+.mobile-only,
+.mobile-block-only {
+  display: none;
+}
+.desktop-only.tablet-only {
+  display: inherit;
+}
+.tablet-only.desktop-only {
+  display: inherit;
+}
+.rrssb-buttons,
+.rrssb-buttons li,
+.rrssb-buttons li a {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+.rrssb-buttons {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+.rrssb-buttons li {
+  float: left;
+  height: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0 2.5px;
+  line-height: 13px;
+}
+.rrssb-buttons li.email a {
+  background-color: #0a88ff;
+}
+.rrssb-buttons li.facebook a {
+  background-color: #306199;
+}
+.rrssb-buttons li.linkedin a {
+  background-color: #007bb6;
+}
+.rrssb-buttons li.twitter a {
+  background-color: #26c4f1;
+}
+.rrssb-buttons li.reddit a {
+  background-color: #8bbbe3;
+}
+.rrssb-buttons li.pinterest a {
+  background-color: #b81621;
+}
+.rrssb-buttons li.compact {
+  padding: 0 4.5px;
+}
+.rrssb-buttons li.compact a {
+  border-radius: 50%;
+  padding: 0px 7px 0 32px;
+}
+.rrssb-buttons li.compact a .icon {
+  left: 7px;
+  top: -3px;
+  width: 5%;
+  transform: scale(0.85);
+}
+.rrssb-buttons li.compact a .icon svg {
+  height: auto;
+  width: auto;
+}
+.rrssb-buttons li a {
+  background-color: #ccc;
+  border-radius: 3px;
+  display: block;
+  font-size: 11px;
+  font-weight: bold;
+  height: 100%;
+  padding: 11px 7px 12px 27px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  -webkit-transition: background-color 0.2s ease-in-out;
+  -moz-transition: background-color 0.2s ease-in-out;
+  -o-transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
+}
+.rrssb-buttons li a .icon {
+  display: block;
+  height: 100%;
+  left: 10px;
+  padding-top: 9px;
+  position: absolute;
+  top: 0;
+  width: 10%;
+}
+.rrssb-buttons li a .icon svg {
+  height: 17px;
+  width: 17px;
+}
+.rrssb-buttons li a .icon svg path,
+.rrssb-buttons li a .icon svg polygon {
+  fill: #fff;
+}
+.cc-window {
+  opacity: 1;
+  background-color: #ff9900;
+  /*
+  -webkit-transition: opacity .25s ease;
+  -moz-transition: opacity .25s ease;
+  -ms-transition: opacity .25s ease;
+  -o-transition: opacity .25s ease;
+  transition: opacity .25s ease;
+  */
+}
+.cc-window.cc-invisible {
+  opacity: 0;
+}
+.cc-animate.cc-revoke {
+  /*
+  -webkit-transition: transform .25s ease;
+  -moz-transition: transform .25s ease;
+  -ms-transition: transform .25s ease;
+  -o-transition: transform .25s ease;
+  transition: transform .25s ease;
+  */
+}
+.cc-animate.cc-revoke.cc-bottom {
+  transform: translateY(2em);
+}
+.cc-window,
+.cc-revoke {
+  position: fixed;
+  overflow: hidden;
+  box-sizing: border-box;
+  /* exclude padding when dealing with width */
+  font-family: "Segoe UI", Arial, Sans-Serif;
+  font-size: 13px;
+  /* by setting the base font here, we can size the rest of the popup using CSS `em` */
+  line-height: 1.5em;
+  display: flex;
+  flex-wrap: nowrap;
+  /* the following are random unjustified styles - just because - should probably be removed */
+  z-index: 9999;
+}
+.cc-window.cc-banner {
+  padding: 0.7em 1.8em;
+  width: 100%;
+  flex-direction: row;
+}
+.cc-revoke {
+  padding: 0.5em;
+}
+.cc-btn,
+.cc-link,
+.cc-close,
+.cc-revoke {
+  cursor: pointer;
+}
+.cc-link {
+  opacity: 0.8;
+  display: inline-block;
+  padding: 0.2em;
+  text-decoration: underline;
+}
+.cc-link:active,
+.cc-link:visited {
+  color: initial;
+}
+.cc-btn {
+  display: block;
+  padding: 0.4em 0.8em;
+  font-size: 0.9em;
+  font-weight: bold;
+  border-width: 2px;
+  border-style: solid;
+  text-align: center;
+  white-space: nowrap;
+}
+.cc-banner .cc-btn:last-child {
+  min-width: 110px;
+  margin-left: 10px;
+}
+.cc-highlight .cc-btn:first-child {
+  background-color: transparent;
+  border-color: transparent;
+}
+.cc-revoke.cc-bottom {
+  bottom: 0;
+  left: 3em;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+}
+.cc-bottom {
+  bottom: 1em;
+}
+.cc-window.cc-banner {
+  align-items: center;
+}
+.cc-banner.cc-bottom {
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.cc-banner .cc-message {
+  flex: 1;
+}
+.cc-compliance {
+  display: flex;
+  align-items: center;
+  align-content: space-between;
+}
+.cc-compliance > .cc-btn {
+  flex: 1;
+}
+.cc-btn + .cc-btn {
+  margin-left: 0.5em;
+}
+
+@keyframes showcopied {
+  0% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+</style><div><div><div class="article"><h2>Introduction</h2>
+
+<p><a href="https://docs.microsoft.com/en-us/dotnet/api/system.dateonly?view=net-6.0">DateOnly</a> is a <a href="https://github.com/dotnet/runtime/issues/49036">newly introduced</a> primitive data type in .NET 6. Apparently, it is good for presenting, passing and storing date only information, such as <code>DateOrBirth</code>, <code>RegisterDate</code>, and <code>WhatEverEventDate</code>.</p>
+
+<p>In the past, .NET (Framework or Core) developers basically used three approaches:</p>
+
+<ol>
+	<li>Use <code>string</code> like <code>yyyy-MM-dd</code>, or <code>yyyyMMdd</code>. And convert the object to <code>DateTime</code> for calculating date span.</li>	<li>Use <code>DateTime</code> or <code>DateTimeOffset</code> and make sure <code>TimeOfDay</code> is Zero. And pay extra care when doing cross-timezone conversations.</li>	<li>Use <a href="https://nodatime.org/">Noda Time library</a> or alike. However, using an extra library may introduce some negative impacts depending on your contexts.</li></ol>
+
+<p>So having a dedicated type for date only info is really a blessing. However, I had found that <code>DateOnly</code> is <a href="https://github.com/dotnet/runtime/issues/53539">not properly supported in ASP.NET Core or System.Text.Json</a> yet. If you use <code>DateOnly</code> in Web API, you will soon get into trouble in bindings and serialization.</p>
+
+<p>This article provides solutions for utilizing <code>DateOnly</code> in ASP.NET Core 6, before 7 is introduced in the future.</p>
+
+<h3>Important issues about ASP.NET 7</h3>
+
+<p><strong>As of .NET 7 released on 9, November 2022, Microsoft's .NET development team had fixed most of the problems addressed in this article. If you are using ASP.NET 7 and not using JavaScript clients, you may skip this article. If you have been using the library provided in this article, the applications migrated to ASP.NET 7 won't be breaking, since Microsoft's .NET team apparently had used some similar solution in .NET 7.&nbsp;</strong></p>
+
+<p><strong>If you have JavaScript clients which will serialize Date only info in playload, you may be interested in reading further tips "<a href="https://www.codeproject.com/Tips/5347111/DateOnly-in-ASP-NET-7-with-JavaScript-Clients">DateOnly in ASP.NET 7 with JavaScript Clients</a>".</strong></p>
+
+<h3>Background</h3>
+
+<p>In the past, I used a derived class of <code>Newtonsoft.Json.Converters.IsoDateTimeConverter</code> for handling date only information.</p>
+
+<div><div style="background-color: rgb(251, 237, 187); border-bottom: 1px solid rgb(255, 208, 68); color: rgb(153, 153, 153); display: flex; padding: 4px 8px; justify-content: space-between;"><div>C#</div><div style="align-items: center; display: flex; gap: 0.5rem; justify-content: space-between; position: relative;"><div style="color: inherit; cursor: pointer; font-size: 13px; transition: color 0.1s linear;">Shrink ▲</div><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 460 460" width="16px" height="16px" fill="currentColor" style="color: inherit; cursor: pointer; transition: color 0.1s linear;"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272 c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068 c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></div></div></div><pre lang="cs" style="margin-top: 0px;">    public class DateAndTimeConverter : IsoDateTimeConverter
+    {
+        static readonly Type typeOfDateTime = typeof(DateTime);
+        static readonly Type typeOfNullableDateTime = typeof(DateTime?);
+        static readonly Type typeOfDateTimeOffset = typeof(DateTimeOffset);
+        static readonly Type typeOfNullDateTimeOffset = typeof(DateTimeOffset?);
+
+        public override void WriteJson
+        (JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            var type = value.GetType();
+            if (type == typeOfDateTimeOffset)
+            {
+                var dto = (DateTimeOffset)value;
+                if (dto == DateTimeOffset.MinValue)
+                {
+                    writer.WriteNull();
+                    return;
+                }
+                else if (dto.TimeOfDay == TimeSpan.Zero)
+                {
+                    writer.WriteValue(dto.ToString("yyyy-MM-dd"));
+                    return;
+                }
+            }
+            else if (type == typeOfNullDateTimeOffset)
+            {
+                var dto = (DateTimeOffset?)value;
+                if (!dto.HasValue || dto.Value == DateTimeOffset.MinValue)
+                {
+                    writer.WriteNull();
+                    return;
+                }
+                else if (dto.Value.TimeOfDay == TimeSpan.Zero)
+                {
+                    writer.WriteValue(dto.Value.ToString("yyyy-MM-dd"));
+                    return;
+                }
+            }
+            else if (type == typeOfDateTime)
+            {
+                var dt = (DateTime)value;
+                if (dt.TimeOfDay == TimeSpan.Zero)
+                {
+                    writer.WriteValue(dt.ToString("yyyy-MM-dd"));
+                    return;
+                }
+            }
+            else if (type == typeOfNullableDateTime)
+            {
+                var dto = (DateTime?)value;
+                if (!dto.HasValue || dto.Value == DateTime.MinValue)
+                {
+                    writer.WriteNull();
+                    return;
+                }
+                else if (dto.Value.TimeOfDay == TimeSpan.Zero)
+                {
+                    writer.WriteValue(dto.Value.ToString("yyyy-MM-dd"));
+                    return;
+                }
+            }
+
+            base.WriteJson(writer, value, serializer);
+        }
+    }</pre>
+
+<p>These days, I would prefer to use <a href="https://www.newtonsoft.com/json/help/html/CustomJsonConverterGeneric.htm">JsonConverter&lt;T&gt;</a>. This approach looks neater and is more flexible. And <code>System.Text.Json</code> has <a href="https://docs.microsoft.com/en-us/dotnet/api/system.text.json.serialization.jsonconverter-1?view=net-6.0">a class with similar interfaces</a>.</p>
+
+<h2>Using the Code</h2>
+
+<p><code>DateOnlyJsonConverter</code> is one of the converters in nuget package <a data-package-id="Fonlow.DateOnlyExtensions" data-package-version="1.1.1" data-track="search-selection" data-track-value="0" data-use-version="False" href="https://www.nuget.org/packages/Fonlow.DateOnlyExtensions/">Fonlow.DateOnlyExtensions</a>. You should be using <code>DateOnlyJsonConverter</code> in both ASP.NET Core controllers and .NET clients.</p>
+
+<div><div style="background-color: rgb(251, 237, 187); border-bottom: 1px solid rgb(255, 208, 68); color: rgb(153, 153, 153); display: flex; padding: 4px 8px; justify-content: space-between;"><div>C#</div><div style="align-items: center; display: flex; gap: 0.5rem; justify-content: space-between; position: relative;"><div style="color: inherit; cursor: pointer; font-size: 13px; transition: color 0.1s linear;">Shrink ▲</div><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 460 460" width="16px" height="16px" fill="currentColor" style="color: inherit; cursor: pointer; transition: color 0.1s linear;"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272 c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068 c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></div></div></div><pre lang="cs" style="margin-top: 0px;">public sealed class DateOnlyJsonConverter : JsonConverter&lt;DateOnly&gt;
+{
+    public override void WriteJson
+    (JsonWriter writer, DateOnly value, JsonSerializer serializer)
+    {
+        writer.WriteValue(value.ToString("O"));
+    }
+
+    public override DateOnly ReadJson
+    (JsonReader reader, Type objectType, DateOnly existingValue, 
+     bool hasExistingValue, JsonSerializer serializer)
+    {
+        var v = reader.Value;
+        if (v == null)
+        {
+            return DateOnly.MinValue;
+        }
+
+        var vType = v.GetType();
+        if (vType == typeof(DateTimeOffset)) //when the object is from a property 
+                                             //in POST body. When used in service, 
+                                             //better to have 
+                                    //options.SerializerSettings.DateParseHandling = 
+                                    //Newtonsoft.Json.DateParseHandling.DateTimeOffset;
+        {
+            return DateOnly.FromDateTime(((DateTimeOffset)v).DateTime);
+        }
+
+        if (vType == typeof(string))
+        {
+            return DateOnly.Parse((string)v); //DateOnly can parse 00001-01-01
+        }
+
+        if (vType == typeof(DateTime)) //when the object is from a property 
+                                       //in POST body from a TS client
+        {
+            return DateOnly.FromDateTime((DateTime)v);
+        }
+
+        throw new NotSupportedException
+              ($"Not yet support {vType} in {this.GetType()}.");
+    }
+}</pre>
+
+<p>In your ASP.NET Core <code>Startup</code> codes, inject the converters to controllers:</p>
+
+<div><div style="background-color: rgb(251, 237, 187); border-bottom: 1px solid rgb(255, 208, 68); color: rgb(153, 153, 153); display: flex; padding: 4px 8px; justify-content: space-between;"><div>C#</div><div style="align-items: center; display: flex; gap: 0.5rem; justify-content: space-between; position: relative;"><div style="color: inherit; cursor: pointer; font-size: 13px; transition: color 0.1s linear;">Shrink ▲</div><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 460 460" width="16px" height="16px" fill="currentColor" style="color: inherit; cursor: pointer; transition: color 0.1s linear;"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272 c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068 c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></div></div></div><pre lang="cs" style="margin-top: 0px;">    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddControllers()
+            .AddNewtonsoftJson(
+                options =&gt;
+                {
+                    options.SerializerSettings.DateParseHandling = 
+                            Newtonsoft.Json.DateParseHandling.DateTimeOffset;
+                    options.SerializerSettings.Converters.Add
+                                               (new DateOnlyJsonConverter());
+                    options.SerializerSettings.Converters.Add
+                                               (new DateOnlyNullableJsonConverter());
+                }
+            );</pre>
+
+<p>In your .NET client codes with <code>HttpClient</code>, add the converters to <code>JsonSerializerSettings</code>:</p>
+
+<div><div style="background-color: rgb(251, 237, 187); border-bottom: 1px solid rgb(255, 208, 68); color: rgb(153, 153, 153); display: flex; padding: 4px 8px; justify-content: space-between;"><div>C#</div><div style="align-items: center; display: flex; gap: 0.5rem; justify-content: space-between; position: relative;"><div style="color: inherit; cursor: pointer; font-size: 13px; transition: color 0.1s linear;">Shrink ▲</div><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 460 460" width="16px" height="16px" fill="currentColor" style="color: inherit; cursor: pointer; transition: color 0.1s linear;"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272 c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068 c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></div></div></div><pre lang="cs" style="margin-top: 0px;">var jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings()
+{
+    NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+};
+
+jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
+jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
+Api = new DemoWebApi.Controllers.Client.SuperDemo(httpClient, jsonSerializerSettings);
+
+public partial class SuperDemo
+{
+    private System.Net.Http.HttpClient client;
+
+    private JsonSerializerSettings jsonSerializerSettings;
+
+    public SuperDemo(System.Net.Http.HttpClient client, 
+                     JsonSerializerSettings jsonSerializerSettings = null)
+    {
+        if (client == null)
+            throw new ArgumentNullException("Null HttpClient.", "client");
+
+        if (client.BaseAddress == null)
+            throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
+
+        this.client = client;
+        this.jsonSerializerSettings = jsonSerializerSettings;
+    }
+
+    public System.DateOnly PostDateOnly(System.DateOnly d, 
+           Action&lt;System.Net.Http.Headers.HttpRequestHeaders&gt; handleHeaders = null)
+    {
+        var requestUri = "api/SuperDemo/DateOnly";
+        using (var httpRequestMessage = 
+               new HttpRequestMessage(HttpMethod.Post, requestUri))
+        {
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+                var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+                requestSerializer.Serialize(requestWriter, d);
+                var content = new StringContent(requestWriter.ToString(), 
+                              System.Text.Encoding.UTF8, "application/json");
+                httpRequestMessage.Content = content;
+                if (handleHeaders != null)
+                {
+                    handleHeaders(httpRequestMessage.Headers);
+                }
+
+                var responseMessage = client.SendAsync(httpRequestMessage).Result;
+                try
+                {
+                    responseMessage.EnsureSuccessStatusCodeEx();
+                    var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+                    using (JsonReader jsonReader = new JsonTextReader
+                                      (new System.IO.StreamReader(stream)))
+                    {
+                        var serializer = JsonSerializer.Create(jsonSerializerSettings);
+                        return serializer.Deserialize&lt;System.DateOnly&gt;(jsonReader);
+                    }
+                }
+                finally
+                {
+                    responseMessage.Dispose();
+                }
+            }
+        }
+    }</pre>
+
+<p>Now <code>DateOnly</code> could be utilized in ASP.NET Core 6 in almost all cases.</p>
+
+<p>More examples could be found in <a href="https://github.com/zijianhuang/webapiclientgen/blob/master/Tests/IntegrationTestsCore/DateTypesIntegration.cs">the test suite</a>.</p>
+
+<h2>Points of Interest</h2>
+
+<h3>DateOnly in URL?</h3>
+
+<p>So far, with the custom <code>JsonConverters</code>, you may use a <code>DateOnly</code> object in the HTTP <code>POST</code> body and the returned result, as a standalone object or the value of a property of a complex object, however, using <code>DateOnly</code> object as a segment of URL is not yet possible because custom <code>JsonConverter</code> is not involved but "<code>Microsoft.AspNetCore.Routing.EndpointMiddleware</code>" along with <code>Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinder</code> which may be using <code>System.Text.Json</code>.</p>
+
+<p>Apparently, Microsoft's ASP.NET Core team <a href="https://github.com/dotnet/aspnetcore/issues/34591">needs to do something</a> to give <code>DateOnly</code> the same treatment as for <code>DateTimeOffset</code>, while currently <code>DateOnly</code> is not listed as simple types at <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/models/model-binding?view=aspnetcore-6.0" target="_blank">Model Binding in ASP.NET Core 6</a>.</p>
+
+<p>Nevertheless, this is not really a big problem to application developers who may just use a <code>string</code> type rather than <code>DateOnly</code> type for the URL parameter, and pass an ISO 8601 date string. For example:</p>
+
+<div><div style="background-color: rgb(251, 237, 187); border-bottom: 1px solid rgb(255, 208, 68); color: rgb(153, 153, 153); display: flex; padding: 4px 8px; justify-content: space-between;"><div>C#</div><div style="align-items: center; display: flex; gap: 0.5rem; justify-content: space-between; position: relative;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 460 460" width="16px" height="16px" fill="currentColor" style="color: inherit; cursor: pointer; transition: color 0.1s linear;"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272 c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068 c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></div></div></div><pre lang="cs" style="margin-top: 0px;">[HttpGet]
+[Route("DateOnlyStringQuery")]
+public DateOnly QueryDateOnlyAsString([FromQuery] string d)
+{
+    return DateOnly.Parse(d);
+}
+
+[Fact]
+public async void TestQueryDateOnlyString()
+{
+    DateOnly d = new DateOnly(2008, 12, 18);
+    var r = await api.QueryDateOnlyAsStringAsync(d.ToString("O"));
+    Assert.Equal(d, r);
+}</pre>
+
+<p>Or, simply use <code>POST</code>.</p>
+
+<h3>How about Code Generators?</h3>
+
+<p>Writing client codes talking to Web APIs sounds repetitive and boring. These days, many developers would prefer to use code generators to generate client API codes. And you may try <a href="https://github.com/zijianhuang/webapiclientgen">WebApiClientGen </a>and <a href="https://github.com/zijianhuang/openapiclientgen">OpenApiClientGen</a>, which both can generate client API codes like the one above.</p>
+
+<h3>Newtonsoft.Json or System.Text.Json?</h3>
+
+<p>As of .NET 6, there are still some cases which <code>System.Text.Json</code> cannot handle correctly while <code>Newtonsoft.Json</code> can. For more details, please read "<a href="https://webandlife.blogspot.com/2022/02/systemtextjson-vs-newtonsoftjson.html">Newtonsoft.Json vs System.Text.Json in ASP.NET Core 6</a>".</p>
+
+<h3>How about .NET Framework Clients?</h3>
+
+<p>Apparently, Microsoft has no plan to back port <code>DateOnly</code> to .NET Framework. So if you have some .NET Framework client applications to maintain, and want to talk to an ASP.NET Core Web API service utilizing <code>DateOnly</code>, what can you do?</p>
+
+<p>You may use <a href="https://github.com/zijianhuang/webapiclientgen/blob/master/Fonlow.DateOnlyExtensions/DateTimeOffsetJsonConverters.cs">DateTimeOffsetJsonConverter </a>and <a href="https://github.com/zijianhuang/webapiclientgen/blob/master/Fonlow.DateOnlyExtensions/DateTimeJsonConverters.cs">DateTimeJsonConverter </a>in Nuget package <a data-package-id="Fonlow.DateOnlyExtensionsNF" data-package-version="1.0.0" data-track="search-selection" data-track-value="1" data-use-version="False" href="https://www.nuget.org/packages/Fonlow.DateOnlyExtensionsNF/">Fonlow.<wbr>DateOnlyExtensionsNF</a>. And examples of talking to a ASP.NET Core Web API using <code>DateOnly</code> could be found in <a href="https://github.com/zijianhuang/webapiclientgen/blob/master/Tests/IntegrationTestsNF/DateTypesIntegration.cs">this test suite</a>.</p>
+
+<p><a href="https://github.com/zijianhuang/webapiclientgen">WebApiClientGen</a> generates C# client API codes always mapping <code>DateOnly</code> to <code>DateOnly</code>. And <a href="https://github.com/zijianhuang/openapiclientgen">OpenApiClientGen</a> has a setting "<code>DateToDateOnly</code>" default to <code>True</code>. If you want the generated codes to be used by both .NET Framework clients and .NET clients, you may keep "<code>DateToDateOnly</code>" to <code>true</code>. Make a copy of the generated codes and replace all "<code>DateOnly</code>" identifiers with "<code>DateTimeOffset</code>". And it shouldn't be hard for you to automate such variant of generated codes through a Powsershell script.</p>
+
+<p>.NET Framework client application codes:</p>
+
+<div><div style="background-color: rgb(251, 237, 187); border-bottom: 1px solid rgb(255, 208, 68); color: rgb(153, 153, 153); display: flex; padding: 4px 8px; justify-content: space-between;"><div>C#</div><div style="align-items: center; display: flex; gap: 0.5rem; justify-content: space-between; position: relative;"><div style="color: inherit; cursor: pointer; font-size: 13px; transition: color 0.1s linear;">Shrink ▲</div><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 460 460" width="16px" height="16px" fill="currentColor" style="color: inherit; cursor: pointer; transition: color 0.1s linear;"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272 c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068 c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></div></div></div><pre lang="cs" style="margin-top: 0px;">var jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings()
+{
+    NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+};
+
+<strong>jsonSerializerSettings.DateParseHandling = 
+    Newtonsoft.Json.DateParseHandling.DateTimeOffset;</strong> //needed to make sure 
+                    //JSON serializers assume DateTimeOffset rather than DateTime.
+jsonSerializerSettings.Converters.Add
+    (new DateTimeOffsetJsonConverter()); //needed to handle DateOnly.MinValue
+jsonSerializerSettings.Converters.Add
+    (new DateTimeOffsetNullableJsonConverter()); //needed to handle DateOnly.MinValue
+Api = new DemoWebApi.Controllers.Client.DateTypes(httpClient, jsonSerializerSettings);
+
+[Fact]
+public void TestPostDateOnly()
+{
+    var dateOnly = new DateTimeOffset(1988, 12, 23, 0, 0, 0, TimeSpan.Zero);
+    var r = api.PostDateOnly(dateOnly);
+    Assert.Equal(dateOnly.Date, r.Date);
+    Assert.Equal(DateTimeOffset.Now.Offset, r.Offset); //Local date start, 
+    //because the return  object is "1988-12-23". 
+    //No matter the client sends "2022-03-12" or "2022-03-12T00:00:00+00:00" 
+    //or "2022-03-12T00:00:00Z"
+    Assert.Equal(TimeSpan.Zero, r.TimeOfDay);
+}</pre>
+
+<p>You may notice that an extra setting <code>DateParseHandling </code>is needed. This ensures cross-timezone communications preserve correct timezone information, while <code>NewtonSoft.Json JsonConverte.ReadJson()</code> by default reads <code>DateTimeOffset </code>as <code>DateTime</code>, thus losing the timezone information. In contrast, in .NET 6, we don't need to use <code>DateTimeOffset </code>in client for <code>DateOnly </code>from server, thus there is no need for a converter.</p>
+
+<h3>How about JavaScript or TypeScript Clients?</h3>
+
+<p>Your JavaScript clients can only use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date"><code>Date</code> </a>object to talk to a Web API which always returns a <code>yyyy-MM-dd string</code> for date only data. Luckily, JavaScript can handle this well, probably because a <code>Date</code> object always uses UTC to store data internally. <a href="https://github.com/zijianhuang/webapiclientgen">WebApiClientGen </a>and <a href="https://github.com/zijianhuang/openapiclientgen">OpenApiClientGen</a> can generate client APIs for jQuery, Angular 2+, AXIOS, Aurelia and Fetch API. In <a href="https://github.com/zijianhuang/webapiclientgen/blob/master/DemoNGCli/NGSource/src/clientapi/WebApiNG2ClientAuto.spec.ts">this test suite</a> at category "<strong>DateTypes API</strong>", you may see how a TypeScript application deals with <code>DateOnly</code> using the <a href="https://github.com/zijianhuang/webapiclientgen/blob/master/DemoNGCli/NGSource/src/clientapi/WebApiCoreNg2ClientAuto.ts">client API codes generated</a>.</p>
+
+<h3>Date Pickers</h3>
+
+<p>Your client programs may use some date picker components. In .NET, you may need to make sure the date picker components are compatible with <code>DateOnly</code>, otherwise, you may need to stay with current practice of data binding.</p>
+
+<p>If you are developing Web UI with a date picker component, you need to make sure that the date picked, e.g., "<code>1980-01-01</code>" is stored in the <code>Date </code>object as "<code>1980-01-01T00:00:00.000Z</code>" rather than "<code>1979-12-31T14:00:00.000Z</code>" (I am in Australia +10 timezone).</p>
+
+<p>For example, when developing Angular SPA, I am using the <code>DatePicker</code> component of Angular Material Components. To ensure the <code>Date</code> object obtain "<code>1980-01-01T00:00:00.000Z</code>", there could be two approaches.</p>
+
+<p>In <code>@NgModule/providers</code>, provide the following:</p>
+
+<div><div style="background-color: rgb(251, 237, 187); border-bottom: 1px solid rgb(255, 208, 68); color: rgb(153, 153, 153); display: flex; padding: 4px 8px; justify-content: space-between;"><div>typescript</div><div style="align-items: center; display: flex; gap: 0.5rem; justify-content: space-between; position: relative;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 460 460" width="16px" height="16px" fill="currentColor" style="color: inherit; cursor: pointer; transition: color 0.1s linear;"><g><path d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272 c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"></path><path d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068 c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"></path></g></svg></div></div></div><pre lang="typescript" style="margin-top: 0px;">{ provide: DateAdapter, useClass: MomentDateAdapter, 
+  deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
+{ provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+{ provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true, strict: true } },</pre>
+
+<p>In a complex business app which contains many lazy modules, you may declare these providers in each lazy module or component, while you may have 3<sup>rd</sup> party components which may prefer other settings for <code>DatePicker</code>.</p>
+
+<h4>Remarks</h4>
+
+<p>The date picker with the settings above may have Today's date highlighted in a circle match UTC today. For example, if you are in a +10 time zone and use the date picker before 10 am, you may see the circle highlighting yesterday's date. This is not nice, however, if you use such settings for date of birth, mostly it does not matter, since most dates of DOB in your database should be months ago.</p>
+
+<h3>The Convention of Mapping DateTime Objects to Date Only</h3>
+
+<p>The signal for mapping a <code>DateTime</code> object to date only info is to set <code>TimeZone=Zero</code> and <code>TimeOfDate=Zero</code>. Apparently, Moment.JS team and Angular Material Components teams used the same protocol. Likewise, both .NET clients and the ASP.NET Core Web API should use the same set of converters to ensure such protocol for dealing with <code>DateTime</code> and <code>DateTimeOffset</code>, otherwise, not only date only situations are having trouble, but <code>DateTime.Min</code> and <code>DateTimeOffset.Min</code> will get into trouble across timezones.</p>
+
+<h4>Remarks</h4>
+
+<p>If you have a legacy database which can store only <code>DateTime</code> for date only information, you need to examine how the application had stored dates.</p>
+
+<h3>DateOnly and Databases</h3>
+
+<p>Obviously, not all database engines support date only column. As far as I can see, <a href="https://docs.microsoft.com/en-us/sql/t-sql/functions/date-and-time-data-types-and-functions-transact-sql?view=sql-server-2016">MS SQL Server 2016</a> and <a href="https://dev.mysql.com/doc/refman/8.0/en/datetime.html">MySql </a>support date only data type.</p>
+
+<p>With Entity Framework Code First, respective database specific library should map <code>DateOnly </code>to <code>Date</code> column type.</p>
+
+<h3>Integration Testing</h3>
+
+<p>When developing distributed applications, it is important to test cross-timezone issues when dealing with <code>DateTime</code> and <code>DateOnly</code>. You should have services and clients on machines/VMs sitting at different timezones during integration testing. I am in Australia, and I would typically have the test client or the integration test suite at +10:00 timezone, and the service at UTC or -10:00 timezone.</p>
+
+<h2>History</h2>
+
+<ul>
+	<li>22<sup>nd</sup> February, 2022: Initial version</li></ul></div></div></div></template></div></div><div><div id="div-gpt-ad-1738591766860-0" style="min-width:300px;min-height:600px" class="mt-40 sticky top-40" data-google-query-id="CP3wrI_1l40DFSgogwMdXM4C9g"><div id="google_ads_iframe_/67541884/CPLargeSky160600_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/67541884/CPLargeSky160600_0" name="google_ads_iframe_/67541884/CPLargeSky160600_0" title="3rd party ad content" width="300" height="600" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" aria-label="Advertisement" tabindex="0" allow="private-state-token-redemption;attribution-reporting" data-load-complete="true" data-google-container-id="2" style="border: 0px; vertical-align: bottom;" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/saved_resource(1).html"></iframe></div></div></div></div><!--$--><!--/$--><!--$--><!--/$--></main><footer class="custom-container flex flex-col gap-3 px-2"><div class="mt-2 py-4 min-h-36 bg-primary"></div><div class="border-t-4 border-primary p-3 flex justify-between"><nav class="flex-1"><ul><li><a href="http://developermedia.com/" rel="nofollow noreferrer">Advertise</a></li><li><a href="https://www.codeproject.com/info/privacy.aspx">Privacy</a></li><li><a href="https://www.codeproject.com/info/cookie.aspx">Cookies</a></li><li><a href="https://www.codeproject.com/info/TermsOfUse.aspx">Terms of Use</a></li></ul></nav><div class="flex-1"></div><div class="flex-1 text-gray text-sm text-right">Copyright © <a href="mailto:webmaster@codeproject.com">CodeProject</a>, 1999-2025<br>All Rights Reserved.</div></div></footer><script src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/webpack-5ed466aeca77ac7a.js.download" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[387,[\"869\",\"static/chunks/869-095b567be01917e3.js\",\"177\",\"static/chunks/app/layout-12dfdcc6fc1e5fcf.js\"],\"default\"]\n3:I[6874,[\"869\",\"static/chunks/869-095b567be01917e3.js\",\"76\",\"static/chunks/app/(article)/Articles/%5BarticleId%5D/%5BarticleSlug%5D/page-ade9d0789736a960.js\"],\"\"]\n4:I[3063,[\"869\",\"static/chunks/869-095b567be01917e3.js\",\"76\",\"static/chunks/app/(article)/Articles/%5BarticleId%5D/%5BarticleSlug%5D/page-ade9d0789736a960.js\"],\"Image\"]\n5:I[6932,[\"869\",\"static/chunks/869-095b567be01917e3.js\",\"76\",\"static/chunks/app/(article)/Articles/%5BarticleId%5D/%5BarticleSlug%5D/page-ade9d0789736a960.js\"],\"default\"]\n6:I[7231,[\"869\",\"static/chunks/869-095b567be01917e3.js\",\"177\",\"static/chunks/app/layout-12dfdcc6fc1e5fcf.js\"],\"default\"]\n7:I[7555,[],\"\"]\n8:I[1295,[],\"\"]\na:I[9665,[],\"MetadataBoundary\"]\nc:I[9665,[],\"OutletBoundary\"]\nf:I[4911,[],\"AsyncMetadataOutlet\"]\n11:I[9665,[],\"ViewportBoundary\"]\n13:I[6614,[],\"\"]\n14:\"$Sreact.suspense\"\n15:I[4911,[],\"AsyncMetadata\"]\n:HL[\"/_next/static/media/945b7384c5256ec3-s.p.ttf\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/ttf\"}]\n:HL[\"/_next/static/media/b55e164a6e7ce445-s.p.ttf\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/ttf\"}]\n:HL[\"/_next/static/media/e337cf18f0f81cb9-s.p.ttf\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/ttf\"}]\n:HL[\"/_next/static/media/f7794ce32483498f-s.p.ttf\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/ttf\"}]\n:HL[\"/_next/static/css/f00fbee724adea66.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"b\":\"RM4oGDTGwzcUK8vU4hkUW\",\"p\":\"\",\"c\":[\"\",\"Articles\",\"5325820\",\"DateOnly-in-NET-6-and-ASP-NET-Core-6\"],\"i\":false,\"f\":[[[\"\",{\"children\":[\"(article)\",{\"children\":[\"Articles\",{\"children\":[[\"articleId\",\"5325820\",\"d\"],{\"children\":[[\"articleSlug\",\"DateOnly-in-NET-6-and-ASP-NET-Core-6\",\"d\"],{\"children\":[\"__PAGE__\",{}]}]}]}]}]},\"$undefined\",\"$undefined\",true],[\"\",[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/f00fbee724adea66.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"en\",\"children\":[[\"$\",\"head\",null,{\"children\":[[\"$\",\"link\",null,{\"rel\":\"apple-touch-icon\",\"sizes\":\"144x144\",\"href\":\"/favicon/apple-touch-icon.png\"}],[\"$\",\"link\",null,{\"rel\":\"icon\",\"type\":\"image/png\",\"sizes\":\"32x32\",\"href\":\"/favicon/favicon-32x32.png\"}],[\"$\",\"link\",null,{\"rel\":\"icon\",\"type\":\"image/png\",\"sizes\":\"16x16\",\"href\":\"/favicon/favicon-16x16.png\"}],[\"$\",\"link\",null,{\"rel\":\"manifest\",\"href\":\"/favicon/manifest.json\"}],[\"$\",\"link\",null,{\"rel\":\"mask-icon\",\"href\":\"/favicon/safari-pinned-tab.svg\",\"color\":\"#ff9900\"}],[\"$\",\"meta\",null,{\"property\":\"og:title\",\"content\":\"CodeProject\"}],[\"$\",\"meta\",null,{\"property\":\"og:image\",\"content\":\"https://www.codeproject.com/favicon/mstile-150x150.png\"}],[\"$\",\"meta\",null,{\"property\":\"og:description\",\"content\":\"For those who code\"}],[\"$\",\"meta\",null,{\"property\":\"og:url\",\"content\":\"https://www.codeproject.com\"}],[\"$\",\"script\",null,{\"async\":true,\"src\":\"https://securepubads.g.doubleclick.net/tag/js/gpt.js\"}],[\"$\",\"$L2\",null,{}]]}],[\"$\",\"body\",null,{\"className\":\"__className_2277ee\",\"children\":[[\"$\",\"header\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"custom-container gap-2 py-1 text-gray-light flex justify-between whitespace-nowrap z-10 relative px-1 md:px-0\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex-1 md:ml-20\",\"children\":[[\"$\",\"span\",null,{\"className\":\"hidden md:block\",\"children\":[65.938,\" articles\"]}],[\"$\",\"span\",null,{\"className\":\"block md:hidden\",\"children\":[\"65.9\",\"K\"]}]]}],[\"$\",\"div\",null,{\"className\":\"flex-1\",\"children\":[\"CodeProject is changing.\",\" \",[\"$\",\"$L3\",null,{\"href\":\"/info/Changes.aspx\",\"className\":\"!text-gray-lightest\",\"children\":\"Read more.\"}]]}],[\"$\",\"div\",null,{\"className\":\"flex-1\"}],[\"$\",\"div\",null,{\"className\":\"flex-1\"}]]}],[\"$\",\"div\",null,{\"className\":\"mb-2 mt-2 md:mt-0\",\"children\":[\"$\",\"div\",null,{\"className\":\"h-[94px] bg-primary\",\"children\":[\"$\",\"div\",null,{\"className\":\"custom-container relative h-full\",\"children\":[[\"$\",\"$L3\",null,{\"href\":\"/\",\"children\":[\"$\",\"$L4\",null,{\"className\":\"absolute -top-[31px]\",\"src\":\"/logo250x135.gif\",\"priority\":true,\"alt\":\"Home\",\"width\":250,\"height\":135}]}],[\"$\",\"div\",null,{\"className\":\"w-[calc(100%-300px)] translate-x-[300px] translate-y-[2px] h-[90px] relative overflow-hidden\",\"children\":[\"$\",\"$L5\",null,{\"adUnit\":\"/67541884/CPLeader728\",\"adSlotId\":\"div-gpt-ad-1738591571151-0\",\"adSize\":[728,90],\"className\":\"absolute top-0 left-0\"}]}]]}]}]}],[\"$\",\"$L6\",null,{}]]}],[\"$\",\"main\",null,{\"className\":\"px-2 py-10\",\"children\":[\"$\",\"$L7\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L8\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}],[\"$\",\"footer\",null,{\"className\":\"custom-container flex flex-col gap-3 px-2\",\"children\":[[\"$\",\"div\",null,{\"className\":\"mt-2 py-4 min-h-36 bg-primary\"}],[\"$\",\"div\",null,{\"className\":\"border-t-4 border-primary p-3 flex justify-between\",\"children\":[[\"$\",\"nav\",null,{\"className\":\"flex-1\",\"children\":[\"$\",\"ul\",null,{\"children\":[[\"$\",\"li\",null,{\"children\":[\"$\",\"a\",null,{\"href\":\"http://developermedia.com/\",\"rel\":\"nofollow noreferrer\",\"children\":\"Advertise\"}]}],[\"$\",\"li\",null,{\"children\":[\"$\",\"$L3\",null,{\"href\":\"/info/privacy.aspx\",\"children\":\"Privacy\"}]}],[\"$\",\"li\",null,{\"children\":[\"$\",\"$L3\",null,{\"href\":\"/info/cookie.aspx\",\"children\":\"Cookies\"}]}],[\"$\",\"li\",null,{\"children\":[\"$\",\"$L3\",null,{\"href\":\"/info/TermsOfUse.aspx\",\"children\":\"Terms of Use\"}]}]]}]}],[\"$\",\"div\",null,{\"className\":\"flex-1\"}],[\"$\",\"div\",null,{\"className\":\"flex-1 text-gray text-sm text-right\",\"children\":[\"Copyright © \",[\"$\",\"a\",null,{\"href\":\"mailto:webmaster@codeproject.com\",\"children\":\"CodeProject\"}],\", 1999-2025\",[\"$\",\"br\",null,{}],\"All Rights Reserved.\"]}]]}]]}]]}]]}]]}],{\"children\":[\"(article)\",[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L7\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L8\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":\"$0:f:0:1:1:props:children:1:props:children:1:props:children:1:props:children:props:notFound:0:1:props:style\",\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":\"$0:f:0:1:1:props:children:1:props:children:1:props:children:1:props:children:props:notFound:0:1:props:children:props:children:1:props:style\",\"children\":404}],[\"$\",\"div\",null,{\"style\":\"$0:f:0:1:1:props:children:1:props:children:1:props:children:1:props:children:props:notFound:0:1:props:children:props:children:2:props:style\",\"children\":[\"$\",\"h2\",null,{\"style\":\"$0:f:0:1:1:props:children:1:props:children:1:props:children:1:props:children:props:notFound:0:1:props:children:props:children:2:props:children:props:style\",\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[\"Articles\",[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L7\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L8\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"articleId\",\"5325820\",\"d\"],[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L7\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L8\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"articleSlug\",\"DateOnly-in-NET-6-and-ASP-NET-Core-6\",\"d\"],[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L7\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L8\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[\"__PAGE__\",[\"$\",\"$1\",\"c\",{\"children\":[\"$L9\",[\"$\",\"$La\",null,{\"children\":\"$Lb\"}],null,[\"$\",\"$Lc\",null,{\"children\":[\"$Ld\",\"$Le\",[\"$\",\"$Lf\",null,{\"promise\":\"$@10\"}]]}]]}],{},null,false]},null,false]},null,false]},null,false]},null,false]},null,false],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$1\",\"gPMFxqGRuVkWQ35imBneB\",{\"children\":[[\"$\",\"$L11\",null,{\"children\":\"$L12\"}],[\"$\",\"meta\",null,{\"name\":\"next-size-adjust\",\"content\":\"\"}]]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$13\",\"$undefined\"],\"s\":false,\"S\":false}\n"])</script><script>self.__next_f.push([1,"b:[\"$\",\"$14\",null,{\"fallback\":null,\"children\":[\"$\",\"$L15\",null,{\"promise\":\"$@16\"}]}]\ne:null\n12:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\nd:null\n"])</script><script>self.__next_f.push([1,"16:{\"metadata\":[[\"$\",\"title\",\"0\",{\"children\":\"DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject\"}],[\"$\",\"link\",\"1\",{\"rel\":\"manifest\",\"href\":\"/manifest.json\",\"crossOrigin\":\"$undefined\"}]],\"error\":null,\"digest\":\"$undefined\"}\n10:{\"metadata\":\"$16:metadata\",\"error\":null,\"digest\":\"$undefined\"}\n"])</script><script>self.__next_f.push([1,"17:I[9741,[\"869\",\"static/chunks/869-095b567be01917e3.js\",\"76\",\"static/chunks/app/(article)/Articles/%5BarticleId%5D/%5BarticleSlug%5D/page-ade9d0789736a960.js\"],\"default\"]\n19:I[6947,[\"869\",\"static/chunks/869-095b567be01917e3.js\",\"76\",\"static/chunks/app/(article)/Articles/%5BarticleId%5D/%5BarticleSlug%5D/page-ade9d0789736a960.js\"],\"default\"]\n18:T706f,"])</script><script>self.__next_f.push([1,"/*\n  This is the legacy article critical styles\n  They are added in order to reduce mvp development time\n  They should be refactored or completely replaced woth nextjs css modules in future\n*/\n\n::selection {\n  background-color: #f90;\n  color: #fff;\n  text-shadow: none;\n}\n.blank-background {\n  background-color: white;\n}\nhtml,\ndiv,\nspan,\napplet,\nobject,\niframe,\na,\nabbr,\nacronym,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nfont,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nfieldset,\nform,\nlabel,\ntable,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\nli,\nol,\nul {\n  margin: 0;\n  padding: 0;\n  border: 0;\n}\nhtml {\n  font-size: 16px;\n  -webkit-font-smoothing: antialiased;\n  font-smooth: always;\n}\nbody,\np,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nli,\ntr,\ntd,\nth,\ndd,\ndt {\n  font-size: 16px;\n  line-height: 1.4;\n  color: #111111;\n}\nbody {\n  margin: 0;\n}\nh1,\nh3,\nh4,\nh5,\nth {\n  font-weight: bold;\n}\nh1 {\n  color: #333333;\n  padding: 0px;\n  margin: 0 0 7px;\n  text-align: left;\n}\nh2 {\n  margin: 20px 0 11px;\n  padding: 0;\n  padding-bottom: 10px;\n  color: #333333;\n}\nh3 {\n  color: #ff9900;\n}\nh1 {\n  font-size: 38px;\n  font-weight: 400;\n}\nh2 {\n  font-size: 29px;\n  font-weight: 400;\n}\nh3 {\n  font-size: 19px;\n  font-weight: normal;\n}\nh4 {\n  font-size: 17px;\n}\npre {\n  color: black;\n  background-color: #fbedbb;\n  padding: 6px;\n  font: 14px Consolas, monospace, mono;\n  white-space: pre;\n  overflow: auto;\n  border: solid 1px #fbedbb;\n  -moz-tab-size: 4;\n  -o-tab-size: 4;\n  -webkit-tab-size: 4;\n  tab-size: 4;\n}\ncode {\n  color: #990000;\n  font: 15px Consolas, monospace, mono;\n}\ntable {\n  background-color: Transparent;\n}\nimg {\n  -ms-interpolation-mode: bicubic;\n}\na {\n  text-decoration: none;\n  color: #005782;\n}\na:visited {\n  color: #800080;\n}\na:hover {\n  text-decoration: underline;\n}\na:not([href]) {\n  color: inherit;\n  text-decoration: none;\n}\ninput[type=\"text\"],\ninput[type=\"url\"],\ninput[type=\"search\"],\ninput[type=\"email\"],\ninput[type=\"number\"],\ninput[type=\"password\"],\nselect,\ntextarea {\n  border: 1px solid #d7d7d7;\n  font-size: 16px;\n  padding: 5px;\n}\na.button,\na.button-large,\n.button,\n.button-large {\n  color: white;\n  background-color: #e08900;\n  border: 1px solid #cccccc;\n  text-decoration: none;\n  white-space: nowrap;\n  font-size: 100%;\n  padding: 4px;\n  cursor: pointer;\n  border-radius: 3px;\n  -webkit-border-radius: 3px;\n  -moz-border-radius: 3px;\n}\ntable.small-text td,\nul.small-text li,\nol.small-text li,\n.small-text {\n  font-size: 14px;\n}\n.invisible {\n  display: none;\n}\n.subdue,\n.subdue li,\ntr.subdue td {\n  color: #808080;\n}\n.bold {\n  font-weight: bold;\n}\n.align-left {\n  text-align: left;\n}\n.align-right {\n  text-align: right;\n}\n.align-center {\n  text-align: center;\n}\n.float-right {\n  float: right;\n}\n.float-left {\n  float: left;\n}\n.sticky {\n  position: sticky;\n  top: 0;\n}\n.extended {\n  width: 100%;\n  box-sizing: border-box;\n}\n.padded-top {\n  padding-top: 20px;\n}\n.tight {\n  margin: 0px;\n  padding: 0px;\n}\n.nowrap {\n  white-space: nowrap;\n}\n.fixed-layout {\n  table-layout: fixed;\n}\n.clip-text {\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.raised {\n  background-color: #fff8df;\n  border: 1px solid #cccccc;\n  -moz-box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);\n  -webkit-box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);\n  box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);\n}\nol,\nul {\n  padding-left: 40px;\n  margin: 10px 0;\n}\nol.compact li,\nul.compact li,\nol li.compact,\nul li.compact {\n  font-size: 14px;\n}\nul.download {\n  margin-top: 25px;\n}\nul.download li,\nul li.download,\nul.Download li,\nul li.Download {\n  background: url(\"/images/download24.png\") no-repeat scroll left center\n    transparent;\n  font-weight: bold;\n  list-style-type: none;\n  margin: 0px 0 6px -40px;\n  padding: 0 0 1px 30px;\n  vertical-align: middle;\n}\n.callout {\n  margin: 20px 0;\n  background-color: #ffffe1;\n  color: #333333;\n  border: 1px solid #cccccc;\n  padding: 15px;\n  border-radius: 3px;\n  -webkit-border-radius: 3px;\n  -moz-border-radius: 3px;\n}\n.trace {\n  padding: 20px;\n  background-color: #eeeeee;\n  color: #333333;\n  border: 1px solid red;\n  font-size: 13px;\n}\ntextarea,\ninput[type=\"text\"],\ninput[type=\"button\"],\ninput[type=\"submit\"] {\n  -webkit-appearance: none;\n  border-radius: 0;\n}\n.container-content {\n  background-color: white;\n  position: relative;\n  zoom: 1;\n  padding: 0 9px;\n  cursor: default;\n}\n.container-content-wrap {\n  margin: auto;\n  max-width: 1270px;\n}\n.container-content pre,\n.container-code pre,\n.answer pre {\n  white-space: pre-wrap;\n  /* css-3 */\n  white-space: -moz-pre-wrap;\n  /* Mozilla, since 1999 */\n  white-space: -pre-wrap;\n  /* Opera 4-6 */\n  white-space: -o-pre-wrap;\n  /* Opera 7 */\n  word-wrap: break-word;\n  /* Internet Explorer 5.5+ */\n  _white-space: pre;\n  /* IE only hack to re-specify in addition to word-wrap  */\n  word-break: break-word;\n  -ms-word-break: break-word;\n}\n.flex-container {\n  display: -webkit-box;\n  /* OLD - iOS 6-, Safari 3.1-6 */\n  display: -moz-box;\n  /* OLD - Firefox 19- (buggy but mostly works) */\n  display: -ms-flexbox;\n  /* TWEENER - IE 10 */\n  display: -webkit-flex;\n  /* NEW - Chrome */\n  display: flex;\n  /* NEW, Spec - Opera 12.1, Firefox 20+ */\n}\n.flex-extend {\n  justify-content: space-between;\n}\n.flex-wrap {\n  flex-wrap: wrap;\n}\n.flex-item {\n  -webkit-box-flex: 1;\n  /* OLD - iOS 6-, Safari 3.1-6 */\n  -moz-box-flex: 1;\n  /* OLD - Firefox 19- */\n  -webkit-flex: 1;\n  /* Chrome */\n  -ms-flex: 1;\n  /* IE 10 */\n  flex: 1;\n}\n.flex-item-tight {\n  flex: 0 1 auto;\n}\n.hover-container {\n  display: block;\n  position: relative;\n}\n.clearfix:after,\n.container:after {\n  display: block;\n  content: \".\";\n  visibility: hidden;\n  height: 0px;\n  clear: both;\n}\n.clearfix,\n.container {\n  display: inline-block;\n  /* Mac IE5 sees this */\n  /* Mac IE5 comment hack \\*/\n  display: block;\n  /* Mac IE5 doesn't see this, but everyone else does */\n}\n.access-link,\n.access-link img {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 1px;\n  height: 1px;\n  z-index: 101;\n  border-style: none;\n  margin-top: -1px;\n  overflow: hidden;\n}\n.site-top-menu {\n  white-space: nowrap;\n  position: absolute;\n  z-index: 101;\n  width: 100%;\n}\n.site-top-menu .main-content {\n  width: 100%;\n}\n.site-top-menu .main-content .memberbar {\n  margin-left: 90px;\n  margin-right: 10px;\n}\n.site-top-menu.fixed .main-content {\n  margin: auto;\n  max-width: 1270px;\n}\n.site-header {\n  background-image: url(\"/App_Themes/CodeProject/Img/logo135-bg.gif\");\n  white-space: nowrap;\n  overflow: hidden;\n}\n.site-header .main-content {\n  position: relative;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.site-header .logo {\n  display: inline-block;\n}\n.site-header .promo {\n  display: inline-block;\n  position: absolute;\n  top: 33px;\n  right: 0;\n}\n.site-header.fixed .main-content {\n  margin: auto;\n  max-width: 1270px;\n}\n.sub-headerbar {\n  padding-right: 9px;\n  position: relative;\n  margin: auto;\n  max-width: 1270px;\n}\n.sub-headerbar-divider {\n  margin-left: 10px;\n  height: 1px;\n  border-bottom: 1px solid #cccccc;\n  position: absolute;\n  bottom: 2px;\n  left: 0px;\n  right: 9px;\n}\n.memberbar {\n  height: 25px;\n  padding-top: 10px;\n  color: #999999;\n  font-size: 14px;\n}\n.memberbar a {\n  color: #808080;\n  font-size: 14px;\n}\ndiv.navbar {\n  white-space: nowrap;\n}\n.navmenu {\n  background: white;\n  color: #4d4d4d;\n  padding: 0px;\n  margin: 0px;\n  list-style: none;\n  height: 25px;\n}\n.navmenu ul,\n.navmenu li {\n  margin: 0;\n  padding: 0;\n}\n.navmenu .has-submenu {\n  position: absolute;\n  right: 5px;\n  padding-left: 10px;\n}\n.navmenu \u003e li:hover \u003e a,\n.navmenu \u003e li \u003e a:active {\n  border: 1px solid #cccccc;\n}\n.navmenu ul,\n.navmenu \u003e li.open:hover \u003e a,\n.navmenu \u003e li.open \u003e a:active {\n  border: 1px solid #cccccc;\n  border-bottom-color: white;\n}\n.navmenu \u003e li {\n  margin: 0 11px 2px 2px;\n}\n.navmenu \u003e li:active,\n.navmenu \u003e li:active \u003e a,\n.navmenu \u003e li:hover,\n.navmenu \u003e li \u003e a:active {\n  background: white;\n  color: #4d4d4d;\n}\n.navmenu \u003e li.openable \u003e a:active,\n.navmenu \u003e li.openable:hover \u003e a {\n  /*border-bottom: 1px solid @ColourBack-Menu; */\n}\n.navmenu \u003e li \u003e a {\n  padding: 2px 7px 6px 7px;\n  border: 1px solid transparent;\n  font-weight: bold;\n}\n.navmenu a {\n  display: block;\n  float: left;\n  color: #666666;\n  background: white;\n  font-size: 17px;\n  padding: 0px 9px;\n  text-decoration: none;\n  white-space: nowrap;\n}\n.navmenu a.fly {\n  white-space: nowrap;\n}\n.navmenu ul {\n  background: white;\n  position: absolute;\n  left: -9999px;\n  top: -9999px;\n  list-style: none;\n}\n.navmenu li {\n  float: left;\n  color: #4d4d4d;\n}\n.navmenu li.last {\n  height: 9px;\n}\n.navmenu li a:active,\n.navmenu li a:hover {\n  color: white;\n  background-color: #ff9900;\n}\n.navmenu li \u003e a:active,\n.navmenu li:hover,\n.navmenu li:hover \u003e a,\n.navmenu li:hover.heading,\n.navmenu li a.selected {\n  position: relative;\n  color: white;\n  background-color: #ff9900;\n}\n.navmenu li.openable:hover ul {\n  left: 0px;\n  top: 30px;\n  z-index: 500;\n}\n.navmenu li.openable:hover \u003e ul ul {\n  position: absolute;\n  left: -9999px;\n  top: -9999px;\n  width: auto;\n}\n.navmenu li ul {\n  border-bottom: 5px solid #ff9900;\n}\n.navmenu li li {\n  float: none;\n}\n.navmenu li li a {\n  float: none;\n  font-size: 16px;\n  font-weight: normal;\n}\n.navmenu li li a.fly {\n  color: #4d4d4d;\n  background-color: white;\n  padding: 2px 20px;\n}\n.navmenu li li a.break {\n  margin-bottom: 15px;\n}\n.navmenu li li a.highlight1,\n.navmenu li li a.highlight1:active,\n.navmenu li li a.highlight1:hover {\n  background-color: #009900;\n}\n.navmenu li li a.highlight2,\n.navmenu li li a.highlight2:active,\n.navmenu li li a.highlight2:hover {\n  background-color: #ff9900;\n}\n.navmenu li li a.highlight3,\n.navmenu li li a.highlight3:active,\n.navmenu li li a.highlight3:hover {\n  background-color: #000000;\n}\n.navmenu li li a.highlight1,\n.navmenu li li a.highlight2,\n.navmenu li li a.highlight3 {\n  color: white;\n  font-size: 16px;\n  margin: 5px 0;\n  padding: 9px 20px;\n}\n.site-footer {\n  display: -webkit-box;\n  /* OLD - iOS 6-, Safari 3.1-6 */\n  display: -moz-box;\n  /* OLD - Firefox 19- (buggy but mostly works) */\n  display: -ms-flexbox;\n  /* TWEENER - IE 10 */\n  display: -webkit-flex;\n  /* NEW - Chrome */\n  display: flex;\n  /* NEW, Spec - Opera 12.1, Firefox 20+ */\n  padding-top: 5px;\n  width: 100%;\n  font-size: 13px;\n  color: #999999;\n}\n.site-footer .align-left,\n.site-footer .align-center,\n.site-footer .align-right {\n  -webkit-box-flex: 1;\n  /* OLD - iOS 6-, Safari 3.1-6 */\n  -moz-box-flex: 1;\n  /* OLD - Firefox 19- */\n  -webkit-flex: 1;\n  /* Chrome */\n  -ms-flex: 1;\n  /* IE 10 */\n  flex: 1;\n}\n.site-footer .align-left {\n  flex: 1 0 100px;\n}\n.site-footer .align-center {\n  flex: 0 1 0%;\n  white-space: nowrap;\n}\n.site-footer .align-right {\n  flex: 1 0 100px;\n}\n.site-footer .page-width .active {\n  border-bottom: 2px solid #ff9900;\n}\n.searchbar {\n  padding: 0;\n}\n.searchbar .search {\n  margin-bottom: 4px;\n  padding: 2px 5px 0px;\n  border: 1px solid #cccccc;\n}\n.searchbar .search.subdue {\n  color: #cccccc;\n}\n.searchbar input.search {\n  width: 190px;\n  border: none;\n  font-size: 13px;\n  padding: 4px 2px;\n}\n.searchbar .search-advanced {\n  padding: 8px;\n  width: 203px;\n  z-index: 1000;\n  background-color: white;\n  border: solid 1px #cccccc;\n  position: absolute;\n  top: -4px;\n  right: 0px;\n}\n.searchbar .popup {\n  display: none;\n}\n.sub-headerbar .searchbar {\n  /*\n\t.search-advanced\n\t{\n        .transition(width, .1s, linear);\n\n        \u0026.open\n        {\n    \t\twidth: 320px;\n        }\n    }\n    */\n}\n.sub-headerbar .searchbar input.search {\n  /*\n        \u0026:focus,\u0026:active\n        {\n            position     : absolute;\n            top          : 3px;\n            right        : 36px;\n            height       : 19px;\n            border       : 1px solid #ccc;\n            border-right : none;\n            width:         300px;\n\n            .transition(width, .1s, linear);\n        }\n        */\n}\n.search td {\n  background-color: white;\n}\n.article-container-parts {\n  display: -webkit-box;\n  /* OLD - iOS 6-, Safari 3.1-6 */\n  display: -moz-box;\n  /* OLD - Firefox 19- (buggy but mostly works) */\n  display: -ms-flexbox;\n  /* TWEENER - IE 10 */\n  display: -webkit-flex;\n  /* NEW - Chrome */\n  display: flex;\n  /* NEW, Spec - Opera 12.1, Firefox 20+ */\n}\n.article-container {\n  -webkit-box-flex: 1;\n  /* OLD - iOS 6-, Safari 3.1-6 */\n  -moz-box-flex: 1;\n  /* OLD - Firefox 19- */\n  -webkit-flex: 1;\n  /* Chrome */\n  -ms-flex: 1;\n  /* IE 10 */\n  flex: 1;\n  background-color: white;\n  color: #111111;\n  zoom: 1;\n  position: relative;\n  max-width: 100%;\n  min-height: 675px;\n}\n.article-container .article {\n  margin: 0 20px 0 10px;\n  line-height: 143%;\n}\n.article-container span.stats {\n  margin-left: 30px;\n}\n.article-left-sidebar {\n  width: 120px;\n  min-width: 120px;\n  min-height: 400px;\n  font-size: 14px;\n  border-right: 1px solid #f2f2f2;\n  padding: 0;\n  /* Old school style */\n  /*\n    .license {\n        font-weight: bold;\n        display: inline-block;\n        margin-top: 10px;\n    }\n    */\n}\n.article-left-sidebar .article-left-sidebar-inner {\n  width: 120px;\n  min-width: 120px;\n}\n.article-left-sidebar .tabs \u003e div {\n  padding: 5px 0 5px 10px;\n}\n.article-left-sidebar .selected {\n  font-weight: bold;\n  background: transparent url(\"/images/right-selected.gif\") no-repeat scroll\n    right 9px;\n}\n.article-left-sidebar h4 {\n  color: #ff9900;\n  font-size: 14px;\n  font-weight: bold;\n}\n.article-left-sidebar .stats div div div {\n  padding: 0px 0 10px 10px;\n  color: #666666;\n}\n.article-right-sidebar {\n  width: 300px;\n  margin-left: 10px;\n  font-size: 14px;\n}\n.article-right-sidebar .header {\n  font-size: 22px;\n  color: white;\n  background-color: #ff9900;\n  padding: 8px;\n  font-weight: 400;\n  margin: 0;\n}\n.article-right-sidebar .reading-list-toc {\n  max-height: 250px;\n  overflow-y: auto;\n  padding-right: 6px;\n  margin-top: 5px;\n}\n.article-right-sidebar .reading-list-toc .count {\n  font-weight: normal;\n  font-size: 13px;\n}\n.article-right-sidebar .reading-list-toc .title {\n  font-size: 16px;\n}\n.article-right-sidebar .content-list-item {\n  display: -webkit-box;\n  /* OLD - iOS 6-, Safari 3.1-6 */\n  display: -moz-box;\n  /* OLD - Firefox 19- (buggy but mostly works) */\n  display: -ms-flexbox;\n  /* TWEENER - IE 10 */\n  display: -webkit-flex;\n  /* NEW - Chrome */\n  display: flex;\n  /* NEW, Spec - Opera 12.1, Firefox 20+ */\n  justify-content: space-between;\n  font-size: 14px;\n  margin: 4px 0;\n}\n.article-right-sidebar .content-list-item .count {\n  width: 15%;\n  padding: 0px;\n}\n.article-right-sidebar .content-list-item .title {\n  width: 85%;\n  font-weight: normal;\n}\n.article-right-sidebar .gototop {\n  text-align: center;\n  padding: 10px 0;\n  opacity: 0;\n  -webkit-transition: opacity 0.3s linear 0ms;\n  -moz-transition: opacity 0.3s linear 0ms;\n  -o-transition: opacity 0.3s linear 0ms;\n  transition: opacity 0.3s linear 0ms;\n}\n.container-content .edit-links {\n  margin: 21px 0 0 10px;\n}\n.article-summary {\n  padding: 0px 10px 0px 10px;\n  overflow: hidden;\n}\n.article h1 {\n  margin: 0 0 15px 0;\n}\n.article h2 {\n  color: #ff9900;\n}\n.article pre {\n  overflow: auto;\n}\n.article .header .title {\n  color: #808080;\n}\n.article .header .author {\n  font-weight: bold;\n  min-width: 100px;\n}\n.article .header .author a {\n  color: #808080;\n}\n.article .header .avatar {\n  max-width: 48px;\n  max-height: 48px;\n  overflow: unset;\n}\n.article .header .avatar-wrap {\n  width: 48px;\n  height: 48px;\n  margin-right: 10px;\n  text-align: center;\n}\n.article .header .date {\n  white-space: nowrap;\n}\n.article .header .license {\n  margin-left: 15px;\n}\n.article .header .stats {\n  margin-left: 30px;\n}\n.article img.lazyload,\n.article img.lazyloading {\n  opacity: 0;\n}\n.article img {\n  max-width: 700px;\n  height: auto;\n}\n.article img.lazyloaded {\n  opacity: 1;\n  transition: opacity 300ms;\n}\n.article .summary {\n  color: #808080;\n  padding: 40px 0 15px 0;\n}\n.article .text {\n  padding-top: 10px;\n}\n.article .reading-list-nav {\n  border-top: 1px #dedede solid;\n  border-bottom: 1px #dedede solid;\n  padding: 10px 0;\n}\n.article .reading-list-nav .prev {\n  padding-left: 20px;\n}\n.article .reading-list-nav .next {\n  margin-left: 5px;\n  padding-right: 20px;\n  text-align: right;\n}\n.article-nav {\n  text-align: right;\n  margin-top: 21px;\n  vertical-align: middle;\n  line-height: 15px;\n}\n.msg-728x90 {\n  width: 728px;\n  height: 90px;\n  overflow: hidden;\n}\n.msg-300x250 {\n  width: 300px;\n  height: 250px;\n  overflow: hidden;\n}\n.content-list {\n  margin-bottom: 17px;\n}\n.content-list .count {\n  font-weight: bold;\n  font-size: 16px;\n  color: #ff9900;\n  padding: 3px;\n  text-align: center;\n}\n.content-list-item {\n  margin: 10px 0;\n}\n.content-list-item .title {\n  font-size: 14px;\n  font-weight: bold;\n  padding: 0px 0;\n}\n.content-list-item .title a {\n  color: #005782;\n}\n.tags {\n  line-height: 190%;\n}\n.tags .t {\n  background: none repeat scroll 0 0 transparent;\n  border: 1px solid #fbedbb;\n  border-radius: 12px 0 0 12px;\n  line-height: 1.4;\n  padding: 0 2px 2px 3px;\n  position: relative;\n  text-decoration: none;\n  margin: 2px 5px 4px 0;\n  white-space: nowrap;\n}\n.tags .t a {\n  color: #666666;\n  display: inline-block;\n  margin-right: 3px;\n  padding-left: 5px;\n  text-overflow: ellipsis;\n}\n.container-breadcrumb {\n  font-size: 14px;\n  margin-top: 7px;\n  color: #808080;\n  margin: 12px 0 35px;\n}\n.container-breadcrumb a {\n  color: #808080;\n}\n.pre-lang {\n  display: -webkit-box;\n  /* OLD - iOS 6-, Safari 3.1-6 */\n  display: -moz-box;\n  /* OLD - Firefox 19- (buggy but mostly works) */\n  display: -ms-flexbox;\n  /* TWEENER - IE 10 */\n  display: -webkit-flex;\n  /* NEW - Chrome */\n  display: flex;\n  /* NEW, Spec - Opera 12.1, Firefox 20+ */\n  background-color: #fbedbb;\n  justify-content: space-between;\n  padding: 4px 8px;\n  margin-top: 5px;\n  color: #999999;\n  border-bottom: solid 1px #ffd044;\n}\n.code-comment {\n  color: #008000;\n  font-style: italic;\n}\n.code-keyword {\n  color: Blue;\n}\n.code-sdkkeyword {\n  color: #339999;\n}\n.code-string {\n  color: Purple;\n}\n.code-attribute {\n  color: red;\n}\n.code-leadattribute {\n  color: #800000;\n}\n.pre-action-link {\n  font-size: 13px;\n  color: #999999;\n}\n.pre-action-link span {\n  cursor: pointer;\n  margin: 0;\n  -webkit-transition: color 0.1s linear;\n  -moz-transition: color 0.1s linear;\n  -o-transition: color 0.1s linear;\n  transition: color 0.1s linear;\n}\n.speech-bubble-container-down,\n.speech-bubble-container-up,\n.speech-bubble-container-up-right,\n.speech-bubble-container-left,\n.speech-bubble-container-right {\n  position: relative;\n}\n.speech-bubble-up,\n.speech-bubble-down,\n.speech-bubble-left,\n.speech-bubble-right,\n.speech-bubble-up-right {\n  padding: 0.6em;\n  border: 1px solid #cccccc;\n  background-color: white;\n  margin: 15px;\n  text-decoration: none;\n  font-weight: normal;\n  text-align: left;\n  white-space: normal;\n  color: #333333;\n  font-size: 14px;\n  line-height: 1.3;\n}\n.speech-bubble-down {\n  margin-bottom: 0px;\n}\n.tooltip .speech-bubble-up,\n.tooltip .speech-bubble-up-right,\n.tooltip .speech-bubble-down,\n.tooltip .speech-bubble-left,\n.tooltip .speech-bubble-right {\n  -moz-box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);\n  -webkit-box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);\n  box-shadow: 4px 4px 16px 1px rgba(0, 0, 0, 0.25);\n  border-radius: 5px;\n  -webkit-border-radius: 5px;\n  -moz-border-radius: 5px;\n  min-width: 75px;\n}\n.speech-bubble-pointer-down,\n.speech-bubble-pointer-down-inner {\n  width: 0;\n  height: 0;\n  border-bottom-width: 0;\n  background: none;\n}\n.speech-bubble-pointer-down {\n  border-left: 7px solid transparent;\n  border-right: 7px solid transparent;\n  border-top: 1px solid #cccccc;\n  border-top-width: 14px;\n  margin-left: 35px;\n  margin-bottom: 15px;\n  _display: none;\n}\n.speech-bubble-pointer-up,\n.speech-bubble-pointer-up-right,\n.speech-bubble-pointer-up-inner,\n.speech-bubble-pointer-up-right-inner {\n  width: 0;\n  height: 0;\n  border-top-width: 0;\n  background: none;\n}\n.speech-bubble-pointer-up,\n.speech-bubble-pointer-up-right {\n  border-left: 5px solid transparent;\n  border-right: 5px solid transparent;\n  border-bottom: 1px solid #cccccc;\n  border-bottom-width: 14px;\n  margin-left: 35px;\n  position: absolute;\n  top: -12px;\n  _display: none;\n}\n.speech-bubble-container-up-right .speech-bubble-pointer-up-right {\n  margin-left: 0;\n  margin-right: 0px;\n  right: 35px;\n}\n.tooltip {\n  position: relative;\n  text-decoration: none;\n}\n.tooltip .speech-bubble-container-up,\n.tooltip .speech-bubble-container-down,\n.tooltip .speech-bubble-container-left,\n.tooltip .speech-bubble-container-right,\n.tooltip .speech-bubble-container-up-right,\n.tooltip .tooltip-flyout {\n  display: none;\n  opacity: 0;\n  -webkit-transition: opacity 0.5s linear 0ms;\n  -moz-transition: opacity 0.5s linear 0ms;\n  -o-transition: opacity 0.5s linear 0ms;\n  transition: opacity 0.5s linear 0ms;\n}\n.micromodal {\n  display: none;\n}\n.micromodal .modal__overlay {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background: rgba(0, 0, 0, 0.65);\n  z-index: 1000;\n}\n.micromodal .modal__container {\n  box-sizing: border-box;\n  overflow-y: auto;\n  max-width: 500px;\n  max-height: 100vh;\n  padding: 30px;\n  background-color: #fff;\n  border-radius: 4px;\n}\n.micromodal .modal__container,\n.micromodal .modal__overlay {\n  will-change: transform;\n}\n.micromodal .modal_header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 1rem;\n}\n.micromodal .modal_title {\n  margin-top: 0;\n  margin-bottom: 0;\n  color: #ff9900;\n  box-sizing: border-box;\n}\n.bottom-promo {\n  height: 90px;\n  margin-top: 10px;\n  overflow: hidden;\n}\n.bottom-promo .msg-728x90 {\n  width: 728px;\n  margin: 0 auto;\n}\n.msg-728x90 {\n  overflow: hidden;\n  position: relative;\n  height: 90px;\n  min-width: 728px;\n}\ntable.forum {\n  table-layout: fixed;\n  margin: 0 0 20px 0;\n  padding: 0px;\n  width: 100%;\n}\n.forum {\n  /*\n    .indent\n    {\n        padding-left:5px; padding-right: 5px;\n    }\n    */\n}\n.forum table {\n  border-collapse: separate;\n}\n.forum .header1,\n.forum .header1 TD {\n  color: #333333;\n  font-size: 14px;\n  vertical-align: middle;\n}\n.forum .header2,\n.forum .header2 TD {\n  color: white;\n  background-color: #ff9900;\n  font-size: 14px;\n  vertical-align: middle;\n}\n.forum .header2 input,\n.forum .header2 TD input,\n.forum .header2 select,\n.forum .header2 TD select {\n  padding: 2px;\n}\n.forum .button {\n  border: 1px solid #ffcc66;\n  margin: 1px;\n}\n.forum .searchbar {\n  border: 1px solid #cccccc;\n  padding: 4px 0 0 0;\n  margin: 3px 0;\n}\n.forum .searchbar .search {\n  width: 200px;\n}\n.forum .searchbar input[type=\"image\"] {\n  vertical-align: middle;\n}\n.forum .dropdown {\n  background-color: #fffdfa;\n  font-size: 95%;\n  margin-left: 5px;\n}\n.forum .footer,\n.forum .footer td,\n.forum .navbar,\n.forum .navbar td {\n  font-size: 14px;\n  padding: 8px 0;\n  border: 0;\n  border-top: 1px solid #808080;\n}\n.author-wrapper {\n  position: relative;\n}\n.author-wrapper .profile-pic {\n  border: 1px solid #333;\n  margin: 0 13px 0 0;\n  padding: 10px;\n  -moz-box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.2);\n  -webkit-box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.2);\n  box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.2);\n  max-height: 100px;\n}\n.author-wrapper .container-member .author {\n  font-size: 29px;\n  color: #333333;\n  font-weight: 600;\n}\n.member-signin .forgot {\n  padding: 0;\n}\n.member-signin a.forgot {\n  color: #808080;\n}\n.rating-container {\n  /*\n\t.rating-close\n\t{\n\t\tfont-size       : @FontSize-MediumSmall;\n\t\tfont-weight     : bold;\n\t\t// display         : inline-block;\n\t\t// height          : 19px;\n\t\tpadding         : 0px 7px 3px 5px;\n\t\ttext-decoration : none;\n\t\tborder          : 1px solid transparent;\n\t\tposition        : absolute;\n\t\tright           : 1px;\n\t\ttop             : -1px;\n\n\t\t\u0026:hover { border : 1px solid @Colour-Theme1; }\n\t}*/\n}\n.rating-container .rating-prompt {\n  padding-right: 5px;\n  white-space: nowrap;\n  line-height: 25px;\n  margin-right: 2px;\n  font-weight: bold;\n  color: #808080;\n}\n.rating-container .rating-votes {\n  margin-left: 5px;\n}\n.rating-container.large-stars,\n.rating-container.medium-stars,\n.rating-container.small-stars {\n  margin-left: 7px;\n}\n.rating-container.large-stars .rating-votes,\n.rating-container.large-stars .rating-prompt,\n.rating-container.large-stars .rating-poor,\n.rating-container.large-stars .rating-good {\n  line-height: 25px;\n}\n.tablet-only,\n.tablet-block-only {\n  display: none;\n}\n.mobile-only,\n.mobile-block-only {\n  display: none;\n}\n.desktop-only.tablet-only {\n  display: inherit;\n}\n.tablet-only.desktop-only {\n  display: inherit;\n}\n.rrssb-buttons,\n.rrssb-buttons li,\n.rrssb-buttons li a {\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n.clearfix:after {\n  clear: both;\n}\n.clearfix:before,\n.clearfix:after {\n  content: \" \";\n  display: table;\n}\n.rrssb-buttons {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  height: 40px;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n}\n.rrssb-buttons li {\n  float: left;\n  height: 100%;\n  list-style: none;\n  margin: 0;\n  padding: 0 2.5px;\n  line-height: 13px;\n}\n.rrssb-buttons li.email a {\n  background-color: #0a88ff;\n}\n.rrssb-buttons li.facebook a {\n  background-color: #306199;\n}\n.rrssb-buttons li.linkedin a {\n  background-color: #007bb6;\n}\n.rrssb-buttons li.twitter a {\n  background-color: #26c4f1;\n}\n.rrssb-buttons li.reddit a {\n  background-color: #8bbbe3;\n}\n.rrssb-buttons li.pinterest a {\n  background-color: #b81621;\n}\n.rrssb-buttons li.compact {\n  padding: 0 4.5px;\n}\n.rrssb-buttons li.compact a {\n  border-radius: 50%;\n  padding: 0px 7px 0 32px;\n}\n.rrssb-buttons li.compact a .icon {\n  left: 7px;\n  top: -3px;\n  width: 5%;\n  transform: scale(0.85);\n}\n.rrssb-buttons li.compact a .icon svg {\n  height: auto;\n  width: auto;\n}\n.rrssb-buttons li a {\n  background-color: #ccc;\n  border-radius: 3px;\n  display: block;\n  font-size: 11px;\n  font-weight: bold;\n  height: 100%;\n  padding: 11px 7px 12px 27px;\n  position: relative;\n  text-align: center;\n  text-decoration: none;\n  text-transform: uppercase;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  width: 100%;\n  -webkit-transition: background-color 0.2s ease-in-out;\n  -moz-transition: background-color 0.2s ease-in-out;\n  -o-transition: background-color 0.2s ease-in-out;\n  transition: background-color 0.2s ease-in-out;\n}\n.rrssb-buttons li a .icon {\n  display: block;\n  height: 100%;\n  left: 10px;\n  padding-top: 9px;\n  position: absolute;\n  top: 0;\n  width: 10%;\n}\n.rrssb-buttons li a .icon svg {\n  height: 17px;\n  width: 17px;\n}\n.rrssb-buttons li a .icon svg path,\n.rrssb-buttons li a .icon svg polygon {\n  fill: #fff;\n}\n.cc-window {\n  opacity: 1;\n  background-color: #ff9900;\n  /*\n  -webkit-transition: opacity .25s ease;\n  -moz-transition: opacity .25s ease;\n  -ms-transition: opacity .25s ease;\n  -o-transition: opacity .25s ease;\n  transition: opacity .25s ease;\n  */\n}\n.cc-window.cc-invisible {\n  opacity: 0;\n}\n.cc-animate.cc-revoke {\n  /*\n  -webkit-transition: transform .25s ease;\n  -moz-transition: transform .25s ease;\n  -ms-transition: transform .25s ease;\n  -o-transition: transform .25s ease;\n  transition: transform .25s ease;\n  */\n}\n.cc-animate.cc-revoke.cc-bottom {\n  transform: translateY(2em);\n}\n.cc-window,\n.cc-revoke {\n  position: fixed;\n  overflow: hidden;\n  box-sizing: border-box;\n  /* exclude padding when dealing with width */\n  font-family: \"Segoe UI\", Arial, Sans-Serif;\n  font-size: 13px;\n  /* by setting the base font here, we can size the rest of the popup using CSS `em` */\n  line-height: 1.5em;\n  display: flex;\n  flex-wrap: nowrap;\n  /* the following are random unjustified styles - just because - should probably be removed */\n  z-index: 9999;\n}\n.cc-window.cc-banner {\n  padding: 0.7em 1.8em;\n  width: 100%;\n  flex-direction: row;\n}\n.cc-revoke {\n  padding: 0.5em;\n}\n.cc-btn,\n.cc-link,\n.cc-close,\n.cc-revoke {\n  cursor: pointer;\n}\n.cc-link {\n  opacity: 0.8;\n  display: inline-block;\n  padding: 0.2em;\n  text-decoration: underline;\n}\n.cc-link:active,\n.cc-link:visited {\n  color: initial;\n}\n.cc-btn {\n  display: block;\n  padding: 0.4em 0.8em;\n  font-size: 0.9em;\n  font-weight: bold;\n  border-width: 2px;\n  border-style: solid;\n  text-align: center;\n  white-space: nowrap;\n}\n.cc-banner .cc-btn:last-child {\n  min-width: 110px;\n  margin-left: 10px;\n}\n.cc-highlight .cc-btn:first-child {\n  background-color: transparent;\n  border-color: transparent;\n}\n.cc-revoke.cc-bottom {\n  bottom: 0;\n  left: 3em;\n  border-top-left-radius: 0.5em;\n  border-top-right-radius: 0.5em;\n}\n.cc-bottom {\n  bottom: 1em;\n}\n.cc-window.cc-banner {\n  align-items: center;\n}\n.cc-banner.cc-bottom {\n  left: 0;\n  right: 0;\n  bottom: 0;\n}\n.cc-banner .cc-message {\n  flex: 1;\n}\n.cc-compliance {\n  display: flex;\n  align-items: center;\n  align-content: space-between;\n}\n.cc-compliance \u003e .cc-btn {\n  flex: 1;\n}\n.cc-btn + .cc-btn {\n  margin-left: 0.5em;\n}\n\n@keyframes showcopied {\n  0% {\n    opacity: 0;\n  }\n  70% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n"])</script><script>self.__next_f.push([1,"1a:T5920,"])</script><script>self.__next_f.push([1,"\u003ch2\u003eIntroduction\u003c/h2\u003e\r\n\r\n\u003cp\u003e\u003ca href=\"https://docs.microsoft.com/en-us/dotnet/api/system.dateonly?view=net-6.0\"\u003eDateOnly\u003c/a\u003e is a \u003ca href=\"https://github.com/dotnet/runtime/issues/49036\"\u003enewly introduced\u003c/a\u003e primitive data type in .NET 6. Apparently, it is good for presenting, passing and storing date only information, such as \u003ccode\u003eDateOrBirth\u003c/code\u003e, \u003ccode\u003eRegisterDate\u003c/code\u003e, and \u003ccode\u003eWhatEverEventDate\u003c/code\u003e.\u003c/p\u003e\r\n\r\n\u003cp\u003eIn the past, .NET (Framework or Core) developers basically used three approaches:\u003c/p\u003e\r\n\r\n\u003col\u003e\r\n\t\u003cli\u003eUse \u003ccode\u003estring\u003c/code\u003e like \u003ccode\u003eyyyy-MM-dd\u003c/code\u003e, or \u003ccode\u003eyyyyMMdd\u003c/code\u003e. And convert the object to \u003ccode\u003eDateTime\u003c/code\u003e for calculating date span.\u003c/li\u003e\t\u003cli\u003eUse \u003ccode\u003eDateTime\u003c/code\u003e or \u003ccode\u003eDateTimeOffset\u003c/code\u003e and make sure \u003ccode\u003eTimeOfDay\u003c/code\u003e is Zero. And pay extra care when doing cross-timezone conversations.\u003c/li\u003e\t\u003cli\u003eUse \u003ca href=\"https://nodatime.org/\"\u003eNoda Time library\u003c/a\u003e or alike. However, using an extra library may introduce some negative impacts depending on your contexts.\u003c/li\u003e\u003c/ol\u003e\r\n\r\n\u003cp\u003eSo having a dedicated type for date only info is really a blessing. However, I had found that \u003ccode\u003eDateOnly\u003c/code\u003e is \u003ca href=\"https://github.com/dotnet/runtime/issues/53539\"\u003enot properly supported in ASP.NET Core or System.Text.Json\u003c/a\u003e yet. If you use \u003ccode\u003eDateOnly\u003c/code\u003e in Web API, you will soon get into trouble in bindings and serialization.\u003c/p\u003e\r\n\r\n\u003cp\u003eThis article provides solutions for utilizing \u003ccode\u003eDateOnly\u003c/code\u003e in ASP.NET Core 6, before 7 is introduced in the future.\u003c/p\u003e\r\n\r\n\u003ch3\u003eImportant issues about ASP.NET 7\u003c/h3\u003e\r\n\r\n\u003cp\u003e\u003cstrong\u003eAs of .NET 7 released on 9, November 2022, Microsoft's .NET development team had fixed most of the problems addressed in this article. If you are using ASP.NET 7 and not using JavaScript clients, you may skip this article. If you have been using the library provided in this article, the applications migrated to ASP.NET 7 won't be breaking, since Microsoft's .NET team apparently had used some similar solution in .NET 7.\u0026nbsp;\u003c/strong\u003e\u003c/p\u003e\r\n\r\n\u003cp\u003e\u003cstrong\u003eIf you have JavaScript clients which will serialize Date only info in playload, you may be interested in reading further tips \"\u003ca href=\"https://www.codeproject.com/Tips/5347111/DateOnly-in-ASP-NET-7-with-JavaScript-Clients\"\u003eDateOnly in ASP.NET 7 with JavaScript Clients\u003c/a\u003e\".\u003c/strong\u003e\u003c/p\u003e\r\n\r\n\u003ch3\u003eBackground\u003c/h3\u003e\r\n\r\n\u003cp\u003eIn the past, I used a derived class of \u003ccode\u003eNewtonsoft.Json.Converters.IsoDateTimeConverter\u003c/code\u003e for handling date only information.\u003c/p\u003e\r\n\r\n\u003cpre lang=\"cs\"\u003e\r\n    public class DateAndTimeConverter : IsoDateTimeConverter\r\n    {\r\n        static readonly Type typeOfDateTime = typeof(DateTime);\r\n        static readonly Type typeOfNullableDateTime = typeof(DateTime?);\r\n        static readonly Type typeOfDateTimeOffset = typeof(DateTimeOffset);\r\n        static readonly Type typeOfNullDateTimeOffset = typeof(DateTimeOffset?);\r\n\r\n        public override void WriteJson\r\n        (JsonWriter writer, object value, JsonSerializer serializer)\r\n        {\r\n            var type = value.GetType();\r\n            if (type == typeOfDateTimeOffset)\r\n            {\r\n                var dto = (DateTimeOffset)value;\r\n                if (dto == DateTimeOffset.MinValue)\r\n                {\r\n                    writer.WriteNull();\r\n                    return;\r\n                }\r\n                else if (dto.TimeOfDay == TimeSpan.Zero)\r\n                {\r\n                    writer.WriteValue(dto.ToString(\"yyyy-MM-dd\"));\r\n                    return;\r\n                }\r\n            }\r\n            else if (type == typeOfNullDateTimeOffset)\r\n            {\r\n                var dto = (DateTimeOffset?)value;\r\n                if (!dto.HasValue || dto.Value == DateTimeOffset.MinValue)\r\n                {\r\n                    writer.WriteNull();\r\n                    return;\r\n                }\r\n                else if (dto.Value.TimeOfDay == TimeSpan.Zero)\r\n                {\r\n                    writer.WriteValue(dto.Value.ToString(\"yyyy-MM-dd\"));\r\n                    return;\r\n                }\r\n            }\r\n            else if (type == typeOfDateTime)\r\n            {\r\n                var dt = (DateTime)value;\r\n                if (dt.TimeOfDay == TimeSpan.Zero)\r\n                {\r\n                    writer.WriteValue(dt.ToString(\"yyyy-MM-dd\"));\r\n                    return;\r\n                }\r\n            }\r\n            else if (type == typeOfNullableDateTime)\r\n            {\r\n                var dto = (DateTime?)value;\r\n                if (!dto.HasValue || dto.Value == DateTime.MinValue)\r\n                {\r\n                    writer.WriteNull();\r\n                    return;\r\n                }\r\n                else if (dto.Value.TimeOfDay == TimeSpan.Zero)\r\n                {\r\n                    writer.WriteValue(dto.Value.ToString(\"yyyy-MM-dd\"));\r\n                    return;\r\n                }\r\n            }\r\n\r\n            base.WriteJson(writer, value, serializer);\r\n        }\r\n    }\u003c/pre\u003e\r\n\r\n\u003cp\u003eThese days, I would prefer to use \u003ca href=\"https://www.newtonsoft.com/json/help/html/CustomJsonConverterGeneric.htm\"\u003eJsonConverter\u0026lt;T\u0026gt;\u003c/a\u003e. This approach looks neater and is more flexible. And \u003ccode\u003eSystem.Text.Json\u003c/code\u003e has \u003ca href=\"https://docs.microsoft.com/en-us/dotnet/api/system.text.json.serialization.jsonconverter-1?view=net-6.0\"\u003ea class with similar interfaces\u003c/a\u003e.\u003c/p\u003e\r\n\r\n\u003ch2\u003eUsing the Code\u003c/h2\u003e\r\n\r\n\u003cp\u003e\u003ccode\u003eDateOnlyJsonConverter\u003c/code\u003e is one of the converters in nuget package \u003ca data-package-id=\"Fonlow.DateOnlyExtensions\" data-package-version=\"1.1.1\" data-track=\"search-selection\" data-track-value=\"0\" data-use-version=\"False\" href=\"https://www.nuget.org/packages/Fonlow.DateOnlyExtensions/\"\u003eFonlow.DateOnlyExtensions\u003c/a\u003e. You should be using \u003ccode\u003eDateOnlyJsonConverter\u003c/code\u003e in both ASP.NET Core controllers and .NET clients.\u003c/p\u003e\r\n\r\n\u003cpre lang=\"cs\"\u003e\r\npublic sealed class DateOnlyJsonConverter : JsonConverter\u0026lt;DateOnly\u0026gt;\r\n{\r\n    public override void WriteJson\r\n    (JsonWriter writer, DateOnly value, JsonSerializer serializer)\r\n    {\r\n        writer.WriteValue(value.ToString(\"O\"));\r\n    }\r\n\r\n    public override DateOnly ReadJson\r\n    (JsonReader reader, Type objectType, DateOnly existingValue, \r\n     bool hasExistingValue, JsonSerializer serializer)\r\n    {\r\n        var v = reader.Value;\r\n        if (v == null)\r\n        {\r\n            return DateOnly.MinValue;\r\n        }\r\n\r\n        var vType = v.GetType();\r\n        if (vType == typeof(DateTimeOffset)) //when the object is from a property \r\n                                             //in POST body. When used in service, \r\n                                             //better to have \r\n                                    //options.SerializerSettings.DateParseHandling = \r\n                                    //Newtonsoft.Json.DateParseHandling.DateTimeOffset;\r\n        {\r\n            return DateOnly.FromDateTime(((DateTimeOffset)v).DateTime);\r\n        }\r\n\r\n        if (vType == typeof(string))\r\n        {\r\n            return DateOnly.Parse((string)v); //DateOnly can parse 00001-01-01\r\n        }\r\n\r\n        if (vType == typeof(DateTime)) //when the object is from a property \r\n                                       //in POST body from a TS client\r\n        {\r\n            return DateOnly.FromDateTime((DateTime)v);\r\n        }\r\n\r\n        throw new NotSupportedException\r\n              ($\"Not yet support {vType} in {this.GetType()}.\");\r\n    }\r\n}\u003c/pre\u003e\r\n\r\n\u003cp\u003eIn your ASP.NET Core \u003ccode\u003eStartup\u003c/code\u003e codes, inject the converters to controllers:\u003c/p\u003e\r\n\r\n\u003cpre lang=\"cs\"\u003e\r\n    public class Startup\r\n    {\r\n        public Startup(IConfiguration configuration)\r\n        {\r\n            Configuration = configuration;\r\n        }\r\n\r\n        public IConfiguration Configuration { get; }\r\n\r\n        public void ConfigureServices(IServiceCollection services)\r\n        {\r\n            services.AddControllers()\r\n            .AddNewtonsoftJson(\r\n                options =\u0026gt;\r\n                {\r\n                    options.SerializerSettings.DateParseHandling = \r\n                            Newtonsoft.Json.DateParseHandling.DateTimeOffset;\r\n                    options.SerializerSettings.Converters.Add\r\n                                               (new DateOnlyJsonConverter());\r\n                    options.SerializerSettings.Converters.Add\r\n                                               (new DateOnlyNullableJsonConverter());\r\n                }\r\n            );\u003c/pre\u003e\r\n\r\n\u003cp\u003eIn your .NET client codes with \u003ccode\u003eHttpClient\u003c/code\u003e, add the converters to \u003ccode\u003eJsonSerializerSettings\u003c/code\u003e:\u003c/p\u003e\r\n\r\n\u003cpre lang=\"cs\"\u003e\r\nvar jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings()\r\n{\r\n    NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,\r\n};\r\n\r\njsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());\r\njsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());\r\nApi = new DemoWebApi.Controllers.Client.SuperDemo(httpClient, jsonSerializerSettings);\r\n\r\npublic partial class SuperDemo\r\n{\r\n    private System.Net.Http.HttpClient client;\r\n\r\n    private JsonSerializerSettings jsonSerializerSettings;\r\n\r\n    public SuperDemo(System.Net.Http.HttpClient client, \r\n                     JsonSerializerSettings jsonSerializerSettings = null)\r\n    {\r\n        if (client == null)\r\n            throw new ArgumentNullException(\"Null HttpClient.\", \"client\");\r\n\r\n        if (client.BaseAddress == null)\r\n            throw new ArgumentNullException(\"HttpClient has no BaseAddress\", \"client\");\r\n\r\n        this.client = client;\r\n        this.jsonSerializerSettings = jsonSerializerSettings;\r\n    }\r\n\r\n    public System.DateOnly PostDateOnly(System.DateOnly d, \r\n           Action\u0026lt;System.Net.Http.Headers.HttpRequestHeaders\u0026gt; handleHeaders = null)\r\n    {\r\n        var requestUri = \"api/SuperDemo/DateOnly\";\r\n        using (var httpRequestMessage = \r\n               new HttpRequestMessage(HttpMethod.Post, requestUri))\r\n        {\r\n            using (var requestWriter = new System.IO.StringWriter())\r\n            {\r\n                var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);\r\n                requestSerializer.Serialize(requestWriter, d);\r\n                var content = new StringContent(requestWriter.ToString(), \r\n                              System.Text.Encoding.UTF8, \"application/json\");\r\n                httpRequestMessage.Content = content;\r\n                if (handleHeaders != null)\r\n                {\r\n                    handleHeaders(httpRequestMessage.Headers);\r\n                }\r\n\r\n                var responseMessage = client.SendAsync(httpRequestMessage).Result;\r\n                try\r\n                {\r\n                    responseMessage.EnsureSuccessStatusCodeEx();\r\n                    var stream = responseMessage.Content.ReadAsStreamAsync().Result;\r\n                    using (JsonReader jsonReader = new JsonTextReader\r\n                                      (new System.IO.StreamReader(stream)))\r\n                    {\r\n                        var serializer = JsonSerializer.Create(jsonSerializerSettings);\r\n                        return serializer.Deserialize\u0026lt;System.DateOnly\u0026gt;(jsonReader);\r\n                    }\r\n                }\r\n                finally\r\n                {\r\n                    responseMessage.Dispose();\r\n                }\r\n            }\r\n        }\r\n    }\u003c/pre\u003e\r\n\r\n\u003cp\u003eNow \u003ccode\u003eDateOnly\u003c/code\u003e could be utilized in ASP.NET Core 6 in almost all cases.\u003c/p\u003e\r\n\r\n\u003cp\u003eMore examples could be found in \u003ca href=\"https://github.com/zijianhuang/webapiclientgen/blob/master/Tests/IntegrationTestsCore/DateTypesIntegration.cs\"\u003ethe test suite\u003c/a\u003e.\u003c/p\u003e\r\n\r\n\u003ch2\u003ePoints of Interest\u003c/h2\u003e\r\n\r\n\u003ch3\u003eDateOnly in URL?\u003c/h3\u003e\r\n\r\n\u003cp\u003eSo far, with the custom \u003ccode\u003eJsonConverters\u003c/code\u003e, you may use a \u003ccode\u003eDateOnly\u003c/code\u003e object in the HTTP \u003ccode\u003ePOST\u003c/code\u003e body and the returned result, as a standalone object or the value of a property of a complex object, however, using \u003ccode\u003eDateOnly\u003c/code\u003e object as a segment of URL is not yet possible because custom \u003ccode\u003eJsonConverter\u003c/code\u003e is not involved but \"\u003ccode\u003eMicrosoft.AspNetCore.Routing.EndpointMiddleware\u003c/code\u003e\" along with \u003ccode\u003eMicrosoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinder\u003c/code\u003e which may be using \u003ccode\u003eSystem.Text.Json\u003c/code\u003e.\u003c/p\u003e\r\n\r\n\u003cp\u003eApparently, Microsoft's ASP.NET Core team \u003ca href=\"https://github.com/dotnet/aspnetcore/issues/34591\"\u003eneeds to do something\u003c/a\u003e to give \u003ccode\u003eDateOnly\u003c/code\u003e the same treatment as for \u003ccode\u003eDateTimeOffset\u003c/code\u003e, while currently \u003ccode\u003eDateOnly\u003c/code\u003e is not listed as simple types at \u003ca href=\"https://docs.microsoft.com/en-us/aspnet/core/mvc/models/model-binding?view=aspnetcore-6.0\" target=\"_blank\"\u003eModel Binding in ASP.NET Core 6\u003c/a\u003e.\u003c/p\u003e\r\n\r\n\u003cp\u003eNevertheless, this is not really a big problem to application developers who may just use a \u003ccode\u003estring\u003c/code\u003e type rather than \u003ccode\u003eDateOnly\u003c/code\u003e type for the URL parameter, and pass an ISO 8601 date string. For example:\u003c/p\u003e\r\n\r\n\u003cpre lang=\"cs\"\u003e\r\n[HttpGet]\r\n[Route(\"DateOnlyStringQuery\")]\r\npublic DateOnly QueryDateOnlyAsString([FromQuery] string d)\r\n{\r\n    return DateOnly.Parse(d);\r\n}\r\n\r\n[Fact]\r\npublic async void TestQueryDateOnlyString()\r\n{\r\n    DateOnly d = new DateOnly(2008, 12, 18);\r\n    var r = await api.QueryDateOnlyAsStringAsync(d.ToString(\"O\"));\r\n    Assert.Equal(d, r);\r\n}\u003c/pre\u003e\r\n\r\n\u003cp\u003eOr, simply use \u003ccode\u003ePOST\u003c/code\u003e.\u003c/p\u003e\r\n\r\n\u003ch3\u003eHow about Code Generators?\u003c/h3\u003e\r\n\r\n\u003cp\u003eWriting client codes talking to Web APIs sounds repetitive and boring. These days, many developers would prefer to use code generators to generate client API codes. And you may try \u003ca href=\"https://github.com/zijianhuang/webapiclientgen\"\u003eWebApiClientGen \u003c/a\u003eand \u003ca href=\"https://github.com/zijianhuang/openapiclientgen\"\u003eOpenApiClientGen\u003c/a\u003e, which both can generate client API codes like the one above.\u003c/p\u003e\r\n\r\n\u003ch3\u003eNewtonsoft.Json or System.Text.Json?\u003c/h3\u003e\r\n\r\n\u003cp\u003eAs of .NET 6, there are still some cases which \u003ccode\u003eSystem.Text.Json\u003c/code\u003e cannot handle correctly while \u003ccode\u003eNewtonsoft.Json\u003c/code\u003e can. For more details, please read \"\u003ca href=\"https://webandlife.blogspot.com/2022/02/systemtextjson-vs-newtonsoftjson.html\"\u003eNewtonsoft.Json vs System.Text.Json in ASP.NET Core 6\u003c/a\u003e\".\u003c/p\u003e\r\n\r\n\u003ch3\u003eHow about .NET Framework Clients?\u003c/h3\u003e\r\n\r\n\u003cp\u003eApparently, Microsoft has no plan to back port \u003ccode\u003eDateOnly\u003c/code\u003e to .NET Framework. So if you have some .NET Framework client applications to maintain, and want to talk to an ASP.NET Core Web API service utilizing \u003ccode\u003eDateOnly\u003c/code\u003e, what can you do?\u003c/p\u003e\r\n\r\n\u003cp\u003eYou may use \u003ca href=\"https://github.com/zijianhuang/webapiclientgen/blob/master/Fonlow.DateOnlyExtensions/DateTimeOffsetJsonConverters.cs\"\u003eDateTimeOffsetJsonConverter \u003c/a\u003eand \u003ca href=\"https://github.com/zijianhuang/webapiclientgen/blob/master/Fonlow.DateOnlyExtensions/DateTimeJsonConverters.cs\"\u003eDateTimeJsonConverter \u003c/a\u003ein Nuget package \u003ca data-package-id=\"Fonlow.DateOnlyExtensionsNF\" data-package-version=\"1.0.0\" data-track=\"search-selection\" data-track-value=\"1\" data-use-version=\"False\" href=\"https://www.nuget.org/packages/Fonlow.DateOnlyExtensionsNF/\"\u003eFonlow.\u003cwbr\u003eDateOnlyExtensionsNF\u003c/a\u003e. And examples of talking to a ASP.NET Core Web API using \u003ccode\u003eDateOnly\u003c/code\u003e could be found in \u003ca href=\"https://github.com/zijianhuang/webapiclientgen/blob/master/Tests/IntegrationTestsNF/DateTypesIntegration.cs\"\u003ethis test suite\u003c/a\u003e.\u003c/p\u003e\r\n\r\n\u003cp\u003e\u003ca href=\"https://github.com/zijianhuang/webapiclientgen\"\u003eWebApiClientGen\u003c/a\u003e generates C# client API codes always mapping \u003ccode\u003eDateOnly\u003c/code\u003e to \u003ccode\u003eDateOnly\u003c/code\u003e. And \u003ca href=\"https://github.com/zijianhuang/openapiclientgen\"\u003eOpenApiClientGen\u003c/a\u003e has a setting \"\u003ccode\u003eDateToDateOnly\u003c/code\u003e\" default to \u003ccode\u003eTrue\u003c/code\u003e. If you want the generated codes to be used by both .NET Framework clients and .NET clients, you may keep \"\u003ccode\u003eDateToDateOnly\u003c/code\u003e\" to \u003ccode\u003etrue\u003c/code\u003e. Make a copy of the generated codes and replace all \"\u003ccode\u003eDateOnly\u003c/code\u003e\" identifiers with \"\u003ccode\u003eDateTimeOffset\u003c/code\u003e\". And it shouldn't be hard for you to automate such variant of generated codes through a Powsershell script.\u003c/p\u003e\r\n\r\n\u003cp\u003e.NET Framework client application codes:\u003c/p\u003e\r\n\r\n\u003cpre lang=\"cs\"\u003e\r\nvar jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings()\r\n{\r\n    NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,\r\n};\r\n\r\n\u003cstrong\u003ejsonSerializerSettings.DateParseHandling = \r\n    Newtonsoft.Json.DateParseHandling.DateTimeOffset;\u003c/strong\u003e //needed to make sure \r\n                    //JSON serializers assume DateTimeOffset rather than DateTime.\r\njsonSerializerSettings.Converters.Add\r\n    (new DateTimeOffsetJsonConverter()); //needed to handle DateOnly.MinValue\r\njsonSerializerSettings.Converters.Add\r\n    (new DateTimeOffsetNullableJsonConverter()); //needed to handle DateOnly.MinValue\r\nApi = new DemoWebApi.Controllers.Client.DateTypes(httpClient, jsonSerializerSettings);\r\n\r\n[Fact]\r\npublic void TestPostDateOnly()\r\n{\r\n    var dateOnly = new DateTimeOffset(1988, 12, 23, 0, 0, 0, TimeSpan.Zero);\r\n    var r = api.PostDateOnly(dateOnly);\r\n    Assert.Equal(dateOnly.Date, r.Date);\r\n    Assert.Equal(DateTimeOffset.Now.Offset, r.Offset); //Local date start, \r\n    //because the return  object is \"1988-12-23\". \r\n    //No matter the client sends \"2022-03-12\" or \"2022-03-12T00:00:00+00:00\" \r\n    //or \"2022-03-12T00:00:00Z\"\r\n    Assert.Equal(TimeSpan.Zero, r.TimeOfDay);\r\n}\u003c/pre\u003e\r\n\r\n\u003cp\u003eYou may notice that an extra setting \u003ccode\u003eDateParseHandling \u003c/code\u003eis needed. This ensures cross-timezone communications preserve correct timezone information, while \u003ccode\u003eNewtonSoft.Json JsonConverte.ReadJson()\u003c/code\u003e by default reads \u003ccode\u003eDateTimeOffset \u003c/code\u003eas \u003ccode\u003eDateTime\u003c/code\u003e, thus losing the timezone information. In contrast, in .NET 6, we don't need to use \u003ccode\u003eDateTimeOffset \u003c/code\u003ein client for \u003ccode\u003eDateOnly \u003c/code\u003efrom server, thus there is no need for a converter.\u003c/p\u003e\r\n\r\n\u003ch3\u003eHow about JavaScript or TypeScript Clients?\u003c/h3\u003e\r\n\r\n\u003cp\u003eYour JavaScript clients can only use \u003ca href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date\"\u003e\u003ccode\u003eDate\u003c/code\u003e \u003c/a\u003eobject to talk to a Web API which always returns a \u003ccode\u003eyyyy-MM-dd string\u003c/code\u003e for date only data. Luckily, JavaScript can handle this well, probably because a \u003ccode\u003eDate\u003c/code\u003e object always uses UTC to store data internally. \u003ca href=\"https://github.com/zijianhuang/webapiclientgen\"\u003eWebApiClientGen \u003c/a\u003eand \u003ca href=\"https://github.com/zijianhuang/openapiclientgen\"\u003eOpenApiClientGen\u003c/a\u003e can generate client APIs for jQuery, Angular 2+, AXIOS, Aurelia and Fetch API. In \u003ca href=\"https://github.com/zijianhuang/webapiclientgen/blob/master/DemoNGCli/NGSource/src/clientapi/WebApiNG2ClientAuto.spec.ts\"\u003ethis test suite\u003c/a\u003e at category \"\u003cstrong\u003eDateTypes API\u003c/strong\u003e\", you may see how a TypeScript application deals with \u003ccode\u003eDateOnly\u003c/code\u003e using the \u003ca href=\"https://github.com/zijianhuang/webapiclientgen/blob/master/DemoNGCli/NGSource/src/clientapi/WebApiCoreNg2ClientAuto.ts\"\u003eclient API codes generated\u003c/a\u003e.\u003c/p\u003e\r\n\r\n\u003ch3\u003eDate Pickers\u003c/h3\u003e\r\n\r\n\u003cp\u003eYour client programs may use some date picker components. In .NET, you may need to make sure the date picker components are compatible with \u003ccode\u003eDateOnly\u003c/code\u003e, otherwise, you may need to stay with current practice of data binding.\u003c/p\u003e\r\n\r\n\u003cp\u003eIf you are developing Web UI with a date picker component, you need to make sure that the date picked, e.g., \"\u003ccode\u003e1980-01-01\u003c/code\u003e\" is stored in the \u003ccode\u003eDate \u003c/code\u003eobject as \"\u003ccode\u003e1980-01-01T00:00:00.000Z\u003c/code\u003e\" rather than \"\u003ccode\u003e1979-12-31T14:00:00.000Z\u003c/code\u003e\" (I am in Australia +10 timezone).\u003c/p\u003e\r\n\r\n\u003cp\u003eFor example, when developing Angular SPA, I am using the \u003ccode\u003eDatePicker\u003c/code\u003e component of Angular Material Components. To ensure the \u003ccode\u003eDate\u003c/code\u003e object obtain \"\u003ccode\u003e1980-01-01T00:00:00.000Z\u003c/code\u003e\", there could be two approaches.\u003c/p\u003e\r\n\r\n\u003cp\u003eIn \u003ccode\u003e@NgModule/providers\u003c/code\u003e, provide the following:\u003c/p\u003e\r\n\r\n\u003cpre lang=\"typescript\"\u003e\r\n{ provide: DateAdapter, useClass: MomentDateAdapter, \r\n  deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },\r\n{ provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },\r\n{ provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true, strict: true } },\u003c/pre\u003e\r\n\r\n\u003cp\u003eIn a complex business app which contains many lazy modules, you may declare these providers in each lazy module or component, while you may have 3\u003csup\u003erd\u003c/sup\u003e party components which may prefer other settings for \u003ccode\u003eDatePicker\u003c/code\u003e.\u003c/p\u003e\r\n\r\n\u003ch4\u003eRemarks\u003c/h4\u003e\r\n\r\n\u003cp\u003eThe date picker with the settings above may have Today's date highlighted in a circle match UTC today. For example, if you are in a +10 time zone and use the date picker before 10 am, you may see the circle highlighting yesterday's date. This is not nice, however, if you use such settings for date of birth, mostly it does not matter, since most dates of DOB in your database should be months ago.\u003c/p\u003e\r\n\r\n\u003ch3\u003eThe Convention of Mapping DateTime Objects to Date Only\u003c/h3\u003e\r\n\r\n\u003cp\u003eThe signal for mapping a \u003ccode\u003eDateTime\u003c/code\u003e object to date only info is to set \u003ccode\u003eTimeZone=Zero\u003c/code\u003e and \u003ccode\u003eTimeOfDate=Zero\u003c/code\u003e. Apparently, Moment.JS team and Angular Material Components teams used the same protocol. Likewise, both .NET clients and the ASP.NET Core Web API should use the same set of converters to ensure such protocol for dealing with \u003ccode\u003eDateTime\u003c/code\u003e and \u003ccode\u003eDateTimeOffset\u003c/code\u003e, otherwise, not only date only situations are having trouble, but \u003ccode\u003eDateTime.Min\u003c/code\u003e and \u003ccode\u003eDateTimeOffset.Min\u003c/code\u003e will get into trouble across timezones.\u003c/p\u003e\r\n\r\n\u003ch4\u003eRemarks\u003c/h4\u003e\r\n\r\n\u003cp\u003eIf you have a legacy database which can store only \u003ccode\u003eDateTime\u003c/code\u003e for date only information, you need to examine how the application had stored dates.\u003c/p\u003e\r\n\r\n\u003ch3\u003eDateOnly and Databases\u003c/h3\u003e\r\n\r\n\u003cp\u003eObviously, not all database engines support date only column. As far as I can see, \u003ca href=\"https://docs.microsoft.com/en-us/sql/t-sql/functions/date-and-time-data-types-and-functions-transact-sql?view=sql-server-2016\"\u003eMS SQL Server 2016\u003c/a\u003e and \u003ca href=\"https://dev.mysql.com/doc/refman/8.0/en/datetime.html\"\u003eMySql \u003c/a\u003esupport date only data type.\u003c/p\u003e\r\n\r\n\u003cp\u003eWith Entity Framework Code First, respective database specific library should map \u003ccode\u003eDateOnly \u003c/code\u003eto \u003ccode\u003eDate\u003c/code\u003e column type.\u003c/p\u003e\r\n\r\n\u003ch3\u003eIntegration Testing\u003c/h3\u003e\r\n\r\n\u003cp\u003eWhen developing distributed applications, it is important to test cross-timezone issues when dealing with \u003ccode\u003eDateTime\u003c/code\u003e and \u003ccode\u003eDateOnly\u003c/code\u003e. You should have services and clients on machines/VMs sitting at different timezones during integration testing. I am in Australia, and I would typically have the test client or the integration test suite at +10:00 timezone, and the service at UTC or -10:00 timezone.\u003c/p\u003e\r\n\r\n\u003ch2\u003eHistory\u003c/h2\u003e\r\n\r\n\u003cul\u003e\r\n\t\u003cli\u003e22\u003csup\u003end\u003c/sup\u003e February, 2022: Initial version\u003c/li\u003e\u003c/ul\u003e"])</script><script>self.__next_f.push([1,"9:[\"$\",\"div\",null,{\"className\":\"custom-container flex px-2 gap-8 overflow-hidden\",\"children\":[[\"$\",\"div\",null,{\"className\":\"w-[948px] max-w-full\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex gap-2 mb-2 flex-wrap\",\"children\":[[\"$\",\"a\",\"OpenAPI\",{\"rel\":\"tag\",\"href\":\"/Tags/OpenAPI\",\"className\":\"px-2 border border-border-yellow rounded-l-full text-gray-light visited:text-gray-light hover:underline hover:bg-yellow-light\",\"children\":\"OpenAPI\"}],[\"$\",\"a\",\"Typescript\",{\"rel\":\"tag\",\"href\":\"/Tags/Typescript\",\"className\":\"px-2 border border-border-yellow rounded-l-full text-gray-light visited:text-gray-light hover:underline hover:bg-yellow-light\",\"children\":\"Typescript\"}],[\"$\",\"a\",\".NET\",{\"rel\":\"tag\",\"href\":\"/Tags/.NET\",\"className\":\"px-2 border border-border-yellow rounded-l-full text-gray-light visited:text-gray-light hover:underline hover:bg-yellow-light\",\"children\":\".NET\"}],[\"$\",\"a\",\"ASP.NET\",{\"rel\":\"tag\",\"href\":\"/Tags/ASP.NET\",\"className\":\"px-2 border border-border-yellow rounded-l-full text-gray-light visited:text-gray-light hover:underline hover:bg-yellow-light\",\"children\":\"ASP.NET\"}]]}],[\"$\",\"h1\",null,{\"className\":\"text-4xl text-text-gray\",\"children\":\"DateOnly in .NET 6 and ASP.NET Core 6\"}],[\"$\",\"div\",null,{\"className\":\"max-w-[600px]\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex pt-4 justify-between\",\"children\":[[\"$\",\"div\",null,{\"className\":\"text-base hover:underline font-bold\",\"children\":[\"$\",\"$L3\",null,{\"href\":\"/script/Membership/View.aspx?mid=3627575\",\"className\":\"text-gray-lightest\",\"children\":\"Zijian\"}]}],[\"$\",\"div\",null,{\"className\":\"flex items-center gap-2\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex\",\"children\":[[\"$\",\"$L4\",\"0\",{\"src\":\"/icons/starIcon.png\",\"alt\":\"starIcon\",\"width\":24,\"height\":24}],[\"$\",\"$L4\",\"1\",{\"src\":\"/icons/starIcon.png\",\"alt\":\"starIcon\",\"width\":24,\"height\":24}],[\"$\",\"$L4\",\"2\",{\"src\":\"/icons/starIcon.png\",\"alt\":\"starIcon\",\"width\":24,\"height\":24}],[\"$\",\"$L4\",\"3\",{\"src\":\"/icons/starIcon.png\",\"alt\":\"starIcon\",\"width\":24,\"height\":24}],[\"$\",\"$L4\",\"4\",{\"src\":\"/icons/starIcon.png\",\"alt\":\"starIcon\",\"width\":24,\"height\":24}]]}],[\"$\",\"p\",null,{\"className\":\"text-sm\",\"children\":[\"5.00\",\"/5 (\",4,\" vote\",\"s\",\")\"]}]]}]]}],[\"$\",\"div\",null,{\"className\":\"flex pt-2 gap-4\",\"children\":[[\"$\",\"p\",null,{\"className\":\"text-gray-lightest text-[13px]\",\"children\":\"Feb 22, 2022\"}],[\"$\",\"$L3\",null,{\"href\":\"http://www.codeproject.com/info/cpol10.aspx\",\"className\":\"text-[13px] flex\",\"children\":\"CPOL\"}],[\"$\",\"p\",null,{\"className\":\"text-gray-lightest text-[13px]\",\"children\":[7,\" min read\"]}],[\"$\",\"div\",null,{\"className\":\"flex gap-1 items-center\",\"children\":[[\"$\",\"$L4\",null,{\"src\":\"/icons/viewsIcon.png\",\"alt\":\"viewsIcon\",\"width\":16,\"height\":16,\"className\":\"w-4 h-4\"}],[\"$\",\"p\",null,{\"className\":\"text-gray-lightest text-[13px] pl-0.5\",\"children\":35828}]]}],null]}]]}],[\"$\",\"p\",null,{\"className\":\"pt-6 pb-4 text-gray-lightest\",\"children\":\"Solutions for using DateOnly in ASP.NET Core 6, before 7 (Updated for .NET 7)\"}],[\"$\",\"$L17\",null,{\"css\":\"$18\",\"children\":[\"$\",\"$L19\",null,{\"children\":[\"$\",\"div\",null,{\"className\":\"article\",\"dangerouslySetInnerHTML\":{\"__html\":\"$1a\"}}]}]}]]}],[\"$\",\"div\",null,{\"children\":[\"$\",\"$L5\",null,{\"adUnit\":\"/67541884/CPLargeSky160600\",\"adSlotId\":\"div-gpt-ad-1738591766860-0\",\"adSize\":[300,600],\"className\":\"mt-40 sticky top-40\"}]}]]}]\n"])</script><script src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/js" data-nscript="afterInteractive"></script><script id="gtag" data-nscript="afterInteractive">
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-VW6LK9H6PP');
+        </script><next-route-announcer style="position: absolute;"><template shadowrootmode="open"><div aria-live="assertive" id="__next-route-announcer__" role="alert" style="position: absolute; border: 0px; height: 1px; margin: -1px; padding: 0px; width: 1px; clip: rect(0px, 0px, 0px, 0px); overflow: hidden; white-space: nowrap; overflow-wrap: normal;"></div></template></next-route-announcer><iframe name="googlefcPresent" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/saved_resource(2).html"></iframe><iframe name="__tcfapiLocator" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/saved_resource(3).html" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe name="googlefcInactive" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/saved_resource(4).html" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe name="googlefcLoaded" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/saved_resource(5).html" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe name="google_ads_top_frame" id="google_ads_top_frame" style="display: none; position: fixed; left: -999px; top: -999px; width: 0px; height: 0px;" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/saved_resource(6).html"></iframe><iframe src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/aframe.html" width="0" height="0" style="display: none;"></iframe></body><iframe name="goog_topics_frame" src="./DateOnly in .NET 6 and ASP.NET Core 6 - CodeProject_files/topics_frame.html" style="display: none;"></iframe></html>

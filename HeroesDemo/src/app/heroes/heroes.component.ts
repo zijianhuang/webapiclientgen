@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import * as namespaces from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
 
 @Component({
-  selector: 'app-heroes',
-  templateUrl: './heroes.component.html',
-  styleUrls: ['./heroes.component.css']
+    selector: 'app-heroes',
+    templateUrl: './heroes.component.html',
+    styleUrls: ['./heroes.component.css'],
+    standalone: false
 })
 export class HeroesComponent implements OnInit {
   heroes?: namespaces.DemoWebApi_Controllers_Client.Hero[];

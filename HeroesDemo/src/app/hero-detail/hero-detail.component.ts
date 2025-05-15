@@ -18,7 +18,8 @@ export function CreateHeroWithNestedFormGroup() {
 
 @Component({
     selector: 'app-hero-detail',
-    templateUrl: './hero-detail.component.html'
+    templateUrl: './hero-detail.component.html',
+    standalone: false
 })
 export class HeroDetailComponent implements OnInit {
     hero?: DemoWebApi_Controllers_Client.Hero;

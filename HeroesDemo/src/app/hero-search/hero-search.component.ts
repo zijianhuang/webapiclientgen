@@ -6,9 +6,10 @@ import { debounceTime, switchMap, distinctUntilChanged } from 'rxjs/operators';
 import * as namespaces from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
 
 @Component({
-  selector: 'app-hero-search',
-  templateUrl: 'hero-search.component.html',
-  styleUrls: ['hero-search.component.css'],
+    selector: 'app-hero-search',
+    templateUrl: 'hero-search.component.html',
+    styleUrls: ['hero-search.component.css'],
+    standalone: false
 })
 export class HeroSearchComponent implements OnInit {
   heroes?: Observable<namespaces.DemoWebApi_Controllers_Client.Hero[] | null>;

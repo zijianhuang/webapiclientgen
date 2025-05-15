@@ -2,9 +2,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 import * as namespaces from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: [ './dashboard.component.css' ]
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.css'],
+    standalone: false
 })
 export class DashboardComponent implements OnInit {
   heroes: namespaces.DemoWebApi_Controllers_Client.Hero[] = [];

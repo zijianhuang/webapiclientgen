@@ -15,11 +15,12 @@
             "prefix": "app",
             "architect": {
                 "build": {
-                    "builder": "@angular-devkit/build-angular:browser",
+                    "builder": "@angular-devkit/build-angular:application",
                     "options": {
-                        "outputPath": "dist",
+                        "outputPath": {
+                          "base": "dist"
+                        },
                         "index": "src/index.html",
-                        "main": "src/main.ts",
                         "polyfills": [
                             "zone.js",
                             "zone.js/testing"
@@ -37,11 +38,14 @@
                         "styles": [
                             "src/styles.css"
                         ],
-                        "scripts": []
+                        "scripts": [],
+                        "browser": "src/main.ts"
                     },
                     "configurations": {
                         "production": {
-                            "outputPath": "../ngdist/prod/",
+                            "outputPath": {
+                              "base": "../ngdist/prod/"
+                            },
                             "budgets": [
                                 {
                                     "type": "initial",
@@ -63,23 +67,21 @@
                             "outputHashing": "all"
                         },
                         "development": {
-                            "buildOptimizer": false,
-                            "optimization": false,
-                            "vendorChunk": true,
+                          "optimization": false,
                             "extractLicenses": false,
                             "sourceMap": true,
                             "namedChunks": true
                         },
                         "dev": {
-                            "outputPath": "../ngdist/dev/",
+                            "outputPath": {
+                              "base": "../ngdist/dev/"
+                            },
 
                             "index": {
                                 "input": "src/index.html",
                                 "output": "./index.html"
                             },
-                            "buildOptimizer": false,
                             "optimization": false,
-                            "vendorChunk": true,
                             "extractLicenses": false,
                             "sourceMap": true,
                             "namedChunks": true
@@ -91,10 +93,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "browserTarget": "angular.io-example:build:production"
+                          "buildTarget": "angular.io-example:build:production"
                         },
                         "development": {
-                            "browserTarget": "angular.io-example:build:development"
+                          "buildTarget": "angular.io-example:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -102,7 +104,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "angular.io-example:build"
+                      "buildTarget": "angular.io-example:build"
                     }
                 },
                 "test": {

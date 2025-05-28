@@ -30,13 +30,4 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal --configuration Release
 
-    - name: HeroesDemoBuild
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        working-directory: ./HeroesDemo
-        run: npm i
-    - run: ng build --configuration=production
-
       

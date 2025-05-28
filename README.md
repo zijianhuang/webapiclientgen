@@ -3,8 +3,8 @@ Strongly Typed Client Web API Generators generate client API codes in C# and Typ
 # Products
 
 This project delivers these products:
-1. [Code generator for strongly typed client API in C#](https://github.com/zijianhuang/webapiclientgen/wiki/Documentation) supporting .NET and Xamarin.Forms. 
-1. [Code generators for strongly typed client API in TypeScript](https://github.com/zijianhuang/webapiclientgen/wiki/Code-generator-for-strongly-typed-client-API-in-TypeScript) for jQuery, Angular 2+, Aurelia, Axios and Fetch API.
+1. [Code generator for strongly typed client API in C#](https://github.com/zijianhuang/webapiclientgen/wiki/Documentation) supporting .NET and Xamarin.Forms/MAUI. 
+1. [Code generators for strongly typed client API in TypeScript](https://github.com/zijianhuang/webapiclientgen/wiki/Code-generator-for-strongly-typed-client-API-in-TypeScript) for jQuery, Angular 2+, Aurelia, AXIOS and Fetch API.
 1. [TypeScript CodeDOM](https://github.com/zijianhuang/TypeScriptCodeDOM), a .NET CodeDOM component for TypeScript for developing TypeScript code generators.
 1. [POCO2TS.exe](https://github.com/zijianhuang/webapiclientgen/wiki/POCO2TS.exe), a command line program that generates TypeScript interfaces from POCO classes.
 1. [Fonlow.Poco2Ts](https://github.com/zijianhuang/webapiclientgen/wiki/Fonlow.Poco2Ts), a component that generates TypeScript interfaces from POCO classes.
@@ -34,7 +34,7 @@ The products are released mostly through NuGet.
 **Hints:**
 
 * [OpenApiClientGen](https://github.com/zijianhuang/openapiclientgen) based on key components of WebApiClientGen is a spin-off for generating client API codes in C# and TypeScript according to a definition file of Swagger/Open API Specification.
-* WebApiClientGen does not utilize Swagger / OpenAPI definitions, but generate codes from run time type info of a running Web API of the debug build, getting rid of the inherent limitations of OpenAPI against .NET types and Web API to give better developer experience to ASP.NET (Core) Web API developers.
+* WebApiClientGen does not utilize Swagger / OpenAPI definitions, but generate codes from runtime type info of a running Web API of the debug build, getting rid of the inherent limitations of OpenAPI against .NET types and Web API to give better developer experience to ASP.NET (Core) Web API developers.
 
 **Remarks:**
 

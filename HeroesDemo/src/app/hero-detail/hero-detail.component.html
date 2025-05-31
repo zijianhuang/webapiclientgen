@@ -7,7 +7,7 @@
       <mat-form-field>
         <mat-label>Name</mat-label>
         <input matInput id="hero-name" formControlName="name" />
-        @if (heroForm.controls.name.hasError) {
+        @if (heroForm.controls.name.errors) {
           <mat-error>{{getErrorsText(heroForm.controls.name.errors)}}</mat-error>
         }
       </mat-form-field>
@@ -17,7 +17,7 @@
         <mat-form-field>
           <mat-label>Email</mat-label>
           <input matInput formControlName="emailAddress" placeholder="name@domain" />
-          @if (heroForm.controls.emailAddress.hasError) {
+          @if (heroForm.controls.emailAddress.errors) {
             <mat-error>{{getErrorsText(heroForm.controls.emailAddress.errors)}}</mat-error>
           }
         </mat-form-field>
@@ -26,7 +26,7 @@
         <mat-form-field>
           <mat-label>Web</mat-label>
           <input matInput formControlName="webAddress" />
-          @if (heroForm.controls.webAddress.hasError) {
+          @if (heroForm.controls.webAddress.errors) {
             <mat-error>{{getErrorsText(heroForm.controls.webAddress.errors)}}</mat-error>
           }
         </mat-form-field>
@@ -35,28 +35,28 @@
         <mat-form-field>
           <mat-label>Street</mat-label>
           <input matInput formControlName="street1" />
-          @if (heroForm.controls.address?.controls?.street1?.hasError) {
+          @if (heroForm.controls.address?.controls?.street1?.errors) {
             <mat-error>{{getErrorsText(heroForm.controls.address?.controls?.street1?.errors)}}</mat-error>
           }
         </mat-form-field>
         <mat-form-field>
           <mat-label>City</mat-label>
           <input matInput formControlName="city" />
-          @if (heroForm.controls.address?.controls?.city?.hasError) {
+          @if (heroForm.controls.address?.controls?.city?.errors) {
             <mat-error>{{getErrorsText(heroForm.controls.address?.controls?.city?.errors)}}</mat-error>
           }
         </mat-form-field>
         <mat-form-field>
           <mat-label>State</mat-label>
           <input matInput formControlName="state" />
-          @if (heroForm.controls.address?.controls?.state?.hasError) {
+          @if (heroForm.controls.address?.controls?.state?.errors) {
             <mat-error>{{getErrorsText(heroForm.controls.address?.controls?.state?.errors)}}</mat-error>
           }
         </mat-form-field>
         <mat-form-field>
           <mat-label>Country</mat-label>
           <input matInput formControlName="country" />
-          @if (heroForm.controls.address?.controls?.country?.hasError) {
+          @if (heroForm.controls.address?.controls?.country?.errors) {
             <mat-error>{{getErrorsText(heroForm.controls.address?.controls?.country?.errors)}}</mat-error>
           }
         </mat-form-field>
@@ -66,7 +66,7 @@
           <mat-form-field>
             <mat-label>Number</mat-label>
             <input matInput formControlName="fullNumber" /> <button mat-mini-fab color="any" matSuffix (click)="removePhoneNumber(pg)">X</button>
-            @if (pg.hasError) {
+            @if (pg.errors) {
               <mat-error>{{getErrorsText(pg.controls.fullNumber.errors)}}</mat-error>
             }
           </mat-form-field>

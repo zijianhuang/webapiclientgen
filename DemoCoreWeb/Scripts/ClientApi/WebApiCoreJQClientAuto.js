@@ -728,6 +728,7 @@ var DemoWebApi_Controllers_Client;
         /**
          * GET api/SuperDemo/DecimalZero
          * @return {number} Type: decimal
+         * @deprecated Just for test
          */
         getDecimalZero(callback, headersHandler) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/DecimalZero', callback, this.error, this.statusCode, headersHandler);
@@ -761,6 +762,7 @@ var DemoWebApi_Controllers_Client;
          * Result of 0.1d + 0.2d - 0.3d
          * GET api/SuperDemo/DoubleZero
          * @return {number} Type: double
+         * @deprecated for testing
          */
         getDoubleZero(callback, headersHandler) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/DoubleZero', callback, this.error, this.statusCode, headersHandler);
@@ -781,6 +783,7 @@ var DemoWebApi_Controllers_Client;
         /**
          * GET api/SuperDemo/FloatZero
          * @return {number} Type: float
+         * @deprecated
          */
         getFloatZero(callback, headersHandler) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/FloatZero', callback, this.error, this.statusCode, headersHandler);

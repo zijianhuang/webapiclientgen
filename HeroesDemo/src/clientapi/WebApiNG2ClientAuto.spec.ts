@@ -99,7 +99,7 @@ describe('Values API', () => {
             ]
         });
 
-        service = TestBed.get(DemoWebApi_Controllers_Client.Values);
+        service = TestBed.inject(DemoWebApi_Controllers_Client.Values);
     }));
 
     afterEach(function () {
@@ -203,7 +203,7 @@ describe('Heroes API', () => {
             ]
         });
 
-        service = TestBed.get(DemoWebApi_Controllers_Client.Heroes);
+        service = TestBed.inject(DemoWebApi_Controllers_Client.Heroes);
     }));
 
     it('getAll', (done) => {
@@ -307,7 +307,7 @@ describe('entities API', () => {
             ]
         });
 
-        client = TestBed.get(DemoWebApi_Controllers_Client.Entities);
+        client = TestBed.inject(DemoWebApi_Controllers_Client.Entities);
     }));
 
     it('add', (done) => {
@@ -451,7 +451,7 @@ describe('DateTypes API', () => {
             ]
         });
 
-        service = TestBed.get(DemoWebApi_Controllers_Client.DateTypes);
+        service = TestBed.inject(DemoWebApi_Controllers_Client.DateTypes);
     }));
 
 
@@ -1009,7 +1009,7 @@ describe('SuperDemo API', () => {
             ]
         });
 
-        service = TestBed.get(DemoWebApi_Controllers_Client.SuperDemo);
+        service = TestBed.inject(DemoWebApi_Controllers_Client.SuperDemo);
     }));
 
     it('getBool', (done) => {
@@ -1742,7 +1742,7 @@ describe('Tuple API', () => {
             ]
         });
 
-        service = TestBed.get(DemoWebApi_Controllers_Client.Tuple);
+        service = TestBed.inject(DemoWebApi_Controllers_Client.Tuple);
     }));
 
     afterEach(function () {
@@ -1899,7 +1899,7 @@ describe('StringData API', () => {
             ]
         });
 
-        service = TestBed.get(DemoWebApi_Controllers_Client.StringData);
+        service = TestBed.inject(DemoWebApi_Controllers_Client.StringData);
     }));
 
     afterEach(function () {
@@ -2082,7 +2082,7 @@ describe('TextData API', () => {
             ]
         });
 
-        service = TestBed.get(DemoWebApi_Controllers_Client.TextData);
+        service = TestBed.inject(DemoWebApi_Controllers_Client.TextData);
     }));
 
     afterEach(function () {
@@ -2184,7 +2184,7 @@ describe('Numbers API', () => {
             ]
         });
 
-        service = TestBed.get(DemoWebApi_Controllers_Client.Numbers);
+        service = TestBed.inject(DemoWebApi_Controllers_Client.Numbers);
     }));
 
     it('postBigNumbers', (done) => {
@@ -2617,7 +2617,7 @@ xdescribe('Numbers API without customized serialization', () => {
             ]
         });
 
-        service = TestBed.get(DemoWebApi_Controllers_Client.Numbers);
+        service = TestBed.inject(DemoWebApi_Controllers_Client.Numbers);
     }));
 
     it('postBigNumbersIncorrect', (done) => {

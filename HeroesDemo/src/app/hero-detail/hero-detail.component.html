@@ -1,67 +1,82 @@
-<div *ngIf="hero">
+@if (hero) {
+  <div>
     <h2>{{hero.name | uppercase}} Details</h2>
     <div><span>id: </span>{{hero.id}}</div>
     <div [formGroup]="heroForm">
-        <label for="hero-name">Hero name: </label>
+      <label for="hero-name">Hero name: </label>
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput id="hero-name" formControlName="name" />
+        @if (heroForm.controls.name.hasError) {
+          <mat-error>{{getErrorsText(heroForm.controls.name.errors)}}</mat-error>
+        }
+      </mat-form-field>
+      <input matInput id="hero-dob" type="date" formControlName="dob" placeholder="DOB" />
+      <input matInput id="hero-death" type="date" formControlName="death" placeholder="Death" />
+      <div>
         <mat-form-field>
-            <mat-label>Name</mat-label>
-            <input matInput id="hero-name" formControlName="name" />
-            <mat-error *ngIf="heroForm.controls.name.hasError">{{getErrorsText(heroForm.controls.name.errors)}}</mat-error>
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="emailAddress" placeholder="name@domain" />
+          @if (heroForm.controls.emailAddress.hasError) {
+            <mat-error>{{getErrorsText(heroForm.controls.emailAddress.errors)}}</mat-error>
+          }
         </mat-form-field>
-        <input matInput id="hero-dob" type="date" formControlName="dob" placeholder="DOB" />
-        <input matInput id="hero-death" type="date" formControlName="death" placeholder="Death" />
-
-        <div>
-            <mat-form-field>
-                <mat-label>Email</mat-label>
-                <input matInput formControlName="emailAddress" placeholder="name@domain" />
-                <mat-error *ngIf="heroForm.controls.emailAddress.hasError">{{getErrorsText(heroForm.controls.emailAddress.errors)}}</mat-error>
-            </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Web</mat-label>
+          <input matInput formControlName="webAddress" />
+          @if (heroForm.controls.webAddress.hasError) {
+            <mat-error>{{getErrorsText(heroForm.controls.webAddress.errors)}}</mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <div formGroupName="address">
+        <mat-form-field>
+          <mat-label>Street</mat-label>
+          <input matInput formControlName="street1" />
+          @if (heroForm.controls.address?.controls?.street1?.hasError) {
+            <mat-error>{{getErrorsText(heroForm.controls.address?.controls?.street1?.errors)}}</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>City</mat-label>
+          <input matInput formControlName="city" />
+          @if (heroForm.controls.address?.controls?.city?.hasError) {
+            <mat-error>{{getErrorsText(heroForm.controls.address?.controls?.city?.errors)}}</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <input matInput formControlName="state" />
+          @if (heroForm.controls.address?.controls?.state?.hasError) {
+            <mat-error>{{getErrorsText(heroForm.controls.address?.controls?.state?.errors)}}</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Country</mat-label>
+          <input matInput formControlName="country" />
+          @if (heroForm.controls.address?.controls?.country?.hasError) {
+            <mat-error>{{getErrorsText(heroForm.controls.address?.controls?.country?.errors)}}</mat-error>
+          }
+        </mat-form-field>
+      </div>
+      @for (pg of heroForm.controls.phoneNumbers!.controls; track pg) {
+        <div [formGroup]="pg">
+          <mat-form-field>
+            <mat-label>Number</mat-label>
+            <input matInput formControlName="fullNumber" /> <button mat-mini-fab color="any" matSuffix (click)="removePhoneNumber(pg)">X</button>
+            @if (pg.hasError) {
+              <mat-error>{{getErrorsText(pg.controls.fullNumber.errors)}}</mat-error>
+            }
+          </mat-form-field>
         </div>
-
-        <div>
-            <mat-form-field>
-                <mat-label>Web</mat-label>
-                <input matInput formControlName="webAddress" />
-                <mat-error *ngIf="heroForm.controls.webAddress.hasError">{{getErrorsText(heroForm.controls.webAddress.errors)}}</mat-error>
-            </mat-form-field>
-        </div>
-
-        <div formGroupName="address">
-            <mat-form-field>
-                <mat-label>Street</mat-label>
-                <input matInput formControlName="street1" />
-                <mat-error *ngIf="heroForm.controls.address?.controls?.street1?.hasError">{{getErrorsText(heroForm.controls.address?.controls?.street1?.errors)}}</mat-error>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>City</mat-label>
-                <input matInput formControlName="city" />
-                <mat-error *ngIf="heroForm.controls.address?.controls?.city?.hasError">{{getErrorsText(heroForm.controls.address?.controls?.city?.errors)}}</mat-error>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>State</mat-label>
-                <input matInput formControlName="state" />
-                <mat-error *ngIf="heroForm.controls.address?.controls?.state?.hasError">{{getErrorsText(heroForm.controls.address?.controls?.state?.errors)}}</mat-error>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Country</mat-label>
-                <input matInput formControlName="country" />
-                <mat-error *ngIf="heroForm.controls.address?.controls?.country?.hasError">{{getErrorsText(heroForm.controls.address?.controls?.country?.errors)}}</mat-error>
-            </mat-form-field>
-        </div>
-
-        <div *ngFor="let pg of heroForm.controls.phoneNumbers!.controls" [formGroup]="pg">
-            <mat-form-field>
-                <mat-label>Number</mat-label>
-                <input matInput formControlName="fullNumber" /> <button mat-mini-fab color="any" matSuffix (click)="removePhoneNumber(pg)">X</button>
-                <mat-error *ngIf="pg.hasError">{{getErrorsText(pg.controls.fullNumber.errors)}}</mat-error>
-                </mat-form-field>
-        </div>
-        <div>
-            <button mat-raised-button (click)="addPhoneNumber()">Add Phone Number</button>
-        </div>
+      }
+      <div>
+        <button mat-raised-button (click)="addPhoneNumber()">Add Phone Number</button>
+      </div>
     </div>
-
     <button mat-raised-button type="button" (click)="goBack()">go back</button>
     <button mat-raised-button type="button" (click)="save()" [disabled]="!allNestedValid(heroForm)">save</button>
-</div>
+  </div>
+}

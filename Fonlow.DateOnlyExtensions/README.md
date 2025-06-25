@@ -8,7 +8,7 @@ Customized serialization for DateOnly in ASP.NET Core 6 and above, introduced in
 
 This component depends on NewtonSoft.Json and derives from Newtonsoft.Json.JsonConverter, and can be injected to ASP.NET Core pipeline through only `IServiceCollection.AddNewtonsoftJson()`.
 
-<img src="https://github.com/zijianhuang/webapiclientgen/tree/master/Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" />
+<img src="https://raw.githubusercontent.com/zijianhuang/webapiclientgen/master/Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" />
 
 * [Fonlow.DateOnlyExtensions](https://www.nuget.org/packages/Fonlow.DateOnlyExtensions)
 * [Fonlow.DateOnlyExtensionsNF](https://www.nuget.org/packages/Fonlow.DateOnlyExtensionsNF)

@@ -17,18 +17,18 @@ This project delivers these products:
 ## Use Cases and Downloads
 
 The products are released mostly through NuGet.
-1. Generate C# client API, then use package [Fonlow.WebApiClientGenCore](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore/)
+1. Generate C# client API, then use package [Fonlow.WebApiClientGenCore <img src="Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" />](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore/)
 1. Generate TypeScript client API, then use one of the plugins of Fonlow.WebApiClientGenCore:
-	1. [jQuery](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.jQuery/) and [HttpClient helper library](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb/Scripts/ClientApi/HttpClient.ts)
-	1. [Angular 6+](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.NG2/)
-	1. [Angular 6+, plus FormGroup creation for Reactive Forms](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.NG2FormGroup/) with [Description](https://github.com/zijianhuang/webapiclientgen/wiki/Angular-Reactive-Forms)
-	1. [AXIOS](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Axios/)
-	1. [Aurelia](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Aurelia/)
-	1. [Fetch API](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Fetch/)
-1. Develop TypeScript code generator through the CodeDOM approach, then use package [Fonlow.TypeScriptCodeDOMCore](https://www.nuget.org/packages/Fonlow.TypeScriptCodeDOMCore).
-1. Develop TypeScript code generator through the CodeDOM approach for POCO and more, then use package [Fonlow.Poco2TSCore](https://www.nuget.org/packages/Fonlow.Poco2TsCore) , or use PowerShell 7 scripts.
+	1. [jQuery <img src="Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" />](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.jQuery/) and [HttpClient helper library](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb/Scripts/ClientApi/HttpClient.ts)
+	1. [Angular 6+ <img src="Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" />](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.NG2/)
+	1. [Angular 6+, plus FormGroup creation for Reactive Forms <img src="Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" />](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.NG2FormGroup/) with [Description](https://github.com/zijianhuang/webapiclientgen/wiki/Angular-Reactive-Forms)
+	1. [AXIOS <img src="Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" />](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Axios/)
+	1. [Aurelia <img src="Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" />](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Aurelia/)
+	1. [Fetch API <img src="Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" />](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Fetch/)
+1. Develop TypeScript code generator through the CodeDOM approach, then use package [Fonlow.TypeScriptCodeDOMCore <img src="Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" />](https://www.nuget.org/packages/Fonlow.TypeScriptCodeDOMCore).
+1. Develop TypeScript code generator through the CodeDOM approach for POCO and more, then use package [Fonlow.Poco2TSCore <img src="Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" />](https://www.nuget.org/packages/Fonlow.Poco2TsCore) , or use PowerShell 7 scripts.
 1. Generate TypeScript type interfaces, then use [Poco2TSCore.exe, a console app](https://github.com/zijianhuang/webapiclientgen/releases/tag/v7.2).
-1. Develop a feature that reads XML document of an .NET assembly, then use package [Fonlow.DocCommentCore](https://www.nuget.org/packages/Fonlow.DocCommentCore).
+1. Develop a feature that reads XML document of an .NET assembly, then use package [Fonlow.DocCommentCore <img src="Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" />](https://www.nuget.org/packages/Fonlow.DocCommentCore).
 
 
 **Hints:**

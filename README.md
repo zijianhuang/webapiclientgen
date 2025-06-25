@@ -5,11 +5,11 @@ Strongly Typed Client Web API Generators generate client API codes in C# and Typ
 This project delivers these products:
 1. [Code generator for strongly typed client API in C#](https://github.com/zijianhuang/webapiclientgen/wiki/Documentation) supporting .NET and Xamarin.Forms/MAUI. 
 1. [Code generators for strongly typed client API in TypeScript](https://github.com/zijianhuang/webapiclientgen/wiki/Code-generator-for-strongly-typed-client-API-in-TypeScript) for jQuery, Angular 2+, Aurelia, AXIOS and Fetch API.
-1. [TypeScript CodeDOM](https://github.com/zijianhuang/TypeScriptCodeDOM), a .NET CodeDOM component for TypeScript for developing TypeScript code generators.
-1. [POCO2TS.exe](https://github.com/zijianhuang/webapiclientgen/wiki/POCO2TS.exe), a command line program that generates TypeScript interfaces from POCO classes.
-1. [Fonlow.Poco2Ts](https://github.com/zijianhuang/webapiclientgen/wiki/Fonlow.Poco2Ts), a component that generates TypeScript interfaces from POCO classes.
+1. [TypeScript CodeDOM](https://github.com/zijianhuang/TypeScriptCodeDOM), a .NET CodeDOM component for TypeScript for developing TypeScript code generators. <a href="https://www.nuget.org/packages/Fonlow.TypeScriptCodeDomCore"><img src="doc/icons/nuget-svgrepo-com.svg" height="28" width="28" /></a>
+1. [POCO2TS.exe](https://github.com/zijianhuang/webapiclientgen/tree/master/Poco2TsCore), a command line program that generates TypeScript interfaces from POCO classes.
+1. [Fonlow.Poco2Ts](https://github.com/zijianhuang/webapiclientgen/tree/master/Poco2TsCore), a component that generates TypeScript interfaces from POCO classes. <a href="https://www.nuget.org/packages/Fonlow.Poco2TsCore"><img src="doc/icons/nuget-svgrepo-com.svg" height="28" width="28" /></a>
 1. Plugins for jQuery, AXIOS, Fetch API, Aurelia, Angular 2+ as well as Angular Typed Reactive Forms.
-1. [Fonlow.DataOnlyExtensions](https://www.codeproject.com/Articles/5325820/DateOnly-in-NET-6-and-ASP-NET-Core-6) with JSON converters for handling date only scenarios between the clients and server which sit in different timezones. A .NET Framework package is also available.
+1. [Fonlow.DataOnlyExtensions](https://www.codeproject.com/Articles/5325820/DateOnly-in-NET-6-and-ASP-NET-Core-6) with JSON converters for handling date only scenarios between the clients and server which sit in different timezones. [3 NuGet packages](https://www.nuget.org/packages?q=fonlow.dateonlyextensions) are available including one for .NET Framework.
 
 
 ![Packages](./Doc/images/WebApiClientGen.png)

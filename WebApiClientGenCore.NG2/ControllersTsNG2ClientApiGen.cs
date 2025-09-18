@@ -1,5 +1,4 @@
-﻿using Fonlow.Poco2Ts;
-using Fonlow.TypeScriptCodeDom;
+﻿using Fonlow.TypeScriptCodeDom;
 using System.CodeDom;
 
 namespace Fonlow.CodeDom.Web.Ts
@@ -43,7 +42,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			// Add parameters.
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-				"string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/'", "@Inject('baseUri') private baseUri"));
+				"string = window.location.origin + '/'", "@Inject('baseUri') private baseUri"));
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
 				"HttpClient", "private http"));
 

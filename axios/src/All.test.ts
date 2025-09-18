@@ -114,7 +114,7 @@ describe('Heroes API', () => {
   const service = new DemoWebApi_Controllers_Client.Heroes(apiBaseUri);
 
   it('getAll', (done) => {
-    service.getHeros().then(
+    service.getHeroes().then(
       data => {
         console.debug(data.length);
         expect(data.length).toBeGreaterThan(0);

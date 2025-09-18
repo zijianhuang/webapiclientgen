@@ -51,7 +51,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 * For testing different commbinations of parameters and returns
 	 */
 	export class DateTypes {
-		constructor(private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/') {
+		constructor(private baseUri: string = window.location.origin + '/') {
 		}
 
 		/**
@@ -231,7 +231,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 * Some with AuthorizeAttribute
 	 */
 	export class Entities {
-		constructor(private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/') {
+		constructor(private baseUri: string = window.location.origin + '/') {
 		}
 
 		/**
@@ -397,7 +397,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 * Heroes operations. Decorated by nullable directive.
 	 */
 	export class Heroes {
-		constructor(private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/') {
+		constructor(private baseUri: string = window.location.origin + '/') {
 		}
 
 		/**
@@ -482,7 +482,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 * For testing different commbinations of parameters and returns
 	 */
 	export class Numbers {
-		constructor(private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/') {
+		constructor(private baseUri: string = window.location.origin + '/') {
 		}
 
 		/**
@@ -673,7 +673,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 * For testing posting and getting string data. Returned string is JSON object.
 	 */
 	export class StringData {
-		constructor(private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/') {
+		constructor(private baseUri: string = window.location.origin + '/') {
 		}
 
 		/**
@@ -716,7 +716,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 * For testing different commbinations of parameters and returns
 	 */
 	export class SuperDemo {
-		constructor(private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/') {
+		constructor(private baseUri: string = window.location.origin + '/') {
 		}
 
 		/**
@@ -1215,7 +1215,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 * For testing posting and getting string data. String returned is text/plain by default
 	 */
 	export class TextData {
-		constructor(private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/') {
+		constructor(private baseUri: string = window.location.origin + '/') {
 		}
 
 		/**
@@ -1263,7 +1263,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 * https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md#3.3.3
 	 */
 	export class Tuple {
-		constructor(private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/') {
+		constructor(private baseUri: string = window.location.origin + '/') {
 		}
 
 		/**
@@ -1480,7 +1480,7 @@ export namespace DemoWebApi_Controllers_Client {
 	}
 
 	export class Values {
-		constructor(private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/') {
+		constructor(private baseUri: string = window.location.origin + '/') {
 		}
 
 		/**
@@ -1939,7 +1939,7 @@ export namespace DemoWebApi_Models_Client {
 
 export namespace DemoCoreWeb_Controllers_Client {
 	export class SpecialTypes {
-		constructor(private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/') {
+		constructor(private baseUri: string = window.location.origin + '/') {
 		}
 
 		/**

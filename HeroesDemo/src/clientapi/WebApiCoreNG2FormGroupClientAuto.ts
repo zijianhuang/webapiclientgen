@@ -134,7 +134,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 */
 	@Injectable()
 	export class DateTypes {
-		constructor(@Inject('baseUri') private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/', private http: HttpClient) {
+		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}
 
 		/**
@@ -315,7 +315,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 */
 	@Injectable()
 	export class Entities {
-		constructor(@Inject('baseUri') private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/', private http: HttpClient) {
+		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}
 
 		/**
@@ -482,7 +482,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 */
 	@Injectable()
 	export class Heroes {
-		constructor(@Inject('baseUri') private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/', private http: HttpClient) {
+		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}
 
 		/**
@@ -568,7 +568,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 */
 	@Injectable()
 	export class Numbers {
-		constructor(@Inject('baseUri') private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/', private http: HttpClient) {
+		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}
 
 		/**
@@ -760,7 +760,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 */
 	@Injectable()
 	export class StringData {
-		constructor(@Inject('baseUri') private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/', private http: HttpClient) {
+		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}
 
 		/**
@@ -804,7 +804,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 */
 	@Injectable()
 	export class SuperDemo {
-		constructor(@Inject('baseUri') private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/', private http: HttpClient) {
+		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}
 
 		/**
@@ -1304,7 +1304,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 */
 	@Injectable()
 	export class TextData {
-		constructor(@Inject('baseUri') private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/', private http: HttpClient) {
+		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}
 
 		/**
@@ -1353,7 +1353,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 */
 	@Injectable()
 	export class Tuple {
-		constructor(@Inject('baseUri') private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/', private http: HttpClient) {
+		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}
 
 		/**
@@ -1571,7 +1571,7 @@ export namespace DemoWebApi_Controllers_Client {
 
 	@Injectable()
 	export class Values {
-		constructor(@Inject('baseUri') private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/', private http: HttpClient) {
+		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}
 
 		/**
@@ -2504,7 +2504,7 @@ export namespace DemoWebApi_Models_Client {
 export namespace DemoCoreWeb_Controllers_Client {
 	@Injectable()
 	export class SpecialTypes {
-		constructor(@Inject('baseUri') private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/', private http: HttpClient) {
+		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}
 
 		/**

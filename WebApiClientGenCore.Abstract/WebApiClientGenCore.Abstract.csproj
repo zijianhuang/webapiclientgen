@@ -8,7 +8,7 @@
 		<Copyright>Copyright © Zijian Huang 2015-$([System.DateTime]::Now.Year)</Copyright>
 		<Authors>Zijian Huang</Authors>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-		<Version>3.7</Version>
+		<Version>3.7.1</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageReleaseNotes>Supports class inheritance between assemblies.</PackageReleaseNotes>
 		<PackageReadmeFile>README.md</PackageReadmeFile>

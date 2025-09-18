@@ -37,7 +37,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			// Add parameters.
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-				"string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/'", "private baseUri"));
+				"string = window.location.origin + '/'", "private baseUri"));
 			targetClass.Members.Add(constructor);
 		}
 	}

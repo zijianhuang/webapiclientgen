@@ -168,5 +168,11 @@ namespace DemoWebApi.Controllers
 			return d;
 		}
 
+		[HttpGet("NullableInt")]
+		public int? GetNullableNumber(int? num)
+		{
+			return num;
+		}
+
 	}
 }

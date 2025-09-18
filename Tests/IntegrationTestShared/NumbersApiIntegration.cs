@@ -185,6 +185,20 @@ namespace IntegrationTests
 			Assert.Equal(uint.MaxValue - 1, r);
 		}
 
+		[Fact]
+		public void TestGetNullableNumberWith0()
+		{
+			var r = api.GetNullableNumber(0);
+			Assert.Equal(0, r);
+		}
+
+		[Fact]
+		public void TestGetNullableNumberWithNull()
+		{
+			var r = api.GetNullableNumber(null);
+			Assert.Null(r);
+		}
+
 
 	}
 }

@@ -434,6 +434,12 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/Numbers/byteWithRange?d=' + d, callback, this.error, this.statusCode, headersHandler);
         }
         /**
+         * GET api/Numbers/NullableInt?num={num}
+         */
+        getNullableNumber(num, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Numbers/NullableInt?' + (num ? 'num=' + num.toString() : ''), callback, this.error, this.statusCode, headersHandler);
+        }
+        /**
          * POST api/Numbers/byte
          * @param {number} d Type: byte, 0 to 255
          * @return {number} Type: byte, 0 to 255

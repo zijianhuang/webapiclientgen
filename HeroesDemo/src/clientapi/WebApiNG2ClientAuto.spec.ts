@@ -2539,6 +2539,48 @@ describe('Numbers API', () => {
     }
     );
 
+    it('getNullableNumberWith0', (done) => {
+        service.getNullableNumber(0).subscribe(
+            r => {
+                expect(r).toBe(0);
+                 done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    it('getNullableNumberWithNull', (done) => {
+        service.getNullableNumber(null).subscribe(
+            r => {
+                expect(r).toBeNull();
+                 done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    it('getNullableNumberWith1', (done) => {
+        service.getNullableNumber(1).subscribe(
+            r => {
+                expect(r).toBe(1);
+                 done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
     /**
      * Correct.
      * Request as string: "170141183460469231731687303715884105727",

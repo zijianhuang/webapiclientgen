@@ -215,13 +215,26 @@ namespace Fonlow.CodeDom.Web
 				}
 				else if (IsNullablePrimitive(d.ParameterDescriptor.ParameterType))
 				{
-					string replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name} ? '&{d.Name}=' + {d.Name}.toString() : '') + '");
-					if (replaced == newUriText)
+					if (IsNumericTypeIncludingNullable(d.ParameterDescriptor.ParameterType))
 					{
-						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"' + ({d.Name} ? '{d.Name}=' + {d.Name}.toString() : '') + '");
-					}
+						string replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name} || {d.Name} == 0 ? '&{d.Name}=' + {d.Name}.toString() : '') + '");
+						if (replaced == newUriText)
+						{
+							replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"' + ({d.Name} || {d.Name} == 0  ? '{d.Name}=' + {d.Name}.toString() : '') + '");
+						}
 
-					return replaced;
+						return replaced;
+					}
+					else
+					{
+						string replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name} ? '&{d.Name}=' + {d.Name}.toString() : '') + '");
+						if (replaced == newUriText)
+						{
+							replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"' + ({d.Name} ? '{d.Name}=' + {d.Name}.toString() : '') + '");
+						}
+
+						return replaced;
+					}
 				}
 				else if (IsSimpleArrayType(d.ParameterDescriptor.ParameterType) || IsSimpleListType(d.ParameterDescriptor.ParameterType))
 				{
@@ -265,6 +278,33 @@ namespace Fonlow.CodeDom.Web
 		public static bool IsSimpleType(Type type)
 		{
 			return type.IsPrimitive || type.Equals(typeOfString) || type.BaseType?.FullName == "System.Enum";
+		}
+
+		static bool IsNumericType(Type type)
+		{
+			switch (Type.GetTypeCode(type))
+			{
+				case TypeCode.Byte:
+				case TypeCode.SByte:
+				case TypeCode.UInt16:
+				case TypeCode.UInt32:
+				case TypeCode.UInt64:
+				case TypeCode.Int16:
+				case TypeCode.Int32:
+				case TypeCode.Int64:
+				case TypeCode.Decimal:
+				case TypeCode.Double:
+				case TypeCode.Single:
+					return true;
+				default:
+					return false;
+			}
+		}
+
+		static bool IsNumericTypeIncludingNullable(Type type)
+		{
+			Type actualType = Nullable.GetUnderlyingType(type) ?? type;
+			return IsNumericType(actualType);
 		}
 
 

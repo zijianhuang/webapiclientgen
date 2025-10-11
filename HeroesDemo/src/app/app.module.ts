@@ -1,9 +1,8 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import * as namespaces from '../clientapi/WebApiCoreNG2FormGroupClientAuto';
 import { SiteConfigConstants } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -45,8 +44,6 @@ export function clientFactory(http: HttpClient) {
         FormsModule,
         ReactiveFormsModule,
         AppRoutingModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
         NGMDModule,
     ],
     declarations: [

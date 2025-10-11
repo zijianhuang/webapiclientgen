@@ -147,22 +147,11 @@ import { OverlayModule } from '@angular/cdk/overlay';
 		OverlayModule,
 	],
 	providers: [
-		//{ provide: MAT_DIALOG_DATA, useValue: {} },
-		//{ provide: MatDialogRef, useValue: {} }
 		{ provide: MAT_TABS_CONFIG, useValue: { animationDuration: '0ms' }},
-		
-		//{ provide: MAT_DATE_LOCALE, useValue: 'en-AU' },By default, the MAT_DATE_LOCALE injection token will use the existing LOCALE_ID locale code from @angular/core.
-		//If you want to override it, you can provide a new value for the MAT_DATE_LOCALE token
-
-		// The adapter has to be provided to each lazy module which imports this module.
 		{ provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
 		{ provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
 		{ provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false, strict: true } },
 		{ provide: MAT_LIST_CONFIG, useValue: { hideSingleSelectionIndicator : true} }
-		//the moment setting here works only for person.component, not invoiceBulkBill.component in which I have to declare providers there, more exactly, in dateInput Component.
-		//`MomentDateAdapter` and`MAT_MOMENT_DATE_FORMATS` can be automatically provided by importing
-		// `MatMomentDateModule` in your applications root module.
-
 	]
 })
 export class NGMDModule { }

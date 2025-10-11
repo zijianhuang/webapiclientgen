@@ -1,8 +1,9 @@
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormGroup, ValidationErrors } from '@angular/forms';
+import { FormArray, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client } from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
+import { NGMDModule } from '../ngmd.module';
 
 export interface HeroWithNestedFormProperties extends DemoWebApi_Controllers_Client.HeroFormProperties {
     address?: FormGroup<DemoWebApi_DemoData_Client.AddressFormProperties>,
@@ -19,7 +20,13 @@ export function CreateHeroWithNestedFormGroup() {
 @Component({
     selector: 'app-hero-detail',
     templateUrl: './hero-detail.component.html',
-    standalone: false
+    standalone: true,
+    imports: [
+		CommonModule,
+		FormsModule,
+		ReactiveFormsModule,
+		NGMDModule,	
+	],
 })
 export class HeroDetailComponent implements OnInit {
     hero?: DemoWebApi_Controllers_Client.Hero;

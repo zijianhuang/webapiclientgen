@@ -1,12 +1,22 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import * as namespaces from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NGMDModule } from '../ngmd.module';
 
 @Component({
     selector: 'app-heroes',
     templateUrl: './heroes.component.html',
     styleUrls: ['./heroes.component.css'],
-    standalone: false
+    standalone: true,
+    imports: [
+      CommonModule,
+      RouterModule,
+      FormsModule,
+      ReactiveFormsModule,
+      NGMDModule,	
+    ],
 })
 export class HeroesComponent implements OnInit {
   heroes?: namespaces.DemoWebApi_Controllers_Client.Hero[];

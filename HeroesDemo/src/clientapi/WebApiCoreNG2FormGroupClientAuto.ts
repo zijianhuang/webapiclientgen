@@ -3,11 +3,15 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-function CreateDateOnlyFormControl(){
+function CreateDateOnlyFormControl() {
 	const fc = new FormControl<any | null | undefined>(undefined);
-	fc.valueChanges.subscribe(v=>{
-		if (v && v instanceof Date){
-			fc.setValue(v.toLocaleDateString("sv").substring(0, 10));
+	fc.valueChanges.subscribe(v => {
+		if (v) {
+			if (v instanceof Date) {
+				fc.setValue(v.toLocaleDateString("sv").substring(0, 10), { emitEvent: false });
+			} else if (typeof v == 'object' && typeof v.toISODate === 'function') {
+				fc.setValue(v.toISODate(), { emitEvent: false });
+			}
 		}
 	});
 
@@ -132,7 +136,7 @@ export namespace DemoWebApi_Controllers_Client {
 	/**
 	 * For testing different commbinations of parameters and returns
 	 */
-	@Injectable()
+	@Injectable({ providedIn: 'root' })
 	export class DateTypes {
 		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}
@@ -313,7 +317,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 * Entities, Person and Company
 	 * Some with AuthorizeAttribute
 	 */
-	@Injectable()
+	@Injectable({ providedIn: 'root' })
 	export class Entities {
 		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}
@@ -480,7 +484,7 @@ export namespace DemoWebApi_Controllers_Client {
 	/**
 	 * Heroes operations. Decorated by nullable directive.
 	 */
-	@Injectable()
+	@Injectable({ providedIn: 'root' })
 	export class Heroes {
 		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}
@@ -566,7 +570,7 @@ export namespace DemoWebApi_Controllers_Client {
 	/**
 	 * For testing different commbinations of parameters and returns
 	 */
-	@Injectable()
+	@Injectable({ providedIn: 'root' })
 	export class Numbers {
 		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}
@@ -758,7 +762,7 @@ export namespace DemoWebApi_Controllers_Client {
 	/**
 	 * For testing posting and getting string data. Returned string is JSON object.
 	 */
-	@Injectable()
+	@Injectable({ providedIn: 'root' })
 	export class StringData {
 		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}
@@ -802,7 +806,7 @@ export namespace DemoWebApi_Controllers_Client {
 	/**
 	 * For testing different commbinations of parameters and returns
 	 */
-	@Injectable()
+	@Injectable({ providedIn: 'root' })
 	export class SuperDemo {
 		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}
@@ -1302,7 +1306,7 @@ export namespace DemoWebApi_Controllers_Client {
 	/**
 	 * For testing posting and getting string data. String returned is text/plain by default
 	 */
-	@Injectable()
+	@Injectable({ providedIn: 'root' })
 	export class TextData {
 		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}
@@ -1351,7 +1355,7 @@ export namespace DemoWebApi_Controllers_Client {
 	/**
 	 * https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md#3.3.3
 	 */
-	@Injectable()
+	@Injectable({ providedIn: 'root' })
 	export class Tuple {
 		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}
@@ -1569,7 +1573,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
-	@Injectable()
+	@Injectable({ providedIn: 'root' })
 	export class Values {
 		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}
@@ -2502,7 +2506,7 @@ export namespace DemoWebApi_Models_Client {
 }
 
 export namespace DemoCoreWeb_Controllers_Client {
-	@Injectable()
+	@Injectable({ providedIn: 'root' })
 	export class SpecialTypes {
 		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
 		}

@@ -57,7 +57,9 @@ namespace Fonlow.CodeDom.Web.Ts
 		{
 			CodeTypeReference c = new CodeTypeReference("Injectable");
 			c.UserData.Add(UserDataKeys.TsTypeInfo, new TsTypeInfo { TypeOfType = TypeOfType.IsInterface });
-			return new CodeAttributeDeclarationCollection(new CodeAttributeDeclaration[] { new CodeAttributeDeclaration(c) });
+			var atr = new CodeAttributeDeclaration(c);
+			atr.Arguments.Add(new CodeAttributeArgument(new CodeSnippetExpression("{ providedIn: 'root' }")));
+			return new CodeAttributeDeclarationCollection([atr]);
 		}
 	}
 

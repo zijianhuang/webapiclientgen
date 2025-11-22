@@ -4,7 +4,7 @@
 		<TargetFramework>net9.0</TargetFramework>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<Version>4.1</Version>
+		<Version>4.2</Version>
 		<Authors>Zijian Huang</Authors>
 		<Company />
 		<Copyright>Copyright © Zijian Huang 2015-$([System.DateTime]::Now.Year)</Copyright>
@@ -35,7 +35,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Fonlow.TypeScriptCodeDomCore" Version="3.4.0" />
+		<PackageReference Include="Fonlow.TypeScriptCodeDomCore" Version="3.5.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 	</ItemGroup>
 

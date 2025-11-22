@@ -12,24 +12,31 @@ $procArgs = @{
 $process = Start-Process @procArgs
 
 #Step 2: Run CodeGen
-$restArgs = @{
-    Uri         = 'http://localhost:5000/api/codegen'
-    Method      = 'Post'
-    InFile      = "$PSScriptRoot/DemoCoreWeb/CodeGen.json"
-    ContentType = 'application/json'
-}
+$client = [System.Net.Http.HttpClient]::new()
+$request = [System.Net.Http.HttpRequestMessage]::new([System.Net.Http.HttpMethod]::Post, 'http://localhost:5000/api/codegen')
+
+$jsonBody = Get-Content "$PSScriptRoot/DemoCoreWeb/CodeGen.json" -Raw
+$request.Content = [System.Net.Http.StringContent]::new($jsonBody, [System.Text.Encoding]::UTF8, 'application/json')
+
 try {
-        $result = Invoke-RestMethod @restArgs
+    $response = $client.SendAsync($request).Result
+    $responseBody = $response.Content.ReadAsStringAsync().Result
+
+    if ($response.IsSuccessStatusCode) {
+        $result = $responseBody
         Write-Output $result
+    }
+    else {
+        Write-Output "Status Code: $($response.StatusCode.value__)"
+        Write-Output "Response Body:"
+        Write-Output $responseBody
+    }
 }
 catch {
-        Write-Output $_.Exception.Response.StatusCode
-        $response = $_.Exception.Response.GetResponseStream()
-        $reader = New-Object System.IO.StreamReader($response)
-        $reader.BaseStream.Position = 0
-        $reader.DiscardBufferedData()
-        $responseBody = $reader.ReadToEnd()
-        Write-Output  $responseBody
+    Write-Output "Request failed: $($_.Exception.Message)"
+}
+finally {
+    $client.Dispose()
 }
 
 #Step 3: Compile generated TS codes to JS for jQuery. https://www.typescriptlang.org/docs/handbook/compiler-options.html

@@ -40,11 +40,15 @@ namespace Fonlow.CodeDom.Web.Ts
 			if (jsOutput.NgDateOnlyFormControlEnabled)
 			{
 				TargetUnit.ReferencedAssemblies.Add(@"
-function CreateDateOnlyFormControl(){
+function CreateDateOnlyFormControl() {
 	const fc = new FormControl<any | null | undefined>(undefined);
-	fc.valueChanges.subscribe(v=>{
-		if (v && v instanceof Date){
-			fc.setValue(v.toLocaleDateString(""sv"").substring(0, 10));
+	fc.valueChanges.subscribe(v => {
+		if (v) {
+			if (v instanceof Date) {
+				fc.setValue(v.toLocaleDateString(""sv"").substring(0, 10), { emitEvent: false });
+			} else if (typeof v == 'object' && typeof v.toISODate === 'function') {
+				fc.setValue(v.toISODate(), { emitEvent: false });
+			}
 		}
 	});
 

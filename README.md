@@ -2,7 +2,7 @@ Strongly Typed Client Web API Generators generate client API codes in C# and Typ
 
 # Products
 
-This project delivers these products:
+This project delivers a component set including:
 1. [Code generator for strongly typed client API in C#](https://github.com/zijianhuang/webapiclientgen/wiki/Documentation) supporting .NET and Xamarin.Forms/MAUI. 
 1. [Code generators for strongly typed client API in TypeScript](https://github.com/zijianhuang/webapiclientgen/wiki/Code-generator-for-strongly-typed-client-API-in-TypeScript) for jQuery, Angular 2+, Aurelia, AXIOS and Fetch API.
 1. [TypeScript CodeDOM](https://github.com/zijianhuang/TypeScriptCodeDOM), a .NET CodeDOM component for TypeScript for developing TypeScript code generators. <a href="https://www.nuget.org/packages/Fonlow.TypeScriptCodeDomCore"><img src="Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" /></a>
@@ -16,7 +16,7 @@ This project delivers these products:
 
 ## Use Cases and Downloads
 
-The products are released mostly through NuGet.
+The component set is released mostly through NuGet.
 1. Generate C# client API, then use package [Fonlow.WebApiClientGenCore <img src="Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" />](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore/)
 1. Generate TypeScript client API, then use one of the plugins of Fonlow.WebApiClientGenCore:
 	1. [jQuery <img src="Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" />](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.jQuery/) and [HttpClient helper library](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb/Scripts/ClientApi/HttpClient.ts)

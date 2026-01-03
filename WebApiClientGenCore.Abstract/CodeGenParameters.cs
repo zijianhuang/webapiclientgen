@@ -312,6 +312,11 @@ namespace Fonlow.CodeDom.Web
 		/// For Angular reactive form control binding with DateOnly, requiring yyyy-MM-dd local date, while the strongly typed field is JavaScript Date.
 		/// </summary>
 		public bool NgDateOnlyFormControlEnabled { get; set; }
+
+		/// <summary>
+		/// Qualified class names to be generated with Ng Signal based form group creation codes.
+		/// </summary>
+		public string[] ClassesForNgSignalForm { get; set; }
 	}
 
 	/// <summary>
@@ -355,6 +360,8 @@ namespace Fonlow.CodeDom.Web
 		public bool MethodSuffixWithClrTypeName { get; set; }
 
 		public bool NgDateOnlyFormControlEnabled { get; set; }
+
+		public string[] ClassesForNgSignalForm { get; set; }
 
 	}
 

@@ -59,6 +59,7 @@ namespace Fonlow.CodeDom.Web
 						DataAnnotationsToComments = plugin.DataAnnotationsToComments,
 						HelpStrictMode = plugin.HelpStrictMode,
 						NgDateOnlyFormControlEnabled = plugin.NgDateOnlyFormControlEnabled,
+						ClassesForNgSignalForm = plugin.ClassesForNgSignalForm,
 						MethodSuffixWithClrTypeName = settings.ClientApiOutputs.JsMethodSuffixWithClrTypeName,
 						NotNullAttributeOnMethod = settings.ClientApiOutputs.NotNullAttributeOnMethod,
 						MaybeNullAttributeOnMethod = settings.ClientApiOutputs.MaybeNullAttributeOnMethod,

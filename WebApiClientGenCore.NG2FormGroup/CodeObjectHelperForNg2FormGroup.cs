@@ -1,4 +1,5 @@
-﻿using Fonlow.Poco2Ts;
+﻿using Fonlow.CodeDom.Web;
+using Fonlow.Poco2Ts;
 using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
@@ -16,45 +17,47 @@ namespace Fonlow.TypeScriptCodeDom
 	{
 		readonly CodeNamespaceCollection codeNamespaceCollection;
 		readonly bool careForDateOnly;
+		readonly string[] classesForNgSignalForm;
 
-		public CodeObjectHelperForNg2FormGroup(CodeNamespaceCollection codeNamespaceCollection, bool careForDateOnly = false) : base(true)
+		public CodeObjectHelperForNg2FormGroup(CodeNamespaceCollection codeNamespaceCollection, JSOutput jsOutput) : base(true)
 		{
 			this.codeNamespaceCollection = codeNamespaceCollection;
-			this.careForDateOnly = careForDateOnly;
+			this.careForDateOnly = jsOutput.NgDateOnlyFormControlEnabled;
+			classesForNgSignalForm = jsOutput.ClassesForNgSignalForm;
 		}
 
 		/// <summary>
 		/// Generate type declarations as interfaces, typed FormGroup declarations as interfaces, 
 		/// </summary>
-		/// <param name="e"></param>
+		/// <param name="cn"></param>
 		/// <param name="w"></param>
 		/// <param name="o"></param>
-		public override void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
+		public override void GenerateCodeFromNamespace(CodeNamespace cn, TextWriter w, CodeGeneratorOptions o)
 		{
-			WriteCodeCommentStatementCollection(e.Comments, w, o);
+			WriteCodeCommentStatementCollection(cn.Comments, w, o);
 
-			string refinedNamespaceText = e.Name.Replace('.', '_');
+			string refinedNamespaceText = cn.Name.Replace('.', '_');
 			string namespaceOrModule = asModule ? "export namespace" : "namespace";
 			w.WriteLine($"{namespaceOrModule} {refinedNamespaceText} {{");
 
-			for (int i = 0; i < e.Imports.Count; i++)
+			for (int i = 0; i < cn.Imports.Count; i++)
 			{
-				CodeNamespaceImport ns = e.Imports[i];
+				CodeNamespaceImport ns = cn.Imports[i];
 				string nsText = ns.Namespace;
 				string alias = nsText.Replace('.', '_');
 				w.WriteLine($"{o.IndentString}import {alias} = {nsText};");
 			}
 
-			e.Types.OfType<CodeTypeDeclaration>().ToList().ForEach(t =>
+			cn.Types.OfType<CodeTypeDeclaration>().ToList().ForEach(ctd =>
 			{
-				GenerateCodeFromType(t, w, o);
+				GenerateCodeFromType(ctd, w, o);
 
-				string typeExpression = GetTypeParametersExpression(t);
+				string typeExpression = GetTypeParametersExpression(ctd);
 				bool isGeneric = typeExpression.Contains('<');
-				if (!t.IsPartial && !isGeneric) //controllerClass is partial, as declared in CreateControllerClientClass()
+				if (!ctd.IsPartial && !isGeneric) //controllerClass is partial, as declared in CreateControllerClientClass()
 				{
-					GenerateAngularFormFromType(t, w, o);
-					GenerateAngularFormGroupFunctionFromType(t, w, o);
+					GenerateAngularFormFromType(ctd, w, o);
+					GenerateAngularFormGroupFunctionFromType(cn, ctd, w, o);
 				}
 
 				w.WriteLine();
@@ -130,21 +133,23 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <summary>
 		/// Generate TS helper function of creating FormGroup object.
 		/// </summary>
-		/// <param name="e"></param>
+		/// <param name="ctd"></param>
 		/// <param name="w"></param>
 		/// <param name="o"></param>
-		void GenerateAngularFormGroupFunctionFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+		void GenerateAngularFormGroupFunctionFromType(CodeNamespace cn, CodeTypeDeclaration ctd, TextWriter w, CodeGeneratorOptions o)
 		{
-			if (e.IsEnum)
+			if (ctd.IsEnum)
 			{
 				return;
 			}
 
-			string accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
-			string typeOfTypeText = GetTypeOfTypeText(e);
-			string name = e.Name;
-			string typeParametersExpression = GetTypeParametersExpression(e);
-			string baseTypesExpression = GetBaseTypeExpression(e);
+			string accessModifier = ((ctd.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
+			string typeOfTypeText = GetTypeOfTypeText(ctd);
+			string name = ctd.Name;
+			string qualifiedTypeName = cn.Name + "." + name;
+			bool forSignalForm = classesForNgSignalForm != null && classesForNgSignalForm.Contains(qualifiedTypeName);
+			string typeParametersExpression = GetTypeParametersExpression(ctd);
+			string baseTypesExpression = GetBaseTypeExpression(ctd);
 			if (typeOfTypeText == "interface")
 			{
 				string extendsExpression = $"{typeParametersExpression}{baseTypesExpression}";
@@ -153,14 +158,22 @@ namespace Fonlow.TypeScriptCodeDom
 				string formGroupInterface = $"{name}FormProperties";
 				w.Write($"{o.IndentString}{accessModifier}function Create{name}FormGroup() {{");
 				w.WriteLine();
-				w.Write($"{o.IndentString}{o.IndentString}return new FormGroup<{formGroupInterface}>({{");
 
-				WriteAngularFormGroupMembersAndCloseBracing(e, w, o);
+				if (forSignalForm)
+				{
+					w.Write($"{o.IndentString}{o.IndentString}return formGroup<{formGroupInterface}>({{");
+				}
+				else
+				{
+					w.Write($"{o.IndentString}{o.IndentString}return new FormGroup<{formGroupInterface}>({{");
+				}
+
+				WriteAngularFormGroupMembersAndCloseBracing(ctd, w, o, forSignalForm);
 				w.WriteLine($"{o.IndentString}}}");
 			}
 			else
 			{
-				throw new ArgumentException("Expect TypeOfType is interface if e is not enum", nameof(e));
+				throw new ArgumentException("Expect TypeOfType is interface if e is not enum", nameof(ctd));
 			}
 		}
 
@@ -226,7 +239,7 @@ namespace Fonlow.TypeScriptCodeDom
 		/// </summary>
 		/// <param name="codeMemberField"></param>
 		/// <returns>Text of FormControl creation.</returns>
-		string GetCodeMemberFieldTextForAngularFormGroup(CodeMemberField codeMemberField)
+		string GetCodeMemberFieldTextForAngularFormGroup(CodeMemberField codeMemberField, bool forSignalForm)
 		{
 			Attribute[] customAttributes = codeMemberField.UserData[UserDataKeys.CustomAttributes] as Attribute[];
 			string fieldName = codeMemberField.Name.EndsWith('?') ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
@@ -343,8 +356,19 @@ namespace Fonlow.TypeScriptCodeDom
 				}
 				else
 				{
-					return string.IsNullOrEmpty(text) ? $"{fieldName}: new FormControl<{tsTypeName}>(undefined)" :
-						$"{fieldName}: new FormControl<{tsTypeName}>(undefined, [{text}])";
+					if (forSignalForm)
+					{
+						return string.IsNullOrEmpty(text) ? $"{fieldName}: formControl<{tsTypeName}>(undefined)" :
+							$"{fieldName}: formControl<{tsTypeName}>(undefined, [{text}])";
+					}
+					else
+					{
+						return string.IsNullOrEmpty(text) ? $"{fieldName}: new FormControl<{tsTypeName}>(undefined)" :
+							$"{fieldName}: new FormControl<{tsTypeName}>(undefined, [{text}])";
+					}
+
+
+
 				}
 			}
 			else
@@ -390,13 +414,14 @@ namespace Fonlow.TypeScriptCodeDom
 				for (int i = 0; i < typeDeclaration.Members.Count; i++)
 				{
 					WriteCodeTypeMemberOfAngularForm(typeDeclaration.Members[i], w, o);
-				};
+				}
+				;
 				w.WriteLine(currentIndent + "}");
 				o.IndentString = currentIndent;
 			}
 		}
 
-		void WriteAngularFormGroupMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
+		void WriteAngularFormGroupMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o, bool forSignalForm)
 		{
 
 			if (typeDeclaration.IsEnum)
@@ -413,13 +438,14 @@ namespace Fonlow.TypeScriptCodeDom
 				{
 					CodeTypeReference parentTypeReference = typeDeclaration.BaseTypes[0];
 					string parentTypeName = TypeMapper.MapCodeTypeReferenceToTsText(parentTypeReference); //namspace prefix included														
-					WriteAngularFormGroupMembersOfParent(parentTypeName, w, o);
+					WriteAngularFormGroupMembersOfParent(parentTypeName, w, o, forSignalForm);
 				}
 
 				for (int i = 0; i < typeDeclaration.Members.Count; i++)
 				{
-					WriteCodeTypeMemberOfAngularFormGroup(typeDeclaration.Members[i], w, o);
-				};
+					WriteCodeTypeMemberOfAngularFormGroup(typeDeclaration.Members[i], w, o, forSignalForm);
+				}
+				;
 				w.WriteLine(currentIndent + BasicIndent + "});");
 				w.WriteLine();
 				o.IndentString = currentIndent;
@@ -432,7 +458,7 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <param name="parentTypeName"></param>
 		/// <param name="w"></param>
 		/// <param name="o"></param>
-		void WriteAngularFormGroupMembersOfParent(string parentTypeName, TextWriter w, CodeGeneratorOptions o)
+		void WriteAngularFormGroupMembersOfParent(string parentTypeName, TextWriter w, CodeGeneratorOptions o, bool forSignalForm)
 		{
 			CodeTypeDeclaration parentCodeTypeDeclaration = FindCodeTypeDeclaration(parentTypeName);
 			if (parentCodeTypeDeclaration != null)
@@ -441,13 +467,15 @@ namespace Fonlow.TypeScriptCodeDom
 				{
 					CodeTypeReference grantParentTypeReference = parentCodeTypeDeclaration.BaseTypes[0];
 					string grantParentTypeName = TypeMapper.MapCodeTypeReferenceToTsText(grantParentTypeReference);
-					WriteAngularFormGroupMembersOfParent(grantParentTypeName, w, o);
-				};
+					WriteAngularFormGroupMembersOfParent(grantParentTypeName, w, o, forSignalForm);
+				}
+				;
 
 				for (int i = 0; i < parentCodeTypeDeclaration.Members.Count; i++)
 				{
-					WriteCodeTypeMemberOfAngularFormGroup(parentCodeTypeDeclaration.Members[i], w, o);
-				};
+					WriteCodeTypeMemberOfAngularFormGroup(parentCodeTypeDeclaration.Members[i], w, o, forSignalForm);
+				}
+				;
 			}
 		}
 
@@ -497,7 +525,7 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <param name="w"></param>
 		/// <param name="o"></param>
 		/// <exception cref="ArgumentException">If ctm is not CodeMemberField.</exception>
-		void WriteCodeTypeMemberOfAngularFormGroup(CodeTypeMember ctm, TextWriter w, CodeGeneratorOptions o)
+		void WriteCodeTypeMemberOfAngularFormGroup(CodeTypeMember ctm, TextWriter w, CodeGeneratorOptions o, bool forSignalForm)
 		{
 			if (ctm is CodeMemberField codeMemberField)
 			{
@@ -512,7 +540,7 @@ namespace Fonlow.TypeScriptCodeDom
 				}
 
 				w.Write(o.IndentString + BasicIndent);
-				w.WriteLine(GetCodeMemberFieldTextForAngularFormGroup(codeMemberField) + ",");
+				w.WriteLine(GetCodeMemberFieldTextForAngularFormGroup(codeMemberField, forSignalForm) + ",");
 				return;
 			}
 

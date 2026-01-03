@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import * as namespaces from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NGMDModule } from '../ngmd.module';
 
@@ -11,12 +11,11 @@ import { NGMDModule } from '../ngmd.module';
     styleUrls: ['./heroes.component.css'],
     standalone: true,
     imports: [
-      CommonModule,
-      RouterModule,
-      FormsModule,
-      ReactiveFormsModule,
-      NGMDModule,	
-    ],
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NGMDModule
+],
 })
 export class HeroesComponent implements OnInit {
   heroes?: namespaces.DemoWebApi_Controllers_Client.Hero[];

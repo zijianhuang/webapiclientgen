@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import * as namespaces from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NGMDModule } from '../ngmd.module';
 import { RouterModule } from '@angular/router';
@@ -12,14 +12,12 @@ import { HeroSearchComponent } from '../hero-search/hero-search.component';
     styleUrls: ['./dashboard.component.css'],
     standalone: true,
     imports: [
-      CommonModule,
-      RouterModule, 
-      FormsModule,
-      ReactiveFormsModule,
-      NGMDModule,	
-
-      HeroSearchComponent,
-    ],
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NGMDModule,
+    HeroSearchComponent
+],
 })
 export class DashboardComponent implements OnInit {
   heroes: namespaces.DemoWebApi_Controllers_Client.Hero[] = [];

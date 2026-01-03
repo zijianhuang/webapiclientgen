@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NGMDModule } from './ngmd.module';
@@ -11,13 +11,12 @@ import { MessagesComponent } from './messages/messages.component';
     styleUrls: ['./app.component.css'],
     standalone: true,
     imports: [
-      CommonModule,
-      RouterModule, 
-      FormsModule,
-      ReactiveFormsModule,
-      NGMDModule,	
-      MessagesComponent,
-    ],
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NGMDModule,
+    MessagesComponent
+],
 })
 export class AppComponent {
   title = 'Tour of Heroes';

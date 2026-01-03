@@ -1,7 +1,8 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, Signal, WritableSignal, signal } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { form, Field, required, minLength, maxLength, email, pattern } from '@angular/forms/signals';
 
 function CreateDateOnlyFormControl() {
 	const fc = new FormControl<any | null | undefined>(undefined);
@@ -66,17 +67,17 @@ export namespace DemoWebApi_Controllers_Client {
 		emailAddress?: string | null;
 
 		/** Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
-		id?: string | null;
+		id: string;
 
 		/**
 		 * Required
 		 * String length: inclusive between 2 and 120
 		 */
-		name?: string | null;
+		name: string | null;
 		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
 
 		/** Min length: 6 */
-		webAddress?: string | null;
+		webAddress: string;
 	}
 
 	/**
@@ -101,14 +102,12 @@ export namespace DemoWebApi_Controllers_Client {
 		/** Min length: 6 */
 		webAddress: FormControl<string | null | undefined>,
 	}
-	export function CreateHeroFormGroup() {
-		return new FormGroup<HeroFormProperties>({
-			death: CreateDateOnlyFormControl(),
-			dob: CreateDateOnlyFormControl(),
-			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
-			id: new FormControl<string | null | undefined>(undefined, [Validators.pattern('/^-?\d{0,19}$/')]),
-			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(120)]),
-			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
+	export function CreateHeroFormGroup(obj : WritableSignal<Hero>) {
+		return form(obj, (f)=>{
+			email(f.emailAddress);
+			pattern(f.id, /^-?\d{0,19}$/);
+			required(f.name);minLength(f.name, 2);maxLength(f.name, 120);
+			minLength(f.webAddress, 6); pattern(f.webAddress!, 'https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)');
 		});
 
 	}
@@ -126,7 +125,7 @@ export namespace DemoWebApi_Controllers_Client {
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
 			id: new FormControl<string | null | undefined>(undefined, [Validators.pattern('/^-?\d{0,19}$/')]),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(120)]),
-			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
+			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern(/https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)/)]),
 			super: new FormControl<boolean | null | undefined>(undefined),
 		});
 

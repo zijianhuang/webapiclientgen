@@ -75,7 +75,10 @@
 				"ContainerNameSuffix": "",
 				"DataAnnotationsToComments": true,
 				"HelpStrictMode": true,
-				"NgDateOnlyFormControlEnabled": true
+				"NgDateOnlyFormControlEnabled": true,
+				"ClassesForNgSignalForm": [
+					"DemoWebApi_Controllers_Client.Hero"
+				]
 			},
 
 			{

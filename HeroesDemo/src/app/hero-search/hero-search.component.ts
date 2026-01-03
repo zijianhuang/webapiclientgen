@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Subject } from 'rxjs';
@@ -23,17 +23,19 @@ import { NGMDModule } from '../ngmd.module';
   ],
 })
 export class HeroSearchComponent implements OnInit {
-  heroes?: Observable<DemoWebApi_Controllers_Client.Hero[] | null>;
+  heroes$?: Observable<DemoWebApi_Controllers_Client.Hero[] | null>;
   private searchTerms = new Subject<string>();
   constructor(
     private heroSearchService: DemoWebApi_Controllers_Client.Heroes,
-    private router: Router) { }
+    private router: Router,
+    //private ref: ChangeDetectorRef no need. "async" in template is compatible with OnPush, since heroes is observable.
+  ) { }
   // Push a search term into the observable stream.
   search(term: string): void {
     this.searchTerms.next(term);
   }
   ngOnInit(): void {
-    this.heroes = this.searchTerms.pipe(
+    this.heroes$ = this.searchTerms.pipe(
       debounceTime(300)        // wait for 300ms pause in events
       , distinctUntilChanged()   // ignore if next search term is same as previous
       , switchMap((term: string) => {

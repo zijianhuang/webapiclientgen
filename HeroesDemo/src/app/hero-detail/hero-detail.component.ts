@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client } from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
@@ -21,6 +21,7 @@ export function CreateHeroWithNestedFormGroup() {
     selector: 'app-hero-detail',
     templateUrl: './hero-detail.component.html',
     standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
 		CommonModule,
 		FormsModule,
@@ -34,7 +35,8 @@ export class HeroDetailComponent implements OnInit {
     constructor(
         private heroService: DemoWebApi_Controllers_Client.Heroes,
         private route: ActivatedRoute,
-        private location: Location
+        private location: Location,
+        private ref: ChangeDetectorRef,
     ) {
         this.heroForm = CreateHeroWithNestedFormGroup();
     }
@@ -53,6 +55,8 @@ export class HeroDetailComponent implements OnInit {
                                 this.heroForm.controls.phoneNumbers?.push(g);
                             });
                         }
+
+                        this.ref.detectChanges();
                     }
                 },
                 error: error => alert(error)
@@ -78,13 +82,15 @@ export class HeroDetailComponent implements OnInit {
     addPhoneNumber() {
         var n = DemoWebApi_DemoData_Client.CreatePhoneNumberFormGroup();
         this.heroForm.controls.phoneNumbers?.push(n);
-    }
+                        this.ref.detectChanges();
+   }
 
     removePhoneNumber(pg: FormGroup<DemoWebApi_DemoData_Client.PhoneNumberFormProperties>) {
         const idx = this.heroForm.controls.phoneNumbers?.controls.indexOf(pg);
         if (idx != undefined) {
             this.heroForm.controls.phoneNumbers?.removeAt(idx);
-        }
+                         this.ref.detectChanges();
+      }
     }
 
     getMinLengthErrorsText(errors: ValidationErrors | null) {

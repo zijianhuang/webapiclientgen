@@ -1,31 +1,32 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Subject } from 'rxjs';
 import { debounceTime, switchMap, distinctUntilChanged } from 'rxjs/operators';
-import * as namespaces from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
+import { DemoWebApi_Controllers_Client } from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NGMDModule } from '../ngmd.module';
 
 @Component({
-    selector: 'app-hero-search',
-    templateUrl: 'hero-search.component.html',
-    styleUrls: ['hero-search.component.css'],
-    standalone: true,
-    imports: [
-      CommonModule,
-      RouterModule,
-      FormsModule,
-      ReactiveFormsModule,
-      NGMDModule,	
-    ],
+  selector: 'app-hero-search',
+  templateUrl: 'hero-search.component.html',
+  styleUrls: ['hero-search.component.css'],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NGMDModule,
+  ],
 })
 export class HeroSearchComponent implements OnInit {
-  heroes?: Observable<namespaces.DemoWebApi_Controllers_Client.Hero[] | null>;
+  heroes?: Observable<DemoWebApi_Controllers_Client.Hero[] | null>;
   private searchTerms = new Subject<string>();
   constructor(
-    private heroSearchService: namespaces.DemoWebApi_Controllers_Client.Heroes,
+    private heroSearchService: DemoWebApi_Controllers_Client.Heroes,
     private router: Router) { }
   // Push a search term into the observable stream.
   search(term: string): void {
@@ -43,7 +44,7 @@ export class HeroSearchComponent implements OnInit {
         }
       }));
   }
-  gotoDetail(hero: namespaces.DemoWebApi_Controllers_Client.Hero): void {
+  gotoDetail(hero: DemoWebApi_Controllers_Client.Hero): void {
     const link = ['/detail', hero.id];
     this.router.navigate(link);
   }

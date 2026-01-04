@@ -76,7 +76,7 @@
 				"DataAnnotationsToComments": true,
 				"HelpStrictMode": true,
 				"NgDateOnlyFormControlEnabled": true,
-				"NgUseRegexAttribute":  3
+				"NgUseRegexAttribute":  1
 			},
 
 			{

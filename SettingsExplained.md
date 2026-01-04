@@ -730,6 +730,8 @@ Except for legacy TypeScript apps that you don't plan to conform to the strict m
 
 ### NgDateOnlyFormControlEnabled
 
+Applied to only plugin `Fonlow.WebApiClientGenCore.NG2FormGroup`.
+
 For Angular Reactive Forms dealing with DateOnly fields. 
 
 When true, the FormControl generated is like:
@@ -753,7 +755,33 @@ function CreateDateOnlyFormControl(){
 
 	return fc;
 }
+```
 
 Hints:
 * JavaScript Date object is always internally UTC DateTime, while HTML date picker and Angular Material DatePicker handle well both JS Date object and string. However, for DateOnly info, this FormControl generated enforce string "yyyy-MM-dd".
+* For more details, check https://github.com/zijianhuang/webapiclientgen/wiki/Angular-Reactive-Forms
+
+### NgUseRegexAttribute
+
+Applied to only plugin `Fonlow.WebApiClientGenCore.NG2FormGroup`.
+
+If you are sure that regular expressions used in RegularExpressionAttribute are compatible with JavaScript regex, then turn it on.
+
+```cs
+		/// <summary>
+		/// Handle value of RegularExpressionAttribute.
+		/// </summary>
+		public UseRegexAttr NgUseRegexAttribute { get; set; }
+
+		...
+	[Flags]
+	public enum UseRegexAttr
+	{
+		None,
+
+		/// <summary>
+		/// Copy RegularExpressionAttribute value as is.
+		/// </summary>
+		Use = 1,
+	}
 ```

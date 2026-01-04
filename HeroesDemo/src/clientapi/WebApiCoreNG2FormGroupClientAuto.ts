@@ -108,7 +108,7 @@ export namespace DemoWebApi_Controllers_Client {
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
 			id: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^-?\d{0,19}$/)]),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(120)]),
-			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
+			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern(/^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$/)]),
 		});
 
 	}
@@ -126,7 +126,7 @@ export namespace DemoWebApi_Controllers_Client {
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
 			id: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^-?\d{0,19}$/)]),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(120)]),
-			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
+			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern(/^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$/)]),
 			super: new FormControl<boolean | null | undefined>(undefined),
 		});
 
@@ -1659,7 +1659,7 @@ export namespace DemoWebApi_DemoDataEx_Client {
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			id: new FormControl<string | null | undefined>(undefined),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
-			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
+			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$/)]),
 			foundDate: new FormControl<Date | null | undefined>(undefined),
 			registerDate: CreateDateOnlyFormControl(),
 			trustee: new FormControl<string | null | undefined>(undefined),
@@ -1774,7 +1774,7 @@ export namespace DemoWebApi_DemoData_Base_Client {
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			id: new FormControl<string | null | undefined>(undefined),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
-			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
+			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$/)]),
 		});
 
 	}
@@ -1921,7 +1921,7 @@ export namespace DemoWebApi_DemoData_Client {
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			id: new FormControl<string | null | undefined>(undefined),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
-			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
+			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$/)]),
 			foundDate: new FormControl<Date | null | undefined>(undefined),
 			registerDate: CreateDateOnlyFormControl(),
 		});
@@ -1955,7 +1955,7 @@ export namespace DemoWebApi_DemoData_Client {
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			id: new FormControl<string | null | undefined>(undefined),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
-			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
+			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$/)]),
 			foundDate: new FormControl<Date | null | undefined>(undefined),
 			registerDate: CreateDateOnlyFormControl(),
 			business_no: new FormControl<string | null | undefined>(undefined),
@@ -2080,7 +2080,7 @@ export namespace DemoWebApi_DemoData_Client {
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			id: new FormControl<string | null | undefined>(undefined),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
-			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
+			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$/)]),
 			byte: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(256)]),
 			int: new FormControl<number | null | undefined>(undefined, [Validators.min(-2147483648), Validators.max(2147483647)]),
 			itemCount: new FormControl<number | null | undefined>(undefined, [Validators.min(-1000), Validators.max(1000000)]),
@@ -2237,7 +2237,7 @@ export namespace DemoWebApi_DemoData_Client {
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			id: new FormControl<string | null | undefined>(undefined),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
-			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
+			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$/)]),
 			baptised: new FormControl<Date | null | undefined>(undefined),
 			dob: CreateDateOnlyFormControl(),
 			givenName: new FormControl<string | null | undefined>(undefined),

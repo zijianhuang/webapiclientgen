@@ -80,7 +80,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Matching regular expression pattern: https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.MinLength(6)]
-		[System.ComponentModel.DataAnnotations.RegularExpression(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]
+		[System.ComponentModel.DataAnnotations.RegularExpression(@"^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$")]
 		[System.Runtime.Serialization.DataMember()]
 		public string WebAddress { get; set; }
 	}

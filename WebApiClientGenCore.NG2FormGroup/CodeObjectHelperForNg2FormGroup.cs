@@ -329,14 +329,13 @@ namespace Fonlow.TypeScriptCodeDom
 									.Replace("'", "\\'"); 
 								}
 
-								string escapedPattern2 = EscapeRegexCapturingGroup(escapedPattern);
-
 								if ((useRegexAttribute & UseRegexAttr.UseJsRegex) == UseRegexAttr.UseJsRegex)
 								{
-									validatorList.Add($"Validators.pattern(/{escapedPattern2}/)");
+									validatorList.Add($"Validators.pattern(/{escapedPattern}/)");
 								}
 								else
 								{
+									var escapedPattern2 = EscapeRegexCapturingGroup(escapedPattern);
 									validatorList.Add($"Validators.pattern('{escapedPattern2}')");
 								}
 							}

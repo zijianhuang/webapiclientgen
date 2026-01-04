@@ -167,7 +167,7 @@ namespace DemoWebApi.Controllers
 
 		[DataMember]
 		[MinLength(6)] //just for testing multiple validations
-		[RegularExpression(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]
+		[RegularExpression(@"^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$")]
 		public string WebAddress { get; set; }
 
 

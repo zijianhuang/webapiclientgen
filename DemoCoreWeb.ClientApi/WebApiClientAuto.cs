@@ -76,10 +76,10 @@ namespace DemoWebApi.Controllers.Client
 		
 		/// <summary>
 		/// Min length: 6
-		/// Matching regular expression pattern: https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)
+		/// Matching regular expression pattern: ^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.MinLength(6)]
-		[System.ComponentModel.DataAnnotations.RegularExpression(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]
+		[System.ComponentModel.DataAnnotations.RegularExpression(@"^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$")]
 		[System.Runtime.Serialization.DataMember()]
 		public string WebAddress { get; set; }
 	}
@@ -9575,9 +9575,9 @@ namespace DemoWebApi.DemoData.Base.Client
 		public System.Collections.ObjectModel.ObservableCollection<DemoWebApi.DemoData.Client.PhoneNumber> PhoneNumbers { get; set; }
 		
 		/// <summary>
-		/// Matching regular expression pattern: https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)
+		/// Matching regular expression pattern: ^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.RegularExpression(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]
+		[System.ComponentModel.DataAnnotations.RegularExpression(@"^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$")]
 		[System.Runtime.Serialization.DataMember()]
 		public System.Uri Web { get; set; }
 	}

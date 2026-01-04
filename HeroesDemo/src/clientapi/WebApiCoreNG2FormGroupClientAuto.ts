@@ -106,7 +106,7 @@ export namespace DemoWebApi_Controllers_Client {
 			death: CreateDateOnlyFormControl(),
 			dob: CreateDateOnlyFormControl(),
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
-			id: new FormControl<string | null | undefined>(undefined, [Validators.pattern('/^-?\d{0,19}$/')]),
+			id: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^-?\d{0,19}$/)]),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(120)]),
 			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
 		});
@@ -124,7 +124,7 @@ export namespace DemoWebApi_Controllers_Client {
 			death: CreateDateOnlyFormControl(),
 			dob: CreateDateOnlyFormControl(),
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
-			id: new FormControl<string | null | undefined>(undefined, [Validators.pattern('/^-?\d{0,19}$/')]),
+			id: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^-?\d{0,19}$/)]),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(120)]),
 			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
 			super: new FormControl<boolean | null | undefined>(undefined),
@@ -1891,11 +1891,11 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 	export function CreateBigNumbersFormGroup() {
 		return new FormGroup<BigNumbersFormProperties>({
-			bigInt: new FormControl<string | null | undefined>(undefined, [Validators.pattern('/^-?\d*$/')]),
-			signed128: new FormControl<string | null | undefined>(undefined, [Validators.pattern('/^-?\d{0,39}$/')]),
-			signed64: new FormControl<string | null | undefined>(undefined, [Validators.pattern('/^-?\d{0,19}$/')]),
-			unsigned128: new FormControl<string | null | undefined>(undefined, [Validators.pattern('/^\d{0,30}$/')]),
-			unsigned64: new FormControl<string | null | undefined>(undefined, [Validators.pattern('/^\d{0,20}$/')]),
+			bigInt: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^-?\d*$/)]),
+			signed128: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^-?\d{0,39}$/)]),
+			signed64: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^-?\d{0,19}$/)]),
+			unsigned128: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^\d{0,30}$/)]),
+			unsigned64: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^\d{0,20}$/)]),
 		});
 
 	}

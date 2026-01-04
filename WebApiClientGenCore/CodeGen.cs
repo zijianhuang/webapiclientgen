@@ -62,6 +62,8 @@ namespace Fonlow.CodeDom.Web
 						MethodSuffixWithClrTypeName = settings.ClientApiOutputs.JsMethodSuffixWithClrTypeName,
 						NotNullAttributeOnMethod = settings.ClientApiOutputs.NotNullAttributeOnMethod,
 						MaybeNullAttributeOnMethod = settings.ClientApiOutputs.MaybeNullAttributeOnMethod,
+						NgUseRegexAttribute = plugin.NgUseRegexAttribute,
+						ClassesForNgSignalForm = plugin.ClassesForNgSignalForm,
 					};
 
 					var assemblyName = plugin.AssemblyName;

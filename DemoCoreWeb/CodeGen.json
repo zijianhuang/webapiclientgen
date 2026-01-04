@@ -75,7 +75,8 @@
 				"ContainerNameSuffix": "",
 				"DataAnnotationsToComments": true,
 				"HelpStrictMode": true,
-				"NgDateOnlyFormControlEnabled": true
+				"NgDateOnlyFormControlEnabled": true,
+				"NgUseRegexAttribute":  1
 			},
 
 			{

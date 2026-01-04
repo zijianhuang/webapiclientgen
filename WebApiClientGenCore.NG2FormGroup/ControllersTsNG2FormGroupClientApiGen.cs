@@ -27,7 +27,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override CodeObjectHelper CreateCodeObjectHelper(bool asModule)
 		{
-			return new CodeObjectHelperForNg2FormGroup(TargetUnit.Namespaces, jsOutput.NgDateOnlyFormControlEnabled);
+			return new CodeObjectHelperForNg2FormGroup(TargetUnit.Namespaces, jsOutput);
 		}
 
 		protected override void AddBasicReferences()

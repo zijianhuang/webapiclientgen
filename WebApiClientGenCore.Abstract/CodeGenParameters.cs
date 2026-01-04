@@ -7,6 +7,27 @@ using System;
 
 namespace Fonlow.CodeDom.Web
 {
+	[Flags]
+	public enum UseRegexAttr
+	{
+		None,
+
+		/// <summary>
+		/// Copy RegularExpressionAttribute value as is.
+		/// </summary>
+		Use = 1,
+
+		/// <summary>
+		/// Whether to keep the original expression text, like double escaping, or to transform the JS regex. 
+		/// </summary>
+		UseJsRegex = 2,
+
+		///// <summary>
+		///// When generating JS regex as string, double escape the backslash.
+		///// </summary>
+		//DoubleEscape = 4
+	}
+
 	public class CodeGenSettingsBase
 	{
 		[Required]
@@ -312,6 +333,16 @@ namespace Fonlow.CodeDom.Web
 		/// For Angular reactive form control binding with DateOnly, requiring yyyy-MM-dd local date, while the strongly typed field is JavaScript Date.
 		/// </summary>
 		public bool NgDateOnlyFormControlEnabled { get; set; }
+
+		/// <summary>
+		/// Handle value of RegularExpressionAttribute.
+		/// </summary>
+		public UseRegexAttr NgUseRegexAttribute { get; set; }
+
+		/// <summary>
+		/// Qualified class names to be generated with Ng Signal based form group creation codes.
+		/// </summary>
+		public string[] ClassesForNgSignalForm { get; set; } //todo: not yet used
 	}
 
 	/// <summary>
@@ -355,6 +386,12 @@ namespace Fonlow.CodeDom.Web
 		public bool MethodSuffixWithClrTypeName { get; set; }
 
 		public bool NgDateOnlyFormControlEnabled { get; set; }
+
+		public UseRegexAttr NgUseRegexAttribute { get; set; }
+		/// <summary>
+		/// Not yet used.
+		/// </summary>
+		public string[] ClassesForNgSignalForm { get; set; }
 
 	}
 

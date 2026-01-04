@@ -16,16 +16,6 @@ namespace Fonlow.CodeDom.Web
 		/// Copy RegularExpressionAttribute value as is.
 		/// </summary>
 		Use = 1,
-
-		/// <summary>
-		/// Whether to keep the original expression text, like double escaping, or to transform the JS regex. 
-		/// </summary>
-		UseJsRegex = 2,
-
-		///// <summary>
-		///// When generating JS regex as string, double escape the backslash.
-		///// </summary>
-		//DoubleEscape = 4
 	}
 
 	public class CodeGenSettingsBase

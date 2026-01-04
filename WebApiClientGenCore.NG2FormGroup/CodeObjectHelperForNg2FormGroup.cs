@@ -321,23 +321,7 @@ namespace Fonlow.TypeScriptCodeDom
 							if (useRegexAttribute > UseRegexAttr.None)
 							{
 								System.ComponentModel.DataAnnotations.RegularExpressionAttribute rp = ca as System.ComponentModel.DataAnnotations.RegularExpressionAttribute;
-								string escapedPattern = rp.Pattern;
-
-								if ((useRegexAttribute & UseRegexAttr.UseJsRegex) == UseRegexAttr.None) // transformed as string
-								{
-									escapedPattern = escapedPattern.Replace("\\'", "\\\\'") // must run first before escaping single quote
-									.Replace("'", "\\'"); 
-								}
-
-								if ((useRegexAttribute & UseRegexAttr.UseJsRegex) == UseRegexAttr.UseJsRegex)
-								{
-									validatorList.Add($"Validators.pattern(/{escapedPattern}/)");
-								}
-								else
-								{
-									var escapedPattern2 = EscapeRegexCapturingGroup(escapedPattern);
-									validatorList.Add($"Validators.pattern('{escapedPattern2}')");
-								}
+								validatorList.Add($"Validators.pattern(/{rp.Pattern}/)");
 							}
 							break;
 						default:
@@ -398,19 +382,19 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 		}
 
-		static string EscapeRegexCapturingGroup(string s)
-		{
-			Regex regex = new Regex("\\\\\\d+");
-			string r = s;
-			MatchCollection matches = regex.Matches(s);
-			foreach (Match m in matches.ToArray())
-			{
-				string refinedP = m.Value.Replace("\\", "\\\\");
-				r = r.Replace(m.Value, refinedP);
-			}
+		//static string EscapeRegexCapturingGroup(string s)
+		//{
+		//	Regex regex = new Regex("\\\\\\d+");
+		//	string r = s;
+		//	MatchCollection matches = regex.Matches(s);
+		//	foreach (Match m in matches.ToArray())
+		//	{
+		//		string refinedP = m.Value.Replace("\\", "\\\\");
+		//		r = r.Replace(m.Value, refinedP);
+		//	}
 
-			return r;
-		}
+		//	return r;
+		//}
 
 		void WriteAngularFormTypeMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
 		{

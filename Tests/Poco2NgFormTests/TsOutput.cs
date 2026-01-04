@@ -9,7 +9,7 @@ namespace Poco2TsTests
 		static void Verify(Type type, string expected)
 		{
 			CodeCompileUnit targetUnit = new CodeCompileUnit();
-			Poco2TsGen gen = new Poco2TsGen(targetUnit, ".Client", false, new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg2FormGroup(targetUnit.Namespaces, new Fonlow.CodeDom.Web.JSOutput { NgDateOnlyFormControlEnabled = false, ApiSelections = null }));
+			Poco2TsGen gen = new Poco2TsGen(targetUnit, ".Client", false, new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg2FormGroup(targetUnit.Namespaces, new Fonlow.CodeDom.Web.JSOutput { NgDateOnlyFormControlEnabled = false, ApiSelections = null, NgUseRegexAttribute= Fonlow.CodeDom.Web.UseRegexAttr.Use }));
 			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.DataContract);
 			using (StringWriter writer = new StringWriter())
 			{

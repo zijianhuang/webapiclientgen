@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, provideHttpClient } from '@angular/common/http';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { DemoWebApi_DemoData_Client, DemoWebApi_Controllers_Client } from './WebApiCoreNg2ClientAuto';
+//import { platformBrowserTesting, BrowserTestingModule }   from '@angular/platform-browser/testing';
 
 //const apiBaseUri = 'http://fonlow.org/'; // for DemoCoreWeb hosted in server of different timezone.
 const apiBaseUri = 'http://localhost:5000/'; // for DemoCoreWeb
@@ -84,6 +85,7 @@ describe('Values API', () => {
     let service: DemoWebApi_Controllers_Client.Values;
 
     beforeEach(waitForAsync(() => {
+		//TestBed.initTestEnvironment(BrowserTestingModule, platformBrowserTesting());
 
         TestBed.configureTestingModule({
             imports: [],
@@ -2641,7 +2643,7 @@ describe('Numbers API', () => {
  *
  * JavaScript has difficulty in deal with number larger than 53-bit as JSON object.
  */
-xdescribe('Numbers API without customized serialization', () => {
+describe('Numbers API without customized serialization', () => {
     let service: DemoWebApi_Controllers_Client.Numbers;
 
     beforeEach(waitForAsync(() => {

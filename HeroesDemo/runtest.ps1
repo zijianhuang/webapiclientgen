@@ -1,2 +1,2 @@
 ﻿Set-Location $PSScriptRoot
-ng test
+npx vitest --run

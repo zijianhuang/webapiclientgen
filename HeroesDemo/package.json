@@ -9,7 +9,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -39,6 +40,8 @@
     "protractor": "~7.0.0",
     "ts-node": "10.9.2",
     "typescript": "^5.9.3",
-    "vite-tsconfig-paths": "^6.0.3"
+    "vite-tsconfig-paths": "^6.0.3",
+    "tslint": "6.1.3",
+    "tslint-angular": "3.0.3"
   }
 }

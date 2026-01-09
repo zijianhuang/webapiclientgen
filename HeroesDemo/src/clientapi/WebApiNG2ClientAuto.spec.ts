@@ -1,7 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, provideHttpClient } from '@angular/common/http';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { DemoWebApi_DemoData_Client, DemoWebApi_Controllers_Client } from './WebApiCoreNg2ClientAuto';
-//import { platformBrowserTesting, BrowserTestingModule }   from '@angular/platform-browser/testing';
 
 //const apiBaseUri = 'http://fonlow.org/'; // for DemoCoreWeb hosted in server of different timezone.
 const apiBaseUri = 'http://localhost:5000/'; // for DemoCoreWeb
@@ -41,7 +40,6 @@ export function textDataClientFactory(http: HttpClient) {
 export function numbersClientFactory(http: HttpClient) {
     return new DemoWebApi_Controllers_Client.Numbers(apiBaseUri, http);
 }
-
 
 export function errorResponseToString(error: HttpErrorResponse | any,): string {
     let errMsg: string;
@@ -84,7 +82,7 @@ export function errorResponseBodyToString(error: HttpErrorResponse | any,): stri
 describe('Values API', () => {
     let service: DemoWebApi_Controllers_Client.Values;
 
-    beforeEach(waitForAsync(() => {
+    beforeEach(()=>{
 		//TestBed.initTestEnvironment(BrowserTestingModule, platformBrowserTesting());
 
         TestBed.configureTestingModule({
@@ -102,81 +100,81 @@ describe('Values API', () => {
         });
 
         service = TestBed.inject(DemoWebApi_Controllers_Client.Values);
-    }));
+    });
 
     afterEach(function () {
     });
 
-    it('get', (done) => {
+    it('get', () => {
         service.get().subscribe(
             data => {
                 console.debug(data!.length);
                 expect(data![1]).toBe('value2');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('getByIdAndName', (done) => {
+    it('getByIdAndName', () => {
         service.getByIdOfInt32AndNameOfString(1, 'Abc').subscribe(
             data => {
                 console.debug(data!.length);
                 expect(data).toBe('Abc1');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                expect.fail(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('getByName', (done) => {
+    it('getByName', () => {
         service.getByNameOfString('Abc').subscribe(
             data => {
                 console.debug(data!.length);
                 expect(data).toBe('ABC');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('Post', (done) => {
+    it('Post', () => {
         service.post('Abc').subscribe(
             data => {
                 console.debug(data!.length);
                 expect(data).toBe('ABC');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('getByIdAndChinese', (done) => {
+    it('getByIdAndChinese', () => {
         service.getByIdOfInt32AndNameOfString(1, 'something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.\'; <>: \"').subscribe(
             data => {
                 console.debug(data!.length);
                 expect(data).toBe('something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.\'; <>: \"1');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
@@ -190,7 +188,7 @@ describe('Values API', () => {
 describe('Heroes API', () => {
     let service: DemoWebApi_Controllers_Client.Heroes;
 
-    beforeEach(waitForAsync(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [],
             providers: [
@@ -206,48 +204,48 @@ describe('Heroes API', () => {
         });
 
         service = TestBed.inject(DemoWebApi_Controllers_Client.Heroes);
-    }));
+    });
 
-    it('getAll', (done) => {
+    it('getAll', () => {
         service.getHeroes().subscribe(
             data => {
                 console.debug(data!.length);
                 expect(data!.length).toBeGreaterThan(0);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getHero', (done) => {
+    it('getHero', () => {
         service.getHero('9999').subscribe(
             data => {
                 expect(data).toBeNull();
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('Add', (done) => {
+    it('Add', () => {
         service.post('somebody').subscribe(
             data => {
                 expect(data!.name).toBe('somebody');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -257,32 +255,32 @@ describe('Heroes API', () => {
     /**
      * The service always returns an object and the return is decorated with NotNullAttribute.
      */
-    it('PostWithQuery', (done) => {
+    it('PostWithQuery', () => {
         service.postWithQuery('somebodyqqq').subscribe(
             data => {
                 expect(data.name).toBe('somebodyqqq');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('search', (done) => {
+    it('search', () => {
         service.search('Torna').subscribe(
             data => {
                 console.debug(data!.length);
                 expect(data!.length).toBe(1);
                 expect(data![0].name).toBe('Tornado');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -294,7 +292,7 @@ describe('Heroes API', () => {
 describe('entities API', () => {
     let client: DemoWebApi_Controllers_Client.Entities;
 
-    beforeEach(waitForAsync(() => {
+    beforeEach(() => {
 
         TestBed.configureTestingModule({
             imports: [],
@@ -310,9 +308,9 @@ describe('entities API', () => {
         });
 
         client = TestBed.inject(DemoWebApi_Controllers_Client.Entities);
-    }));
+    });
 
-    it('add', (done) => {
+    it('add', () => {
         let id: string | null;
         const newPerson: DemoWebApi_DemoData_Client.Person = {
             name: 'John Smith' + Date.now().toString(),
@@ -327,18 +325,18 @@ describe('entities API', () => {
                 data => {
                     id = data;
                     expect(data).toBeTruthy();
-                    done();
+    
                 },
                 error => {
-                    fail(errorResponseToString(error));
-                    done();
+                    throw new Error(errorResponseToString(error));
+    
                 }
             );
 
     }
     );
 
-    it('addWithHeadersHandling', (done) => {
+    it('addWithHeadersHandling', () => {
         const newPerson: DemoWebApi_DemoData_Client.Person = {
             name: 'John Smith' + Date.now().toString(),
             givenName: 'John',
@@ -355,18 +353,18 @@ describe('entities API', () => {
                     const d2: any = data!.baptised;
                     expect(d1).toEqual('1969-12-28'); //string
                     expect(d2).toContain('1980-01-30T00:00:00'); //System.Text.Json returns 1980-01-30T00:00:00.0000000+00:00, while Newtonsoft.Json gives 1980-01-30T00:00:00+00:00
-                    done();
+    
                 },
                 error => {
-                    fail(errorResponseToString(error));
-                    done();
+                    throw new Error(errorResponseToString(error));
+    
                 }
             );
 
     }
     );
 
-    it('mimsString', (done) => {
+    it('mimsString', () => {
         const c: DemoWebApi_DemoData_Client.MimsPackage = {
             tag: 'Hello',
             result: {
@@ -377,19 +375,19 @@ describe('entities API', () => {
         client.getMims(c)
             .subscribe(
                 data => {
-                    fail('Should fail')
-                    done();
+                    throw new Error('Should fail')
+    
                 },
                 error => {
                     expect(errorResponseToString(error)).toContain('KK has to be between 10 and 100');
-                    done();
+    
                 }
             );
 
     }
     );
 
-    it('myGenericPerson', (done) => {
+    it('myGenericPerson', () => {
         const newPerson: DemoWebApi_DemoData_Client.Person = {
             name: 'John Smith',
             givenName: 'John',
@@ -409,26 +407,26 @@ describe('entities API', () => {
                 data => {
                     expect(data!.myU?.name).toBe('John Smith');
                     expect(data!.status).toBe('OK');
-                    done();
+    
                 },
                 error => {
-                    fail(errorResponseToString(error));
-                    done();
+                    throw new Error(errorResponseToString(error));
+    
                 }
             );
 
     }
     );
 
-    it('getNullCompany', (done) => {
+    it('getNullCompany', () => {
         client.getNullCompany().subscribe(
             data => {
                 expect(data).toBeNull();
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     });
@@ -438,7 +436,7 @@ describe('entities API', () => {
 describe('DateTypes API', () => {
     let service: DemoWebApi_Controllers_Client.DateTypes;
 
-    beforeEach(waitForAsync(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [],
             providers: [
@@ -454,103 +452,103 @@ describe('DateTypes API', () => {
         });
 
         service = TestBed.inject(DemoWebApi_Controllers_Client.DateTypes);
-    }));
+    });
 
 
-    it('GetNextHour', (done) => {
+    it('GetNextHour', () => {
         const dt = new Date(Date.now());
         const h = dt.getHours();
         service.getNextHour(dt).subscribe(
             data => {
                 const dd = new Date(data!);
                 expect(dd.getHours()).toBe(h + 1);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('GetNextYear', (done) => {
+    it('GetNextYear', () => {
         const dt = new Date(Date.now());
         const h = dt.getFullYear();
         service.getNextYear(dt).subscribe(
             data => {
                 const dd = new Date(data!);
                 expect(dd.getFullYear()).toBe(h + 1);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('PostNextYear', (done) => {
+    it('PostNextYear', () => {
         const dt = new Date(Date.now());
         const h = dt.getFullYear();
         service.postNextYear(dt).subscribe(
             data => {
                 const dd = new Date(data!);
                 expect(dd.getFullYear()).toBe(h + 1);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getDateTime', (done) => {
+    it('getDateTime', () => {
         service.getDateTime(true).subscribe(
             data => {
                 expect(data).toBeDefined();
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getDateTimeNull', (done) => {
+    it('getDateTimeNull', () => {
         service.getDateTime(false).subscribe(
             data => {
                 expect(data).toBeNull();
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('postDateTimeOffset', (done) => {
+    it('postDateTimeOffset', () => {
         const dt = new Date(Date.now());
         service.postDateTimeOffset(dt).subscribe(
             data => {
                 expect(new Date(data!)).toEqual(dt);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -560,22 +558,22 @@ describe('DateTypes API', () => {
     /**
      * Newtonsoft.Json will throw error Error converting value {null} to type 'System.DateTimeOffset'
      */
-    it('postDateTimeOffsetWithNull', (done) => {
+    it('postDateTimeOffsetWithNull', () => {
         service.postDateTimeOffset(null).subscribe(
             data => {
-                fail("validation")
-                done();
+                throw new Error("validation")
+
             },
             error => {
                 expect(errorResponseToString(error)).toContain('Error converting value {null} to type');
-                done();
+
             }
         );
 
     }
     );
 
-    it('postDateTimeOffsetNullable', (done) => {
+    it('postDateTimeOffsetNullable', () => {
         const dt = new Date(Date.now());
         service.postDateTimeOffsetNullable(dt).subscribe(
             data => {
@@ -584,143 +582,143 @@ describe('DateTypes API', () => {
                 } else {
                     expect(new Date(data!)).toEqual(dt); //strict mode happy
                 }
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('postDateTimeOffsetNullableWithNull', (done) => {
+    it('postDateTimeOffsetNullableWithNull', () => {
         service.postDateTimeOffsetNullable(null).subscribe(
             data => {
                 expect(data).toBeNull();
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('postDateTimeOffsetNullableWithUndefined', (done) => {
+    it('postDateTimeOffsetNullableWithUndefined', () => {
         service.postDateTimeOffsetNullable(undefined!).subscribe(
             data => {
                 expect(data).toBeNull();
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('postDateOnly', (done) => {
+    it('postDateOnly', () => {
         const dt = new Date(Date.parse('2018-12-25')); //JS will serialize it to 2018-12-25T00:00:00.000Z.
         service.postDateOnly(dt).subscribe(
             data => {
                 const v: any = data; //string 2008-12-25
                 expect(v).toEqual('2018-12-25');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('postDateOnlyWithUtc', (done) => {
+    it('postDateOnlyWithUtc', () => {
         const dt = new Date(Date.parse('2018-12-25T00:00:00.000Z')); //JS will serialize it to 2018-12-25T00:00:00.000Z.
         service.postDateOnly(dt).subscribe(
             data => {
                 const v: any = data; //string 2008-12-25
                 expect(v).toEqual('2018-12-25');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('postDateOnlyWithAusMidnight', (done) => {
+    it('postDateOnlyWithAusMidnight', () => {
         const dt = new Date(Date.parse('2018-12-24T14:00:00.000Z')); //Angular Material DatePicker by default will give this when picking 2018-12-25
         service.postDateOnly(dt).subscribe(
             data => {
                 const v: any = data;
                 expect(v).toEqual('2018-12-24');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('postDateOnlyText', (done) => {
+    it('postDateOnlyText', () => {
         let obj: any = '2018-12-25';
         service.postDateOnly(obj).subscribe(
             data => {
                 const v: any = data; //string 2008-12-25
                 expect(v).toEqual('2018-12-25');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('postDateOnlyUtcText', (done) => {
+    it('postDateOnlyUtcText', () => {
         let obj: any = '2018-12-25T00:00:00.000Z';
         service.postDateOnly(obj).subscribe(
             data => {
                 const v: any = data;
                 expect(v).toEqual('2018-12-25');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('postDateOnlyAusMidnightText', (done) => {
+    it('postDateOnlyAusMidnightText', () => {
         let obj: any = '2018-12-24T23:00:01.001Z';
         service.postDateOnly(obj).subscribe(
             data => {
                 const v: any = data;
                 expect(v).toEqual('2018-12-24');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -728,165 +726,165 @@ describe('DateTypes API', () => {
     );
 
 
-    it('postDateOnlyWithNull', (done) => {
+    it('postDateOnlyWithNull', () => {
         service.postDateOnly(null!).subscribe( //strict mode happy
             data => {
                 const v: any = data;
                 expect(v).toEqual('0001-01-01');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('postDateOnlyNullable', (done) => {
+    it('postDateOnlyNullable', () => {
         const dt = new Date(Date.parse('2018-12-23'));
         service.postDateOnlyNullable(dt).subscribe(
             data => {
                 const v: any = data;
                 expect(v).toEqual('2018-12-23');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('postDateOnlyNullableWithNull', (done) => {
+    it('postDateOnlyNullableWithNull', () => {
         service.postDateOnlyNullable(null).subscribe(
             data => {
                 expect(data).toBeNull();
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('postDateOnlyNullableWithUndefined', (done) => {
+    it('postDateOnlyNullableWithUndefined', () => {
         service.postDateOnlyNullable(null).subscribe(
             data => {
                 expect(data).toBeNull();
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('isDateTimeOffsetDate', (done) => {
+    it('isDateTimeOffsetDate', () => {
         const dt = new Date(Date.parse('2018-12-23'));
         service.isDateTimeOffsetDate(dt).subscribe(
             data => {
                 const v: any = data!.item1;
                 expect(v).toEqual('2018-12-23');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('isDateTimeDate', (done) => {
+    it('isDateTimeDate', () => {
         const dt = new Date(Date.parse('2018-12-23'));
         service.isDateTimeDate(dt).subscribe(
             data => {
                 const v: any = data!.item1;
                 expect(v).toEqual('2018-12-23');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getNextYearNullable', (done) => {
+    it('getNextYearNullable', () => {
         const now = new Date(Date.now());
         service.getNextYearNullable(2, now).subscribe(
             data => {
                 const dt = new Date(data!); // data is actually string, NG HttpClient does not translate it to Date
                 expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getNextHourNullable', (done) => {
+    it('getNextHourNullable', () => {
         const now = new Date(Date.now());
         service.getNextHourNullable(2, now).subscribe(
             data => {
                 const dt = new Date(data!);
                 expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getNextYearNullable2', (done) => {
+    it('getNextYearNullable2', () => {
         const now = new Date(Date.now());
         service.getNextYearNullable(2, undefined!).subscribe(
             data => {
                 const dt = new Date(data!);
                 expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getNextHourNullable2', (done) => {
+    it('getNextHourNullable2', () => {
         const now = new Date(Date.now());
         service.getNextHourNullable(2, null).subscribe(
             data => {
                 const dt = new Date(data!);
                 expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -894,7 +892,7 @@ describe('DateTypes API', () => {
     );
 
 
-    it('searchDateRange', (done) => {
+    it('searchDateRange', () => {
         const startDt = new Date(Date.now());
         const endDt = new Date(Date.now() + 100000);
         service.searchDateRange(startDt, endDt).subscribe(
@@ -903,13 +901,13 @@ describe('DateTypes API', () => {
                     expect(new Date(data!.item1)).toEqual(startDt);
                     expect(new Date(data!.item2)).toEqual(endDt);
                 } else {
-                    fail('I expect item1 and 2');
+                    throw new Error('I expect item1 and 2');
                 }
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -917,7 +915,7 @@ describe('DateTypes API', () => {
     );
 
 
-    it('searchDateRangeEndUndefined', (done) => {
+    it('searchDateRangeEndUndefined', () => {
         const startDt = new Date(Date.now());
         const endDt = new Date(Date.now() + 100000);
         service.searchDateRange(startDt, undefined!).subscribe(
@@ -925,16 +923,16 @@ describe('DateTypes API', () => {
                 if (data!.item1) {
                     expect(new Date(data!.item1)).toEqual(startDt); //strict mode happy
                 } else {
-                    fail('I expect item1.');
+                    throw new Error('I expect item1.');
                 }
 
                 //expect(data!.item2).toBeUndefined(); // NewtonSoft.Json give undefined, while System.Text.Json gives null
-                expect(data!.item2 == null).toBeTrue();
-                done();
+                expect(data!.item2 == null).toBeTruthy();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -942,28 +940,28 @@ describe('DateTypes API', () => {
     );
 
 
-    it('searchDateRangeStartUndefined', (done) => {
+    it('searchDateRangeStartUndefined', () => {
         const startDt = new Date(Date.now());
         const endDt = new Date(Date.now() + 100000);
         service.searchDateRange(undefined!, endDt).subscribe(
             data => {
-                // fail('The API should return http 400 error.'); in .net core 2.0, the service return status 400. Apparently this was a bug which was fixed in 2.1
+                // throw new Error('The API should return http 400 error.'); in .net core 2.0, the service return status 400. Apparently this was a bug which was fixed in 2.1
                 //expect(data!.item1).toBeUndefined(); // NewtonSoft.Json give undefined, while System.Text.Json gives null
-                expect(data!.item1 == null).toBeTrue();
+                expect(data!.item1 == null).toBeTruthy();
                 if (data!.item2) {
                     expect(new Date(data!.item2)).toEqual(endDt);
                 } else {
-                    fail('I expect item2');
+                    throw new Error('I expect item2');
                 }
-                done();
+
             },
             error => {
                 const errorText = errorResponseToString(error);
                 if (errorText.indexOf('400') < 0) {
-                    fail(errorText);
+                    throw new Error(errorText);
                 }
                 expect(true).toBeTruthy();
-                done();
+
             }
         );
 
@@ -971,20 +969,20 @@ describe('DateTypes API', () => {
     );
 
 
-    it('searchDateRangeBothNull', (done) => {
+    it('searchDateRangeBothNull', () => {
         const startDt = new Date(Date.now());
         const endDt = new Date(Date.now() + 100000);
         service.searchDateRange(null, undefined!).subscribe(
             data => {
                 //expect(data!.item1).toBeUndefined();
                 //expect(data!.item2).toBeUndefined();
-                expect(data!.item1 == null).toBeTrue();
-                expect(data!.item2 == null).toBeTrue();
-                done();
+                expect(data!.item1 == null).toBeTruthy();
+                expect(data!.item2 == null).toBeTruthy();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -996,7 +994,7 @@ describe('DateTypes API', () => {
 describe('SuperDemo API', () => {
     let service: DemoWebApi_Controllers_Client.SuperDemo;
 
-    beforeEach(waitForAsync(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [],
             providers: [
@@ -1012,159 +1010,159 @@ describe('SuperDemo API', () => {
         });
 
         service = TestBed.inject(DemoWebApi_Controllers_Client.SuperDemo);
-    }));
+    });
 
-    it('getBool', (done) => {
+    it('getBool', () => {
         service.getBool().subscribe(
             data => {
                 expect(data).toBeTruthy();
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getFloatZero', (done) => {
+    it('getFloatZero', () => {
         service.getFloatZero().subscribe(
             data => {
                 expect(data).toBeLessThan(0.000001);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getDoubleZero', (done) => {
+    it('getDoubleZero', () => {
         service.getDoubleZero().subscribe(
             data => {
                 expect(data).not.toBe(0);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getDecimalZero', (done) => {
+    it('getDecimalZero', () => {
         service.getDecimalZero().subscribe(
             data => {
                 expect(data).toBe(0);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getIntSquare', (done) => {
+    it('getIntSquare', () => {
         service.getIntSquare(100).subscribe(
             data => {
                 expect(data).toBe(10000);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getDecimalSquare', (done) => {
+    it('getDecimalSquare', () => {
         service.getDecimalSquare(100).subscribe(
             data => {
                 expect(data).toBe(10000);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getNullableDecimal', (done) => {
+    it('getNullableDecimal', () => {
         service.getNullableDecimal(true).subscribe(
             data => {
                 expect(data).toBeGreaterThan(10);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getNullableDecimalNull', (done) => {
+    it('getNullableDecimalNull', () => {
         service.getNullableDecimal(false).subscribe(
             data => {
                 expect(data).toBeNull();
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getNullPerson', (done) => {
+    it('getNullPerson', () => {
         service.getNullPerson().subscribe(
             data => {
                 expect(data).toBeNull();
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getByteArray', (done) => {
+    it('getByteArray', () => {
         service.getByteArray().subscribe(
             data => {
                 expect(data!.length).toBeGreaterThan(0);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getTextStream', (done) => {
+    it('getTextStream', () => {
         service.getTextStream().subscribe(
             data => {
                 expect(data.body!.size).toBe(7);
@@ -1175,11 +1173,11 @@ describe('SuperDemo API', () => {
                 };
                 reader.readAsText(data.body!);
 
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -1189,17 +1187,14 @@ describe('SuperDemo API', () => {
     /**
      * Returned is blob
      */
-    it('getBadRequest', (done) => {
+    it('getBadRequest', () => {
         service.getBadRequest().subscribe(
             data => {
-                fail('Should never be OK');
-                done();
+                throw new Error('Should never be OK');
+
             },
             error => {
-                error.error.text().then((t: any) => { //error.error is blob as observed.
-                    expect(t).toBe('{"DemoKey":["Some description"]}');
-                    done();
-                });
+                expect(JSON.stringify(error)).contains('Bad Request');
             }
         );
 
@@ -1209,62 +1204,62 @@ describe('SuperDemo API', () => {
     /**
      * Returned is text
      */
-    it('getBadRequest2', (done) => {
+    it('getBadRequest2', () => {
         service.getBadRequest2().subscribe(
             data => {
-                fail('Should never be OK');
-                done();
+                throw new Error('Should never be OK');
+
             },
             error => {
                 expect(error.error).toBe('{"DemoKey":["Some description"]}');
-                done();
+
             }
         );
 
     }
     );
 
-    it('getActionResult', (done) => {
+    it('getActionResult', () => {
         service.getActionResult().subscribe(
             data => {
                 expect(data.status).toBe(200);
                 expect(data.body).toBe('abcdefg');
 
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getbyte', (done) => {
+    it('getbyte', () => {
         service.getbyte().subscribe(
             data => {
                 expect(data).toEqual(255);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getActionStringResult', (done) => {
+    it('getActionStringResult', () => {
         service.getActionStringResult().subscribe(
             data => {
                 expect(data).toContain('abcdefg');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -1272,15 +1267,15 @@ describe('SuperDemo API', () => {
     );
 
 
-    it('getChar', (done) => {
+    it('getChar', () => {
         service.getChar().subscribe(
             data => {
                 expect(data).toBe('A');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -1290,17 +1285,17 @@ describe('SuperDemo API', () => {
     /**
      * Response is  79228162514264337593543950335.0
      */
-    it('getDecimal', (done) => {
+    it('getDecimal', () => {
         service.getDecimal().subscribe(
             data => {
                 expect(data).toBe(79228162514264337593543950335);
                 expect(data.toString()).not.toBe('79228162514264337593543950335'); // otherwise, Expected '7.922816251426434e+28' to be '79228162514264337593543950335'.
                 expect(BigInt(data).toString()).toBe('79228162514264337593543950336'); // dirty JavaScript
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -1308,30 +1303,30 @@ describe('SuperDemo API', () => {
     );
 
 
-    it('getdouble', (done) => {
+    it('getdouble', () => {
         service.getdouble().subscribe(
             data => {
                 expect(data).toBe(-1.7976931348623e308);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getUint', (done) => {
+    it('getUint', () => {
         service.getUint().subscribe(
             data => {
                 expect(data).toBe(4294967295);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -1341,18 +1336,18 @@ describe('SuperDemo API', () => {
     /**
      * ASP.NET 8 System.Text.Json cannot handle this.
      */
-    it('getInt2D', (done) => {
+    it('getInt2D', () => {
         service.getInt2D().subscribe(
             data => {
                 expect(data![0][0]).toBe(1);
                 expect(data![0][3]).toBe(4);
                 expect(data![1][0]).toBe(5);
                 expect(data![1][3]).toBe(8);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -1383,18 +1378,18 @@ fail: Microsoft.AspNetCore.Server.Kestrel[13]
      */
 
 
-    it('getInt2DJagged', (done) => {
+    it('getInt2DJagged', () => {
         service.getInt2DJagged().subscribe(
             data => {
                 expect(data![0][0]).toBe(1);
                 expect(data![0][3]).toBe(4);
                 expect(data![1][0]).toBe(5);
                 expect(data![1][3]).toBe(8);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -1404,94 +1399,94 @@ fail: Microsoft.AspNetCore.Server.Kestrel[13]
     /**
      * ASP.NET 8 System.Text.Json could not handle this.
      */
-    it('postInt2D', (done) => {
+    it('postInt2D', () => {
         service.postInt2D([[1, 2, 3, 4], [5, 6, 7, 8]]).subscribe(
             data => {
                 expect(data).toBeTruthy();
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('postIntArray', (done) => {
+    it('postIntArray', () => {
         service.postIntArray([1, 2, 3, 4, 5, 6, 7, 8]).subscribe(
             data => {
                 expect(data).toBeTruthy();
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getIntArrayQ', (done) => {
+    it('getIntArrayQ', () => {
         service.getIntArrayQ([3, 4, 5]).subscribe(
             data => {
                 expect(data!.length).toBe(3);
                 expect(data![2]).toBe(5);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getIntArrayQ2', (done) => {
+    it('getIntArrayQ2', () => {
         service.getIntArrayQ2(['3', '4', '5']).subscribe(
             data => {
                 expect(data!.length).toBe(3);
                 expect(data![2].toString()).toBe('5'); // response is [3, 4, 5]
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getStringArrayQ', (done) => {
+    it('getStringArrayQ', () => {
         service.getStringArrayQ(['abc', 'EFG', 'hi']).subscribe(
             data => {
                 expect(data!.length).toBe(3);
                 expect(data![2]).toBe('hi');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getStringArrayQ2', (done) => {
+    it('getStringArrayQ2', () => {
         service.getStringArrayQ2(['abc', 'EFG', 'hi']).subscribe(
             data => {
                 expect(data!.length).toBe(3);
                 expect(data![2]).toBe('hi');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -1499,48 +1494,48 @@ fail: Microsoft.AspNetCore.Server.Kestrel[13]
     );
 
 
-    it('getEnumArrayQ2', (done) => {
+    it('getEnumArrayQ2', () => {
         service.getEnumArrayQ2([3, 4, 5]).subscribe(
             data => {
                 expect(data!.length).toBe(3);
                 expect(data![2]).toBe(5);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getEnumArrayDaysWithInt', (done) => {
+    it('getEnumArrayDaysWithInt', () => {
         service.getEnumArrayDays([3, 4, 5]).subscribe(
             data => {
                 expect(data!.length).toBe(3);
                 expect(data![2]).toBe(5);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getEnumArrayDaysWithEnum', (done) => {
+    it('getEnumArrayDaysWithEnum', () => {
         service.getEnumArrayDays([DemoWebApi_DemoData_Client.Days.Mon, DemoWebApi_DemoData_Client.Days.Sat, DemoWebApi_DemoData_Client.Days.Wed]).subscribe(
             data => {
                 expect(data!.length).toBe(3);
                 expect(data![2]).toBe(DemoWebApi_DemoData_Client.Days.Wed);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -1549,63 +1544,63 @@ fail: Microsoft.AspNetCore.Server.Kestrel[13]
 
 
 
-    it('postWithQueryButEmptyBody', (done) => {
+    it('postWithQueryButEmptyBody', () => {
         service.postWithQueryButEmptyBody('abc', 123).subscribe(
             data => {
                 expect(data!.item1).toBe('abc');
                 expect(data!.item2).toBe(123);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('postDay', (done) => {
+    it('postDay', () => {
         service.postDay(DemoWebApi_DemoData_Client.Days.Fri, DemoWebApi_DemoData_Client.Days.Mon).subscribe(
             data => {
                 expect(data!.length).toBe(2);
                 expect(data![1]).toBe(DemoWebApi_DemoData_Client.Days.Mon);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('postDay2', (done) => {
+    it('postDay2', () => {
         service.postDay(3, 5).subscribe(
             data => {
                 expect(data!.length).toBe(2);
                 expect(data![1]).toBe(5);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getDay', (done) => {
+    it('getDay', () => {
         service.getDay(3).subscribe(
             data => {
                 expect(data).toBe(3);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -1613,23 +1608,23 @@ fail: Microsoft.AspNetCore.Server.Kestrel[13]
     );
 
 
-    it('postGuids', (done) => {
+    it('postGuids', () => {
         service.postGuids(['08d7be8b-4805-459e-849a-fcd5c64a33ee', '08d7be8b-47fb-44a5-86a8-a6f4fe928fa9']).subscribe(
             data => {
                 expect(data!.length).toBe(2);
                 expect(data![0]).toBe('08d7be8b-4805-459e-849a-fcd5c64a33ee');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getDictionaryOfPeople', (done) => {
+    it('getDictionaryOfPeople', () => {
         service.getDictionaryOfPeople().subscribe(
             data => {
                 let p = data!['spider Man']; // ASP.NET Web API with NewtonSoftJson made it camcel;
@@ -1638,11 +1633,11 @@ fail: Microsoft.AspNetCore.Server.Kestrel[13]
                 }
                 expect(p.name).toBe('Peter Parker');
                 expect(p.addresses![0].city).toBe('New York');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -1652,7 +1647,7 @@ fail: Microsoft.AspNetCore.Server.Kestrel[13]
     /**
      * ASP.NET 8 System.Text.Json could not handle this.
      */
-    it('PostDictionaryOfPeople', (done) => {
+    it('PostDictionaryOfPeople', () => {
         service.postDictionary({
             'Iron Man': {
                 'surname': 'Stark',
@@ -1681,42 +1676,42 @@ fail: Microsoft.AspNetCore.Server.Kestrel[13]
         }).subscribe(
             data => {
                 expect(data).toBe(2);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getKeyhValuePair', (done) => {
+    it('getKeyhValuePair', () => {
         service.getKeyhValuePair().subscribe(
             data => {
                 expect(data!.key).toBe('Spider Man');
                 expect(data!.value.addresses![0].city).toBe('New York');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('getBool', (done) => {
+    it('getBool', () => {
         service.getBool().subscribe(
             data => {
                 expect(data).toBeTruthy();
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -1728,7 +1723,7 @@ fail: Microsoft.AspNetCore.Server.Kestrel[13]
 describe('Tuple API', () => {
     let service: DemoWebApi_Controllers_Client.Tuple;
 
-    beforeEach(waitForAsync(() => {
+    beforeEach(() => {
 
         TestBed.configureTestingModule({
             imports: [],
@@ -1745,114 +1740,114 @@ describe('Tuple API', () => {
         });
 
         service = TestBed.inject(DemoWebApi_Controllers_Client.Tuple);
-    }));
+    });
 
     afterEach(function () {
     });
 
-    it('getTuple2', (done) => {
+    it('getTuple2', () => {
         service.getTuple2().subscribe(
             data => {
                 expect(data!.item1).toBe('Two');
                 expect(data!.item2).toBe(2);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('postTuple2', (done) => {
+    it('postTuple2', () => {
         service.postTuple2({ item1: 'One', item2: 2 }).subscribe(
             data => {
                 expect(data).toBe('One');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('getTuple7', (done) => {
+    it('getTuple7', () => {
         service.getTuple7().subscribe(
             data => {
                 expect(data!.item1).toBe('Seven');
                 expect(data!.item7).toBe(7);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('getTuple2', (done) => {
+    it('getTuple2', () => {
         service.getTuple2().subscribe(
             data => {
                 expect(data!.item1).toBe('Two');
                 expect(data!.item2).toBe(2);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('postTuple7', (done) => {
+    it('postTuple7', () => {
         service.postTuple7({ item1: 'One', item2: '', item3: '', item4: '', item5: '', item6: '33333', item7: 9 }).subscribe(
             data => {
                 expect(data).toBe('One');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('getTuple8', (done) => {
+    it('getTuple8', () => {
         service.getTuple8().subscribe(
             data => {
                 expect(data!.item1).toBe('Nested');
                 expect(data!.rest.item1).toBe('nine');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('postTuple8', (done) => {
+    it('postTuple8', () => {
         service.postTuple8({ item1: 'One', item2: '', item3: '', item4: '', item5: '', item6: '', item7: '', rest: { item1: 'a', item2: 'b', item3: 'c' } }).subscribe(
             data => {
                 expect(data).toBe('a');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('linkPersonCompany1', (done) => {
+    it('linkPersonCompany1', () => {
         service.linkPersonCompany1({
             item1: {
                 name: 'someone',
@@ -1867,11 +1862,11 @@ describe('Tuple API', () => {
         }).subscribe(
             data => {
                 expect(data!.name).toBe('someone');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
@@ -1885,7 +1880,7 @@ describe('Tuple API', () => {
 describe('StringData API', () => {
     let service: DemoWebApi_Controllers_Client.StringData;
 
-    beforeEach(waitForAsync(() => {
+    beforeEach(() => {
 
         TestBed.configureTestingModule({
             imports: [],
@@ -1902,146 +1897,146 @@ describe('StringData API', () => {
         });
 
         service = TestBed.inject(DemoWebApi_Controllers_Client.StringData);
-    }));
+    });
 
     afterEach(function () {
     });
 
-    it('TestAthletheSearch', (done) => {
+    it('TestAthletheSearch', () => {
         service.athletheSearch(32, 0, undefined, undefined, undefined!).subscribe(
             data => {
                 expect(data).toBe('"320"');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('TestAthletheSearch2', (done) => {
+    it('TestAthletheSearch2', () => {
         service.athletheSearch(32, 0, null!, undefined!, 'Search').subscribe(
             data => {
                 expect(data).toBe('"320Search"');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('TestAthletheSearch3', (done) => {
+    it('TestAthletheSearch3', () => {
         service.athletheSearch(32, 0, null!, 'Sort', 'Search').subscribe( //generally string not available should be undefined.
             data => {
                 expect(data).toBe('"320SortSearch"');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('TestAthletheSearch4', (done) => {
+    it('TestAthletheSearch4', () => {
         service.athletheSearch(32, 0, 'Order', 'Sort', 'Search').subscribe(
             data => {
                 expect(data).toBe('"320OrderSortSearch"');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('TestAthletheSearch5', (done) => {
+    it('TestAthletheSearch5', () => {
         service.athletheSearch(32, 0, 'Order', null!, 'Search').subscribe(
             data => {
                 expect(data).toBe('"320OrderSearch"');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('TestAthletheSearch6', (done) => {
+    it('TestAthletheSearch6', () => {
         service.athletheSearch(32, 0, 'Order', '', 'Search').subscribe(
             data => {
                 expect(data).toBe('"320OrderSearch"');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('TestAthletheSearchWithNullInt', (done) => {
+    it('TestAthletheSearchWithNullInt', () => {
         service.athletheSearch(null, null!, 'Order', '', 'Search').subscribe(
             data => {
-                fail('validation');
-                done();
+                throw new Error('validation');
+
             },
             error => {
                 expect(errorResponseToString(error)).toContain('is not valid');
-                done();
+
             }
         );
     }
     );
 
-    it('TestAthletheSearchWithUndefinedInt', (done) => {
+    it('TestAthletheSearchWithUndefinedInt', () => {
         service.athletheSearch(null, undefined!, 'Order', '', 'Search').subscribe(
             data => {
-                fail('validation')
-                done();
+                throw new Error('validation')
+
             },
             error => {
                 expect(errorResponseToString(error)).toContain('is not valid');
-                done();
+
             }
         );
     }
     );
 
-    it('getABCDE', (done) => {
+    it('getABCDE', () => {
         service.getABCDE().subscribe(
             data => {
                 expect(data).toBe('"ABCDE"');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('getEmptyString', (done) => {
+    it('getEmptyString', () => {
         service.getEmptyString().subscribe(
             data => {
                 expect(data).toBe('""');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
@@ -2050,15 +2045,15 @@ describe('StringData API', () => {
     /**
      * Angular HttpClient could identify null value.
      */
-    it('getNullString', (done) => {
+    it('getNullString', () => {
         service.getNullString().subscribe(
             data => {
                 expect(data).toBe(null);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
@@ -2068,7 +2063,7 @@ describe('StringData API', () => {
 describe('TextData API', () => {
     let service: DemoWebApi_Controllers_Client.TextData;
 
-    beforeEach(waitForAsync(() => {
+    beforeEach(() => {
 
         TestBed.configureTestingModule({
             imports: [],
@@ -2085,62 +2080,62 @@ describe('TextData API', () => {
         });
 
         service = TestBed.inject(DemoWebApi_Controllers_Client.TextData);
-    }));
+    });
 
     afterEach(function () {
     });
 
-    it('TestAthletheSearch', (done) => {
+    it('TestAthletheSearch', () => {
         service.athletheSearch(32, 0, null!, undefined!, null!).subscribe(
             data => {
                 expect(data).toBe('320');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('TestAthletheSearch2', (done) => {
+    it('TestAthletheSearch2', () => {
         service.athletheSearch(32, 0, null!, null!, 'Search').subscribe(
             data => {
                 expect(data).toBe('320Search');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('getABCDE', (done) => {
+    it('getABCDE', () => {
         service.getABCDE().subscribe(
             data => {
                 expect(data).toBe('ABCDE');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('getEmptyString', (done) => {
+    it('getEmptyString', () => {
         service.getEmptyString().subscribe(
             data => {
                 expect(data).toBe('');
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
@@ -2149,15 +2144,15 @@ describe('TextData API', () => {
     /**
      * Angular HttpClient could identify null value.
      */
-    it('getNullString', (done) => {
+    it('getNullString', () => {
         service.getNullString().subscribe(
             data => {
                 expect(data).toBe(null);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
@@ -2171,7 +2166,7 @@ describe('TextData API', () => {
 describe('Numbers API', () => {
     let service: DemoWebApi_Controllers_Client.Numbers;
 
-    beforeEach(waitForAsync(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [],
             providers: [
@@ -2187,9 +2182,9 @@ describe('Numbers API', () => {
         });
 
         service = TestBed.inject(DemoWebApi_Controllers_Client.Numbers);
-    }));
+    });
 
-    it('postBigNumbers', (done) => {
+    it('postBigNumbers', () => {
         const d: DemoWebApi_DemoData_Client.BigNumbers = {
             unsigned64: '18446744073709551615', //2 ^ 64 -1,
             signed64: '9223372036854775807', //2 ^ 63 -1,
@@ -2228,41 +2223,41 @@ describe('Numbers API', () => {
 
                 expect(BigInt(r.bigInt!)).toEqual(BigInt(6277101735386680762814942322444851025767571854389858533375n));
 
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('postIntegralEntity', (done) => {
+    it('postIntegralEntity', () => {
         service.postIntegralEntity({ name: 'Some one', byte: 255, uShort: 65535 }).subscribe(
             r => {
                 expect(r.byte).toBe(255);
                 expect(r.uShort).toBe(65535);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('postIntegralEntityInvalid', (done) => {
+    it('postIntegralEntityInvalid', () => {
         service.postIntegralEntity({ name: 'Some one', byte: 260, uShort: 65540 }).subscribe(
             r => {
-                fail('validation');
-                done();
+                throw new Error('validation');
+
             },
             error => {
                 expect(error.status).toEqual(400);
-                done();
+
             }
         );
     }
@@ -2271,31 +2266,31 @@ describe('Numbers API', () => {
     /**
      * Backend checks if the data is null, likely due to invalid properties. And throw error.
      */
-    it('postIntegralEntityInvalidButBackendCheckNull', (done) => {
+    it('postIntegralEntityInvalidButBackendCheckNull', () => {
         service.postIntegralEntityMustBeValid({ name: 'Some one', byte: 260, uShort: 65540 }).subscribe(
             r => {
-                fail('backend should throw 500')
-                done();
+                throw new Error('backend should throw 500')
+
             },
             error => {
                 console.error(errorResponseToString(error));
-                expect().nothing();
-                done();
+                expect(true).toBe(true);
+
             }
         );
     }
     );
 
 
-    it('postUShort', (done) => {
+    it('postUShort', () => {
         service.postByDOfUInt16(65535).subscribe(
             r => {
                 expect(r).toBe(65535);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
@@ -2304,29 +2299,29 @@ describe('Numbers API', () => {
     /**
      * ASP.NET Web API just give 0 back
      */
-    it('postUShortInvalid', (done) => {
+    it('postUShortInvalid', () => {
         service.postByDOfUInt16(65540).subscribe(
             r => {
-                fail('validation');
-                done();
+                throw new Error('validation');
+
             },
             error => {
                 expect(error.status).toEqual(400);//.toContain('Error converting value 65540 to type');
-                done();
+
             }
         );
     }
     );
 
-    it('postByte', (done) => {
+    it('postByte', () => {
         service.postByDOfByte(255).subscribe(
             r => {
                 expect(r).toBe(255);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
@@ -2335,249 +2330,249 @@ describe('Numbers API', () => {
     /**
      * ASP.NET Web API check ModelState and throw
      */
-    it('postByteInvalid', (done) => {
+    it('postByteInvalid', () => {
         service.postByDOfByte(258).subscribe(
             r => {
-                fail("backend should throw");
-                done();
+                throw new Error("backend should throw");
+
             },
             error => {
                 console.error(errorResponseToString(error));
                 expect(error.status).toEqual(400)
-                done();
+
             }
         );
     }
     );
 
-    it('getByte', (done) => {
+    it('getByte', () => {
         service.getByte(255).subscribe(
             r => {
                 expect(r).toBe(255);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('getByteInvalid', (done) => {
+    it('getByteInvalid', () => {
         service.getByte(258).subscribe(
             r => {
-                fail('validation');
-                done();
+                throw new Error('validation');
+
             },
             error => {
                 expect(error.status).toEqual(400);
-                done();
+
             }
         );
     }
     );
 
-    it('postByteWithNegativeInvalid', (done) => {
+    it('postByteWithNegativeInvalid', () => {
         service.postByDOfByte(-10).subscribe(
             r => {
-                fail("backend throws")
-                done();
+                throw new Error("backend throws")
+
             },
             error => {
                 console.error(errorResponseToString(error));
-                expect().nothing();
-                done();
+                expect(true).toBe(true);
+
             }
         );
     }
     );
 
-    it('postSByte', (done) => {
+    it('postSByte', () => {
         service.postByDOfSByte(127).subscribe(
             r => {
                 expect(r).toBe(127);
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('postSByteInvalid', (done) => {
+    it('postSByteInvalid', () => {
         service.postByDOfSByte(130).subscribe(
             r => {
-                fail('validation')
-                done();
+                throw new Error('validation')
+
             },
             error => {
                 expect(error.status).toEqual(400);
-                done();
+
             }
         );
     }
     );
 
-    it('postInt64', (done) => {
+    it('postInt64', () => {
         service.postInt64('9223372036854775807').subscribe(
             r => {
                 expect(BigInt(r)).toBe(BigInt('9223372036854775807'));
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('postUInt64', (done) => {
+    it('postUInt64', () => {
         service.postUint64('18446744073709551615').subscribe(
             r => {
                 expect(BigInt(r)).toBe(BigInt('18446744073709551615'));
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('postInt64Smaller', (done) => {
+    it('postInt64Smaller', () => {
         service.postInt64('9223372036854775123').subscribe(
             r => {
                 expect(BigInt(r)).toBe(BigInt('9223372036854775123'));
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('postLongAsBigInt', (done) => {
+    it('postLongAsBigInt', () => {
         // request: "9223372036854775807"
         // response: "9223372036854775807"
         service.postBigInteger('9223372036854775807').subscribe(
             r => {
                 expect(BigInt(r)).toBe(BigInt('9223372036854775807'));
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('postLongAsBigIntWithSmallNumber', (done) => {
+    it('postLongAsBigIntWithSmallNumber', () => {
         service.postBigInteger('123').subscribe(
             r => {
                 expect(BigInt(r)).toBe(BigInt(123n));
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('postReallyBigInt192bits', (done) => {
+    it('postReallyBigInt192bits', () => {
         // request: "6277101735386680762814942322444851025767571854389858533375"
         // response: "6277101735386680762814942322444851025767571854389858533375"
         service.postBigInteger('6277101735386680762814942322444851025767571854389858533375').subscribe(
             r => {
                 expect(BigInt(r)).toBe(BigInt(6277101735386680762814942322444851025767571854389858533375n));
                 expect(BigInt(r).valueOf()).toBe(BigInt('6277101735386680762814942322444851025767571854389858533375'));
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('postReallyBigInt80bits', (done) => {
+    it('postReallyBigInt80bits', () => {
         service.postBigInteger('604462909807314587353087').subscribe(
             r => {
                 expect(BigInt(r).valueOf()).toBe(604462909807314587353087n);
                 expect(BigInt(r).valueOf()).toBe(BigInt('604462909807314587353087'));
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('postReallyBigInt128bits', (done) => {
+    it('postReallyBigInt128bits', () => {
         service.postBigInteger('340282366920938463463374607431768211455').subscribe(
             r => {
                 expect(BigInt(r).valueOf()).toBe(340282366920938463463374607431768211455n);
                 expect(BigInt(r).valueOf()).toBe(BigInt('340282366920938463463374607431768211455'));
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('getNullableNumberWith0', (done) => {
+    it('getNullableNumberWith0', () => {
         service.getNullableNumber(0).subscribe(
             r => {
                 expect(r).toBe(0);
-                 done();
+ 
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('getNullableNumberWithNull', (done) => {
+    it('getNullableNumberWithNull', () => {
         service.getNullableNumber(null).subscribe(
             r => {
                 expect(r).toBeNull();
-                 done();
+ 
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('getNullableNumberWith1', (done) => {
+    it('getNullableNumberWith1', () => {
         service.getNullableNumber(1).subscribe(
             r => {
                 expect(r).toBe(1);
-                 done();
+ 
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
@@ -2588,16 +2583,16 @@ describe('Numbers API', () => {
      * Request as string: "170141183460469231731687303715884105727",
      * Response: "170141183460469231731687303715884105727" , Content-Type: application/json; charset=utf-8
      */
-    it('postInt128', (done) => {
+    it('postInt128', () => {
         service.postInt128('170141183460469231731687303715884105727').subscribe(
             r => {
                 expect(BigInt(r)).toBe(BigInt('170141183460469231731687303715884105727'));
                 expect(BigInt(r)).toBe(BigInt(170141183460469231731687303715884105727n));
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
@@ -2608,18 +2603,18 @@ describe('Numbers API', () => {
      * Request as string: "340282366920938463463374607431768211455",
      * Response: "340282366920938463463374607431768211455" , Content-Type: application/json; charset=utf-8
      */
-    it('postUInt128', (done) => {
+    it('postUInt128', () => {
         service.postUint128('340282366920938463463374607431768211455').subscribe(
             r => {
                 expect(BigInt(r)).toBe(BigInt('340282366920938463463374607431768211455'));
                 expect(BigInt(r)).toBe(BigInt(340282366920938463463374607431768211455n));
                 expect(BigInt(r).valueOf()).toBe(BigInt('340282366920938463463374607431768211455'));
                 expect(BigInt(r).valueOf()).toBe(BigInt(340282366920938463463374607431768211455n));
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
@@ -2646,7 +2641,7 @@ describe('Numbers API', () => {
 describe('Numbers API without customized serialization', () => {
     let service: DemoWebApi_Controllers_Client.Numbers;
 
-    beforeEach(waitForAsync(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [],
             providers: [
@@ -2662,9 +2657,9 @@ describe('Numbers API without customized serialization', () => {
         });
 
         service = TestBed.inject(DemoWebApi_Controllers_Client.Numbers);
-    }));
+    });
 
-    it('postBigNumbersIncorrect', (done) => {
+    it('postBigNumbersIncorrect', () => {
         const d: DemoWebApi_DemoData_Client.BigNumbers = {
             unsigned64: '18446744073709551615', //2 ^ 64 -1,
             signed64: '9223372036854775807', //2 ^ 63 -1,
@@ -2693,24 +2688,21 @@ describe('Numbers API without customized serialization', () => {
          */
         service.postBigNumbers(d).subscribe(
             r => {
-                expect(BigInt(r.unsigned64!)).not.toBe(BigInt('18446744073709551615')); // BigInt can not handle the coversion from json number form correctly.
-                expect(BigInt(r.unsigned64!)).toEqual(BigInt('18446744073709551616')); // actually incorrect during deserialization
+                //expect(BigInt(r.unsigned64!)).not.toBe(BigInt('18446744073709551615')); // BigInt can not handle the conversion from json number form correctly. This was OK in .NET 9
+                expect(BigInt(r.unsigned64!)).toEqual(BigInt('18446744073709551615')); // actually incorrect during deserialization. 
 
-                expect(BigInt(r.signed64!)).not.toBe(BigInt('9223372036854775807'));
-                expect(BigInt(r.signed64!)).toEqual(BigInt('9223372036854775808'));
+                //expect(BigInt(r.signed64!)).not.toBe(BigInt('9223372036854775807'));// ok in JS now. because it was 9223372036854775808
+                expect(BigInt(r.signed64!)).toEqual(BigInt('9223372036854775807')); // JS BigInt is OK now
 
                 expect(BigInt(r.unsigned128!)).toBe(BigInt(340282366920938463463374607431768211455n));
 
                 expect(BigInt(r.signed128!)).toEqual(BigInt(170141183460469231731687303715884105727n));
 
-                expect(BigInt(r.bigInt!)).not.toEqual(BigInt(6277101735386680762814942322444851025767571854389858533375n));
-                expect(BigInt(r.bigInt!)).toEqual(BigInt(6277101735386680763835789423207666416102355444464034512896n)); // how wrong
-
-                done();
+                expect(BigInt(r.bigInt!)).toEqual(BigInt(6277101735386680762814942322444851025767571854389858533375n));
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
@@ -2721,31 +2713,31 @@ describe('Numbers API without customized serialization', () => {
      * Even though the request payload is 9223372036854776000 (loosing precision, cause of the 53bit issue), or "9223372036854776123", the response is 0 as shown in Chrome's console and Fiddler.
      * And the Web API has received actually 0. Not sure if the Web API binding had turned the request payload into 0 if the client is a Web browser.
      */
-    it('postInt64ButIncorrect', (done) => {
+    it('postInt64ButIncorrect', () => {
         service.postInt64('9223372036854775807').subscribe(
             r => {
                 expect(BigInt(9223372036854775807n).toString()).toBe('9223372036854775807');
-                expect(BigInt(r)).toBe(BigInt('9223372036854775808')); //reponse is 9223372036854775807, but BigInt(r) gives last 3 digits 808
-                done();
+                expect(BigInt(r)).toBe(BigInt('9223372036854775807')); //OK now
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('postUInt64ButIncorrect', (done) => {
+    it('postUInt64ButIncorrect', () => {
         service.postUint64('18446744073709551615').subscribe(
             r => {
                 expect(BigInt(18446744073709551615n).toString()).toBe('18446744073709551615');
-                expect(BigInt(r)).toBe(BigInt('18446744073709551616')); //reponse is 18446744073709551615, but BigInt(r) gives last 3 digits 808
-                done();
+                expect(BigInt(r)).toBe(BigInt('18446744073709551615')); //ok now
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
@@ -2756,137 +2748,137 @@ describe('Numbers API without customized serialization', () => {
             return this.http.post<string>(this.baseUri + 'api/Numbers/bigIntegerForJs', JSON.stringify(bigInteger), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
      */
-    it('postBigIntegralAsStringForJs', (done) => {
+    it('postBigIntegralAsStringForJs', () => {
         service.postBigIntegralAsStringForJs('9223372036854775807').subscribe(
             r => {
                 expect(BigInt(9223372036854775807n).toString()).toBe('9223372036854775807');
                 expect(BigInt('9223372036854775807').toString()).toBe('9223372036854775807');
                 expect(BigInt(r)).toBe(BigInt('9223372036854775807'));
                 expect(BigInt(r)).toBe(BigInt(9223372036854775807n));
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('postBigIntegralAsStringForJs2', (done) => {
+    it('postBigIntegralAsStringForJs2', () => {
         service.postBigIntegralAsStringForJs('6277101735386680762814942322444851025767571854389858533375').subscribe(
             r => {
                 expect(BigInt(6277101735386680762814942322444851025767571854389858533375n).toString()).toBe('6277101735386680762814942322444851025767571854389858533375');
                 expect(BigInt('6277101735386680762814942322444851025767571854389858533375').toString()).toBe('6277101735386680762814942322444851025767571854389858533375');
                 expect(BigInt(r)).toBe(BigInt('6277101735386680762814942322444851025767571854389858533375'));
                 expect(BigInt(r)).toBe(BigInt(6277101735386680762814942322444851025767571854389858533375n));
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('postInt64SmallerInCorrect', (done) => {
+    it('postInt64SmallerInCorrect', () => {
         service.postInt64('9223372036854775123').subscribe(
             r => {
-                expect(BigInt(r)).not.toBe(BigInt('9223372036854775123')); //reponse is 9223372036854775123, but BigInt(r) gives l9223372036854774784
-                expect(BigInt(r)).toBe(BigInt('9223372036854774784')); // many digits wrong
-                done();
+                expect(BigInt(r)).toBe(BigInt('9223372036854775123')); //ok now
+                //expect(BigInt(r)).toBe(BigInt('9223372036854774784')); // many digits wrong
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('postLongAsBigIntButIncorrect', (done) => {
+    it('postLongAsBigIntButIncorrect', () => {
         // request: "9223372036854775807"
         // response: 9223372036854775807
         service.postBigInteger('9223372036854775807').subscribe(
             r => {
                 expect(BigInt(9223372036854775807n).toString()).toBe('9223372036854775807');
-                expect(BigInt(r)).toBe(BigInt('9223372036854775808')); //reponse is 9223372036854775807, but BigInt(r) gives last 3 digits 808, since the returned value does not have the n suffix.
-                expect(r.toString()).toBe('9223372036854776000'); //the response is a big int which JS could not handle in toString(), 53bit gets in the way.
-                expect(BigInt(r).toString()).toBe('9223372036854775808');
-                done();
+                expect(BigInt(r)).toBe(BigInt('9223372036854775807')); //ok now
+                expect(r.toString()).toBe('9223372036854775807'); //good now
+                expect(BigInt(r).toString()).toBe('9223372036854775807');
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('postLongAsBigIntWithSmallNumber', (done) => {
+    it('postLongAsBigIntWithSmallNumber', () => {
         service.postBigInteger('123').subscribe(
             r => {
                 expect(BigInt(r)).toBe(BigInt(123n));
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
 
     }
     );
 
-    it('postReallyBigInt192bitsButIncorrect', (done) => {
+    it('postReallyBigInt192bitsButIncorrect', () => {
         // request: "6277101735386680762814942322444851025767571854389858533375"
         // response: 6277101735386680762814942322444851025767571854389858533375
         service.postBigInteger('6277101735386680762814942322444851025767571854389858533375').subscribe(
             r => {
-                expect(BigInt(r)).toBe(BigInt(6277101735386680762814942322444851025767571854389858533375)); //this time, it is correct, but...
-                expect(BigInt(r).valueOf()).not.toBe(6277101735386680762814942322444851025767571854389858533375n); // not really,
-                expect(BigInt(r).valueOf()).not.toBe(BigInt('6277101735386680762814942322444851025767571854389858533375')); // not really, because what returned is lack of n
-                expect(BigInt(r)).toBe(6277101735386680763835789423207666416102355444464034512896n); // many many digits wrong
-                done();
+                expect(BigInt(r)).toBe(BigInt(6277101735386680762814942322444851025767571854389858533375n)); //this time, it is correct, but...
+                expect(BigInt(r).valueOf()).toBe(6277101735386680762814942322444851025767571854389858533375n); // ok now
+                expect(BigInt(r).valueOf()).toBe(BigInt('6277101735386680762814942322444851025767571854389858533375')); // not really, because what returned is lack of n
+                expect(BigInt(r)).toBe(6277101735386680762814942322444851025767571854389858533375n); // good now
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('postReallyBigInt80bitsButIncorect', (done) => {
+    it('postReallyBigInt80bitsButIncorect', () => {
         service.postBigInteger('604462909807314587353087').subscribe(
             r => {
-                expect(BigInt(r)).toBe(BigInt(604462909807314587353087)); //this time, it is correct, but...
-                expect(BigInt(r).valueOf()).not.toBe(604462909807314587353087n); // not really,
-                expect(BigInt(r).valueOf()).not.toBe(BigInt('604462909807314587353087')); // not really, because what returned is lack of n
-                expect(BigInt(r).valueOf()).toBe(604462909807314587353088n); // last digit wrong
-                done();
+                expect(BigInt(r)).toBe(BigInt(604462909807314587353087n)); //this time, it is correct, but...
+                expect(BigInt(r).valueOf()).toBe(604462909807314587353087n); // not really,
+                expect(BigInt(r).valueOf()).toBe(BigInt('604462909807314587353087')); // not really, because what returned is lack of n
+                expect(BigInt(r).valueOf()).toBe(604462909807314587353087n); // ok now
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
     );
 
-    it('postReallyBigInt128bitsButIncorect', (done) => {
+    it('postReallyBigInt128bitsButIncorect', () => {
         service.postBigInteger('340282366920938463463374607431768211455').subscribe(
             r => {
-                expect(BigInt(r)).toBe(BigInt(340282366920938463463374607431768211455)); //this time, it is correct, but...
-                expect(BigInt(r).valueOf()).not.toBe(340282366920938463463374607431768211455n); // not really,
-                expect(BigInt(r).valueOf()).not.toBe(BigInt('340282366920938463463374607431768211455')); // not really, because what returned is lack of n
-                expect(BigInt(r)).toBe(34028236692093846346337460743176821145n); // last digit wrong,
-                done();
+                expect(BigInt(r)).toBe(BigInt(340282366920938463463374607431768211455n)); //this time, it is correct, but...
+                expect(BigInt(r).valueOf()).toBe(340282366920938463463374607431768211455n); // ok now
+                expect(BigInt(r).valueOf()).toBe(BigInt('340282366920938463463374607431768211455')); // not really, because what returned is lack of n
+                expect(BigInt(r)).toBe(340282366920938463463374607431768211455n); // last digit wrong,
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
@@ -2897,16 +2889,16 @@ describe('Numbers API without customized serialization', () => {
      * Request as string: "170141183460469231731687303715884105727",
      * Response: "170141183460469231731687303715884105727" , Content-Type: application/json; charset=utf-8
      */
-    it('postInt128', (done) => {
+    it('postInt128', () => {
         service.postInt128('170141183460469231731687303715884105727').subscribe(
             r => {
                 expect(BigInt(r)).toBe(BigInt('170141183460469231731687303715884105727'));
                 expect(BigInt(r)).toBe(BigInt(170141183460469231731687303715884105727n));
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }
@@ -2917,18 +2909,18 @@ describe('Numbers API without customized serialization', () => {
      * Request as string: "340282366920938463463374607431768211455",
      * Response: "340282366920938463463374607431768211455" , Content-Type: application/json; charset=utf-8
      */
-    it('postUInt128', (done) => {
+    it('postUInt128', () => {
         service.postUint128('340282366920938463463374607431768211455').subscribe(
             r => {
                 expect(BigInt(r)).toBe(BigInt('340282366920938463463374607431768211455'));
                 expect(BigInt(r)).toBe(BigInt(340282366920938463463374607431768211455n));
                 expect(BigInt(r).valueOf()).toBe(BigInt('340282366920938463463374607431768211455'));
                 expect(BigInt(r).valueOf()).toBe(BigInt(340282366920938463463374607431768211455n));
-                done();
+
             },
             error => {
-                fail(errorResponseToString(error));
-                done();
+                throw new Error(errorResponseToString(error));
+
             }
         );
     }

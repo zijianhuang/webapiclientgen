@@ -4,7 +4,6 @@
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
     "types": [
-      "vitest/globals"
     ]
   },
   "files": [

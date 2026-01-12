@@ -4,18 +4,27 @@ Utilizing Newtonsoft.Json, this Web service contains rich data types and Web API
 
 # Testing Client API for jQuery
 
-This CS project contains TS codes for testing client API for jQuery, and the test platform is QUnit. And the JS test suites is hosted in the same Web service.
+## Build Test
 
-The TS files in Scripts are compiled into `./wwwroot/scripts/` according to `tsconfig.json` when saving, then run "UpdateJqTests.bat" to copy to `bin/Debug/Net8.0/wwwroot'.
+Folder TsScripts contains TypeScript source codes including the client API generated.
 
-After launching DemoCoreWeb, run `tests.html`.
+Folder Scripts contains JavaScript codes transpiled from what in TsScripts, according to `tsconfig.json`.
 
-**Reamrks**
+Run
+```
+tsc
+```
+to transpile.
+
+Remarks:
+* Legacy jQuery TypeScript codes typically  "CompileOnSave".
+
+## Run Test
+This CS project contains TS codes for testing client API for jQuery, and the test platform is QUnit. And the JS test suites is hosted in the same Web service that supports static files.
+
+After launching DemoCoreWeb, run `http://localhost:5000/tests.html`.
+
+**Remarks**
 
 * Sometimes the launched Web service insists on using cached JS files somewhere, then build DemoCoreWeb and launch again.
 
-
-**Hints**
-
-* When using the DEBUG build hosting in IIS, you need to modify `DemoCoreWeb.staticwebassets.runtime.json` and change CurrentRoots to:
-`"ContentRoots":["C:\\inetpub\\wwwroot\\DemoCoreWebService\\wwwroot\\"]` or alike, absolute path needed.

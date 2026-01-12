@@ -46,7 +46,7 @@
 		"Plugins": [
 			{
 				"AssemblyName": "Fonlow.WebApiClientGenCore.jQuery",
-				"TargetDir": "Scripts/ClientApi",
+				"TargetDir": "TsScripts/src/ClientApi",
 				"TSFile": "WebApiCoreJQClientAuto.ts",
 				"AsModule": false,
 				"DataAnnotationsToComments": true,

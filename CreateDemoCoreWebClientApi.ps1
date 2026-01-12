@@ -41,9 +41,9 @@ finally {
 
 #Step 3: Compile generated TS codes to JS for jQuery. https://www.typescriptlang.org/docs/handbook/compiler-options.html
 # make sure TS compiler is installed through npm install -g typescript, then tsc.ps1 is available in C:/Users/YourProfile/AppData/Roaming/npm
-Invoke-Expression "tsc --target es2022 $PSScriptRoot/DemoCoreWeb/Scripts/ClientApi/WebApiCoreJQClientAuto.ts"
-Invoke-Expression "tsc --target es2022 $PSScriptRoot/DemoCoreWeb/Scripts/tests/demo.tests.ts"
-Invoke-Expression "tsc --target es2022 $PSScriptRoot/DemoCoreWeb/Scripts/tests/special.tests.ts"
+# Invoke-Expression "tsc --target es2022 $PSScriptRoot/DemoCoreWeb/Scripts/ClientApi/WebApiCoreJQClientAuto.ts"
+# Invoke-Expression "tsc --target es2022 $PSScriptRoot/DemoCoreWeb/Scripts/tests/demo.tests.ts"
+# Invoke-Expression "tsc --target es2022 $PSScriptRoot/DemoCoreWeb/Scripts/tests/special.tests.ts"
 
 #Step 4: Build the .NET lib to verify
 dotnet build ./DemoCoreWeb.ClientApi/DemoCoreWeb.ClientApi.csproj

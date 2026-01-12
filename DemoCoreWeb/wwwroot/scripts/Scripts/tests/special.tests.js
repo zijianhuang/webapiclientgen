@@ -1,4 +1,21 @@
+/// <reference path="../typings/jquery/index.d.ts"/>
+/// <reference path="../typings/qunit/index.d.ts"/>
 /// <reference path="../ClientApi/WebApiCoreJQClientAuto.ts"/>
+// Make sure chutzpah.json is updated with  reference to the jQuery lib when the lib is upgraded.
+// Sometimes the test cases are not appearing in Test Explorer, then claring %temp% may help.
+// To launch IIS Express, use something like this: C:\VsProjects\webapiclientgen>"C:\Program Files (x86)\IIS Express\iisexpress.exe" /site:DemoWebApi /apppool:Clr4IntegratedAppPool /config:c:\vsprojects\webapiclientgen\.vs\config\applicationhost.config
+/*
+And make sure the testApi credential exists through
+POST to http://localhost:10965/api/Account/Register
+Content-Type: application/json
+
+{
+Email: 'testapi@test.com',
+Password: 'Tttttttt_8',
+ConfirmPassword:  'Tttttttt_8'
+}
+
+*/
 var SpecialObjects;
 (function (SpecialObjects) {
     QUnit.config.testTimeout = 30000;

@@ -22,6 +22,9 @@
 
 	<ItemGroup>
 		<Content Include="README.md" />
+		<Content Include="tests.html">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 	<ItemGroup>

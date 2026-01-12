@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "@types/jquery": "^3.5.33",
+    "@types/qunit": "^2.19.13"
+  },
+  "dependencies": {
+    "jquery": "^3.7.1"
+  }
+}

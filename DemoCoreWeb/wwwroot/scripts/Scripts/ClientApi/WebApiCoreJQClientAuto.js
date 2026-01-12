@@ -1,3 +1,4 @@
+///<reference path="../typings/jquery/index.d.ts" />
 ///<reference path="HttpClient.ts" />
 var DemoWebApi_Controllers_Client;
 (function (DemoWebApi_Controllers_Client) {

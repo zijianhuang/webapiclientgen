@@ -4,7 +4,7 @@ $path = "$PSScriptRoot/DemoCoreWeb/bin/Debug/net10.0"
 $procArgs = @{
     FilePath         = "dotnet.exe"
     ArgumentList     = "$path/DemoCoreWeb.dll"
-    WorkingDirectory = $path
+    WorkingDirectory = "$path/../../../"
     PassThru         = $true
 }
 $process = Start-Process @procArgs

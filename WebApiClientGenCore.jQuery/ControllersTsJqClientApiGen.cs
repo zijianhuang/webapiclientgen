@@ -26,7 +26,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override void AddBasicReferences()
 		{
-			TargetUnit.ReferencedAssemblies.Add("///<reference path=\"../typings/jquery/jquery.d.ts\" />");
+			//TargetUnit.ReferencedAssemblies.Add("///<reference path=\"../typings/jquery/index.d.ts\" />"); No need in typical modern day setup with npm and module resolution.
 			TargetUnit.ReferencedAssemblies.Add("///<reference path=\"HttpClient.ts\" />");
 		}
 

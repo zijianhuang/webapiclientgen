@@ -63,7 +63,7 @@ The component set is released mostly through NuGet.
 # Examples
 
 1. [POCO classes](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi.DemoDataCore/Entities.cs)
-1. [Web API](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb/Controllers/EntitiesController.cs)
+1. [Web API](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWebControllers/Controllers/EntitiesController.cs)
 1. [Generated client API C# codes](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb.ClientApi/WebApiClientAuto.cs)
 1. [Client codes using the generated library in C#](https://github.com/zijianhuang/webapiclientgen/blob/master/Tests/IntegrationTestsCore/EntitiesApiIntegration.cs)
 1. [Generated client data models and API in TypeScript for jQuery](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb/Scripts/ClientApi/WebApiCoreJQClientAuto.ts), [for Angular 2](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoNGCli/NGSource/src/clientapi/WebApiCoreNg2ClientAuto.ts), [for Aurelia](https://github.com/zijianhuang/webapiclientgen/blob/master/aurelia/src/clientapi/WebApiCoreAureliaClientAuto.ts) and [for Axios](https://github.com/zijianhuang/webapiclientgen/blob/master/axios/src/clientapi/WebApiCoreAxiosClientAuto.ts)
@@ -218,3 +218,7 @@ While WebApiClientGen supports both, however, the primary support has shifted to
 NewtonSoft.Json still has a few advantages upon certain scenarios and contexts:
 1. If you have a lot POCO classes decorated by DataContractAttributes, because of supporting legacy apps, or supporting both XML and JSON serialization, NewtonSoft.Json gives you inherent support, while System.Text.Json provides some troublesome and indirect support since .NET 7.
 2. For some array types and dynamic, NewtonSoft.Json is still better.
+
+# Contributing
+
+[CONTRIBUTING.md](CONTRIBUTING.md)

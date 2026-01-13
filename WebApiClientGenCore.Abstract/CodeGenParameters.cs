@@ -13,7 +13,7 @@ namespace Fonlow.CodeDom.Web
 		None,
 
 		/// <summary>
-		/// Copy RegularExpressionAttribute value as is.
+		/// Copy RegularExpressionAttribute value as is, for TS client codes to use.
 		/// </summary>
 		Use = 1,
 	}

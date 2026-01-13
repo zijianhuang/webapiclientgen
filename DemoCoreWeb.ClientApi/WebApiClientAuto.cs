@@ -76,7 +76,7 @@ namespace DemoWebApi.Controllers.Client
 		
 		/// <summary>
 		/// Min length: 6
-		/// Matching regular expression pattern: ^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$
+		/// Regex pattern: ^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.MinLength(6)]
 		[System.ComponentModel.DataAnnotations.RegularExpression(@"^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$")]
@@ -9575,7 +9575,7 @@ namespace DemoWebApi.DemoData.Base.Client
 		public System.Collections.ObjectModel.ObservableCollection<DemoWebApi.DemoData.Client.PhoneNumber> PhoneNumbers { get; set; }
 		
 		/// <summary>
-		/// Matching regular expression pattern: ^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$
+		/// Regex pattern: ^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.RegularExpression(@"^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$")]
 		[System.Runtime.Serialization.DataMember()]

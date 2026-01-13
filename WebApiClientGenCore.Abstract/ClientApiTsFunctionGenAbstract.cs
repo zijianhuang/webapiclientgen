@@ -213,7 +213,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			if (obsoleteAttribute != null)
 			{
-				builder.AppendLine(AnnotationCommentGenerator.GenerateComments(obsoleteAttribute));
+				builder.AppendLine(AnnotationCommentGenerator.GenerateObsoleteAttributeComments(obsoleteAttribute));
 			}
 
 			Method.Comments.Add(new CodeCommentStatement(builder.ToString(), true));

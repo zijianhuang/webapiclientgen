@@ -146,7 +146,7 @@ namespace Fonlow.Poco2Ts
 			var obsoleteAttribute = type.GetCustomAttribute<ObsoleteAttribute>();
 			if (obsoleteAttribute != null)
 			{
-				typeDeclaration.Comments.Add(new CodeCommentStatement(AnnotationCommentGenerator.GenerateComments(obsoleteAttribute), true));
+				typeDeclaration.Comments.Add(new CodeCommentStatement(AnnotationCommentGenerator.GenerateObsoleteAttributeComments(obsoleteAttribute), true));
 			}
 		}
 
@@ -331,7 +331,7 @@ namespace Fonlow.Poco2Ts
 
 					};
 
-					AddValidationAttributesCodeTypeMember(propertyInfo, clientField, false);
+					AddValidationAttributesCodeToTypeMember(propertyInfo, clientField, false);
 					clientField.UserData.Add(UserDataKeys.CustomAttributes, propertyInfo.GetCustomAttributes().ToArray());
 					clientField.Type.UserData.Add(UserDataKeys.FieldTypeInfo,
 						new FieldTypeInfo
@@ -617,7 +617,13 @@ namespace Fonlow.Poco2Ts
 			return CommentsHelper.GenerateCommentsFromAttributes(attributes, attribueCommentDic);
 		}
 
-		void AddValidationAttributesCodeTypeMember(MemberInfo property, CodeTypeMember codeTypeMember, bool requiredAdded)
+		/// <summary>
+		/// Add RequiredAttribute and other custom attributes to CodeTypeMember
+		/// </summary>
+		/// <param name="property"></param>
+		/// <param name="codeTypeMember"></param>
+		/// <param name="requiredAdded"></param>
+		void AddValidationAttributesCodeToTypeMember(MemberInfo property, CodeTypeMember codeTypeMember, bool requiredAdded)
 		{
 			List<Attribute> attributes = property.GetCustomAttributes().ToList();
 			attributes.Sort((x, y) =>

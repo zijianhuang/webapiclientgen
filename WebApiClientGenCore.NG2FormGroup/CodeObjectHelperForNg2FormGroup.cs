@@ -318,7 +318,7 @@ namespace Fonlow.TypeScriptCodeDom
 							validatorList.Add("Validators.email");
 							break;
 						case "System.ComponentModel.DataAnnotations.RegularExpressionAttribute":
-							if (useRegexAttribute > UseRegexAttr.None)
+							if ((useRegexAttribute & UseRegexAttr.Use) == UseRegexAttr.Use)
 							{
 								System.ComponentModel.DataAnnotations.RegularExpressionAttribute rp = ca as System.ComponentModel.DataAnnotations.RegularExpressionAttribute;
 								validatorList.Add($"Validators.pattern(/{rp.Pattern}/)");

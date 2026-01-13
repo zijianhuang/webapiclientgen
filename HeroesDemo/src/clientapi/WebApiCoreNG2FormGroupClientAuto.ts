@@ -75,7 +75,10 @@ export namespace DemoWebApi_Controllers_Client {
 		name?: string | null;
 		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
 
-		/** Min length: 6 */
+		/**
+		 * Min length: 6
+		 * Regex pattern: ^(https?:\\/\\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]\{2,\}(\\/\S\*)?$
+		 */
 		webAddress?: string | null;
 	}
 
@@ -98,7 +101,10 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		name: FormControl<string | null | undefined>,
 
-		/** Min length: 6 */
+		/**
+		 * Min length: 6
+		 * Regex pattern: ^(https?:\\/\\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]\{2,\}(\\/\S\*)?$
+		 */
 		webAddress: FormControl<string | null | undefined>,
 	}
 	export function CreateHeroFormGroup() {
@@ -1745,7 +1751,10 @@ export namespace DemoWebApi_DemoData_Base_Client {
 		name: string;
 		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
 
-		/** Type: Uri */
+		/**
+		 * Type: Uri
+		 * Regex pattern: ^(https?:\\/\\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]\{2,\}(\\/\S\*)?$
+		 */
 		web?: string | null;
 	}
 
@@ -1766,7 +1775,10 @@ export namespace DemoWebApi_DemoData_Base_Client {
 		 */
 		name: FormControl<string | null | undefined>,
 
-		/** Type: Uri */
+		/**
+		 * Type: Uri
+		 * Regex pattern: ^(https?:\\/\\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]\{2,\}(\\/\S\*)?$
+		 */
 		web: FormControl<string | null | undefined>,
 	}
 	export function CreateEntityFormGroup() {

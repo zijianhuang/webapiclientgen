@@ -77,7 +77,7 @@ export namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * Min length: 6
-		 * Regex pattern: ^(https?:\\/\\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]\{2,\}(\\/\S\*)?$
+		 * Regex pattern: ^(https?:\\/\\/)?[da-z.-]+.[a-z.]\{2,6\}([\/\w .-]\*)\*\\/?$
 		 */
 		webAddress?: string | null;
 	}
@@ -103,7 +103,7 @@ export namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * Min length: 6
-		 * Regex pattern: ^(https?:\\/\\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]\{2,\}(\\/\S\*)?$
+		 * Regex pattern: ^(https?:\\/\\/)?[da-z.-]+.[a-z.]\{2,6\}([\/\w .-]\*)\*\\/?$
 		 */
 		webAddress: FormControl<string | null | undefined>,
 	}
@@ -114,7 +114,7 @@ export namespace DemoWebApi_Controllers_Client {
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
 			id: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^-?\d{0,19}$/)]),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(120)]),
-			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern(/^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$/)]),
+			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern(/^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$/)]),
 		});
 
 	}
@@ -132,7 +132,7 @@ export namespace DemoWebApi_Controllers_Client {
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
 			id: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^-?\d{0,19}$/)]),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(120)]),
-			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern(/^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$/)]),
+			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern(/^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$/)]),
 			super: new FormControl<boolean | null | undefined>(undefined),
 		});
 

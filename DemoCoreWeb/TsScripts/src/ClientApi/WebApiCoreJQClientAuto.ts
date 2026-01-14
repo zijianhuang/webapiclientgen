@@ -41,7 +41,7 @@ namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * Min length: 6
-		 * Regex pattern: ^(https?:\\/\\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]\{2,\}(\\/\S\*)?$
+		 * Regex pattern: ^(https?:\\/\\/)?[da-z.-]+.[a-z.]\{2,6\}([\/\w .-]\*)\*\\/?$
 		 */
 		webAddress?: string | null;
 	}

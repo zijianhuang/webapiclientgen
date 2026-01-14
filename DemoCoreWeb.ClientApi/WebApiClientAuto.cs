@@ -76,10 +76,10 @@ namespace DemoWebApi.Controllers.Client
 		
 		/// <summary>
 		/// Min length: 6
-		/// Regex pattern: ^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$
+		/// Regex pattern: ^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.MinLength(6)]
-		[System.ComponentModel.DataAnnotations.RegularExpression(@"^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$")]
+		[System.ComponentModel.DataAnnotations.RegularExpression(@"^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$")]
 		[System.Runtime.Serialization.DataMember()]
 		public string WebAddress { get; set; }
 	}

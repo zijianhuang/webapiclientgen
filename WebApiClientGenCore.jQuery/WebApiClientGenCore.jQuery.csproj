@@ -8,12 +8,12 @@
 		<Copyright>Copyright © Zijian Huang 2015-$([System.DateTime]::Now.Year)</Copyright>
 		<NeutralLanguage>en</NeutralLanguage>
 		<Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with jQuery. This requires a HttpClient library at https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Scripts/ClientApi/HttpClient.ts.</Description>
-		<PackageReleaseNotes>Adapt module resolution.</PackageReleaseNotes>
+		<PackageReleaseNotes>pattern of RegularExpressionAttribute into doc comment</PackageReleaseNotes>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<AssemblyName>Fonlow.WebApiClientGenCore.jQuery</AssemblyName>
-		<Version>4.5</Version>
+		<Version>4.6</Version>
 		<PackageTags>jQuery</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>

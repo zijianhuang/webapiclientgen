@@ -5,7 +5,7 @@
 	  <PackageId>Fonlow.WebApiClientGenCore.NG2FormGroup</PackageId>
 	  <Authors>Zijian Huang</Authors>
 	  <Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Angular 6+, plus helper interfaces and functions for creating FormGroup of Angular Reactive Forms.</Description>
-	  <PackageReleaseNotes>.NET 10 and introduce setting NgUseRegexAttribute, so copying regex over is optional.</PackageReleaseNotes>
+	  <PackageReleaseNotes>.NET 10 and introduce setting NgUseRegexAttribute, so copying regex over is optional. Pattern of RegularExpressionAttribute into doc comment.</PackageReleaseNotes>
 	  <NeutralLanguage>en</NeutralLanguage>
 	  <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
 	  <Copyright>Copyright © Zijian Huang 2015-$([System.DateTime]::Now.Year)</Copyright>
@@ -13,7 +13,7 @@
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	  <AssemblyName>Fonlow.WebApiClientGenCore.NG2FormGroup</AssemblyName>
-	  <Version>2.4</Version>
+	  <Version>2.5</Version>
 	  <PackageTags>Angular</PackageTags>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>

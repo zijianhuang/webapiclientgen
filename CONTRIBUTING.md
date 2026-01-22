@@ -8,10 +8,10 @@ The code gen and other components serve applications developers who would quickl
 
 ## Tech Stack
 
-1. .NET (Framework)
+1. .NET
 1. C#
 1. TypeScript
-1. JavaScript and TypeScript frameworks and libraries: Angular, Aurelia, jQuery and AXIOS.
+1. JavaScript and TypeScript frameworks and libraries: Angular, Fetch, AXIOS, jQuery and Aurelia.
 
 ## Tooling
 
@@ -34,4 +34,3 @@ Once you check out the repository, you should be able to:
     * axios
     * fetchapi
     * HeroesDemo
-    * 

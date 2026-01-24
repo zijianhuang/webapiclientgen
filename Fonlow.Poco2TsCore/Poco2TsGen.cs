@@ -258,6 +258,21 @@ namespace Fonlow.Poco2Ts
 
 		}
 
+
+		/// <summary>
+		/// Generates a CodeTypeDeclaration that represents the specified .NET type, including its members and inheritance
+		/// information, for use in client code generation. Properties and fields will be picked based on the provided cherry-picking methods and JsonIgnore attributes.
+		/// </summary>
+		/// <remarks>The generated CodeTypeDeclaration includes properties, fields, and inheritance information based
+		/// on the provided type and cherry-picking methods. Enum types are also supported. Types that are not classes,
+		/// structs, or enums are not supported and will result in a null return value.</remarks>
+		/// <param name="type">The .NET type to convert to a CodeTypeDeclaration. Must be a class, struct, or enum.</param>
+		/// <param name="clientNamespace">The target namespace in which the generated type declaration will be placed.</param>
+		/// <param name="namespacesOfTypes">An array of namespace names used to resolve type references and determine inheritance relationships.</param>
+		/// <param name="methods">A value indicating which cherry-picking methods to apply when selecting members for inclusion in the generated
+		/// type.</param>
+		/// <returns>A CodeTypeDeclaration representing the structure and members of the specified type, or null if the type is not
+		/// supported.</returns>
 		CodeTypeDeclaration TypeToCodeTypeDeclaration(Type type, CodeNamespaceEx clientNamespace, string[] namespacesOfTypes, CherryPickingMethods methods){
 			string tsName = type.Name;
 			Debug.WriteLine("tsClass: " + clientNamespace + "  " + tsName);

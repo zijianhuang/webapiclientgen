@@ -1,15 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Reflection;
+﻿using Fonlow.Reflection;
+using System;
 using System.ComponentModel.DataAnnotations;
-using Fonlow.Reflection;
-using System.Reflection.Metadata.Ecma335;
-
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace Fonlow.Poco2Client
 {
-
 	/// <summary>
 	/// Pick a type or a member field or property
 	/// </summary>
@@ -17,8 +14,8 @@ namespace Fonlow.Poco2Client
 	{
 		public static bool IsCherryType(Type type, CherryPickingMethods methods)
 		{
-			bool r0, r1, r2, r3, r4;
-			r0 = r1 = r2 = r3 = r4 = false;
+			bool r0, r1, r2, r3, r4, r5;
+			r0 = r1 = r2 = r3 = r4 = r5 = false;
 
 			if ((methods & CherryPickingMethods.DataContract) == CherryPickingMethods.DataContract)
 			{
@@ -40,12 +37,17 @@ namespace Fonlow.Poco2Client
 				r4 = true;
 			}
 
+			if ((methods & CherryPickingMethods.NetCore) == CherryPickingMethods.NetCore)
+			{
+				r5 = true;
+			}
+
 			if (methods== CherryPickingMethods.All)
 			{
 				r0 = true;
 			}
 
-			return r0 | r1 | r2 | r3 | r4;
+			return r0 | r1 | r2 | r3 | r4 | r5;
 		}
 
 		/// <summary>
@@ -98,7 +100,7 @@ namespace Fonlow.Poco2Client
 			}
 
 			//opt-in for NewtonsoftJson through JsonPropertyAttribute, and the type may or may not be decorated by JsonObjectAttribute.
-			if ((methods & CherryPickingMethods.NewtonsoftJson) == CherryPickingMethods.NewtonsoftJson)
+			if ((methods & CherryPickingMethods.NewtonsoftJson) == CherryPickingMethods.NewtonsoftJson || methods == CherryPickingMethods.All)
 			{
 				Attribute a =TypeHelper.AttributeExists(memberInfo, "Newtonsoft.Json.JsonIgnoreAttribute");
 				if (a == null)
@@ -115,7 +117,7 @@ namespace Fonlow.Poco2Client
 				}
 				else
 				{
-					r[2] = CherryType.None;
+					return CherryType.None; //r[2] = CherryType.None;
 				}
 			}
 
@@ -230,32 +232,5 @@ namespace Fonlow.Poco2Client
 
 			return null;
 		}
-
-		public static bool ShouldMemberBeIgnored(MemberInfo memberInfo, CherryPickingMethods methods)
-		{
-			if ((methods & CherryPickingMethods.NewtonsoftJson) == CherryPickingMethods.NewtonsoftJson)
-			{
-				//       var a =TypeHelper.AttributeExists(memberInfo, "Newtonsoft.Json.JsonIgnoreAttribute");
-				Newtonsoft.Json.JsonIgnoreAttribute a = TypeHelper.ReadAttribute<Newtonsoft.Json.JsonIgnoreAttribute>(memberInfo);
-				if (a != null)
-				{
-					return true;
-				}
-			}
-
-			if ((methods & CherryPickingMethods.NetCore) == CherryPickingMethods.NetCore)
-			{
-				System.Text.Json.Serialization.JsonIgnoreAttribute a = TypeHelper.ReadAttribute<System.Text.Json.Serialization.JsonIgnoreAttribute>(memberInfo);
-				if (a != null)
-				{
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-
-
 	}
 }

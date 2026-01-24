@@ -1558,6 +1558,10 @@ export namespace DemoWebApi_Controllers_Client {
 }
 
 export namespace DemoWebApi_DemoDataEx_Client {
+	export interface TextJsonPerson {
+		surname?: string | null;
+	}
+
 	export interface Trust extends DemoWebApi_DemoData_Client.BizEntity {
 		trustee?: string | null;
 	}
@@ -1615,7 +1619,7 @@ export namespace DemoWebApi_DemoData_Base_Client {
 
 		/**
 		 * Type: Uri
-		 * Regex pattern: ^(https?:\\/\\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]\{2,\}(\\/\S\*)?$
+		 * Regex pattern: ^(https?:\\/\\/)?[da-z.-]+.[a-z.]\{2,6\}([\/\w .-]\*)\*\\/?$
 		 */
 		web?: string | null;
 	}

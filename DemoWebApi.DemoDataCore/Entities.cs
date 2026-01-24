@@ -48,7 +48,7 @@ namespace DemoWebApi.DemoData.Base
 		}
 
 		[DataMember]
-		[RegularExpression(@"^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$")]
+		[RegularExpression(@"^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$")]
 		public Uri Web { get; set; }
 
 		[DataMember, EmailAddress, MaxLength(255)]

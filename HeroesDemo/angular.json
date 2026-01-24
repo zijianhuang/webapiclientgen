@@ -61,6 +61,13 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+              "assets": [
+                {
+                  "glob": "siteconfigProd.js",
+                  "input": "src/conf/",
+                  "output": "./conf/"
+                }
+              ],
               "outputHashing": "all"
             },
             "development": {

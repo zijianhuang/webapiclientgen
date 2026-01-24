@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 using System.Reflection;
 using System.ComponentModel.DataAnnotations;
 using Fonlow.Reflection;
+using System.Reflection.Metadata.Ecma335;
 
 
 namespace Fonlow.Poco2Client
@@ -119,7 +120,7 @@ namespace Fonlow.Poco2Client
 			}
 
 			// opt-out for .NET Core
-			if ((methods & CherryPickingMethods.NetCore) == CherryPickingMethods.NetCore)
+			if ((methods & CherryPickingMethods.NetCore) == CherryPickingMethods.NetCore || methods== CherryPickingMethods.All)
 			{
 				Attribute a = TypeHelper.AttributeExists(memberInfo, "System.Text.Json.Serialization.JsonIgnoreAttribute");
 				if (a == null)
@@ -136,7 +137,7 @@ namespace Fonlow.Poco2Client
 				}
 				else
 				{
-					r[2] = CherryType.None;
+					return CherryType.None; // r[2] = CherryType.None;
 				}
 			}
 
@@ -228,6 +229,30 @@ namespace Fonlow.Poco2Client
 			}
 
 			return null;
+		}
+
+		public static bool ShouldMemberBeIgnored(MemberInfo memberInfo, CherryPickingMethods methods)
+		{
+			if ((methods & CherryPickingMethods.NewtonsoftJson) == CherryPickingMethods.NewtonsoftJson)
+			{
+				//       var a =TypeHelper.AttributeExists(memberInfo, "Newtonsoft.Json.JsonIgnoreAttribute");
+				Newtonsoft.Json.JsonIgnoreAttribute a = TypeHelper.ReadAttribute<Newtonsoft.Json.JsonIgnoreAttribute>(memberInfo);
+				if (a != null)
+				{
+					return true;
+				}
+			}
+
+			if ((methods & CherryPickingMethods.NetCore) == CherryPickingMethods.NetCore)
+			{
+				System.Text.Json.Serialization.JsonIgnoreAttribute a = TypeHelper.ReadAttribute<System.Text.Json.Serialization.JsonIgnoreAttribute>(memberInfo);
+				if (a != null)
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 

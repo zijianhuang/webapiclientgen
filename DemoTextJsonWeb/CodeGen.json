@@ -14,7 +14,7 @@
 
 			{
 				"AssemblyName": "DemoWebApiDemoDataEx",
-				"CherryPickingMethods": 1
+				"CherryPickingMethods": 0
 			},
 
 			{
@@ -36,9 +36,9 @@
 		"DataAnnotationsEnabled": true,
 		"DataAnnotationsToComments": true,
 		"HandleHttpRequestHeaders": true,
-		"DecorateDataModelWithDataContract": true,
+		"DecorateDataModelWithDataContract": false,
 		"DataContractNamespace": "http://fonlowdemo.com/2020/09",
-		"DecorateDataModelWithSerializable": true,
+		"DecorateDataModelWithSerializable": false,
 		"IEnumerableToArray": false,
 		"MaybeNullAttributeOnMethod": true,
 		"UseEnsureSuccessStatusCodeEx": true,

@@ -61,6 +61,7 @@ namespace Poco2TsTests
 
 		/// <summary>
 		/// According to https://github.com/dotnet/runtime/issues/36785, MS somehow prefers opt-out by default.
+		/// Therefore, use JsonIgnore attribute to cherry-pick properties to ignore.
 		/// </summary>
 		[Fact]
 		public void TestTextJsonPerson()

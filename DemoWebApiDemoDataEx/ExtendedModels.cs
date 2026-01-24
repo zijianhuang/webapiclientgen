@@ -9,4 +9,11 @@ namespace DemoWebApi.DemoDataEx
 		[DataMember]
 		public string Trustee { get; set; }
 	}
+
+	public class TextJsonPerson
+	{
+		public string Surname { get; set; }
+		[System.Text.Json.Serialization.JsonIgnore]
+		public string GivenName { get; set; }
+	}
 }

@@ -69,6 +69,12 @@ namespace Fonlow.Poco2Client
 			return targetClass;
 		}
 
+		/// <summary>
+		/// Add type to namespace of CodeDOM.
+		/// </summary>
+		/// <param name="ns"></param>
+		/// <param name="type"></param>
+		/// <returns></returns>
 		public static CodeTypeDeclaration CreatePodClientGenericClass(CodeNamespace ns, Type type)
 		{
 			Type genericTypeDefinition = type.GetGenericTypeDefinition();

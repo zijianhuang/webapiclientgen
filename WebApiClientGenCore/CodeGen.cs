@@ -1,6 +1,5 @@
 ﻿using Fonlow.Web.Meta;
 using System;
-using System.Reflection;
 
 namespace Fonlow.CodeDom.Web
 {
@@ -20,6 +19,7 @@ namespace Fonlow.CodeDom.Web
 				webRootPath = "";
 			}
 
+			// Generate C# Client API
 			if (!string.IsNullOrWhiteSpace(settings.ClientApiOutputs.ClientLibraryProjectFolderName))
 			{
 				string csharpClientProjectDir = System.IO.Path.IsPathRooted(settings.ClientApiOutputs.ClientLibraryProjectFolderName) ?
@@ -39,6 +39,7 @@ namespace Fonlow.CodeDom.Web
 				csGen.CreateCodeDomAndSaveCsharp(webApiDescriptions, path);
 			}
 
+			// Generate TypeScript Client API through plugins
 			if (settings.ClientApiOutputs.Plugins != null)
 			{
 				foreach (JSPlugin plugin in settings.ClientApiOutputs.Plugins)

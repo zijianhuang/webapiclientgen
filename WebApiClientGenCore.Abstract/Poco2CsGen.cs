@@ -244,6 +244,7 @@ namespace Fonlow.Poco2Client
 
 		/// <summary>
 		/// From type, create CodeTypeDeclaration of client type, including properies and fields. And for GodAssembly, optionall create types of properties and fields in CodeDom.
+		/// The type is added to the namespace
 		/// </summary>
 		/// <param name="type"></param>
 		/// <param name="clientNamespace"></param>

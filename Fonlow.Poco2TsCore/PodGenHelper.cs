@@ -130,25 +130,13 @@ namespace Fonlow.Poco2Client
 			return targetClass;
 		}
 
-		/// <summary>
-		/// Adds <see cref="System.Text.Json.Serialization.JsonSerializableAttribute"/> attributes for the specified classes
-		/// to a JSON serializer context within the given namespace. Creates a new context class if one is not provided.
-		/// </summary>
-		/// <remarks>The created or updated context class derives from <see
-		/// cref="System.Text.Json.Serialization.JsonSerializerContext"/> and is marked as partial. This method is useful for
-		/// source generation scenarios where explicit registration of serializable types is required.</remarks>
-		/// <param name="ns">The code namespace to which the JSON serializer context and attributes will be added.</param>
-		/// <param name="classNames">An array of class names to be registered with the JSON serializer context. Each class will be annotated for
-		/// serialization.</param>
-		/// <param name="targetClass">The target <see cref="System.CodeDom.CodeTypeDeclaration"/> representing the JSON serializer context. If <see
-		/// langword="null"/>, a new context class will be created and added to the namespace.</param>
-		/// <returns>The <see cref="System.CodeDom.CodeTypeDeclaration"/> representing the JSON serializer context with the specified
-		/// classes registered for serialization.</returns>
-		public static CodeTypeDeclaration AddClassesToJsonSerializerContext(CodeNamespace ns, string[] classNames, CodeTypeDeclaration targetClass=null)
+		public static CodeTypeDeclaration AddClassesToJsonSerializerContext(CodeNamespace ns, string[] classNames)
 		{
+			var existingClasses = ns.Types.OfType<CodeTypeDeclaration>();
+			CodeTypeDeclaration targetClass = existingClasses.FirstOrDefault();
 			var namespaceTranslated = ns.Name.Replace(".", "_");
 			if (targetClass == null){
-				targetClass = new CodeTypeDeclaration(namespaceTranslated + "JsonSerializerContext")
+				targetClass = new CodeTypeDeclaration("AppJsonSerializerContext")
 				{
 					TypeAttributes = TypeAttributes.Public | TypeAttributes.Class, //setting IsInterface has no use
 					IsPartial = true

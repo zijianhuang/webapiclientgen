@@ -146,7 +146,7 @@ namespace Fonlow.Poco2Client
 
 			var toGenerateJsonSerializerContext = codeGenOutputsSettings.UseSystemTextJson && !string.IsNullOrEmpty(codeGenOutputsSettings.JsonSerializerContextNamespace);
 			CodeNamespaceEx namespaceOfJsonSerializerContext = toGenerateJsonSerializerContext ? clientCodeCompileUnit.Namespaces.InsertToSortedCollection(codeGenOutputsSettings.JsonSerializerContextNamespace, true) : null;
-			var jsonContextAttributeDeclaration = toGenerateJsonSerializerContext ? PodGenHelper.AddClassesToJsonSerializerContext(namespaceOfJsonSerializerContext, [], null) : null;
+			var jsonContextAttributeDeclaration = toGenerateJsonSerializerContext ? PodGenHelper.AddClassesToJsonSerializerContext(namespaceOfJsonSerializerContext, []) : null;
 
 			this.pendingTypes.AddRange(types);
 
@@ -165,10 +165,10 @@ namespace Fonlow.Poco2Client
 					return TypeToCodeTypeDeclaration(type, clientNamespace, namespacesOfTypes, cherryPickingMethods);
 				}).Where(d => d != null).ToArray();//add classes into the namespace
 
-				var candidates = codeTypeDeclarations.Where(d => d.TypeParameters.Count == 0).Select(d => d.Name).ToArray();
+				var candidates = codeTypeDeclarations.Where(d => d.TypeParameters.Count == 0).Select(d => $"{clientNamespaceText}.{d.Name}").ToArray();
 				if (jsonContextAttributeDeclaration != null)
 				{
-					PodGenHelper.AddClassesToJsonSerializerContext(namespaceOfJsonSerializerContext, candidates, jsonContextAttributeDeclaration);
+					PodGenHelper.AddClassesToJsonSerializerContext(namespaceOfJsonSerializerContext, candidates);
 				}
 			}
 		}

@@ -128,7 +128,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		{
 			var executingAssembly = Assembly.GetExecutingAssembly();
 			var executingPath = Path.GetDirectoryName(executingAssembly.Location);
-			return Assembly.LoadFile(Path.Combine(executingPath, assemblyName+".dll"));
+			return Assembly.LoadFile(Path.Combine(executingPath, assemblyName + ".dll"));
 		}
 
 		void GenerateClientTypesFormWebApis(WebApiDescription[] webApiDescriptions)
@@ -157,7 +157,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				GenerateCsFromPocoAssemblies();
 			}
-			
+
 			IOrderedEnumerable<IGrouping<string, ControllerDescriptor>> controllersGroupByNamespace = webApiDescriptions.Select(d => d.ActionDescriptor.ControllerDescriptor)
 				.Distinct()
 				.GroupBy(d => d.ControllerType.Namespace)
@@ -196,6 +196,12 @@ namespace Fonlow.CodeDom.Web.Cs
 					.OrderBy(d => d.ControllerName) // order by groupname, and do group by group
 					.Select(d =>
 					{
+						var controllerClassObsolete = d.ControllerType.GetCustomAttribute<ObsoleteAttribute>();
+						if (controllerClassObsolete != null && controllerClassObsolete.IsError)
+						{
+							return null;
+						}
+
 						string controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName; // like DemoCoreWeb.Controllers  Entities
 						if (codeGenSettings.ApiSelections.ExcludedControllerNames != null && codeGenSettings.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
 							return null;
@@ -241,7 +247,7 @@ namespace Fonlow.CodeDom.Web.Cs
 						return controllerCodeTypeDeclaration;
 					}
 					)
-					.ToArray();//add classes into the namespace
+					.Where(d => d != null).ToArray();//add classes into the namespace
 
 			}
 
@@ -254,7 +260,11 @@ namespace Fonlow.CodeDom.Web.Cs
 					continue;
 
 				CodeTypeDeclaration existingClientClass = LookupExistingClassOfCs(controllerNamespace, ConcatOptionalSuffix(controllerName));
-				System.Diagnostics.Trace.Assert(existingClientClass != null);
+				//System.Diagnostics.Trace.Assert(existingClientClass != null);
+				if (existingClientClass == null)
+				{
+					continue;
+				}
 
 				CodeMemberMethod apiFunction = ClientApiFunctionGen.Create(d, Poco2CsGenerator, this.codeGenSettings, true);
 				if (apiFunction != null)

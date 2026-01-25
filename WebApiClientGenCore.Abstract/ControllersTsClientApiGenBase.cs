@@ -106,6 +106,12 @@ namespace Fonlow.CodeDom.Web.Ts
 					.OrderBy(d => d.ControllerName)
 					.Select(d =>
 					{
+						var controllerClassObsolete = d.ControllerType.GetCustomAttribute<ObsoleteAttribute>();
+						if (controllerClassObsolete != null && controllerClassObsolete.IsError)
+						{
+							return null;
+						}
+
 						string controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName; // like DemoCoreWeb.Controllers  Entities
 						if (apiSelections.ExcludedControllerNames != null && apiSelections.ExcludedControllerNames.Contains(controllerFullName))
 							return null;
@@ -149,7 +155,8 @@ namespace Fonlow.CodeDom.Web.Ts
 						}
 
 						return controllerCodeTypeDeclaration;
-					}).Where(d => d != null).ToArray();//add classes into the namespace
+					})
+					.Where(d => d != null).ToArray();//add classes into the namespace
 			}
 
 			foreach (WebApiDescription apiDesc in webApiDescriptions)
@@ -161,7 +168,11 @@ namespace Fonlow.CodeDom.Web.Ts
 					continue;
 
 				CodeTypeDeclaration existingClientClass = LookupExistingClassOfTsInCodeDom(controllerNamespace, GetContainerClassName(controllerName));
-				System.Diagnostics.Trace.Assert(existingClientClass != null);
+				//System.Diagnostics.Trace.Assert(existingClientClass != null);
+				if (existingClientClass == null)
+				{
+					continue;
+				}
 
 				CodeMemberMethod apiFunction = apiFunctionGen.CreateApiFunction(apiDesc, Poco2TsGen, poco2CsGen, this.jsOutput);
 				if (apiFunction != null)

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DemoWebApi.Controllers
 {
-	[Obsolete("This controller is obsolete, use ValuesController instead.")]
+	[Obsolete("This controller is obsolete, use ValuesController instead.", true)]
 	[ApiController]
 	[Route("api/[controller]")]
 	public class ObsoleteValuesController : ControllerBase

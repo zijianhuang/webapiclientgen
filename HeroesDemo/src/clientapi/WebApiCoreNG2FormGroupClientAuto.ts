@@ -764,6 +764,72 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
+	@Injectable({ providedIn: 'root' })
+	export class ObsoleteValues {
+		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
+		}
+
+		/**
+		 * DELETE api/ObsoleteValues/{id}
+		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		delete(id?: number | null, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.delete(this.baseUri + 'api/ObsoleteValues/' + id, { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
+		}
+
+		/**
+		 * Get a list of value
+		 * GET api/ObsoleteValues
+		 */
+		get(headersHandler?: () => HttpHeaders): Observable<Array<string>> {
+			return this.http.get<Array<string>>(this.baseUri + 'api/ObsoleteValues', { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * Get by both Id and name
+		 * GET api/ObsoleteValues/Name/{id}?name={name}
+		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		getByIdOfInt32AndNameOfString(id?: number | null, name?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.get(this.baseUri + 'api/ObsoleteValues/Name/' + id + '?name=' + (!name ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
+		}
+
+		/**
+		 * Get by name
+		 * GET api/ObsoleteValues?name={name}
+		 * @deprecated This method is obsolete, use ValuesController.Get instead.
+		 */
+		getByNameOfString(name?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.get(this.baseUri + 'api/ObsoleteValues?name=' + (!name ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
+		}
+
+		/**
+		 * Get by Id
+		 * GET api/ObsoleteValues/{id}
+		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		getByIdOfInt32(id?: number | null, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.get(this.baseUri + 'api/ObsoleteValues/' + id, { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
+		}
+
+		/**
+		 * Get a list of value async, it is get2
+		 * GET api/ObsoleteValues/Get2
+		 */
+		get2(headersHandler?: () => HttpHeaders): Observable<Array<string>> {
+			return this.http.get<Array<string>>(this.baseUri + 'api/ObsoleteValues/Get2', { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * Update with valjue
+		 * PUT api/ObsoleteValues/{id}
+		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		put(id?: number | null, value?: string | null, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.put(this.baseUri + 'api/ObsoleteValues/' + id, JSON.stringify(value), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
+		}
+	}
+
 
 	/**
 	 * For testing posting and getting string data. Returned string is JSON object.

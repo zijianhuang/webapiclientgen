@@ -80,8 +80,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					returnTypeDecoratedWithNotNullable = returnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
 				}
 
-				var attributes = methodInfo.GetCustomAttributes<ObsoleteAttribute>();
-				obsoleteAttribute = attributes.FirstOrDefault();
+				obsoleteAttribute = methodInfo.GetCustomAttribute<ObsoleteAttribute>();
 			}
 
 			AnnotationCommentGenerator annotationCommentGenerator = new AnnotationCommentGenerator();
@@ -94,6 +93,17 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		static readonly Type typeOfChar = typeof(char);
 
+		/// <summary>
+		/// Creates a CodeDOM method that represents a client API function for the specified Web API description.
+		/// </summary>
+		/// <remarks>The generated method reflects the structure and behavior of the described Web API endpoint,
+		/// including parameter types and return type. Use the returned CodeMemberMethod to integrate the generated client
+		/// function into a CodeDOM code model.</remarks>
+		/// <param name="webApiDescription">The metadata describing the Web API endpoint to generate the client method for. Cannot be null.</param>
+		/// <param name="poco2CsGen">The POCO-to-C# code generator used to generate type definitions referenced by the client method. Cannot be null.</param>
+		/// <param name="codeGenOutputsSettings">The settings that control code generation output, such as naming conventions and output options. Cannot be null.</param>
+		/// <param name="forAsync">true to generate an asynchronous client method; otherwise, false to generate a synchronous method.</param>
+		/// <returns>A CodeMemberMethod representing the generated client API function for the specified Web API endpoint. Null if obsolete.IsError</returns>
 		public static CodeMemberMethod Create(WebApiDescription webApiDescription, Poco2Client.Poco2CsGen poco2CsGen, CodeGenSettings codeGenOutputsSettings, bool forAsync)
 		{
 			ClientApiFunctionGen gen = new ClientApiFunctionGen(webApiDescription, poco2CsGen, codeGenOutputsSettings, forAsync);
@@ -116,11 +126,24 @@ namespace Fonlow.CodeDom.Web.Cs
 			poco2CsGen.CheckOrAdd(candidateType, controllerAssemblyName != assemblyFilename);
 		}
 
+		/// <summary>
+		/// Creates and configures a CodeMemberMethod that represents an API client function based on the current API
+		/// description and settings.
+		/// </summary>
+		/// <remarks>The returned method includes appropriate documentation comments and nullable annotations
+		/// according to the configured code generation settings and the API's return type. The implementation and HTTP method
+		/// handling are determined by the API description provided to the generator.</remarks>
+		/// <returns>A CodeMemberMethod instance representing the generated API client method, or null if the method could not be
+		/// created.</returns>
 		CodeMemberMethod CreateApiFunction()
 		{
 			AddCustomPocoTypeForCs(returnType);
 			//create method
 			clientMethod = forAsync ? CreateMethodBasicForAsync() : CreateMethodBasic();
+			if (clientMethod == null)
+			{
+				return null;
+			}
 
 			CreateDocComments();
 			if (codeGenOutputsSettings.MaybeNullAttributeOnMethod && returnTypeDecoratedWithMaybeNullable)
@@ -163,6 +186,10 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			if (obsoleteAttribute != null)
 			{
+				if (obsoleteAttribute.IsError){
+					return null;
+				}
+
 				cmm.CustomAttributes.Add(AnnotationDeclarationGenerator.CreateDeclaration(obsoleteAttribute));
 			}
 
@@ -181,6 +208,11 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			if (obsoleteAttribute != null)
 			{
+				if (obsoleteAttribute.IsError)
+				{
+					return null;
+				}
+
 				cmm.CustomAttributes.Add(AnnotationDeclarationGenerator.CreateDeclaration(obsoleteAttribute));
 			}
 

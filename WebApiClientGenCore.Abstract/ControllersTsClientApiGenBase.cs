@@ -164,7 +164,10 @@ namespace Fonlow.CodeDom.Web.Ts
 				System.Diagnostics.Trace.Assert(existingClientClass != null);
 
 				CodeMemberMethod apiFunction = apiFunctionGen.CreateApiFunction(apiDesc, Poco2TsGen, poco2CsGen, this.jsOutput);
-				existingClientClass.Members.Add(apiFunction);
+				if (apiFunction != null)
+				{
+					existingClientClass.Members.Add(apiFunction);
+				}
 			}
 
 			RefineOverloadingFunctions();

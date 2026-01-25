@@ -257,10 +257,17 @@ namespace Fonlow.CodeDom.Web.Cs
 				System.Diagnostics.Trace.Assert(existingClientClass != null);
 
 				CodeMemberMethod apiFunction = ClientApiFunctionGen.Create(d, Poco2CsGenerator, this.codeGenSettings, true);
-				existingClientClass.Members.Add(apiFunction);
-				if (codeGenSettings.ClientApiOutputs.GenerateBothAsyncAndSync)
+				if (apiFunction != null)
 				{
-					existingClientClass.Members.Add(ClientApiFunctionGen.Create(d, Poco2CsGenerator, this.codeGenSettings, false));
+					existingClientClass.Members.Add(apiFunction);
+					if (codeGenSettings.ClientApiOutputs.GenerateBothAsyncAndSync)
+					{
+						var clientApiFunction = ClientApiFunctionGen.Create(d, Poco2CsGenerator, this.codeGenSettings, false);
+						if (clientApiFunction != null)
+						{
+							existingClientClass.Members.Add(clientApiFunction);
+						}
+					}
 				}
 			}
 

@@ -2,6 +2,7 @@
 using Fonlow.Reflection;
 using Fonlow.TypeScriptCodeDom;
 using Fonlow.Web.Meta;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -47,6 +48,20 @@ namespace Fonlow.CodeDom.Web.Ts
 			attribueCommentDic = annotationCommentGenerator.Get();
 		}
 
+		/// <summary>
+		/// Generates a CodeMemberMethod representing a client API function based on the specified Web API description and
+		/// code generation options.
+		/// </summary>
+		/// <remarks>The generated CodeMemberMethod reflects the HTTP method, action name, and return type as
+		/// described by the WebApiDescription. If the API action is marked as obsolete with IsError set to true, no method is
+		/// generated and null is returned.</remarks>
+		/// <param name="description">The WebApiDescription that provides metadata about the API action to generate the client function for.</param>
+		/// <param name="poco2TsGen">The IPoco2Client instance used to generate TypeScript representations of POCO types referenced by the API.</param>
+		/// <param name="poco2CsGen">The IDocCommentTranslate instance used to translate or generate documentation comments for the generated code.</param>
+		/// <param name="jsOutput">The JSOutput options that control code generation settings such as string handling and strict mode.</param>
+		/// <returns>A CodeMemberMethod representing the generated client API function, or null if the API action is marked as obsolete
+		/// with IsError set to true.</returns>
+		/// <exception cref="ArgumentException">Thrown if the method information for the specified API action cannot be found in the controller type.</exception>
 		public CodeMemberMethod CreateApiFunction(WebApiDescription description, IPoco2Client poco2TsGen, IDocCommentTranslate poco2CsGen, JSOutput jsOutput)
 		{
 			this.Description = description;
@@ -81,8 +96,11 @@ namespace Fonlow.CodeDom.Web.Ts
 					ReturnTypeIsNullable = ReturnType != null && !Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
 				}
 
-				var attributes = methodInfo.GetCustomAttributes<ObsoleteAttribute>();
-				obsoleteAttribute = attributes.FirstOrDefault();
+				obsoleteAttribute = methodInfo.GetCustomAttribute<ObsoleteAttribute>();
+				if (obsoleteAttribute!= null && obsoleteAttribute.IsError)
+				{
+					return null;
+				}
 			}
 			else
 			{

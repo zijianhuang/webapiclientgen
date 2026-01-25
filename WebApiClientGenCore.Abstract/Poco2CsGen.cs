@@ -144,12 +144,17 @@ namespace Fonlow.Poco2Client
 			if (types == null)
 				throw new ArgumentNullException(nameof(types), "types is not defined.");
 
+			var toGenerateJsonSerializerContext = codeGenOutputsSettings.UseSystemTextJson && !string.IsNullOrEmpty(codeGenOutputsSettings.JsonSerializerContextNamespace);
+			CodeNamespaceEx namespaceOfJsonSerializerContext = toGenerateJsonSerializerContext ? clientCodeCompileUnit.Namespaces.InsertToSortedCollection(codeGenOutputsSettings.JsonSerializerContextNamespace, true) : null;
+			var jsonContextAttributeDeclaration = toGenerateJsonSerializerContext ? PodGenHelper.AddClassesToJsonSerializerContext(namespaceOfJsonSerializerContext, [], null) : null;
+
 			this.pendingTypes.AddRange(types);
 
 			IGrouping<string, Type>[] typeGroupedByNamespace = types
 				.GroupBy(d => d.Namespace)
 				.OrderBy(k => k.Key).ToArray(); // order by namespace
 			string[] namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray(); // service type namespaces without client suffix
+
 			foreach (IGrouping<string, Type> groupedTypes in typeGroupedByNamespace)
 			{
 				string clientNamespaceText = groupedTypes.Key + codeGenOutputsSettings.CSClientNamespaceSuffix;
@@ -161,7 +166,10 @@ namespace Fonlow.Poco2Client
 				}).Where(d => d != null).ToArray();//add classes into the namespace
 
 				var candidates = codeTypeDeclarations.Where(d => d.TypeParameters.Count == 0).Select(d => d.Name).ToArray();
-				var jsonContextAttributeDeclaration = PodGenHelper.CreateJsonSerializerContext(clientNamespace, candidates);
+				if (jsonContextAttributeDeclaration != null)
+				{
+					PodGenHelper.AddClassesToJsonSerializerContext(namespaceOfJsonSerializerContext, candidates, jsonContextAttributeDeclaration);
+				}
 			}
 		}
 
@@ -366,7 +374,7 @@ namespace Fonlow.Poco2Client
 				foreach (FieldInfo fieldInfo in typeFields)
 				{
 					var fieldObsolete = fieldInfo.GetCustomAttribute<ObsoleteAttribute>();
-					if (fieldObsolete!=null && fieldObsolete.IsError)
+					if (fieldObsolete != null && fieldObsolete.IsError)
 					{
 						continue;
 					}

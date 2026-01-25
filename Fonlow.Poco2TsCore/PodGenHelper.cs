@@ -112,7 +112,7 @@ namespace Fonlow.Poco2Client
 		public static CodeTypeDeclaration CreateJsonSerializerContext(CodeNamespace ns, string[] classNames)
 		{
 			var namespaceTranslated = ns.Name.Replace(".", "_");
-			CodeTypeDeclaration targetClass = new CodeTypeDeclaration(namespaceTranslated +"JsonSerializerContext")
+			CodeTypeDeclaration targetClass = new CodeTypeDeclaration(namespaceTranslated + "JsonSerializerContext")
 			{
 				TypeAttributes = TypeAttributes.Public | TypeAttributes.Class, //setting IsInterface has no use
 				IsPartial = true
@@ -120,13 +120,50 @@ namespace Fonlow.Poco2Client
 
 			targetClass.BaseTypes.Add("System.Text.Json.Serialization.JsonSerializerContext");
 
-			targetClass.CustomAttributes.AddRange(classNames.Select(d=>
+			targetClass.CustomAttributes.AddRange(classNames.Select(d =>
 			{
 				var a = new CodeAttributeDeclaration($"System.Text.Json.Serialization.JsonSerializable");
 				a.Arguments.Add(new CodeAttributeArgument(new CodeSnippetExpression($"typeof({d})")));
 				return a;
 			}).ToArray());
 			ns.Types.Add(targetClass);
+			return targetClass;
+		}
+
+		/// <summary>
+		/// Adds <see cref="System.Text.Json.Serialization.JsonSerializableAttribute"/> attributes for the specified classes
+		/// to a JSON serializer context within the given namespace. Creates a new context class if one is not provided.
+		/// </summary>
+		/// <remarks>The created or updated context class derives from <see
+		/// cref="System.Text.Json.Serialization.JsonSerializerContext"/> and is marked as partial. This method is useful for
+		/// source generation scenarios where explicit registration of serializable types is required.</remarks>
+		/// <param name="ns">The code namespace to which the JSON serializer context and attributes will be added.</param>
+		/// <param name="classNames">An array of class names to be registered with the JSON serializer context. Each class will be annotated for
+		/// serialization.</param>
+		/// <param name="targetClass">The target <see cref="System.CodeDom.CodeTypeDeclaration"/> representing the JSON serializer context. If <see
+		/// langword="null"/>, a new context class will be created and added to the namespace.</param>
+		/// <returns>The <see cref="System.CodeDom.CodeTypeDeclaration"/> representing the JSON serializer context with the specified
+		/// classes registered for serialization.</returns>
+		public static CodeTypeDeclaration AddClassesToJsonSerializerContext(CodeNamespace ns, string[] classNames, CodeTypeDeclaration targetClass=null)
+		{
+			var namespaceTranslated = ns.Name.Replace(".", "_");
+			if (targetClass == null){
+				targetClass = new CodeTypeDeclaration(namespaceTranslated + "JsonSerializerContext")
+				{
+					TypeAttributes = TypeAttributes.Public | TypeAttributes.Class, //setting IsInterface has no use
+					IsPartial = true
+				};
+
+				targetClass.BaseTypes.Add("System.Text.Json.Serialization.JsonSerializerContext");
+				ns.Types.Add(targetClass);
+			}
+
+			targetClass.CustomAttributes.AddRange(classNames.Select(d =>
+			{
+				var a = new CodeAttributeDeclaration($"System.Text.Json.Serialization.JsonSerializable");
+				a.Arguments.Add(new CodeAttributeArgument(new CodeSnippetExpression($"typeof({d})")));
+				return a;
+			}).ToArray());
 			return targetClass;
 		}
 

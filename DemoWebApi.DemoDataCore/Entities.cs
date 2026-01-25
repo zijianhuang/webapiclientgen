@@ -254,7 +254,8 @@ namespace DemoWebApi.DemoData
 	}
 
 	[DataContract(Namespace = Constants.DataNamespace)]
-	public class BizEntity : Entity {
+	public class BizEntity : Entity
+	{
 
 		[DataMember]
 		public DateOnly RegisterDate { get; set; }
@@ -320,7 +321,13 @@ namespace DemoWebApi.DemoData
 		public string Message { get; set; }
 	}
 
-	[Obsolete("Type deprecated for testing")]
+	[Obsolete("Type deprecated for testing", true)]
+	public class TypeDiscontinued
+	{
+
+	}
+
+	[Obsolete("Type with properties deprecated for testing")]
 	[DataContract(Namespace = Constants.DataNamespace)]
 	public class MimsPackage
 	{

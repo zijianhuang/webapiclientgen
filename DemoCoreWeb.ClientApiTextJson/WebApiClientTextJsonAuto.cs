@@ -77,6 +77,13 @@ namespace DemoWebApi.Controllers.Client
 		public bool Super { get; set; }
 	}
 	
+	[System.Text.Json.Serialization.JsonSerializable(typeof(FileResult))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(Hero))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(SuperHero))]
+	public partial class DemoWebApi_Controllers_ClientJsonSerializerContext : System.Text.Json.Serialization.JsonSerializerContext
+	{
+	}
+	
 	/// <summary>
 	/// For testing different commbinations of parameters and returns
 	/// </summary>
@@ -8520,6 +8527,11 @@ namespace DemoWebApi.DemoData.Another.Client
 		/// </summary>
 		public double Y;
 	}
+	
+	[System.Text.Json.Serialization.JsonSerializable(typeof(MyPoint))]
+	public partial class DemoWebApi_DemoData_Another_ClientJsonSerializerContext : System.Text.Json.Serialization.JsonSerializerContext
+	{
+	}
 }
 namespace DemoWebApi.DemoData.Base.Client
 {
@@ -8562,6 +8574,11 @@ namespace DemoWebApi.DemoData.Base.Client
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.RegularExpression(@"^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$")]
 		public System.Uri Web { get; set; }
+	}
+	
+	[System.Text.Json.Serialization.JsonSerializable(typeof(Entity))]
+	public partial class DemoWebApi_DemoData_Base_ClientJsonSerializerContext : System.Text.Json.Serialization.JsonSerializerContext
+	{
 	}
 }
 namespace DemoWebApi.DemoData.Client
@@ -8763,7 +8780,7 @@ namespace DemoWebApi.DemoData.Client
 		T,
 	}
 	
-	[System.Obsolete("Type deprecated for testing")]
+	[System.Obsolete("Type with properties deprecated for testing")]
 	public class MimsPackage : object
 	{
 		
@@ -8788,14 +8805,8 @@ namespace DemoWebApi.DemoData.Client
 		
 		public string Tag { get; set; }
 		
-		[System.Obsolete("Just for testing", true)]
-		public string TagForTest { get; set; }
-		
 		[System.Obsolete("Just for testing", DiagnosticId="someId", UrlFormat="WhateverFormat")]
 		public string TagForTest2 { get; set; }
-		
-		[System.Obsolete("Just for testing", true, DiagnosticId="someId", UrlFormat="WhateverFormat")]
-		public string TagForTest3 { get; set; }
 	}
 	
 	public class MimsResult<T> : object
@@ -8894,6 +8905,26 @@ namespace DemoWebApi.DemoData.Client
 		
 		Fax,
 	}
+	
+	[System.Text.Json.Serialization.JsonSerializable(typeof(Address))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(AddressType))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(BigNumbers))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(BizEntity))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(Company))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(Days))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(IdMap))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(IntegralEntity))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(MedicalContraindiationResponseTypeReason))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(MedicalContraindiationResponseTypeTypeCode))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(MimsPackage))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(MyEnumType))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(MyPeopleDic))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(Person))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(PhoneNumber))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(PhoneType))]
+	public partial class DemoWebApi_DemoData_ClientJsonSerializerContext : System.Text.Json.Serialization.JsonSerializerContext
+	{
+	}
 }
 namespace DemoWebApi.DemoDataEx.Client
 {
@@ -8909,6 +8940,12 @@ namespace DemoWebApi.DemoDataEx.Client
 	{
 		
 		public string Trustee { get; set; }
+	}
+	
+	[System.Text.Json.Serialization.JsonSerializable(typeof(TextJsonPerson))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(Trust))]
+	public partial class DemoWebApi_DemoDataEx_ClientJsonSerializerContext : System.Text.Json.Serialization.JsonSerializerContext
+	{
 	}
 }
 namespace DemoWebApi.Models.Client
@@ -9043,6 +9080,17 @@ namespace DemoWebApi.Models.Client
 		public string TokenType { get; set; }
 		
 		public string Username { get; set; }
+	}
+	
+	[System.Text.Json.Serialization.JsonSerializable(typeof(AddExternalLoginBindingModel))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(ChangePasswordBindingModel))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(RegisterBindingModel))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(RegisterExternalBindingModel))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(RemoveLoginBindingModel))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(SetPasswordBindingModel))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(TokenResponseModel))]
+	public partial class DemoWebApi_Models_ClientJsonSerializerContext : System.Text.Json.Serialization.JsonSerializerContext
+	{
 	}
 }
 namespace DemoCoreWeb.Controllers.Client

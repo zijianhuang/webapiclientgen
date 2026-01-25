@@ -5,9 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AnalysisLevel>latest-all</AnalysisLevel>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Fonlow.Auth.PayloadConverters\Fonlow.Auth.PayloadConverters.csproj" />
-  </ItemGroup>
-
+	<PropertyGroup>
+		<JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
+	</PropertyGroup>
 </Project>

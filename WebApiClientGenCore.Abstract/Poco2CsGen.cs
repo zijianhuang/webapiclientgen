@@ -158,7 +158,10 @@ namespace Fonlow.Poco2Client
 				CodeTypeDeclaration[] codeTypeDeclarations = groupedTypes.OrderBy(t => t.Name).Select(type =>
 				{
 					return TypeToCodeTypeDeclaration(type, clientNamespace, namespacesOfTypes, cherryPickingMethods);
-				}).ToArray();//add classes into the namespace
+				}).Where(d => d != null).ToArray();//add classes into the namespace
+
+				var candidates = codeTypeDeclarations.Where(d => d.TypeParameters.Count == 0).Select(d => d.Name).ToArray();
+				var jsonContextAttributeDeclaration = PodGenHelper.CreateJsonSerializerContext(clientNamespace, candidates);
 			}
 		}
 
@@ -294,10 +297,15 @@ namespace Fonlow.Poco2Client
 					}
 				}
 
-				var obsoleteAttribute = type.GetCustomAttribute<ObsoleteAttribute>();
-				if (obsoleteAttribute != null)
+				var typeObsoleteAttribute = type.GetCustomAttribute<ObsoleteAttribute>();
+				if (typeObsoleteAttribute != null)
 				{
-					typeDeclaration.CustomAttributes.Add(AnnotationDeclarationGenerator.CreateDeclaration(obsoleteAttribute));
+					if (typeObsoleteAttribute.IsError) // not to generate client Type.
+					{
+						return null;
+					}
+
+					typeDeclaration.CustomAttributes.Add(AnnotationDeclarationGenerator.CreateDeclaration(typeObsoleteAttribute));
 				}
 
 				CreateTypeDocComment(type, typeDeclaration);
@@ -307,6 +315,12 @@ namespace Fonlow.Poco2Client
 				PropertyInfo[] typeProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name).ToArray();
 				foreach (PropertyInfo propertyInfo in typeProperties)
 				{
+					var propertyObsolete = propertyInfo.GetCustomAttribute<ObsoleteAttribute>();
+					if (propertyObsolete != null && propertyObsolete.IsError)
+					{
+						continue;
+					}
+
 					CheckOrAdd(propertyInfo.PropertyType, true);
 
 					CherryType cherryType = CherryPicking.GetMemberCherryType(propertyInfo, cherryPickingMethods, withDataContract);
@@ -351,6 +365,12 @@ namespace Fonlow.Poco2Client
 				FieldInfo[] typeFields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(f => f.Name).ToArray();
 				foreach (FieldInfo fieldInfo in typeFields)
 				{
+					var fieldObsolete = fieldInfo.GetCustomAttribute<ObsoleteAttribute>();
+					if (fieldObsolete!=null && fieldObsolete.IsError)
+					{
+						continue;
+					}
+
 					CheckOrAdd(fieldInfo.FieldType, true);
 
 					CherryType cherryType = CherryPicking.GetMemberCherryType(fieldInfo, cherryPickingMethods, withDataContract);

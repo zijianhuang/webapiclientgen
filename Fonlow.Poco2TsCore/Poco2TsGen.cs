@@ -321,6 +321,12 @@ namespace Fonlow.Poco2Ts
 				PropertyInfo[] typeProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name).ToArray();
 				foreach (PropertyInfo propertyInfo in typeProperties)
 				{
+					var propertyObsolete = propertyInfo.GetCustomAttribute<ObsoleteAttribute>();
+					if (propertyObsolete != null && propertyObsolete.IsError)
+					{
+						continue;
+					}
+
 					CherryType cherryType = CherryPicking.GetMemberCherryType(propertyInfo, methods, withDataContract);
 					if (cherryType == CherryType.None)
 						continue;
@@ -364,6 +370,12 @@ namespace Fonlow.Poco2Ts
 				FieldInfo[] typeFields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(f => f.Name).ToArray();
 				foreach (FieldInfo fieldInfo in typeFields)
 				{
+					var fieldObsolete = fieldInfo.GetCustomAttribute<ObsoleteAttribute>();
+					if (fieldObsolete != null && fieldObsolete.IsError)
+					{
+						continue;
+					}
+
 					CherryType cherryType = CherryPicking.GetMemberCherryType(fieldInfo, methods, withDataContract);
 					if (cherryType == CherryType.None)
 						continue;

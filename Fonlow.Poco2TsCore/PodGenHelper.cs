@@ -93,7 +93,39 @@ namespace Fonlow.Poco2Client
 			}).ToArray()
 			);
 
+			ns.Types.Add(targetClass);
+			return targetClass;
+		}
 
+		/// <summary>
+		/// Creates a new CodeDOM type declaration for a JSON serializer context class that derives from JsonSerializerContext
+		/// and registers the specified class names.
+		/// </summary>
+		/// <remarks>The generated class is named "AppJsonSerializerContext" and is marked as public. It derives from
+		/// System.Text.Json.Serialization.JsonSerializerContext and includes custom attributes for each specified class
+		/// name.</remarks>
+		/// <param name="ns">The CodeNamespace to which the generated serializer context class will be added.</param>
+		/// <param name="classNames">An array of class names to be registered with the serializer context. Each name represents a type to be included
+		/// in the generated context.</param>
+		/// <returns>A CodeTypeDeclaration representing the generated serializer context class, ready to be added to the provided
+		/// namespace.</returns>
+		public static CodeTypeDeclaration CreateJsonSerializerContext(CodeNamespace ns, string[] classNames)
+		{
+			var namespaceTranslated = ns.Name.Replace(".", "_");
+			CodeTypeDeclaration targetClass = new CodeTypeDeclaration(namespaceTranslated +"JsonSerializerContext")
+			{
+				TypeAttributes = TypeAttributes.Public | TypeAttributes.Class, //setting IsInterface has no use
+				IsPartial = true
+			};
+
+			targetClass.BaseTypes.Add("System.Text.Json.Serialization.JsonSerializerContext");
+
+			targetClass.CustomAttributes.AddRange(classNames.Select(d=>
+			{
+				var a = new CodeAttributeDeclaration($"System.Text.Json.Serialization.JsonSerializable");
+				a.Arguments.Add(new CodeAttributeArgument(new CodeSnippetExpression($"typeof({d})")));
+				return a;
+			}).ToArray());
 			ns.Types.Add(targetClass);
 			return targetClass;
 		}
@@ -102,8 +134,8 @@ namespace Fonlow.Poco2Client
 		{
 			CodeTypeDeclaration targetClass = new CodeTypeDeclaration(className)
 			{
-				TypeAttributes = TypeAttributes.Public, 
-				IsStruct=true
+				TypeAttributes = TypeAttributes.Public,
+				IsStruct = true
 			};
 
 			ns.Types.Add(targetClass);

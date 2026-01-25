@@ -143,10 +143,10 @@ namespace Fonlow.Poco2Ts
 			}
 
 
-			var obsoleteAttribute = type.GetCustomAttribute<ObsoleteAttribute>();
-			if (obsoleteAttribute != null)
+			var typeObsoleteAttribute = type.GetCustomAttribute<ObsoleteAttribute>();
+			if (typeObsoleteAttribute != null)
 			{
-				typeDeclaration.Comments.Add(new CodeCommentStatement(AnnotationCommentGenerator.GenerateObsoleteAttributeComments(obsoleteAttribute), true));
+				typeDeclaration.Comments.Add(new CodeCommentStatement(AnnotationCommentGenerator.GenerateObsoleteAttributeComments(typeObsoleteAttribute), true));
 			}
 		}
 

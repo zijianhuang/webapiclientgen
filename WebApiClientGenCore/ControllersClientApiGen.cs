@@ -196,18 +196,22 @@ namespace Fonlow.CodeDom.Web.Cs
 					.OrderBy(d => d.ControllerName) // order by groupname, and do group by group
 					.Select(d =>
 					{
-						var controllerClassObsolete = d.ControllerType.GetCustomAttribute<ObsoleteAttribute>();
-						if (controllerClassObsolete != null && controllerClassObsolete.IsError)
-						{
-							return null;
-						}
-
 						string controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName; // like DemoCoreWeb.Controllers  Entities
 						if (codeGenSettings.ApiSelections.ExcludedControllerNames != null && codeGenSettings.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
 							return null;
 
 						string containerClassName = ConcatOptionalSuffix(d.ControllerName); // optionally become EntitiesClient
 						CodeTypeDeclaration controllerCodeTypeDeclaration = CreateControllerClientClass(clientNamespace, containerClassName);
+						var controllerObsoleteAttribute = d.ControllerType.GetCustomAttribute<ObsoleteAttribute>();
+						if (controllerObsoleteAttribute != null)
+						{
+							if (controllerObsoleteAttribute.IsError) // not to generate client Type.
+							{
+								return null;
+							}
+
+							controllerCodeTypeDeclaration.CustomAttributes.Add(AnnotationDeclarationGenerator.CreateDeclaration(controllerObsoleteAttribute));
+						}
 
 						Fonlow.DocComment.docMember typeComments = null;
 						string[] docCommentsNoIndent = null;

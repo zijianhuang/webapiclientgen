@@ -678,6 +678,74 @@ export namespace DemoWebApi_Controllers_Client {
 	}
 
 
+	/** @deprecated This controller is obsolete, use ValuesController instead. */
+	@autoinject()
+	export class ObsoleteValues {
+		constructor(private http: HttpClient) {
+		}
+
+		/**
+		 * DELETE api/ObsoleteValues/{id}
+		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		delete(id: number | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.delete('api/ObsoleteValues/' + id, { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * Get a list of value
+		 * GET api/ObsoleteValues
+		 */
+		get(headersHandler?: () => {[header: string]: string}): Promise<Array<string>> {
+			return this.http.get('api/ObsoleteValues', { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * Get by both Id and name
+		 * GET api/ObsoleteValues/Name/{id}?name={name}
+		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		getByIdOfInt32AndNameOfString(id: number | null, name: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.get('api/ObsoleteValues/Name/' + id + '?name=' + (!name ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.status == 204 ? null : d.text(); throw d;});
+		}
+
+		/**
+		 * Get by name
+		 * GET api/ObsoleteValues?name={name}
+		 * @deprecated This method is obsolete, use ValuesController.Get instead.
+		 */
+		getByNameOfString(name: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.get('api/ObsoleteValues?name=' + (!name ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.status == 204 ? null : d.text(); throw d;});
+		}
+
+		/**
+		 * Get by Id
+		 * GET api/ObsoleteValues/{id}
+		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		getByIdOfInt32(id: number | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.get('api/ObsoleteValues/' + id, { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.status == 204 ? null : d.text(); throw d;});
+		}
+
+		/**
+		 * Get a list of value async, it is get2
+		 * GET api/ObsoleteValues/Get2
+		 */
+		get2(headersHandler?: () => {[header: string]: string}): Promise<Array<string>> {
+			return this.http.get('api/ObsoleteValues/Get2', { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * Update with valjue
+		 * PUT api/ObsoleteValues/{id}
+		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		put(id: number | null, value: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/ObsoleteValues/' + id, JSON.stringify(value), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+	}
+
+
 	/**
 	 * For testing posting and getting string data. Returned string is JSON object.
 	 */

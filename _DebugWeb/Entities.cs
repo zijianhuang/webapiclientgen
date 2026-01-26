@@ -307,6 +307,11 @@ namespace DemoWebApi.DemoData
 	}
 
 	[DataContract(Namespace = Constants.DataNamespace)]
+	public class MyGenericInt : MyGeneric<int, string, DateTime>
+	{
+	}
+
+	[DataContract(Namespace = Constants.DataNamespace)]
 	[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum MedicalContraindiationResponseTypeReason
 	{

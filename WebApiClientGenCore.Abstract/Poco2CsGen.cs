@@ -873,19 +873,22 @@ namespace Fonlow.Poco2Client
 		/// <summary>
 		/// Giving something like MyNamespace.Client.TName
 		/// </summary>
-		/// <param name="t"></param>
+		/// <param name="type"></param>
 		/// <returns></returns>
-		string RefineCustomComplexTypeText(Type t)
+		string RefineCustomComplexTypeText(Type type)
 		{
-			if (t.IsGenericType && !t.IsGenericTypeDefinition)
+			if (type.IsGenericType && !type.IsGenericTypeDefinition)
 			{
-				var ts = t.GenericTypeArguments;
+				var ts = type.GenericTypeArguments;
 				var tsText = string.Join(", ", ts.Select(d => d.Name));
-				return t.Namespace + this.codeGenOutputsSettings.CSClientNamespaceSuffix + "." + t.Name + $"<{tsText}>";
+				string[] nameSegments = type.Name.Split('`');
+				string genericClassName = nameSegments[0];
+				return type.Namespace + this.codeGenOutputsSettings.CSClientNamespaceSuffix + "." + genericClassName + $"<{tsText}>";
+				//so to return something like DemoWebApi.DemoData.Client.MyGeneric<Int32, String, DateTime>
 			}
 			else
 			{
-				return t.Namespace + this.codeGenOutputsSettings.CSClientNamespaceSuffix + "." + t.Name;
+				return type.Namespace + this.codeGenOutputsSettings.CSClientNamespaceSuffix + "." + type.Name;
 			}
 		}
 

@@ -605,17 +605,19 @@ namespace Fonlow.Poco2Ts
 			return new CodeTypeReference(RefineCustomComplexTypeText(genericTypeDefinition), genericArguments.Select(t => TranslateToClientTypeReference(t)).ToArray());
 		}
 
-		string RefineCustomComplexTypeText(Type t)
+		string RefineCustomComplexTypeText(Type type)
 		{
-			if (t.IsGenericType && !t.IsGenericTypeDefinition)
+			if (type.IsGenericType && !type.IsGenericTypeDefinition)
 			{
-				var ts = t.GenericTypeArguments;
-				var tsText = string.Join(", ", ts.Select(d => d.Name));
-				return $"{t.Namespace.Replace('.', '_')}{ClientNamespaceSuffix.Replace('.', '_')}.{t.Name}<{tsText}>";
+				var ts = type.GenericTypeArguments;
+				var tsText = string.Join(", ", ts.Select(d => TranslateToClientTypeReference(d).BaseType));
+				string[] nameSegments = type.Name.Split('`');
+				string genericClassName = nameSegments[0];
+				return $"{type.Namespace.Replace('.', '_')}{ClientNamespaceSuffix.Replace('.', '_')}.{genericClassName}<{tsText}>";
 			}
 			else
 			{
-				return $"{t.Namespace.Replace('.', '_')}{ClientNamespaceSuffix.Replace('.', '_')}.{t.Name}";
+				return $"{type.Namespace.Replace('.', '_')}{ClientNamespaceSuffix.Replace('.', '_')}.{type.Name}";
 			}
 		}
 

@@ -2266,9 +2266,9 @@ export namespace DemoWebApi_DemoData_Client {
 		status?: string | null;
 	}
 
-	export interface MyGenericInt extends DemoWebApi_DemoData_Client.MyGeneric`3<Int32, String, DateTime> {
+	export interface MyGenericInt extends DemoWebApi_DemoData_Client.MyGeneric<number, string, Date> {
 	}
-	export interface MyGenericIntFormProperties extends DemoWebApi_DemoData_Client.MyGeneric`3<Int32, String, DateTime> {
+	export interface MyGenericIntFormProperties extends DemoWebApi_DemoData_Client.MyGeneric<number, string, Date> {
 	}
 	export function CreateMyGenericIntFormGroup() {
 		return new FormGroup<MyGenericIntFormProperties>({

@@ -384,10 +384,10 @@ namespace DemoWebApi.DemoData
 		public string Status { get; set; }
 	}
 
-	//[DataContract(Namespace = Constants.DataNamespace)]
-	//public class MyGenericInt : MyGeneric<int, string, DateTime>
-	//{
-	//}
+	[DataContract(Namespace = Constants.DataNamespace)]
+	public class MyGenericInt : MyGeneric<int, string, DateTime>
+	{
+	}
 
 	[DataContract(Namespace = Constants.DataNamespace)]
 	[Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]

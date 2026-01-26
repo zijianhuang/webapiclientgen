@@ -15,7 +15,7 @@ $process = Start-Process @procArgs
 $client = [System.Net.Http.HttpClient]::new()
 $request = [System.Net.Http.HttpRequestMessage]::new([System.Net.Http.HttpMethod]::Post, 'http://localhost:5000/api/codegen')
 
-$jsonBody = Get-Content "$PSScriptRoot/DemoCoreWeb/CodeGen.json" -Raw
+$jsonBody = Get-Content "$path/CodeGen.json" -Raw
 $request.Content = [System.Net.Http.StringContent]::new($jsonBody, [System.Text.Encoding]::UTF8, 'application/json')
 
 try {

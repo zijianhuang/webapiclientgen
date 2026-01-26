@@ -1884,6 +1884,9 @@ export namespace DemoWebApi_DemoData_Client {
 		status?: string | null;
 	}
 
+	export interface MyGenericInt extends DemoWebApi_DemoData_Client.MyGeneric`3<Int32, String, DateTime> {
+	}
+
 	export interface MyPeopleDic {
 		anotherDic?: {[id: string]: string };
 		dic?: {[id: string]: DemoWebApi_DemoData_Client.Person };

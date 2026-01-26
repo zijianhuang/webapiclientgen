@@ -607,7 +607,16 @@ namespace Fonlow.Poco2Ts
 
 		string RefineCustomComplexTypeText(Type t)
 		{
-			return t.Namespace.Replace('.', '_') + ClientNamespaceSuffix.Replace('.', '_') + "." + t.Name;
+			if (t.IsGenericType && !t.IsGenericTypeDefinition)
+			{
+				var ts = t.GenericTypeArguments;
+				var tsText = string.Join(", ", ts.Select(d => d.Name));
+				return $"{t.Namespace.Replace('.', '_')}{ClientNamespaceSuffix.Replace('.', '_')}.{t.Name}<{tsText}>";
+			}
+			else
+			{
+				return $"{t.Namespace.Replace('.', '_')}{ClientNamespaceSuffix.Replace('.', '_')}.{t.Name}";
+			}
 		}
 
 		string RefineNamespaceText(string n){

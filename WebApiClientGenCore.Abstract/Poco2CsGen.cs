@@ -104,7 +104,7 @@ namespace Fonlow.Poco2Client
 			}
 			else if (type.IsGenericType)
 			{
-				return TranslateGenericToTypeReference(type);
+				return TranslateGenericTypeDefinitionToTypeReference(type);
 			}
 			else if (type.IsArray)
 			{
@@ -300,7 +300,7 @@ namespace Fonlow.Poco2Client
 						}
 						else
 						{
-							typeDeclaration.BaseTypes.Add(type.BaseType);
+							typeDeclaration.BaseTypes.Add(type.BaseType); // built-in type
 						}
 					}
 				}
@@ -726,7 +726,7 @@ namespace Fonlow.Poco2Client
 			return result;
 		}
 
-		CodeTypeReference TranslateGenericToTypeReference(Type type)
+		CodeTypeReference TranslateGenericTypeDefinitionToTypeReference(Type type)
 		{
 			Type genericTypeDefinition = type.GetGenericTypeDefinition();
 			Type[] genericArguments = type.GetGenericArguments();
@@ -877,7 +877,16 @@ namespace Fonlow.Poco2Client
 		/// <returns></returns>
 		string RefineCustomComplexTypeText(Type t)
 		{
-			return t.Namespace + this.codeGenOutputsSettings.CSClientNamespaceSuffix + "." + t.Name;
+			if (t.IsGenericType && !t.IsGenericTypeDefinition)
+			{
+				var ts = t.GenericTypeArguments;
+				var tsText = string.Join(", ", ts.Select(d => d.Name));
+				return t.Namespace + this.codeGenOutputsSettings.CSClientNamespaceSuffix + "." + t.Name + $"<{tsText}>";
+			}
+			else
+			{
+				return t.Namespace + this.codeGenOutputsSettings.CSClientNamespaceSuffix + "." + t.Name;
+			}
 		}
 
 		//string RefineCustomComplexTypeTextForNullableReferenceType(Type t)

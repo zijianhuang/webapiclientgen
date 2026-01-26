@@ -5,12 +5,12 @@
 			"DemoWebApi.Controllers.FileUpload"
 		],
 
-		"DataModelAssemblyNames": [ "DemoGodAssemblyWeb" ],
+		"DataModelAssemblyNames": [ "DebugWeb" ],
 		"CherryPickingMethods": 32
 	},
 
 	"ClientApiOutputs": {
-		"ClientLibraryProjectFolderName": "../DemoCoreWeb.ClientApiTextJson",
+		"ClientLibraryProjectFolderName": "../_DebugWebClientApi",
 		"FileName": "WebApiClientTextJsonAuto.cs",
 		"GenerateBothAsyncAndSync": true,
 		"CamelCase": true,

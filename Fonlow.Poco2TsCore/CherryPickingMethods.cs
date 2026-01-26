@@ -43,9 +43,9 @@ namespace Fonlow.Poco2Client
 		NetCore= 16,
 
 		/// <summary>
-		/// Pick types in a god assembly of ASP.NET Core APIs only.
+		/// Pick types appearing in the function prototypes of the API only.
 		/// This method should be used exclusively with DataModelAssemblyNames of the code gen config only, not DataModels.
-		/// DataModelAssemblyNames should include name of the god assembly, and optionally a few assemblies that the god assembly references to, which contain other custom POCO classes.
+		/// DataModelAssemblyNames should include only the name of the god assembly, and optionally a few assemblies that the god assembly references to, which contain other custom POCO classes.
 		/// The normination of assemblies DataModelAssemblyNames also give signals to the codegen to distinguish custom POCO classes from BCL classes.
 		/// </summary>
 		ApiOnly = 32,

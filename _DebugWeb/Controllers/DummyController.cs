@@ -14,15 +14,12 @@ namespace DebugWeb.Controllers
 	{
 		[HttpPost]
 		[Route("createPerson")]
-		public Person CreatePerson([FromBody] Person p)
+		public MyGenericInt CreatePerson([FromBody] MyGenericInt p)
 		{
-			Debug.WriteLine("CreatePerson: " + p.Name);
-
-			if (p.Name == "Exception")
-				throw new InvalidOperationException("It is exception");
+			Debug.WriteLine("CreatePerson: " + p.MyK);
 
 			Debug.WriteLine("Create " + p);
-			return p;
+			return new MyGenericInt{MyK=p.MyK };
 		}
 
 	}

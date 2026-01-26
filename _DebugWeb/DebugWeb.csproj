@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WebApiClientGenCore.NG2FormGroup\WebApiClientGenCore.NG2FormGroup.csproj" />
     <ProjectReference Include="..\WebApiClientGenCore\WebApiClientGenCore.csproj" />
   </ItemGroup>
 

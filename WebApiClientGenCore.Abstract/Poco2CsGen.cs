@@ -884,7 +884,7 @@ namespace Fonlow.Poco2Client
 				string[] nameSegments = type.Name.Split('`');
 				string genericClassName = nameSegments[0];
 				return type.Namespace + this.codeGenOutputsSettings.CSClientNamespaceSuffix + "." + genericClassName + $"<{tsText}>";
-				//so to return something like DemoWebApi.DemoData.Client.MyGeneric<Int32, String, DateTime>
+				//so to return something like DemoWebApi.DemoData.Client.MyGeneric<Int32, String, DateTime> as the parent type
 			}
 			else
 			{

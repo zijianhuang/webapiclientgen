@@ -614,6 +614,7 @@ namespace Fonlow.Poco2Ts
 				string[] nameSegments = type.Name.Split('`');
 				string genericClassName = nameSegments[0];
 				return $"{type.Namespace.Replace('.', '_')}{ClientNamespaceSuffix.Replace('.', '_')}.{genericClassName}<{tsText}>";
+				//something like DemoWebApi_DemoData_Client.MyGeneric<number, string, Date> as the parent type
 			}
 			else
 			{

@@ -55,7 +55,7 @@ namespace Fonlow.TypeScriptCodeDom
 				GenerateCodeFromType(ctd, w, o);
 
 				string typeExpression = GetTypeParametersExpression(ctd);
-				bool isGeneric = typeExpression.Contains('<');
+				bool isGeneric = typeExpression.Contains('<') || IsParentClosedGenericType(ctd);
 				if (!ctd.IsPartial && !isGeneric) //controllerClass is partial, as declared in CreateControllerClientClass()
 				{
 					GenerateAngularFormFromType(ctd, w, o);
@@ -419,6 +419,20 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 		}
 
+		static bool IsParentClosedGenericType(CodeTypeDeclaration typeDeclaration){
+			if (typeDeclaration.BaseTypes.Count > 0)
+			{
+				CodeTypeReference parentTypeReference = typeDeclaration.BaseTypes[0];
+				string parentTypeName = TypeMapper.MapCodeTypeReferenceToTsText(parentTypeReference);									
+				if (parentTypeName.Contains('<')) 
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		void WriteAngularFormGroupMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o, bool forSignalForm)
 		{
 
@@ -435,7 +449,12 @@ namespace Fonlow.TypeScriptCodeDom
 				if (typeDeclaration.BaseTypes.Count > 0)
 				{
 					CodeTypeReference parentTypeReference = typeDeclaration.BaseTypes[0];
-					string parentTypeName = TypeMapper.MapCodeTypeReferenceToTsText(parentTypeReference); //namspace prefix included													
+					string parentTypeName = TypeMapper.MapCodeTypeReferenceToTsText(parentTypeReference); //namspace prefix included											
+					if (parentTypeName.Contains('<')) // not to generate FormGroup of closed generic type
+					{
+						return;
+					}
+						
 					WriteAngularFormGroupMembersOfParent(parentTypeName, w, o, forSignalForm);
 				}
 

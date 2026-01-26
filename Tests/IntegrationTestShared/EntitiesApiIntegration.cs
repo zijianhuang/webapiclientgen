@@ -422,6 +422,21 @@ namespace IntegrationTests
 			Assert.Equal(123e10, c.MyU);
 		}
 
+		//[Fact]
+		//public void TestMyGenericInt()
+		//{
+		//	var c = api.GetMyGeneric(new MyGenericInt
+		//	{
+		//		MyK = 123,
+		//		MyT = "abc",
+		//		MyU = DateTime.Now,
+		//	});
+
+		//	Assert.Equal("abc", c.MyT);
+		//	Assert.Equal(123.456m, c.MyK);
+		//	Assert.Equal(123e10, c.MyU);
+		//}
+
 		[Fact]
 		public void TestMyGenericPerson()
 		{

@@ -289,6 +289,19 @@ namespace DemoWebApi.Controllers
 			};
 		}
 
+		//[HttpPost]
+		//[Route("MyGenericInt")]
+		//public MyGenericInt GetMyGenericInt([FromBody] MyGenericInt s)
+		//{
+		//	return new MyGenericInt
+		//	{
+		//		MyK = s.MyK,
+		//		MyT = s.MyT,
+		//		MyU = s.MyU,
+		//		Status = s.Status,
+		//	};
+		//}
+
 		/// <summary>
 		/// Post MyGeneric string, decimal, Person
 		/// </summary>

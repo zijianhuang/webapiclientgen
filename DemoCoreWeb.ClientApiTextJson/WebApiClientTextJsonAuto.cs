@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using DemoWebApi.DemoData.Client;
+
 namespace DemoTextJsonWeb.Serialization
 {
 	
@@ -42,20 +44,23 @@ namespace DemoTextJsonWeb.Serialization
 	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.Controllers.Client.FileResult))]
 	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.Controllers.Client.Hero))]
 	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.Controllers.Client.SuperHero))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(MyGeneric<string, decimal, double>))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(MyGeneric<string, decimal, Person>))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(MimsResult<string>))]
 	public partial class AppJsonSerializerContext : System.Text.Json.Serialization.JsonSerializerContext
 	{
 	}
 }
 namespace DemoWebApi.Controllers.Client
 {
+	using Fonlow.Net.Http;
 	using System;
-	using System.Linq;
 	using System.Collections.Generic;
-	using System.Threading.Tasks;
+	using System.Linq;
 	using System.Net.Http;
 	using System.Text.Json;
 	using System.Text.Json.Serialization;
-	using Fonlow.Net.Http;
+	using System.Threading.Tasks;
 	
 	
 	/// <summary>
@@ -1170,8 +1175,13 @@ namespace DemoWebApi.Controllers.Client
 
 			this.client = client;
 			this.jsonSerializerSettings = jsonSerializerSettings;
+			if (this.jsonSerializerSettings == null)
+			{
+				this.jsonSerializerSettings = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+			}
+			this.jsonSerializerSettings.TypeInfoResolverChain.Insert(0, DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
 		}
-		
+
 		/// <summary>
 		/// POST api/Entities/createCompany
 		/// </summary>
@@ -9421,14 +9431,14 @@ namespace DemoWebApi.Models.Client
 }
 namespace DemoCoreWeb.Controllers.Client
 {
+	using Fonlow.Net.Http;
 	using System;
-	using System.Linq;
 	using System.Collections.Generic;
-	using System.Threading.Tasks;
+	using System.Linq;
 	using System.Net.Http;
 	using System.Text.Json;
 	using System.Text.Json.Serialization;
-	using Fonlow.Net.Http;
+	using System.Threading.Tasks;
 	
 	
 	public partial class SpecialTypes

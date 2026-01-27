@@ -19,7 +19,14 @@ namespace DebugWeb.Controllers
 			Debug.WriteLine("CreatePerson: " + p.MyK);
 
 			Debug.WriteLine("Create " + p);
-			return new MyGenericInt{MyK=p.MyK };
+			return new MyGenericInt { MyK = p.MyK };
+		}
+
+		[HttpPost]
+		[Route("createSomething")]
+		public MyGeneric<int, double, string> CreateSomething([FromBody] MyGeneric<int, double, DateOnly> p)
+		{
+			return new MyGeneric<int, double, string> { MyK = p.MyK };
 		}
 
 	}

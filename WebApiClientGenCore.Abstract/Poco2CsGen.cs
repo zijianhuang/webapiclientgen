@@ -225,7 +225,7 @@ namespace Fonlow.Poco2Client
 				var assemblyFilename = type.Assembly.GetName().Name;
 				if (codeGenSettings.ApiSelections.CherryPickingMethods == CherryPickingMethods.ApiOnly && codeGenSettings.ApiSelections.DataModelAssemblyNames != null && codeGenSettings.ApiSelections.DataModelAssemblyNames.Contains(assemblyFilename))
 				{
-					AddCodeTypeDeclaration(type, dcOnly);
+					return AddCodeTypeDeclaration(type, dcOnly);
 				}
 			}
 

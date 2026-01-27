@@ -15,9 +15,9 @@ namespace Fonlow.CodeDom.Web.Cs
 	/// </summary>
 	public class ControllersClientApiGen : IDisposable
 	{
-		CodeCompileUnit targetUnit;
-		CodeGenSettings codeGenSettings;
-		CodeDomProvider provider;
+		readonly CodeCompileUnit codeCompileUnit;
+		readonly CodeGenSettings codeGenSettings;
+		readonly CodeDomProvider provider;
 
 		private bool disposedValue;
 
@@ -34,9 +34,9 @@ namespace Fonlow.CodeDom.Web.Cs
 		public ControllersClientApiGen(CodeGenSettings codeGenSettings)
 		{
 			this.codeGenSettings = codeGenSettings ?? throw new System.ArgumentNullException(nameof(codeGenSettings));
-			targetUnit = new CodeCompileUnit();
+			codeCompileUnit = new CodeCompileUnit();
 			provider = CodeDomProvider.CreateProvider("CSharp");
-			Poco2CsGenerator = new Poco2CsGen(targetUnit, provider, this.codeGenSettings);
+			Poco2CsGenerator = new Poco2CsGen(codeCompileUnit, provider, this.codeGenSettings);
 		}
 
 		/// <summary>
@@ -54,7 +54,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			using MemoryStream stream = new MemoryStream();
 			using StreamWriter writer = new StreamWriter(stream);
-			provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+			provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
 			writer.Flush();
 			stream.Position = 0;
 			using StreamReader stringReader = new StreamReader(stream);
@@ -133,10 +133,21 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void GenerateClientTypesFormWebApis(WebApiDescription[] webApiDescriptions)
 		{
+			var toGenerateJsonSerializerContext = codeGenSettings.ClientApiOutputs.UseSystemTextJson && !string.IsNullOrEmpty(codeGenSettings.ClientApiOutputs.JsonSerializerContextNamespace);
+			CodeNamespaceEx namespaceOfJsonSerializerContext = toGenerateJsonSerializerContext ? codeCompileUnit.Namespaces.InsertToSortedCollection(codeGenSettings.ClientApiOutputs.JsonSerializerContextNamespace, true) : null;
+			var jsonContextAttributeDeclaration = toGenerateJsonSerializerContext ? PodGenHelper.AddClassesToJsonSerializerContext(namespaceOfJsonSerializerContext, []) : null;
+
 			for (int i = 0; i < webApiDescriptions.Length; i++)
 			{
 				var d = webApiDescriptions[i];
-				Poco2CsGenerator.CheckOrAdd(d.ActionDescriptor.ReturnType, false);
+				var returnType = d.ActionDescriptor.ReturnType;
+				var codeTypeDeclaration = Poco2CsGenerator.CheckOrAdd(returnType, false);
+
+				string clientNamespaceText = returnType.Namespace + codeGenSettings.ClientApiOutputs.CSClientNamespaceSuffix;
+				if (jsonContextAttributeDeclaration != null && codeTypeDeclaration != null)
+				{
+					PodGenHelper.AddClassesToJsonSerializerContext(namespaceOfJsonSerializerContext, [$"{clientNamespaceText}.{codeTypeDeclaration.Name}"]);
+				}
 			}
 		}
 
@@ -167,7 +178,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			foreach (IGrouping<string, ControllerDescriptor> grouppedControllerDescriptions in controllersGroupByNamespace)
 			{
 				string clientNamespaceText = grouppedControllerDescriptions.Key + codeGenSettings.ClientApiOutputs.CSClientNamespaceSuffix;
-				CodeNamespaceEx clientNamespace = targetUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, false);
+				CodeNamespaceEx clientNamespace = codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, false);
 				clientNamespace.Imports.AddRange(
 					new CodeNamespaceImport[]{
 						new CodeNamespaceImport("System"),
@@ -270,13 +281,13 @@ namespace Fonlow.CodeDom.Web.Cs
 					continue;
 				}
 
-				CodeMemberMethod apiFunction = ClientApiFunctionGen.Create(d, Poco2CsGenerator, this.codeGenSettings, true);
+				CodeMemberMethod apiFunction = ClientApiFunctionGen.Create(codeCompileUnit, d, Poco2CsGenerator, this.codeGenSettings, true);
 				if (apiFunction != null)
 				{
 					existingClientClass.Members.Add(apiFunction);
 					if (codeGenSettings.ClientApiOutputs.GenerateBothAsyncAndSync)
 					{
-						var clientApiFunction = ClientApiFunctionGen.Create(d, Poco2CsGenerator, this.codeGenSettings, false);
+						var clientApiFunction = ClientApiFunctionGen.Create(codeCompileUnit, d, Poco2CsGenerator, this.codeGenSettings, false);
 						if (clientApiFunction != null)
 						{
 							existingClientClass.Members.Add(clientApiFunction);
@@ -372,7 +383,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void CreateDummyOfEnsureSuccessStatusCodeEx()
 		{
-			targetUnit.Namespaces.InsertToSortedCollection("ZZZzzzEnsureSuccessStatusCodeExDummy", false); // ZZZ to ensure this block is the last one, hopefully.
+			codeCompileUnit.Namespaces.InsertToSortedCollection("ZZZzzzEnsureSuccessStatusCodeExDummy", false); // ZZZ to ensure this block is the last one, hopefully.
 		}
 
 		static string GetBlockOfEnsureSuccessStatusCodeExForLinux()

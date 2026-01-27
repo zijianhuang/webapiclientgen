@@ -7,6 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+namespace DemoTextJsonWeb.Serialization
+{
+	
+	
+	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.MyGenericInt))]
+	public partial class AppJsonSerializerContext : System.Text.Json.Serialization.JsonSerializerContext
+	{
+	}
+}
 namespace DemoWebApi.DemoData.Client
 {
 	
@@ -107,6 +116,54 @@ namespace DebugWeb.Controllers.Client
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStream();
 				return JsonSerializer.Deserialize<DemoWebApi.DemoData.Client.MyGenericInt>(stream, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST Dummy/createSomething
+		/// </summary>
+		public async Task<DemoWebApi.DemoData.Client.MyGeneric<int, double, string>> CreateSomethingAsync(DemoWebApi.DemoData.Client.MyGeneric<int, double, System.DateOnly> p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "Dummy/createSomething";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var content = System.Net.Http.Json.JsonContent.Create(p, mediaType: null, jsonSerializerSettings);
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				return JsonSerializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<int, double, string>>(stream, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST Dummy/createSomething
+		/// </summary>
+		public DemoWebApi.DemoData.Client.MyGeneric<int, double, string> CreateSomething(DemoWebApi.DemoData.Client.MyGeneric<int, double, System.DateOnly> p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "Dummy/createSomething";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var content = System.Net.Http.Json.JsonContent.Create(p, mediaType: null, jsonSerializerSettings);
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = responseMessage.Content.ReadAsStream();
+				return JsonSerializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<int, double, string>>(stream, jsonSerializerSettings);
 			}
 			finally
 			{

@@ -16,6 +16,7 @@ namespace Fonlow.CodeDom.Web.Cs
 	/// </summary>
 	internal sealed class ClientApiFunctionGen
 	{
+		readonly CodeCompileUnit codeCompileUnit;
 		readonly WebApiDescription description;
 		readonly string methodName;
 		Type returnType;
@@ -38,8 +39,9 @@ namespace Fonlow.CodeDom.Web.Cs
 		readonly IDictionary<Type, Func<object, string>> attribueCommentDic;
 		readonly ObsoleteAttribute obsoleteAttribute;
 
-		ClientApiFunctionGen(WebApiDescription webApiDescription, Poco2Client.Poco2CsGen poco2CsGen, CodeGenSettings codeGenSettings, bool forAsync)
+		ClientApiFunctionGen(CodeCompileUnit codeCompileUnit, WebApiDescription webApiDescription, Poco2Client.Poco2CsGen poco2CsGen, CodeGenSettings codeGenSettings, bool forAsync)
 		{
+			this.codeCompileUnit = codeCompileUnit;
 			this.description = webApiDescription;
 			this.poco2CsGen = poco2CsGen;
 			this.codeGenSettings = codeGenSettings;
@@ -104,9 +106,9 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// <param name="codeGenOutputsSettings">The settings that control code generation output, such as naming conventions and output options. Cannot be null.</param>
 		/// <param name="forAsync">true to generate an asynchronous client method; otherwise, false to generate a synchronous method.</param>
 		/// <returns>A CodeMemberMethod representing the generated client API function for the specified Web API endpoint. Null if obsolete.IsError</returns>
-		public static CodeMemberMethod Create(WebApiDescription webApiDescription, Poco2Client.Poco2CsGen poco2CsGen, CodeGenSettings codeGenOutputsSettings, bool forAsync)
+		public static CodeMemberMethod Create(CodeCompileUnit targetUnit, WebApiDescription webApiDescription, Poco2Client.Poco2CsGen poco2CsGen, CodeGenSettings codeGenOutputsSettings, bool forAsync)
 		{
-			ClientApiFunctionGen gen = new ClientApiFunctionGen(webApiDescription, poco2CsGen, codeGenOutputsSettings, forAsync);
+			ClientApiFunctionGen gen = new ClientApiFunctionGen(targetUnit, webApiDescription, poco2CsGen, codeGenOutputsSettings, forAsync);
 			return gen.CreateApiFunction();
 		}
 
@@ -186,7 +188,8 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			if (obsoleteAttribute != null)
 			{
-				if (obsoleteAttribute.IsError){
+				if (obsoleteAttribute.IsError)
+				{
 					return null;
 				}
 
@@ -293,7 +296,8 @@ namespace Fonlow.CodeDom.Web.Cs
 					else
 					{
 						typeText = d.ParameterDescriptor.ParameterType.FullName;
-					};
+					}
+					;
 
 					return typeText;
 				}).Aggregate((c, n) => c + "," + n) + ")";

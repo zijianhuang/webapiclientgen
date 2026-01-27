@@ -28,6 +28,7 @@
 		"JsMethodSuffixWithClrTypeName": true,
 
 		"UseSystemTextJson": true,
+		"JsonSerializerContextNamespace": "DemoTextJsonWeb.Serialization",
 
 		"Plugins": [
 

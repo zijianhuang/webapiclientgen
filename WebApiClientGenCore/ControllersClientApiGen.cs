@@ -378,6 +378,13 @@ namespace Fonlow.CodeDom.Web.Cs
 			constructor.Statements.Add(new CodeAssignStatement(clientReference, new CodeArgumentReferenceExpression("client")));
 			CodeFieldReferenceExpression jsonSettingsReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "jsonSerializerSettings");
 			constructor.Statements.Add(new CodeAssignStatement(jsonSettingsReference, new CodeArgumentReferenceExpression("jsonSerializerSettings")));
+			constructor.Statements.Add(new CodeSnippetStatement(@"
+			if (this.jsonSerializerSettings == null)
+			{
+				this.jsonSerializerSettings = new JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
+			}
+
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);"));
 			targetClass.Members.Add(constructor);
 		}
 

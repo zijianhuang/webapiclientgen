@@ -136,6 +136,13 @@ namespace DemoWebApi.Controllers.Client
 
 			this.client = client;
 			this.jsonSerializerSettings = jsonSerializerSettings;
+
+			if (this.jsonSerializerSettings == null)
+			{
+				this.jsonSerializerSettings = new JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
+			}
+
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
 		}
 		
 		/// <summary>
@@ -1170,6 +1177,13 @@ namespace DemoWebApi.Controllers.Client
 
 			this.client = client;
 			this.jsonSerializerSettings = jsonSerializerSettings;
+
+			if (this.jsonSerializerSettings == null)
+			{
+				this.jsonSerializerSettings = new JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
+			}
+
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
 		}
 		
 		/// <summary>
@@ -2153,6 +2167,13 @@ namespace DemoWebApi.Controllers.Client
 
 			this.client = client;
 			this.jsonSerializerSettings = jsonSerializerSettings;
+
+			if (this.jsonSerializerSettings == null)
+			{
+				this.jsonSerializerSettings = new JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
+			}
+
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
 		}
 		
 		/// <summary>
@@ -2594,6 +2615,13 @@ namespace DemoWebApi.Controllers.Client
 
 			this.client = client;
 			this.jsonSerializerSettings = jsonSerializerSettings;
+
+			if (this.jsonSerializerSettings == null)
+			{
+				this.jsonSerializerSettings = new JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
+			}
+
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
 		}
 		
 		/// <summary>
@@ -3593,6 +3621,13 @@ namespace DemoWebApi.Controllers.Client
 
 			this.client = client;
 			this.jsonSerializerSettings = jsonSerializerSettings;
+
+			if (this.jsonSerializerSettings == null)
+			{
+				this.jsonSerializerSettings = new JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
+			}
+
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
 		}
 		
 		/// <summary>
@@ -3932,6 +3967,13 @@ namespace DemoWebApi.Controllers.Client
 
 			this.client = client;
 			this.jsonSerializerSettings = jsonSerializerSettings;
+
+			if (this.jsonSerializerSettings == null)
+			{
+				this.jsonSerializerSettings = new JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
+			}
+
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
 		}
 		
 		/// <summary>
@@ -4153,6 +4195,13 @@ namespace DemoWebApi.Controllers.Client
 
 			this.client = client;
 			this.jsonSerializerSettings = jsonSerializerSettings;
+
+			if (this.jsonSerializerSettings == null)
+			{
+				this.jsonSerializerSettings = new JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
+			}
+
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
 		}
 		
 		/// <summary>
@@ -6852,6 +6901,13 @@ namespace DemoWebApi.Controllers.Client
 
 			this.client = client;
 			this.jsonSerializerSettings = jsonSerializerSettings;
+
+			if (this.jsonSerializerSettings == null)
+			{
+				this.jsonSerializerSettings = new JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
+			}
+
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
 		}
 		
 		/// <summary>
@@ -7115,6 +7171,13 @@ namespace DemoWebApi.Controllers.Client
 
 			this.client = client;
 			this.jsonSerializerSettings = jsonSerializerSettings;
+
+			if (this.jsonSerializerSettings == null)
+			{
+				this.jsonSerializerSettings = new JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
+			}
+
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
 		}
 		
 		/// <summary>
@@ -8507,6 +8570,13 @@ namespace DemoWebApi.Controllers.Client
 
 			this.client = client;
 			this.jsonSerializerSettings = jsonSerializerSettings;
+
+			if (this.jsonSerializerSettings == null)
+			{
+				this.jsonSerializerSettings = new JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
+			}
+
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
 		}
 		
 		/// <summary>
@@ -9448,6 +9518,13 @@ namespace DemoCoreWeb.Controllers.Client
 
 			this.client = client;
 			this.jsonSerializerSettings = jsonSerializerSettings;
+
+			if (this.jsonSerializerSettings == null)
+			{
+				this.jsonSerializerSettings = new JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
+			}
+
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
 		}
 		
 		/// <summary>

@@ -144,10 +144,43 @@ namespace Fonlow.CodeDom.Web.Cs
 				var codeTypeDeclaration = Poco2CsGenerator.CheckOrAdd(returnType, false);
 
 				string clientNamespaceText = returnType.Namespace + codeGenSettings.ClientApiOutputs.CSClientNamespaceSuffix;
+				string gt = ClosedGenericTypeToString(returnType);
 				if (jsonContextAttributeDeclaration != null && codeTypeDeclaration != null)
 				{
 					PodGenHelper.AddClassesToJsonSerializerContext(namespaceOfJsonSerializerContext, [$"{clientNamespaceText}.{codeTypeDeclaration.Name}"]);
+				} else {
+					var closedGenericTypeText = ClosedGenericTypeToString(returnType);
+					if (!string.IsNullOrEmpty(closedGenericTypeText)){
+						PodGenHelper.AddClassesToJsonSerializerContext(namespaceOfJsonSerializerContext, [$"{closedGenericTypeText}"]);
+					}
 				}
+			}
+		}
+
+		/// <summary>
+		/// Returns a string representation of a closed generic type, including its generic type arguments, or the full name
+		/// of a non-generic type.
+		/// </summary>
+		/// <remarks>A closed generic type is a generic type where all type parameters have been specified. For
+		/// example, List<int> is a closed generic type, while List<T> is an open generic type definition. This method does
+		/// not support open generic type definitions and will return the full name for such types.</remarks>
+		/// <param name="type">The type to convert to its string representation. Must not be null.</param>
+		/// <returns>A string that represents the specified type. For closed generic types, the string includes the generic type name
+		/// and its type arguments; for non-generic types, the string is the type's full name.</returns>
+		string ClosedGenericTypeToString(Type type)
+		{
+			if (type.IsGenericType && !type.IsGenericTypeDefinition)
+			{
+				var genericTypeDef = type.GetGenericTypeDefinition();
+				var genericTypeName = genericTypeDef.Name;
+				var genericArgs = type.GenericTypeArguments;
+				var genericArgsStrings = genericArgs.Select(d => d.Name); //  genericArgs.Select(t => ClosedGenericTypeToString(t)).ToArray();
+				genericTypeName = genericTypeName.Substring(0, genericTypeName.IndexOf('`'));
+				return $"{type.Namespace}{this.codeGenSettings.ClientApiOutputs.CSClientNamespaceSuffix}.{genericTypeName}<{string.Join(", ", genericArgsStrings)}>";
+			}
+			else
+			{
+				return null;// type.FullName;
 			}
 		}
 

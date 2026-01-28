@@ -12,6 +12,7 @@ namespace DemoTextJsonWeb.Serialization
 	
 	
 	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.MyGenericInt))]
+	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.MyGeneric<Int32, Double, String>))]
 	public partial class AppJsonSerializerContext : System.Text.Json.Serialization.JsonSerializerContext
 	{
 	}
@@ -79,8 +80,7 @@ namespace DebugWeb.Controllers.Client
 				this.jsonSerializerSettings = new JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
 			}
 
-			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);			
-			
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
 		}
 		
 		/// <summary>

@@ -21,12 +21,11 @@ namespace IntegrationTests
 			System.Text.Json.JsonSerializerOptions jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web)
 			{
 				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
-				//PropertyNameCaseInsensitive = true,
-				//NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString, // newtonsoft.json along with converters may return long and int128 as string
 			};
 
-			//jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter()); //not needed in ASP.NET 7
-			//jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
+			jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
+			jsonSerializerSettings.TypeInfoResolverChain.Add(new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver());
+
 			var c = TestingSettings.Instance.ServiceCommands["LaunchWebApi"];
 			this.HttpClient.BaseAddress = new System.Uri(c.BaseUrl);
 			Api = new DemoWebApi.Controllers.Client.Entities(HttpClient, jsonSerializerSettings);

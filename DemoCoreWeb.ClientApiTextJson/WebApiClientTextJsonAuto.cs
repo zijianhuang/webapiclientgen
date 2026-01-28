@@ -12,22 +12,17 @@ namespace DemoTextJsonWeb.Serialization
 	
 	
 	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.Address))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.AddressType))]
 	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.BigNumbers))]
 	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.BizEntity))]
 	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.Company))]
 	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.Days))]
 	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.IdMap))]
 	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.IntegralEntity))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.MedicalContraindiationResponseTypeReason))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.MedicalContraindiationResponseTypeTypeCode))]
 	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.MimsPackage))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.MyEnumType))]
 	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.MyGenericInt))]
 	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.MyPeopleDic))]
 	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.Person))]
 	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.PhoneNumber))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.PhoneType))]
 	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Another.Client.MyPoint))]
 	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Base.Client.Entity))]
 	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.Models.Client.AddExternalLoginBindingModel))]
@@ -143,6 +138,7 @@ namespace DemoWebApi.Controllers.Client
 			}
 
 			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver());
 		}
 		
 		/// <summary>
@@ -1181,9 +1177,10 @@ namespace DemoWebApi.Controllers.Client
 			if (this.jsonSerializerSettings == null)
 			{
 				this.jsonSerializerSettings = new JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
+				this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
+				this.jsonSerializerSettings.TypeInfoResolverChain.Add(new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver());
 			}
 
-			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
 		}
 		
 		/// <summary>
@@ -2174,6 +2171,7 @@ namespace DemoWebApi.Controllers.Client
 			}
 
 			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver());
 		}
 		
 		/// <summary>
@@ -2622,6 +2620,7 @@ namespace DemoWebApi.Controllers.Client
 			}
 
 			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver());
 		}
 		
 		/// <summary>
@@ -3628,6 +3627,7 @@ namespace DemoWebApi.Controllers.Client
 			}
 
 			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver());
 		}
 		
 		/// <summary>
@@ -3974,6 +3974,7 @@ namespace DemoWebApi.Controllers.Client
 			}
 
 			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver());
 		}
 		
 		/// <summary>
@@ -4202,6 +4203,7 @@ namespace DemoWebApi.Controllers.Client
 			}
 
 			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver());
 		}
 		
 		/// <summary>
@@ -6908,6 +6910,7 @@ namespace DemoWebApi.Controllers.Client
 			}
 
 			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver());
 		}
 		
 		/// <summary>
@@ -7178,6 +7181,7 @@ namespace DemoWebApi.Controllers.Client
 			}
 
 			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver());
 		}
 		
 		/// <summary>
@@ -8577,6 +8581,7 @@ namespace DemoWebApi.Controllers.Client
 			}
 
 			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver());
 		}
 		
 		/// <summary>
@@ -9525,6 +9530,7 @@ namespace DemoCoreWeb.Controllers.Client
 			}
 
 			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver());
 		}
 		
 		/// <summary>

@@ -174,7 +174,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				var genericTypeDef = type.GetGenericTypeDefinition();
 				var genericTypeName = genericTypeDef.Name;
 				var genericArgs = type.GenericTypeArguments;
-				var genericArgsStrings = genericArgs.Select(d => d.Name); //  genericArgs.Select(t => ClosedGenericTypeToString(t)).ToArray();
+				var genericArgsStrings = genericArgs.Select(d => Poco2CsGenerator.TranslateToClientTypeReferenceText(d, false)); //  genericArgs.Select(t => ClosedGenericTypeToString(t)).ToArray();
 				genericTypeName = genericTypeName.Substring(0, genericTypeName.IndexOf('`'));
 				return $"{type.Namespace}{this.codeGenSettings.ClientApiOutputs.CSClientNamespaceSuffix}.{genericTypeName}<{string.Join(", ", genericArgsStrings)}>";
 			}
@@ -417,7 +417,8 @@ namespace Fonlow.CodeDom.Web.Cs
 				this.jsonSerializerSettings = new JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
 			}
 
-			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);"));
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
+			this.jsonSerializerSettings.TypeInfoResolverChain.Add(new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver());"));
 			targetClass.Members.Add(constructor);
 		}
 

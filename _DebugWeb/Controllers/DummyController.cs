@@ -29,5 +29,12 @@ namespace DebugWeb.Controllers
 			return new MyGeneric<int, double, string> { MyK = p.MyK };
 		}
 
+		[HttpPost]
+		[Route("createPersonSomething")]
+		public MyGeneric<int, double, Company> CreatePersonSomething([FromBody] MyGeneric<int, double, Person> p)
+		{
+			return new MyGeneric<int, double, Company> { MyK = p.MyK };
+		}
+
 	}
 }

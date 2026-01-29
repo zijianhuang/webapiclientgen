@@ -11,419 +11,22 @@ namespace DemoWebApi.DemoData.Base.Client
 {
 	
 	
-	/// <summary>
-	/// Base class of company and person
-	/// </summary>
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.Serializable()]
 	public class Entity : object
 	{
 		
-		/// <summary>
-		/// Multiple addresses
-		/// </summary>
 		[System.Runtime.Serialization.DataMember()]
 		public System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Address> Addresses { get; set; }
 		
 		[System.Runtime.Serialization.DataMember()]
 		public System.Nullable<System.Guid> Id { get; set; }
 		
-		/// <summary>
-		/// Name of the entity.
-		/// Required
-		/// Min length: 2
-		/// Max length: 255
-		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		[System.ComponentModel.DataAnnotations.MinLength(2)]
 		[System.ComponentModel.DataAnnotations.MaxLength(255)]
 		[System.Runtime.Serialization.DataMember(IsRequired =true)]
 		public string Name { get; set; }
-	}
-}
-namespace DemoWebApi.DemoData.Client
-{
-	
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public class Address : object
-	{
-		
-		/// <summary>
-		/// String length: inclusive between 2 and 100
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=2)]
-		[System.Runtime.Serialization.DataMember()]
-		public string Street1 { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public enum AddressType
-	{
-		
-		[System.Runtime.Serialization.EnumMember()]
-		Postal,
-		
-		[System.Runtime.Serialization.EnumMember()]
-		Residential,
-	}
-	
-	/// <summary>
-	/// </summary>
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public class BigNumbers : object
-	{
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Numerics.BigInteger BigInt { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Int128 Signed128 { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public long Signed64 { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.UInt128 Unsigned128 { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public ulong Unsigned64 { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public class Company : DemoWebApi.DemoData.Base.Client.Entity
-	{
-		
-		/// <summary>
-		/// BusinessNumber to be serialized as BusinessNum
-		/// </summary>
-		[System.Runtime.Serialization.DataMember(Name="BusinessNum")]
-		public string BusinessNumber { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public string BusinessNumberType { get; set; }
-		
-		/// <summary>
-		/// Data type: Date
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
-		[System.Runtime.Serialization.DataMember()]
-		public System.DateTimeOffset FoundDate { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.DateOnly RegisterDate { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public string[][] TextMatrix { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public int[,] Int2D { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public int[][] Int2DJagged { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Collections.Generic.IEnumerable<string> Lines { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public enum Days
-	{
-		
-		[System.Runtime.Serialization.EnumMember()]
-		Sat = 1,
-		
-		[System.Runtime.Serialization.EnumMember()]
-		Sun = 2,
-		
-		[System.Runtime.Serialization.EnumMember()]
-		Mon = 3,
-		
-		[System.Runtime.Serialization.EnumMember()]
-		Tue = 4,
-		
-		[System.Runtime.Serialization.EnumMember()]
-		Wed = 5,
-		
-		/// <summary>
-		/// Thursday
-		/// </summary>
-		[System.Runtime.Serialization.EnumMember()]
-		Thu = 6,
-		
-		[System.Runtime.Serialization.EnumMember()]
-		Fri = 7,
-	}
-	
-	/// <summary>
-	/// To test different serializations against Guid
-	/// </summary>
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public class IdMap : object
-	{
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Guid Id { get; set; }
-		
-		[System.Runtime.Serialization.DataMember(EmitDefaultValue=false)]
-		public System.Guid IdNotEmitDefaultValue { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Nullable<System.Guid> NullableId { get; set; }
-		
-		/// <summary>
-		/// Required
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.Required()]
-		[System.Runtime.Serialization.DataMember(IsRequired =true)]
-		public string RequiredName { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public string Text { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public class IntegralEntity : DemoWebApi.DemoData.Base.Client.Entity
-	{
-		
-		[System.Runtime.Serialization.DataMember()]
-		public byte Byte { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public int Int { get; set; }
-		
-		/// <summary>
-		/// Range: inclusive between -1000 and 1000000
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.Range(typeof(System.Int32), "-1000", "1000000")]
-		[System.Runtime.Serialization.DataMember()]
-		public int ItemCount { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public sbyte SByte { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public short Short { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public uint UInt { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public ushort UShort { get; set; }
-	}
-	
-	[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public enum MedicalContraindiationResponseTypeReason
-	{
-		
-		[System.Runtime.Serialization.EnumMember(Value="Mm")]
-		M,
-		
-		[System.Runtime.Serialization.EnumMember(Value="Ss")]
-		S,
-		
-		[System.Runtime.Serialization.EnumMember(Value="Pp")]
-		P,
-		
-		[System.Runtime.Serialization.EnumMember(Value="I")]
-		I,
-		
-		[System.Runtime.Serialization.EnumMember(Value="A")]
-		A,
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public enum MedicalContraindiationResponseTypeTypeCode
-	{
-		
-		[System.Runtime.Serialization.EnumMember(Value="P")]
-		P,
-		
-		[System.Runtime.Serialization.EnumMember(Value="Tt")]
-		T,
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public class MimsPackage : object
-	{
-		
-		/// <summary>
-		/// Range: inclusive between 10 and 100
-		/// </summary>
-		[System.ComponentModel.DefaultValue(20)]
-		[System.ComponentModel.DataAnnotations.Range(typeof(System.Int32), "10", "100", ErrorMessage="KK has to be between 10 and 100.")]
-		[System.Runtime.Serialization.DataMember()]
-		public int KK { get; set; } = 20;
-		
-		/// <summary>
-		/// Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
-		/// and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
-		/// </summary>
-		[System.Runtime.Serialization.DataMember()]
-		public int KK2 { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Nullable<DemoWebApi.DemoData.Client.MyEnumType> OptionalEnum { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Nullable<int> OptionalInt { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public DemoWebApi.DemoData.Client.MimsResult<decimal> Result { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public string Tag { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public class MimsResult<T> : object
-	{
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.DateTime GeneratedAt { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public string Message { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public T Result { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public bool Success { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public enum MyEnumType
-	{
-		
-		[System.Runtime.Serialization.EnumMember()]
-		First = 1,
-		
-		[System.Runtime.Serialization.EnumMember()]
-		Two = 2,
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public class MyGeneric<T, K, U> : object
-	{
-		
-		[System.Runtime.Serialization.DataMember()]
-		public K MyK { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public T MyT { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public U MyU { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public string Status { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public class MyGenericInt : DemoWebApi.DemoData.Client.MyGeneric<Int32, String, DateTime>
-	{
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public class MyPeopleDic : object
-	{
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Collections.Generic.IDictionary<string, string> AnotherDic { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Collections.Generic.IDictionary<string, DemoWebApi.DemoData.Client.Person> Dic { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Collections.Generic.IDictionary<int, string> IntDic { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public class Person : DemoWebApi.DemoData.Base.Client.Entity
-	{
-		
-		/// <summary>
-		/// Data type: Date
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
-		[System.Runtime.Serialization.DataMember()]
-		public System.Nullable<System.DateTimeOffset> Baptised { get; set; }
-		
-		/// <summary>
-		/// Date of Birth.
-		/// This is optional.
-		/// </summary>
-		[System.Runtime.Serialization.DataMember()]
-		public System.Nullable<System.DateOnly> DOB { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public string GivenName { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public string Surname { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public class PhoneNumber : object
-	{
-		
-		/// <summary>
-		/// Max length: 120
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.MaxLength(120)]
-		[System.Runtime.Serialization.DataMember()]
-		public string FullNumber { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public DemoWebApi.DemoData.Client.PhoneType PhoneType { get; set; }
-	}
-	
-	/// <summary>
-	/// Phone type
-	/// Tel, Mobile, Skyp and Fax
-	/// 
-	/// </summary>
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public enum PhoneType
-	{
-		
-		/// <summary>
-		/// Land line
-		/// </summary>
-		[System.Runtime.Serialization.EnumMember()]
-		Tel,
-		
-		/// <summary>
-		/// Mobile phone
-		/// </summary>
-		[System.Runtime.Serialization.EnumMember()]
-		Mobile,
-		
-		[System.Runtime.Serialization.EnumMember()]
-		Skype,
-		
-		[System.Runtime.Serialization.EnumMember()]
-		Fax,
 	}
 }
 namespace DebugWeb.Controllers.Client
@@ -458,54 +61,6 @@ namespace DebugWeb.Controllers.Client
 
 			this.client = client;
 			this.jsonSerializerSettings = jsonSerializerSettings;
-		}
-		
-		/// <summary>
-		/// POST Dummy/createPerson
-		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.MyGenericInt> CreatePersonAsync(DemoWebApi.DemoData.Client.MyGenericInt p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
-		{
-			var requestUri = "Dummy/createPerson";
-			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-			var content = System.Net.Http.Json.JsonContent.Create(p, mediaType: null, jsonSerializerSettings);
-			httpRequestMessage.Content = content;
-			handleHeaders?.Invoke(httpRequestMessage.Headers);
-			var responseMessage = await client.SendAsync(httpRequestMessage);
-			try
-			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				return JsonSerializer.Deserialize<DemoWebApi.DemoData.Client.MyGenericInt>(stream, jsonSerializerSettings);
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
-		
-		/// <summary>
-		/// POST Dummy/createPerson
-		/// </summary>
-		public DemoWebApi.DemoData.Client.MyGenericInt CreatePerson(DemoWebApi.DemoData.Client.MyGenericInt p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
-		{
-			var requestUri = "Dummy/createPerson";
-			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-			var content = System.Net.Http.Json.JsonContent.Create(p, mediaType: null, jsonSerializerSettings);
-			httpRequestMessage.Content = content;
-			handleHeaders?.Invoke(httpRequestMessage.Headers);
-			var responseMessage = client.SendAsync(httpRequestMessage).Result;
-			try
-			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStream();
-				return JsonSerializer.Deserialize<DemoWebApi.DemoData.Client.MyGenericInt>(stream, jsonSerializerSettings);
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
 		}
 		
 		/// <summary>
@@ -555,54 +110,88 @@ namespace DebugWeb.Controllers.Client
 				responseMessage.Dispose();
 			}
 		}
+	}
+}
+namespace DemoWebApi.DemoData.Client
+{
+	
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.Serializable()]
+	public class MyGeneric<T, K, U> : object
+	{
 		
-		/// <summary>
-		/// POST Dummy/createSomething
-		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.MyGeneric<int, double, string>> CreateSomethingAsync(DemoWebApi.DemoData.Client.MyGeneric<int, double, System.DateOnly> p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
-		{
-			var requestUri = "Dummy/createSomething";
-			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-			var content = System.Net.Http.Json.JsonContent.Create(p, mediaType: null, jsonSerializerSettings);
-			httpRequestMessage.Content = content;
-			handleHeaders?.Invoke(httpRequestMessage.Headers);
-			var responseMessage = await client.SendAsync(httpRequestMessage);
-			try
-			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				return JsonSerializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<int, double, string>>(stream, jsonSerializerSettings);
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
+		[System.Runtime.Serialization.DataMember()]
+		public K MyK { get; set; }
 		
-		/// <summary>
-		/// POST Dummy/createSomething
-		/// </summary>
-		public DemoWebApi.DemoData.Client.MyGeneric<int, double, string> CreateSomething(DemoWebApi.DemoData.Client.MyGeneric<int, double, System.DateOnly> p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
-		{
-			var requestUri = "Dummy/createSomething";
-			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-			var content = System.Net.Http.Json.JsonContent.Create(p, mediaType: null, jsonSerializerSettings);
-			httpRequestMessage.Content = content;
-			handleHeaders?.Invoke(httpRequestMessage.Headers);
-			var responseMessage = client.SendAsync(httpRequestMessage).Result;
-			try
-			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStream();
-				return JsonSerializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<int, double, string>>(stream, jsonSerializerSettings);
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
+		[System.Runtime.Serialization.DataMember()]
+		public T MyT { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public U MyU { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Status { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.Serializable()]
+	public class Address : object
+	{
+		
+		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
+		public string Street1 { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.Serializable()]
+	public class Company : DemoWebApi.DemoData.Base.Client.Entity
+	{
+		
+		[System.Runtime.Serialization.DataMember(Name="BusinessNum")]
+		public string BusinessNumber { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string BusinessNumberType { get; set; }
+		
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
+		[System.Runtime.Serialization.DataMember()]
+		public System.DateTimeOffset FoundDate { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.DateOnly RegisterDate { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string[][] TextMatrix { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public int[,] Int2D { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public int[][] Int2DJagged { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IEnumerable<string> Lines { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.Serializable()]
+	public class Person : DemoWebApi.DemoData.Base.Client.Entity
+	{
+		
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
+		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<System.DateTimeOffset> Baptised { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<System.DateOnly> DOB { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string GivenName { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Surname { get; set; }
 	}
 }
 

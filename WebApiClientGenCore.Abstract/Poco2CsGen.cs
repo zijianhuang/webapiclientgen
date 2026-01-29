@@ -183,7 +183,8 @@ namespace Fonlow.Poco2Client
 				return codeTypeDeclaration;
 			}
 
-			if (type.IsGenericType)
+			var isClosedGeneric = type.IsGenericType && !type.IsGenericTypeDefinition;
+			if (isClosedGeneric)
 			{
 				var assemblyFilename = type.Assembly.GetName().Name;
 				if (codeGenSettings.ApiSelections.CherryPickingMethods == CherryPickingMethods.ApiOnly && codeGenSettings.ApiSelections.DataModelAssemblyNames != null && codeGenSettings.ApiSelections.DataModelAssemblyNames.Contains(assemblyFilename)) //to ensure the generic type is custom made, not from BCL or 3rd party you don't want.
@@ -198,7 +199,7 @@ namespace Fonlow.Poco2Client
 				Type[] genericArguments = type.GetGenericArguments();
 				for (int i = 0; i < genericArguments.Length; i++)
 				{
-					CheckOrAdd(genericArguments[0], true);
+					CheckOrAdd(genericArguments[i], true);
 				}
 			}
 			else if (TypeHelper.IsSimpleArrayType(type))

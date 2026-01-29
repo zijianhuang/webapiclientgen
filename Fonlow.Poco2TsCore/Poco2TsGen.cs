@@ -716,7 +716,8 @@ namespace Fonlow.Poco2Ts
 				return codeTypeDeclaration;
 			}
 
-			if (type.IsGenericType)
+			var isClosedGeneric = type.IsGenericType && !type.IsGenericTypeDefinition;
+			if (isClosedGeneric)
 			{
 				var assemblyFilename = type.Assembly.GetName().Name;
 				if (cherryPickingMethod== CherryPickingMethods.ApiOnly && dataModelAssemblyNames != null && dataModelAssemblyNames.Contains(assemblyFilename))
@@ -731,7 +732,7 @@ namespace Fonlow.Poco2Ts
 				Type[] genericArguments = type.GetGenericArguments();
 				for (int i = 0; i < genericArguments.Length; i++)
 				{
-					CheckOrAdd(genericArguments[0], true);
+					CheckOrAdd(genericArguments[i], true);
 				}
 			}
 			else if (TypeHelper.IsSimpleArrayType(type))

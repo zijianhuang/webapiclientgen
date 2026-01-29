@@ -221,11 +221,6 @@ namespace Fonlow.CodeDom.Web
 		public bool UseSystemTextJson { get; set; }
 
 		/// <summary>
-		/// Gets or sets the namespace to use for generated JsonSerializerContext classes. If not defined, JsonSerializerContext won't be generated.
-		/// </summary>
-		public string JsonSerializerContextNamespace { get; set; }
-
-		/// <summary>
 		/// For generated C# codes. Each controller is mapped into a container class to contain client API functions matching controller operations.
 		/// By default the container is named after the controller name, for example, service class ValuesController will result in client container class Values.
 		/// You may define a container name suffix such as "Client" or "Proxy", so the generated container class name may become ValuesClient.

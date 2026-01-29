@@ -133,27 +133,11 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void GenerateClientTypesFormWebApis(WebApiDescription[] webApiDescriptions)
 		{
-			var toGenerateJsonSerializerContext = codeGenSettings.ClientApiOutputs.UseSystemTextJson && !string.IsNullOrEmpty(codeGenSettings.ClientApiOutputs.JsonSerializerContextNamespace);
-			CodeNamespaceEx namespaceOfJsonSerializerContext = toGenerateJsonSerializerContext ? codeCompileUnit.Namespaces.InsertToSortedCollection(codeGenSettings.ClientApiOutputs.JsonSerializerContextNamespace, true) : null;
-			var jsonContextAttributeDeclaration = toGenerateJsonSerializerContext ? PodGenHelper.AddClassesToJsonSerializerContext(namespaceOfJsonSerializerContext, []) : null;
-
 			for (int i = 0; i < webApiDescriptions.Length; i++)
 			{
 				var d = webApiDescriptions[i];
 				var returnType = d.ActionDescriptor.ReturnType;
 				var codeTypeDeclaration = Poco2CsGenerator.CheckOrAdd(returnType, false);
-
-				string clientNamespaceText = returnType.Namespace + codeGenSettings.ClientApiOutputs.CSClientNamespaceSuffix;
-				string gt = ClosedGenericTypeToString(returnType);
-				if (jsonContextAttributeDeclaration != null && codeTypeDeclaration != null)
-				{
-					PodGenHelper.AddClassesToJsonSerializerContext(namespaceOfJsonSerializerContext, [$"{clientNamespaceText}.{codeTypeDeclaration.Name}"]);
-				} else {
-					var closedGenericTypeText = ClosedGenericTypeToString(returnType);
-					if (!string.IsNullOrEmpty(closedGenericTypeText)){
-						PodGenHelper.AddClassesToJsonSerializerContext(namespaceOfJsonSerializerContext, [$"{closedGenericTypeText}"]);
-					}
-				}
 			}
 		}
 
@@ -411,14 +395,6 @@ namespace Fonlow.CodeDom.Web.Cs
 			constructor.Statements.Add(new CodeAssignStatement(clientReference, new CodeArgumentReferenceExpression("client")));
 			CodeFieldReferenceExpression jsonSettingsReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "jsonSerializerSettings");
 			constructor.Statements.Add(new CodeAssignStatement(jsonSettingsReference, new CodeArgumentReferenceExpression("jsonSerializerSettings")));
-			constructor.Statements.Add(new CodeSnippetStatement(@"
-			if (this.jsonSerializerSettings == null)
-			{
-				this.jsonSerializerSettings = new JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
-			}
-
-			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
-			this.jsonSerializerSettings.TypeInfoResolverChain.Add(new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver());"));
 			targetClass.Members.Add(constructor);
 		}
 

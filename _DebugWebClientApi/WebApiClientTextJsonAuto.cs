@@ -7,31 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DemoTextJsonWeb.Serialization
-{
-	
-	
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.Address))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.AddressType))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.BigNumbers))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.Company))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.Days))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.IdMap))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.IntegralEntity))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.MedicalContraindiationResponseTypeReason))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.MedicalContraindiationResponseTypeTypeCode))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.MimsPackage))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.MyEnumType))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.MyGenericInt))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.MyPeopleDic))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.Person))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.PhoneNumber))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Client.PhoneType))]
-	[System.Text.Json.Serialization.JsonSerializable(typeof(DemoWebApi.DemoData.Base.Client.Entity))]
-	public partial class AppJsonSerializerContext : System.Text.Json.Serialization.JsonSerializerContext
-	{
-	}
-}
 namespace DemoWebApi.DemoData.Base.Client
 {
 	
@@ -483,14 +458,6 @@ namespace DebugWeb.Controllers.Client
 
 			this.client = client;
 			this.jsonSerializerSettings = jsonSerializerSettings;
-
-			if (this.jsonSerializerSettings == null)
-			{
-				this.jsonSerializerSettings = new JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
-			}
-
-			this.jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
-			this.jsonSerializerSettings.UnknownTypeHandling = JsonUnknownTypeHandling.JsonElement;
 		}
 		
 		/// <summary>
@@ -547,7 +514,7 @@ namespace DebugWeb.Controllers.Client
 		public async Task<DemoWebApi.DemoData.Client.MyGeneric<int, double, DemoWebApi.DemoData.Client.Company>> CreatePersonSomethingAsync(DemoWebApi.DemoData.Client.MyGeneric<int, double, DemoWebApi.DemoData.Client.Person> p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "Dummy/createPersonSomething";
-			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri); 
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
 			var content = System.Net.Http.Json.JsonContent.Create(p, mediaType: null, jsonSerializerSettings);
 			httpRequestMessage.Content = content;
 			handleHeaders?.Invoke(httpRequestMessage.Headers);

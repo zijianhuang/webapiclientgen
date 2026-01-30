@@ -19,7 +19,7 @@ namespace Fonlow.Poco2Client
 
 			if ((methods & CherryPickingMethods.DataContract) == CherryPickingMethods.DataContract)
 			{
-				r1= TypeHelper.ReadAttribute<DataContractAttribute>(type) != null;
+				r1= type.GetCustomAttribute<DataContractAttribute>() != null;
 			}
 
 			if ((methods & CherryPickingMethods.NewtonsoftJson) == CherryPickingMethods.NewtonsoftJson)
@@ -29,7 +29,7 @@ namespace Fonlow.Poco2Client
 
 			if ((methods & CherryPickingMethods.Serializable) == CherryPickingMethods.Serializable)
 			{
-				r3= TypeHelper.ReadAttribute<SerializableAttribute>(type) != null;
+				r3= type.GetCustomAttribute<SerializableAttribute>() != null;
 			}
 
 			if ((methods & CherryPickingMethods.AspNet) == CherryPickingMethods.AspNet)//Asp.net does not seem to define good data annotation for cherry picking types
@@ -60,7 +60,7 @@ namespace Fonlow.Poco2Client
 			CherryPickingMethods r1, r2, r3;
 			r1 = r2 = r3 = CherryPickingMethods.All;
 
-			if (TypeHelper.ReadAttribute<DataContractAttribute>(type) != null)
+			if (type.GetCustomAttribute<DataContractAttribute>() != null)
 			{
 				r1 = CherryPickingMethods.DataContract;
 			}
@@ -70,7 +70,7 @@ namespace Fonlow.Poco2Client
 				r2 = CherryPickingMethods.NewtonsoftJson;
 			}
 
-			if (TypeHelper.ReadAttribute<SerializableAttribute>(type) != null)
+			if (type.GetCustomAttribute<SerializableAttribute>() != null)
 			{
 				r3 = CherryPickingMethods.Serializable;
 			}

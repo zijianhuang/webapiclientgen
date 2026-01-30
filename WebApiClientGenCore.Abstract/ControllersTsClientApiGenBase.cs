@@ -135,7 +135,7 @@ namespace Fonlow.CodeDom.Web.Ts
 							}
 						}
 
-						string[] attributeComments = AspNetAttributesHelper.CreateDocCommentBasedOnAttributes(TypeHelper.ReadAttributes<Attribute>(d.ControllerType));
+						string[] attributeComments = AspNetAttributesHelper.CreateDocCommentBasedOnAttributes(d.ControllerType.GetCustomAttributes().ToArray());
 
 						if (docCommentsNoIndent?.Length > 0 || attributeComments?.Length > 0)
 						{

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 
@@ -10,8 +9,8 @@ namespace Fonlow.Reflection
 	{
 		static readonly Type typeOfNullableDefinition = typeof(Nullable<>);
 
-		static readonly HashSet<string> simpleListTypeNames = new HashSet<string>(
-		new string[] {
+		static readonly HashSet<string> simpleListTypeNames = new(
+		[
 			typeof(IEnumerable<>).Name,
 			typeof(IList<>).Name,
 			typeof(ICollection<>).Name,
@@ -20,12 +19,14 @@ namespace Fonlow.Reflection
 			typeof(List<>).Name,
 			typeof(System.Collections.ObjectModel.Collection<>).Name,
 			typeof(IReadOnlyCollection<>).Name,
-		   typeof(System.Collections.ObjectModel.ObservableCollection<>).Name,
-	   }
+			typeof(System.Collections.ObjectModel.ObservableCollection<>).Name,
+		   	"System.Collections.Generic.IAsyncEnumerable`1",
+
+	   ]
 	   );
 
-		static readonly HashSet<string> simpleArrayTypeNames = new HashSet<string>(
-		new string[] {
+		static readonly HashSet<string> simpleArrayTypeNames = new(
+		[
 		   "Int32[]",
 		   "Int64[]",
 		   "Int128[]",
@@ -38,12 +39,11 @@ namespace Fonlow.Reflection
 		   "UInt128[]",
 		   "Int16[]",
 		   "UInt16[]",
-	   }
+	   ]
 	   );
 
 		public static readonly IList<string> TupleTypeNames = new List<string>(
-			new string[]
-			{
+			[
 				typeof(Tuple<>).FullName,
 				typeof(Tuple<,>).FullName,
 				typeof(Tuple<,,>).FullName,
@@ -52,7 +52,7 @@ namespace Fonlow.Reflection
 				typeof(Tuple<,,,,,>).FullName,
 				typeof(Tuple<,,,,,,>).FullName,
 				typeof(Tuple<,,,,,,,>).FullName //Tuple<T1, T2, T3, T4, T5, T6, T7, TRest>
-			}
+			]
 			);
 
 
@@ -261,13 +261,13 @@ namespace Fonlow.Reflection
 
 		public static bool IsValueType(Type type)
 		{
-			return type.IsPrimitive || type.Equals(typeOfString) || type.IsEnum || type.Equals(typeof(decimal)) 
+			return type.IsPrimitive || type.Equals(typeOfString) || type.IsEnum || type.Equals(typeof(decimal))
 			|| type.Equals(typeof(DateTime)) || type.Equals(typeof(DateTimeOffset)) || type.Equals(typeof(DateOnly)) || type.IsValueType;
 		}
 
 		public static bool IsNullablePrimitive(Type type)
 		{
-			return (type.IsGenericType && typeOfNullableDefinition.Equals(type.GetGenericTypeDefinition()) 
+			return (type.IsGenericType && typeOfNullableDefinition.Equals(type.GetGenericTypeDefinition())
 			&& (type.GetGenericArguments()[0].IsPrimitive || type.GetGenericArguments()[0].IsValueType));
 		}
 	}

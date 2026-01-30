@@ -1,46 +1,11 @@
-﻿using Fonlow.Web.Meta;
+﻿using Fonlow.Reflection;
+using Fonlow.Web.Meta;
 using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace Fonlow.CodeDom.Web
 {
 	internal static class UriTemplateTransform
 	{
-		static readonly HashSet<string> simpleListTypeNames = new HashSet<string>(
-		new string[] {
-			typeof(IEnumerable<>).Name,
-			typeof(IList<>).Name,
-			typeof(ICollection<>).Name,
-			typeof(IQueryable<>).Name,
-			typeof(IReadOnlyList<>).Name,
-			typeof(List<>).Name,
-			typeof(System.Collections.ObjectModel.Collection<>).Name,
-			typeof(IReadOnlyCollection<>).Name,
-			"System.Collections.Generic.IAsyncEnumerable`1",
-		   typeof(System.Collections.ObjectModel.ObservableCollection<>).Name,
-	   }
-	   );
-
-		static readonly HashSet<string> simpleArrayTypeNames = new HashSet<string>(
-		new string[] {
-		   "Int32[]",
-		   "Int64[]",
-		   "Decimal[]",
-		   "Double[]",
-		   "Single[]",
-		   "String[]",
-		   "UInt32[]",
-		   "UInt64[]",
-		   "Int16[]",
-		   "UInt16[]",
-		   "Int128[]",
-		   "UInt128[]",
-		   "BigInteger[]",
-	   }
-	   );
-
 		static readonly Type typeofString = typeof(string);
 		static readonly Type typeofDateTime = typeof(DateTime);
 		static readonly Type typeofDateTimeNullable = typeof(DateTime?);
@@ -99,7 +64,7 @@ namespace Fonlow.CodeDom.Web
 
 					return replaced;
 				}
-				else if (IsSimpleArrayType(d.ParameterDescriptor.ParameterType) || IsSimpleListType(d.ParameterDescriptor.ParameterType))
+				else if (TypeHelper.IsSimpleArrayType(d.ParameterDescriptor.ParameterType) || TypeHelper.IsSimpleListType(d.ParameterDescriptor.ParameterType))
 				{
 					string arrayQuery = $"String.Join(\"&\", {d.ParameterDescriptor.ParameterName}.Select(k => $\"{d.ParameterDescriptor.ParameterName}={{Uri.EscapeDataString(k.ToString())}}\"))";
 					string placeHolder = $"{d.ParameterDescriptor.ParameterName}={{{d.ParameterDescriptor.ParameterName}}}&";
@@ -154,7 +119,7 @@ namespace Fonlow.CodeDom.Web
 
 					return replaced;
 				}
-				else if (IsSimpleArrayType(d.ParameterDescriptor.ParameterType) || IsSimpleListType(d.ParameterDescriptor.ParameterType))
+				else if (TypeHelper.IsSimpleArrayType(d.ParameterDescriptor.ParameterType) || TypeHelper.IsSimpleListType(d.ParameterDescriptor.ParameterType))
 				{
 					string arrayQuery = $"String.Join(\"&\", {d.ParameterDescriptor.ParameterName}.Select(k => $\"{d.ParameterDescriptor.ParameterName}={{Uri.EscapeDataString(k.ToString())}}\"))";
 					string placeHolder = $"{d.ParameterDescriptor.ParameterName}={{{d.ParameterDescriptor.ParameterName}}}";
@@ -182,7 +147,7 @@ namespace Fonlow.CodeDom.Web
 				{
 					return newUriText += $"{d.Name}=' + {d.Name}?.toISOString() + '";
 				}
-				else if (IsSimpleArrayType(d.ParameterDescriptor.ParameterType) || IsSimpleListType(d.ParameterDescriptor.ParameterType))
+				else if (TypeHelper.IsSimpleArrayType(d.ParameterDescriptor.ParameterType) || TypeHelper.IsSimpleListType(d.ParameterDescriptor.ParameterType))
 				{
 					string arrayQuery = $"{d.ParameterDescriptor.ParameterName}?.map(z => `{d.ParameterDescriptor.ParameterName}=${{encodeURIComponent(z)}}`).join('&')";
 					string placeHolder = $"{d.ParameterDescriptor.ParameterName}={{{d.ParameterDescriptor.ParameterName}}}";
@@ -236,7 +201,7 @@ namespace Fonlow.CodeDom.Web
 						return replaced;
 					}
 				}
-				else if (IsSimpleArrayType(d.ParameterDescriptor.ParameterType) || IsSimpleListType(d.ParameterDescriptor.ParameterType))
+				else if (TypeHelper.IsSimpleArrayType(d.ParameterDescriptor.ParameterType) || TypeHelper.IsSimpleListType(d.ParameterDescriptor.ParameterType))
 				{
 					bool elementBaseTypeIsEnum = d.ParameterDescriptor.ParameterType.GenericTypeArguments.Length > 0 && d.ParameterDescriptor.ParameterType.GenericTypeArguments[0].BaseType?.FullName == "System.Enum";
 					string arrayQuery = elementBaseTypeIsEnum ?
@@ -263,15 +228,15 @@ namespace Fonlow.CodeDom.Web
 			return (t.IsGenericType && typeOfNullableDefinition.Equals(t.GetGenericTypeDefinition()) && (t.GetGenericArguments()[0].IsPrimitive || t.GetGenericArguments()[0].IsValueType));
 		}
 
-		static bool IsSimpleArrayType(Type type)
-		{
-			return simpleArrayTypeNames.Contains(type.Name);
-		}
+		//static bool IsSimpleArrayType(Type type)
+		//{
+		//	return simpleArrayTypeNames.Contains(type.Name);
+		//}
 
-		public static bool IsSimpleListType(Type type)
-		{
-			return simpleListTypeNames.Contains(type.Name) && IsSimpleType(type.GenericTypeArguments[0]);
-		}
+		//public static bool IsSimpleListType(Type type)
+		//{
+		//	return simpleListTypeNames.Contains(type.Name) && IsSimpleType(type.GenericTypeArguments[0]);
+		//}
 
 		static readonly Type typeOfString = typeof(string);
 

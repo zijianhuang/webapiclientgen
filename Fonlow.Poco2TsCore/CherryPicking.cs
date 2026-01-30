@@ -87,7 +87,7 @@ namespace Fonlow.Poco2Client
 			// Enum will have all member fields being picked, regardless of the EnumMemberAttribute.
 			if ((methods & CherryPickingMethods.DataContract) == CherryPickingMethods.DataContract)
 			{
-				DataMemberAttribute a = TypeHelper.ReadAttribute<DataMemberAttribute>(memberInfo);
+				DataMemberAttribute a = memberInfo.GetCustomAttribute<DataMemberAttribute>();
 				if (a == null)
 					r[1]= CherryType.None;
 				else
@@ -105,7 +105,7 @@ namespace Fonlow.Poco2Client
 				Attribute a =TypeHelper.AttributeExists(memberInfo, "Newtonsoft.Json.JsonIgnoreAttribute");
 				if (a == null)
 				{
-					Newtonsoft.Json.JsonPropertyAttribute a2 = TypeHelper.ReadAttribute<Newtonsoft.Json.JsonPropertyAttribute>(memberInfo); // https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm
+					Newtonsoft.Json.JsonPropertyAttribute a2 = memberInfo.GetCustomAttribute<Newtonsoft.Json.JsonPropertyAttribute>(); // https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm
 					if (a2 != null)
 					{
 						r[2] = (TypeHelper.GetRequired(a2, "Required", "Default") || TypeHelper.GetRequired(a2, "Required", "Always")) ? CherryType.BigCherry : CherryType.Cherry; //https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Required.htm
@@ -127,7 +127,7 @@ namespace Fonlow.Poco2Client
 				Attribute a = TypeHelper.AttributeExists(memberInfo, "System.Text.Json.Serialization.JsonIgnoreAttribute");
 				if (a == null)
 				{
-					System.Text.Json.Serialization.JsonPropertyNameAttribute a2 = TypeHelper.ReadAttribute<System.Text.Json.Serialization.JsonPropertyNameAttribute>(memberInfo);
+					System.Text.Json.Serialization.JsonPropertyNameAttribute a2 = memberInfo.GetCustomAttribute<System.Text.Json.Serialization.JsonPropertyNameAttribute>();
 					if (a2 != null)
 					{
 						r[2] = TypeHelper.AttributeExists(memberInfo, "System.Text.Json.Serialization.JsonRequiredAttribute") != null ? CherryType.BigCherry : CherryType.Cherry; // https://learn.microsoft.com/en-us/dotnet/api/system.text.json.serialization.jsonrequiredattribute
@@ -146,10 +146,10 @@ namespace Fonlow.Poco2Client
 			//opt-out for Serializable through NonSerializedAttribute
 			if ((methods & CherryPickingMethods.Serializable) == CherryPickingMethods.Serializable)
 			{
-				NonSerializedAttribute a = TypeHelper.ReadAttribute<NonSerializedAttribute>(memberInfo);
+				NonSerializedAttribute a = memberInfo.GetCustomAttribute<NonSerializedAttribute>();
 				if (a==null)
 				{
-					RequiredAttribute a2 = TypeHelper.ReadAttribute<RequiredAttribute>(memberInfo);
+					RequiredAttribute a2 = memberInfo.GetCustomAttribute<RequiredAttribute>();
 					r[3]=  a2 == null ? CherryType.Cherry : CherryType.BigCherry;
 				}
 				else
@@ -161,13 +161,13 @@ namespace Fonlow.Poco2Client
 			//opt-out for AspNet
 			if ((methods & CherryPickingMethods.AspNet) == CherryPickingMethods.AspNet)
 			{
-				RequiredAttribute a = TypeHelper.ReadAttribute<RequiredAttribute>(memberInfo);
+				RequiredAttribute a = memberInfo.GetCustomAttribute<RequiredAttribute>();
 				r[4] = a == null ? CherryType.Cherry : CherryType.BigCherry;
 			}
 
 			if ((methods & CherryPickingMethods.ApiOnly) == CherryPickingMethods.ApiOnly)
 			{
-				RequiredAttribute a = TypeHelper.ReadAttribute<RequiredAttribute>(memberInfo);
+				RequiredAttribute a = memberInfo.GetCustomAttribute<RequiredAttribute>();
 				r[5] = a == null ? CherryType.Cherry : CherryType.BigCherry;
 			}
 
@@ -194,7 +194,7 @@ namespace Fonlow.Poco2Client
 			// Enum will have all member fields being picked, regardless of the EnumMemberAttribute.
 			if ((methods & CherryPickingMethods.DataContract) == CherryPickingMethods.DataContract)
 			{
-				DataMemberAttribute a = TypeHelper.ReadAttribute<DataMemberAttribute>(memberInfo);
+				DataMemberAttribute a = memberInfo.GetCustomAttribute<DataMemberAttribute>();
 				if (a!=null)
 				{
 					return a.Name;
@@ -206,10 +206,10 @@ namespace Fonlow.Poco2Client
 			if ((methods & CherryPickingMethods.NewtonsoftJson) == CherryPickingMethods.NewtonsoftJson)
 			{
 				//       var a =TypeHelper.AttributeExists(memberInfo, "Newtonsoft.Json.JsonIgnoreAttribute");
-				Newtonsoft.Json.JsonIgnoreAttribute a = TypeHelper.ReadAttribute<Newtonsoft.Json.JsonIgnoreAttribute>(memberInfo);
+				Newtonsoft.Json.JsonIgnoreAttribute a = memberInfo.GetCustomAttribute<Newtonsoft.Json.JsonIgnoreAttribute>();
 				if (a == null)
 				{
-					Newtonsoft.Json.JsonPropertyAttribute njAttribute = TypeHelper.ReadAttribute<Newtonsoft.Json.JsonPropertyAttribute>(memberInfo);
+					Newtonsoft.Json.JsonPropertyAttribute njAttribute = memberInfo.GetCustomAttribute<Newtonsoft.Json.JsonPropertyAttribute>();
 					if (njAttribute != null && !String.IsNullOrEmpty(njAttribute.PropertyName))
 					{
 						return njAttribute.PropertyName;
@@ -219,10 +219,10 @@ namespace Fonlow.Poco2Client
 
 			if ((methods & CherryPickingMethods.NetCore) == CherryPickingMethods.NetCore)
 			{
-				System.Text.Json.Serialization.JsonIgnoreAttribute a = TypeHelper.ReadAttribute<System.Text.Json.Serialization.JsonIgnoreAttribute>(memberInfo);
+				System.Text.Json.Serialization.JsonIgnoreAttribute a = memberInfo.GetCustomAttribute<System.Text.Json.Serialization.JsonIgnoreAttribute>();
 				if (a == null)
 				{
-					System.Text.Json.Serialization.JsonPropertyNameAttribute njAttribute = TypeHelper.ReadAttribute<System.Text.Json.Serialization.JsonPropertyNameAttribute>(memberInfo);
+					System.Text.Json.Serialization.JsonPropertyNameAttribute njAttribute = memberInfo.GetCustomAttribute<System.Text.Json.Serialization.JsonPropertyNameAttribute>();
 					if (njAttribute != null && !String.IsNullOrEmpty(njAttribute.Name))
 					{
 						return njAttribute.Name;

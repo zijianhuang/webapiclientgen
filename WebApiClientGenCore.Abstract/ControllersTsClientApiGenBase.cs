@@ -12,6 +12,7 @@ using System.Collections.Specialized;
 using WebApiClientGenCore.Abstract;
 using System.Text;
 using Fonlow.CodeDom;
+using Fonlow.Reflection;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -134,7 +135,7 @@ namespace Fonlow.CodeDom.Web.Ts
 							}
 						}
 
-						string[] attributeComments = AspNetAttributesHelper.CreateDocCommentBasedOnAttributes(d.ControllerType.GetCustomAttributes(false).OfType<Attribute>().ToArray());
+						string[] attributeComments = AspNetAttributesHelper.CreateDocCommentBasedOnAttributes(TypeHelper.ReadAttributes<Attribute>(d.ControllerType));
 
 						if (docCommentsNoIndent?.Length > 0 || attributeComments?.Length > 0)
 						{

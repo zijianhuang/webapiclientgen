@@ -56,18 +56,32 @@ namespace Fonlow.Reflection
 			);
 
 
-		public static T ReadAttribute<T>(MemberInfo memberInfo) where T : Attribute
-		{
-			ArgumentNullException.ThrowIfNull(memberInfo);
+		///// <summary>
+		///// Retrieves a custom attribute of the specified type from the given member, if exactly one instance is defined.
+		///// </summary>
+		///// <remarks>If multiple attributes of the specified type are defined on the member, or if none are present,
+		///// the method returns <see langword="null"/>. This method does not search inherited attributes.</remarks>
+		///// <typeparam name="T">The type of attribute to retrieve. Must derive from <see cref="Attribute"/>.</typeparam>
+		///// <param name="memberInfo">The reflection object representing the member from which to retrieve the attribute. Cannot be <see
+		///// langword="null"/>.</param>
+		///// <returns>The attribute of type <typeparamref name="T"/> if exactly one instance is found; otherwise, <see
+		///// langword="null"/>.</returns>
+		//public static T ReadAttribute<T>(MemberInfo memberInfo) where T : Attribute
+		//{
+		//	ArgumentNullException.ThrowIfNull(memberInfo);
+		//	return memberInfo.GetCustomAttribute<T>(false);
+		//}
 
-			object[] objects = memberInfo.GetCustomAttributes(typeof(T), false);
-			if (objects.Length == 1)
-			{
-				return (objects[0] as T);
-			}
-			return null;
-		}
-
+		/// <summary>
+		/// Retrieves a custom attribute of the specified type from the given type, if exactly one instance is defined.
+		/// </summary>
+		/// <remarks>If multiple attributes of type <typeparamref name="T"/> are defined on the specified type, or
+		/// none are found, the method returns <see langword="null"/>. This method does not search inherited
+		/// attributes.</remarks>
+		/// <typeparam name="T">The type of attribute to retrieve. Must derive from <see cref="Attribute"/>.</typeparam>
+		/// <param name="type">The type to inspect for the custom attribute. Cannot be <see langword="null"/>.</param>
+		/// <returns>An instance of the attribute of type <typeparamref name="T"/> if exactly one is found; otherwise, <see
+		/// langword="null"/>.</returns>
 		public static T ReadAttribute<T>(Type type) where T : Attribute
 		{
 			ArgumentNullException.ThrowIfNull(type);
@@ -84,8 +98,8 @@ namespace Fonlow.Reflection
 		{
 			ArgumentNullException.ThrowIfNull(type);
 
-			object[] objects = type.GetCustomAttributes(typeof(T), false);
-			return objects.Cast<T>().ToArray();
+			var r = type.GetCustomAttributes(false).OfType<T>().ToArray();
+			return r;
 		}
 
 		/// <summary>

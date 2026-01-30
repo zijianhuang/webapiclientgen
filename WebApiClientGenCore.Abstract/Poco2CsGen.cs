@@ -505,9 +505,9 @@ namespace Fonlow.Poco2Client
 			return typeDeclaration;
 		}
 
-		static void AddDataMemberAttribute(MemberInfo memberField, CodeMemberField clientProperty)
+		static void AddDataMemberAttribute(MemberInfo memberInfo, CodeMemberField clientProperty)
 		{
-			System.Runtime.Serialization.DataMemberAttribute dataMemberAttribute = TypeHelper.ReadAttribute<System.Runtime.Serialization.DataMemberAttribute>(memberField);
+			System.Runtime.Serialization.DataMemberAttribute dataMemberAttribute = memberInfo.GetCustomAttribute<System.Runtime.Serialization.DataMemberAttribute>();
 			if (dataMemberAttribute != null)
 			{
 				List<CodeAttributeArgument> arguments = new();
@@ -543,9 +543,9 @@ namespace Fonlow.Poco2Client
 			}
 		}
 
-		static void AddEnumMemberAttribute(MemberInfo memberField, CodeMemberField clientProperty)
+		static void AddEnumMemberAttribute(MemberInfo memberInfo, CodeMemberField clientProperty)
 		{
-			System.Runtime.Serialization.EnumMemberAttribute dataMemberAttribute = TypeHelper.ReadAttribute<System.Runtime.Serialization.EnumMemberAttribute>(memberField);
+			System.Runtime.Serialization.EnumMemberAttribute dataMemberAttribute = memberInfo.GetCustomAttribute<System.Runtime.Serialization.EnumMemberAttribute>();
 			if (dataMemberAttribute != null)
 			{
 				string v = dataMemberAttribute.Value;
@@ -560,9 +560,9 @@ namespace Fonlow.Poco2Client
 			}
 		}
 
-		static void AddJsonPropertyNameAttribute(MemberInfo memberField, CodeMemberField clientProperty)
+		static void AddJsonPropertyNameAttribute(MemberInfo memberInfo, CodeMemberField clientProperty)
 		{
-			System.Text.Json.Serialization.JsonPropertyNameAttribute jsonPropertyNameAttribute = TypeHelper.ReadAttribute<System.Text.Json.Serialization.JsonPropertyNameAttribute>(memberField);
+			System.Text.Json.Serialization.JsonPropertyNameAttribute jsonPropertyNameAttribute = memberInfo.GetCustomAttribute<System.Text.Json.Serialization.JsonPropertyNameAttribute>();
 			if (jsonPropertyNameAttribute != null)
 			{
 				List<CodeAttributeArgument> arguments = new();
@@ -609,17 +609,6 @@ namespace Fonlow.Poco2Client
 		//	}
 
 		//}
-
-
-
-		static void AddJsonRequiredAttribute(MemberInfo memberField, CodeMemberField clientProperty)
-		{
-			System.Text.Json.Serialization.JsonRequiredAttribute jsonPropertyNameAttribute = TypeHelper.ReadAttribute<System.Text.Json.Serialization.JsonRequiredAttribute>(memberField);
-			if (jsonPropertyNameAttribute != null)
-			{
-				clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Text.Json.Serialization.JsonRequired"));
-			}
-		}
 
 		void CreateTypeDocComment(Type type, CodeTypeDeclaration typeDeclaration)
 		{

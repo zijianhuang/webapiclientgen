@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 
 namespace Fonlow.Web.Meta
 {
@@ -123,7 +124,7 @@ namespace Fonlow.Web.Meta
 						MethodFullName = controllerActionDescriptor.MethodInfo.DeclaringType.FullName + "." + controllerActionDescriptor.MethodInfo.Name,
 						MethodParameterTypes = controllerActionDescriptor.MethodInfo.GetParameters().Select(d => d.ParameterType).ToArray(),
 						ReturnType = returnType,
-						CustomAttributes = controllerActionDescriptor.MethodInfo.GetCustomAttributes(false).OfType<Attribute>().ToArray(),
+						CustomAttributes = controllerActionDescriptor.MethodInfo.GetCustomAttributes().ToArray(),
 						ControllerDescriptor = new ControllerDescriptor()
 						{
 							ControllerName = controllerActionDescriptor.ControllerName,

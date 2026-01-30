@@ -1722,6 +1722,25 @@ export namespace DemoWebApi_Controllers_Client {
 }
 
 export namespace DemoWebApi_DemoDataEx_Client {
+	export interface ListCheck {
+		bizEntities?: Array<DemoWebApi_DemoData_Client.BizEntity>;
+		bytesHashSet?: Array<number>;
+		companies?: Array<DemoWebApi_DemoData_Client.Company>;
+		decimals?: Array<number>;
+		entities?: Array<DemoWebApi_DemoData_Base_Client.Entity>;
+		numbers?: Array<number>;
+		people?: Array<DemoWebApi_DemoData_Client.Person>;
+		strings?: Array<string>;
+		trusts?: Array<DemoWebApi_DemoDataEx_Client.Trust>;
+	}
+	export interface ListCheckFormProperties {
+	}
+	export function CreateListCheckFormGroup() {
+		return new FormGroup<ListCheckFormProperties>({
+		});
+
+	}
+
 	export interface TextJsonPerson {
 		surname?: string | null;
 	}

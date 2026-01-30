@@ -9234,6 +9234,28 @@ namespace DemoWebApi.DemoDataEx.Client
 {
 	
 	
+	public class ListCheck : object
+	{
+		
+		public System.Collections.Generic.IReadOnlyCollection<DemoWebApi.DemoData.Client.BizEntity> BizEntities { get; set; }
+		
+		public System.Collections.Generic.HashSet<byte> BytesHashSet { get; set; }
+		
+		public System.Linq.IQueryable<DemoWebApi.DemoData.Client.Company> Companies { get; set; }
+		
+		public decimal[] Decimals { get; set; }
+		
+		public System.Collections.ObjectModel.ObservableCollection<DemoWebApi.DemoData.Base.Client.Entity> Entities { get; set; }
+		
+		public System.Collections.Generic.IEnumerable<int> Numbers { get; set; }
+		
+		public System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Person> People { get; set; }
+		
+		public System.Collections.ObjectModel.Collection<string> Strings { get; set; }
+		
+		public System.Collections.Generic.IReadOnlyList<DemoWebApi.DemoDataEx.Client.Trust> Trusts { get; set; }
+	}
+	
 	public class TextJsonPerson : object
 	{
 		

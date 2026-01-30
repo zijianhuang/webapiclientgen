@@ -7,6 +7,10 @@ using System;
 
 namespace Fonlow.CodeDom.Web
 {
+	/// <summary>
+	/// Specifies options for handling <see cref="System.ComponentModel.DataAnnotations.RegularExpressionAttribute"/>
+	/// values when generating TypeScript client code specifically for the NG2FormGroup plugin.
+	/// </summary>
 	[Flags]
 	public enum UseRegexAttr
 	{
@@ -18,7 +22,7 @@ namespace Fonlow.CodeDom.Web
 		Use = 1,
 	}
 
-	public class CodeGenSettingsBase
+	public abstract class CodeGenSettingsBase
 	{
 		[Required]
 		[JsonRequired]
@@ -29,7 +33,7 @@ namespace Fonlow.CodeDom.Web
 	/// <summary>
 	/// What CodeGenController is expecting 
 	/// </summary>
-	public class CodeGenSettings : CodeGenSettingsBase
+	public sealed class CodeGenSettings : CodeGenSettingsBase
 	{
 		[Required]
 		[JsonRequired]
@@ -40,7 +44,7 @@ namespace Fonlow.CodeDom.Web
 	/// <summary>
 	/// For cherry picking APIs and data models 
 	/// </summary>
-	public class CodeGenConfig
+	public sealed class CodeGenConfig
 	{
 		/// <summary>
 		/// To exclude some controllers. For example, [My.Namespace.Home, My.Namespace.FileUpload] for My.Namespace.HomeController and My.Namespace.FileUploadController.
@@ -113,11 +117,22 @@ namespace Fonlow.CodeDom.Web
 		}
 	}
 
+	/// <summary>
+	/// Represents the configuration and metadata for a set of POCO classes within a specific assembly, including options
+	/// for cherry-picking methods and translating data annotation attributes to documentation comments.
+	/// </summary>
+	/// <remarks>Use this type to specify assembly-level settings for code generation or documentation processes
+	/// that operate on POCO classes. The properties allow fine-grained control over which methods are included and how
+	/// data annotation attributes are handled. This type is typically used as part of a larger model generation
+	/// workflow.</remarks>
 	public class DataModel
 	{
 		[JsonRequired]
 		public required string AssemblyName { get; set; }
 
+		/// <summary>
+		/// Gets or sets the cherry-picking methods for the POCO classes within the specified assembly.
+		/// </summary>
 		public required CherryPickingMethods CherryPickingMethods { get; set; }
 
 		/// <summary>
@@ -125,10 +140,10 @@ namespace Fonlow.CodeDom.Web
 		/// including Required, Range, MaxLength, MinLength, StringLength, DataType and RegularExpression.
 		/// If defined, overwrite the global setting in ModelGenOutputs; if not defined, follow the global setting.
 		/// </summary>
-		public Nullable<bool> DataAnnotationsToComments { get; set; }
+		public bool? DataAnnotationsToComments { get; set; }
 	}
 
-	public class ModelGenOutputs
+	public abstract class ModelGenOutputs
 	{
 		/// <summary>
 		/// The naming of namespace is after the controller's namespace. To distinguish from the server side namespace, it is better to add a suffix like ".Client". The default is ".Client".

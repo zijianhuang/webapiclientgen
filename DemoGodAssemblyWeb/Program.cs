@@ -5,7 +5,7 @@ System.Reflection.Assembly appAssembly = System.Reflection.Assembly.GetExecuting
 string dirOfAppAssembly = System.IO.Path.GetDirectoryName(appAssembly.Location);
 IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile(System.IO.Path.Combine(dirOfAppAssembly, "appsettings.json")).Build();
 IConfigurationSection appSettings = config.GetSection("appSettings");
-string? environment = appSettings.GetValue<string>("environment");
+string environment = appSettings.GetValue<string>("environment");
 
 string webRootPath = "./";
 

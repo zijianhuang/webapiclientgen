@@ -33,7 +33,6 @@ namespace Fonlow.CodeDom.Web.Cs
 		readonly bool forAsync;
 		readonly bool stringAsString;
 		readonly string statementOfEnsureSuccessStatusCode;
-		readonly CodeGenSettings codeGenSettings;
 		readonly CodeGenOutputs codeGenOutputsSettings;
 		readonly System.Reflection.ParameterInfo[] parameterInfoArray;
 		readonly IDictionary<Type, Func<object, string>> attribueCommentDic;
@@ -44,7 +43,6 @@ namespace Fonlow.CodeDom.Web.Cs
 			this.codeCompileUnit = codeCompileUnit;
 			this.description = webApiDescription;
 			this.poco2CsGen = poco2CsGen;
-			this.codeGenSettings = codeGenSettings;
 			this.codeGenOutputsSettings = codeGenSettings.ClientApiOutputs;
 			this.forAsync = forAsync;
 			this.stringAsString = codeGenOutputsSettings.StringAsString;

@@ -23,9 +23,6 @@ namespace IntegrationTests
 				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
 			};
 
-			jsonSerializerSettings.TypeInfoResolverChain.Add(DemoTextJsonWeb.Serialization.AppJsonSerializerContext.Default);
-			jsonSerializerSettings.TypeInfoResolverChain.Add(new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver());
-
 			var c = TestingSettings.Instance.ServiceCommands["LaunchWebApi"];
 			this.HttpClient.BaseAddress = new System.Uri(c.BaseUrl);
 			Api = new DemoWebApi.Controllers.Client.Entities(HttpClient, jsonSerializerSettings);

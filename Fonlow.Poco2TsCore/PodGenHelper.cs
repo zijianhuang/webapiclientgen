@@ -1,4 +1,5 @@
-﻿using Fonlow.Reflection;
+﻿using Fonlow.Poco2TsCore;
+using Fonlow.Reflection;
 using System;
 using System.CodeDom;
 using System.Diagnostics;
@@ -75,10 +76,11 @@ namespace Fonlow.Poco2Client
 		/// <param name="ns"></param>
 		/// <param name="type"></param>
 		/// <returns></returns>
-		public static CodeTypeDeclaration CreatePodClientGenericClass(CodeNamespace ns, Type type)
+		public static CodeTypeDeclaration CreatePodClientGenericClass(CodeNamespace ns, Type type, CustomAssembliesSet customAssembliesSet)
 		{
 			Type genericTypeDefinition = type.GetGenericTypeDefinition();
 			Type[] genericArguments = type.GetGenericArguments();
+			var isClosedGeneric = !type.IsGenericTypeDefinition;
 
 			string goodGenericClassName = SanitiseGenericClassName(genericTypeDefinition.Name);
 
@@ -89,7 +91,7 @@ namespace Fonlow.Poco2Client
 
 			targetClass.TypeParameters.AddRange(genericArguments.Select(d => new CodeTypeParameter()
 			{
-				Name = d.ToString(),
+				Name = isClosedGeneric ? customAssembliesSet.GetClientTypeName(d) : d.Name,
 			}).ToArray()
 			);
 

@@ -385,7 +385,7 @@ namespace DemoWebApi.DemoData
 	}
 
 	[DataContract(Namespace = Constants.DataNamespace)]
-	public class MyGenericInt : MyGeneric<int, string, DateTime>
+	public class MyGenericInt : MyGeneric<int, Entity, DateTime>
 	{
 	}
 

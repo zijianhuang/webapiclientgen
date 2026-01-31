@@ -10,7 +10,7 @@
 		},
 		"DemoCoreWeb": {
 			"commandName": "Project",
-			"workingDirectory": "bin\\Debug\\net9.0",
+			"workingDirectory": "bin\\Debug\\net10.0",
 			"launchBrowser": true,
 			"launchUrl": "api/values",
 			"environmentVariables": {

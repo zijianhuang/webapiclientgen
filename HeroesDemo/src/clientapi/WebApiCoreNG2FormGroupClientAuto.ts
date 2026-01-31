@@ -2285,7 +2285,7 @@ export namespace DemoWebApi_DemoData_Client {
 		status?: string | null;
 	}
 
-	export interface MyGenericInt extends DemoWebApi_DemoData_Client.MyGeneric<number, string, Date> {
+	export interface MyGenericInt extends DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Base_Client.Entity, Date> {
 	}
 
 	export interface MyPeopleDic {

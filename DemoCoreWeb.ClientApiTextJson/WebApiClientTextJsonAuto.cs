@@ -9161,7 +9161,7 @@ namespace DemoWebApi.DemoData.Client
 		public string Status { get; set; }
 	}
 	
-	public class MyGenericInt : DemoWebApi.DemoData.Client.MyGeneric<Int32, String, DateTime>
+	public class MyGenericInt : DemoWebApi.DemoData.Client.MyGeneric<System.Int32, DemoWebApi.DemoData.Base.Client.Entity, System.DateTime>
 	{
 	}
 	
@@ -9253,7 +9253,7 @@ namespace DemoWebApi.DemoDataEx.Client
 		
 		public System.Collections.ObjectModel.Collection<string> Strings { get; set; }
 		
-		public System.Collections.Generic.IReadOnlyList<DemoWebApi.DemoDataEx.Client.Trust> Trusts { get; set; }
+		public System.Collections.Generic.IReadOnlyList<DemoWebApi.DemoDataEx.Trust> Trusts { get; set; }
 	}
 	
 	public class TextJsonPerson : object

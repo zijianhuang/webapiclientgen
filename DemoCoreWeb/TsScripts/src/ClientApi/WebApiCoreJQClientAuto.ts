@@ -673,6 +673,73 @@ namespace DemoWebApi_Controllers_Client {
 	}
 
 
+	/** @deprecated This controller is obsolete, use ValuesController instead. */
+	export class ObsoleteValues {
+		constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
+		}
+
+		/**
+		 * DELETE api/ObsoleteValues/{id}
+		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		delete(id: number | null, callback: (data : void) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.delete(this.baseUri + 'api/ObsoleteValues/' + id, callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
+		 * Get a list of value
+		 * GET api/ObsoleteValues
+		 */
+		get(callback: (data : Array<string>) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/ObsoleteValues', callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
+		 * Get by both Id and name
+		 * GET api/ObsoleteValues/Name/{id}?name={name}
+		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		getByIdOfInt32AndNameOfString(id: number | null, name: string | null, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/ObsoleteValues/Name/' + id + '?name=' + (!name ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
+		 * Get by name
+		 * GET api/ObsoleteValues?name={name}
+		 * @deprecated This method is obsolete, use ValuesController.Get instead.
+		 */
+		getByNameOfString(name: string | null, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/ObsoleteValues?name=' + (!name ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
+		 * Get by Id
+		 * GET api/ObsoleteValues/{id}
+		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		getByIdOfInt32(id: number | null, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/ObsoleteValues/' + id, callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
+		 * Get a list of value async, it is get2
+		 * GET api/ObsoleteValues/Get2
+		 */
+		get2(callback: (data : Array<string>) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/ObsoleteValues/Get2', callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
+		 * Update with valjue
+		 * PUT api/ObsoleteValues/{id}
+		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		put(id: number | null, value: string | null, callback: (data : void) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.put(this.baseUri + 'api/ObsoleteValues/' + id, value, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
+	}
+
+
 	/**
 	 * For testing posting and getting string data. Returned string is JSON object.
 	 */
@@ -1614,7 +1681,7 @@ namespace DemoWebApi_DemoData_Base_Client {
 
 		/**
 		 * Type: Uri
-		 * Regex pattern: ^(https?:\\/\\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]\{2,\}(\\/\S\*)?$
+		 * Regex pattern: ^(https?:\\/\\/)?[da-z.-]+.[a-z.]\{2,6\}([\/\w .-]\*)\*\\/?$
 		 */
 		web?: string | null;
 	}
@@ -1762,7 +1829,7 @@ namespace DemoWebApi_DemoData_Client {
 	export enum MedicalContraindiationResponseTypeTypeCode { P = "P", T = "Tt" }
 
 
-	/** @deprecated Type deprecated for testing */
+	/** @deprecated Type with properties deprecated for testing */
 	export interface MimsPackage {
 
 		/**
@@ -1782,14 +1849,8 @@ namespace DemoWebApi_DemoData_Client {
 		result?: DemoWebApi_DemoData_Client.MimsResult<number>;
 		tag?: string | null;
 
-		/** @deprecated Just for testing ~ Is Error. */
-		tagForTest?: string | null;
-
 		/** @deprecated Just for testing */
 		tagForTest2?: string | null;
-
-		/** @deprecated Just for testing ~ Is Error. */
-		tagForTest3?: string | null;
 	}
 
 	export interface MimsResult<T> {
@@ -1806,6 +1867,9 @@ namespace DemoWebApi_DemoData_Client {
 		myT?: T;
 		myU?: U;
 		status?: string | null;
+	}
+
+	export interface MyGenericInt extends DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Base_Client.Entity, Date> {
 	}
 
 	export interface MyPeopleDic {

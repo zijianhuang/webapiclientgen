@@ -4068,6 +4068,357 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 	
+	[System.Obsolete("This controller is obsolete, use ValuesController instead.")]
+	public partial class ObsoleteValues
+	{
+		
+		private System.Net.Http.HttpClient client;
+		
+		private JsonSerializerSettings jsonSerializerSettings;
+		
+		public ObsoleteValues(System.Net.Http.HttpClient client, JsonSerializerSettings jsonSerializerSettings=null)
+		{
+			if (client == null)
+				throw new ArgumentNullException(nameof(client), "Null HttpClient.");
+
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException(nameof(client), "HttpClient has no BaseAddress");
+
+			this.client = client;
+			this.jsonSerializerSettings = jsonSerializerSettings;
+		}
+		
+		/// <summary>
+		/// DELETE api/ObsoleteValues/{id}
+		/// </summary>
+		public async Task DeleteAsync(int id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/ObsoleteValues/"+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// DELETE api/ObsoleteValues/{id}
+		/// </summary>
+		public void Delete(int id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/ObsoleteValues/"+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get a list of value
+		/// GET api/ObsoleteValues
+		/// </summary>
+		public async Task<System.Collections.Generic.IEnumerable<string>> GetAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/ObsoleteValues";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<System.Collections.Generic.IEnumerable<string>>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get a list of value
+		/// GET api/ObsoleteValues
+		/// </summary>
+		public System.Collections.Generic.IEnumerable<string> Get(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/ObsoleteValues";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStream();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<System.Collections.Generic.IEnumerable<string>>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get by both Id and name
+		/// GET api/ObsoleteValues/Name/{id}?name={name}
+		/// </summary>
+		public async Task<string> GetAsync(int id, string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/ObsoleteValues/Name/"+id+"?name="+(name == null ? "" : Uri.EscapeDataString(name));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get by both Id and name
+		/// GET api/ObsoleteValues/Name/{id}?name={name}
+		/// </summary>
+		public string Get(int id, string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/ObsoleteValues/Name/"+id+"?name="+(name == null ? "" : Uri.EscapeDataString(name));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = responseMessage.Content.ReadAsStream();
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get by name
+		/// GET api/ObsoleteValues?name={name}
+		/// </summary>
+		[System.Obsolete("This method is obsolete, use ValuesController.Get instead.")]
+		public async Task<string> GetAsync(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/ObsoleteValues?name="+(name == null ? "" : Uri.EscapeDataString(name));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get by name
+		/// GET api/ObsoleteValues?name={name}
+		/// </summary>
+		[System.Obsolete("This method is obsolete, use ValuesController.Get instead.")]
+		public string Get(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/ObsoleteValues?name="+(name == null ? "" : Uri.EscapeDataString(name));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = responseMessage.Content.ReadAsStream();
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get by Id
+		/// GET api/ObsoleteValues/{id}
+		/// </summary>
+		public async Task<string> GetAsync(int id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/ObsoleteValues/"+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get by Id
+		/// GET api/ObsoleteValues/{id}
+		/// </summary>
+		public string Get(int id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/ObsoleteValues/"+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = responseMessage.Content.ReadAsStream();
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get a list of value async, it is get2
+		/// GET api/ObsoleteValues/Get2
+		/// </summary>
+		public async Task<System.Collections.Generic.IEnumerable<string>> Get2Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/ObsoleteValues/Get2";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<System.Collections.Generic.IEnumerable<string>>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get a list of value async, it is get2
+		/// GET api/ObsoleteValues/Get2
+		/// </summary>
+		public System.Collections.Generic.IEnumerable<string> Get2(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/ObsoleteValues/Get2";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStream();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<System.Collections.Generic.IEnumerable<string>>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Update with valjue
+		/// PUT api/ObsoleteValues/{id}
+		/// </summary>
+		public async Task PutAsync(int id, string value, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/ObsoleteValues/"+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			using var requestWriter = new System.IO.StringWriter();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, value);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Update with valjue
+		/// PUT api/ObsoleteValues/{id}
+		/// </summary>
+		public void Put(int id, string value, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/ObsoleteValues/"+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			using var requestWriter = new System.IO.StringWriter();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, value);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+	}
+	
 	/// <summary>
 	/// For testing posting and getting string data. Returned string is JSON object.
 	/// </summary>
@@ -9575,9 +9926,9 @@ namespace DemoWebApi.DemoData.Base.Client
 		public System.Collections.ObjectModel.ObservableCollection<DemoWebApi.DemoData.Client.PhoneNumber> PhoneNumbers { get; set; }
 		
 		/// <summary>
-		/// Regex pattern: ^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$
+		/// Regex pattern: ^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.RegularExpression(@"^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$")]
+		[System.ComponentModel.DataAnnotations.RegularExpression(@"^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$")]
 		[System.Runtime.Serialization.DataMember()]
 		public System.Uri Web { get; set; }
 	}
@@ -9850,7 +10201,7 @@ namespace DemoWebApi.DemoData.Client
 		T,
 	}
 	
-	[System.Obsolete("Type deprecated for testing")]
+	[System.Obsolete("Type with properties deprecated for testing")]
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.Serializable()]
 	public class MimsPackage : object
@@ -9883,17 +10234,9 @@ namespace DemoWebApi.DemoData.Client
 		[System.Runtime.Serialization.DataMember()]
 		public string Tag { get; set; }
 		
-		[System.Obsolete("Just for testing", true)]
-		[System.Runtime.Serialization.DataMember()]
-		public string TagForTest { get; set; }
-		
 		[System.Obsolete("Just for testing", DiagnosticId="someId", UrlFormat="WhateverFormat")]
 		[System.Runtime.Serialization.DataMember()]
 		public string TagForTest2 { get; set; }
-		
-		[System.Obsolete("Just for testing", true, DiagnosticId="someId", UrlFormat="WhateverFormat")]
-		[System.Runtime.Serialization.DataMember()]
-		public string TagForTest3 { get; set; }
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
@@ -9942,6 +10285,12 @@ namespace DemoWebApi.DemoData.Client
 		
 		[System.Runtime.Serialization.DataMember()]
 		public string Status { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.Serializable()]
+	public class MyGenericInt : DemoWebApi.DemoData.Client.MyGeneric<System.Int32, DemoWebApi.DemoData.Base.Client.Entity, System.DateTime>
+	{
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]

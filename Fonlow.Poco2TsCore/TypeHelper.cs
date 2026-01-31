@@ -12,16 +12,16 @@ namespace Fonlow.Reflection
 		static readonly HashSet<string> simpleListTypeNames = new(
 		[
 			typeof(IEnumerable<>).Name,
-			typeof(IList<>).Name,
-			typeof(ICollection<>).Name,
-			typeof(IQueryable<>).Name,
 			typeof(IReadOnlyList<>).Name,
+			typeof(IList<>).Name,
+			typeof(IQueryable<>).Name,
 			typeof(List<>).Name,
-			typeof(System.Collections.ObjectModel.Collection<>).Name,
-			typeof(IReadOnlyCollection<>).Name,
-			typeof(System.Collections.ObjectModel.ObservableCollection<>).Name,
-		   	"System.Collections.Generic.IAsyncEnumerable`1",
 
+			//typeof(ICollection<>).Name, No need to mention these, while they are not recommended in API parameters
+			//typeof(System.Collections.ObjectModel.Collection<>).Name,
+			//typeof(IReadOnlyCollection<>).Name,
+			//typeof(System.Collections.ObjectModel.ObservableCollection<>).Name,
+		   	//"System.Collections.Generic.IAsyncEnumerable`1",
 	   ]
 	   );
 

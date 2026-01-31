@@ -228,16 +228,6 @@ namespace Fonlow.CodeDom.Web
 			return (t.IsGenericType && typeOfNullableDefinition.Equals(t.GetGenericTypeDefinition()) && (t.GetGenericArguments()[0].IsPrimitive || t.GetGenericArguments()[0].IsValueType));
 		}
 
-		//static bool IsSimpleArrayType(Type type)
-		//{
-		//	return simpleArrayTypeNames.Contains(type.Name);
-		//}
-
-		//public static bool IsSimpleListType(Type type)
-		//{
-		//	return simpleListTypeNames.Contains(type.Name) && IsSimpleType(type.GenericTypeArguments[0]);
-		//}
-
 		static readonly Type typeOfString = typeof(string);
 
 		public static bool IsSimpleType(Type type)

@@ -1,7 +1,7 @@
 ﻿using Fonlow.CodeDom;
 using Fonlow.CodeDom.Web;
 using Fonlow.DocComment;
-using Fonlow.Poco2Ts;
+using Fonlow.Poco2TsCore;
 using Fonlow.Reflection;
 using System;
 using System.CodeDom;
@@ -12,7 +12,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Xml.Linq;
 
 namespace Fonlow.Poco2Client
 {
@@ -47,6 +46,8 @@ namespace Fonlow.Poco2Client
 
 		readonly IDictionary<Type, Func<Attribute, CodeAttributeDeclaration>> declarationDic;
 
+		readonly CustomAssembliesSet customAssembliesSet;
+
 		/// <summary>
 		/// Gen will share the same CodeCompileUnit with other CodeGen components which generate client API codes.
 		/// </summary>
@@ -62,6 +63,7 @@ namespace Fonlow.Poco2Client
 			AnnotationCommentGenerator annotationCommentGenerator = new AnnotationCommentGenerator();
 			attribueCommentDic = annotationCommentGenerator.Get();
 			declarationDic = AnnotationDeclarationGenerator.Create();
+			customAssembliesSet = new CustomAssembliesSet(codeGenSettings.ApiSelections.AllDataModelAssemblyNames, codeGenSettings.ClientApiOutputs.CSClientNamespaceSuffix);
 		}
 
 		/// <summary>
@@ -263,7 +265,7 @@ namespace Fonlow.Poco2Client
 			{
 				if (type.IsGenericType)
 				{
-					typeDeclaration = PodGenHelper.CreatePodClientGenericClass(clientNamespace, type);
+					typeDeclaration = PodGenHelper.CreatePodClientGenericClass(clientNamespace, type, customAssembliesSet);
 				}
 				else
 				{
@@ -857,10 +859,10 @@ namespace Fonlow.Poco2Client
 		/// <returns></returns>
 		string RefineCustomComplexTypeText(Type type)
 		{
-			if (type.IsGenericType && !type.IsGenericTypeDefinition)
+			if (type.IsGenericType && !type.IsGenericTypeDefinition && customAssembliesSet.IsCustomType(type))
 			{
 				var ts = type.GenericTypeArguments;
-				var tsText = string.Join(", ", ts.Select(d => d.Name));
+				var tsText = string.Join(", ", ts.Select(d => TranslateToClientTypeReference(d).BaseType));
 				string[] nameSegments = type.Name.Split('`');
 				string genericClassName = nameSegments[0];
 				return type.Namespace + this.codeGenOutputsSettings.CSClientNamespaceSuffix + "." + genericClassName + $"<{tsText}>";
@@ -868,14 +870,9 @@ namespace Fonlow.Poco2Client
 			}
 			else
 			{
-				return type.Namespace + this.codeGenOutputsSettings.CSClientNamespaceSuffix + "." + type.Name;
+				return customAssembliesSet.GetClientTypeName(type);
 			}
 		}
-
-		//string RefineCustomComplexTypeTextForNullableReferenceType(Type t)
-		//{
-		//	return t.Namespace + this.settings.CSClientNamespaceSuffix + "." + t.Name;
-		//}
 
 		CodeTypeReference CreateArrayTypeReference(Type elementType, int arrayRank)
 		{

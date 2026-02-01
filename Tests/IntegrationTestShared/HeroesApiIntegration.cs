@@ -34,12 +34,9 @@ namespace IntegrationTests
 		public void TestGetHeroNotExists()
 		{
 			DemoWebApi.Controllers.Client.Hero h = api.GetHero(99999);
-			//Console.WriteLine(h.Name); //No compiler warning here, since the lib is generated.
 			Assert.Null(h);
 
 			DemoWebApi.Controllers.Client.Hero h2 = GetNullHero();
-			//Console.WriteLine(h2.Name); //no compiler warning here either.
-			//DoSomethingWithHero(h2);
 		}
 
 		[Fact]
@@ -68,10 +65,5 @@ namespace IntegrationTests
 		{
 			return null;
 		}
-
-		//void DoSomethingWithHero([System.Diagnostics.CodeAnalysis.NotNull()] DemoWebApi.Controllers.Client.Hero hero)
-		//{
-		//	System.Console.WriteLine(hero.Name);
-		//}
 	}
 }

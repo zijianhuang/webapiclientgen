@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
 
 namespace Fonlow.Poco2TsCore
 {
@@ -18,7 +17,8 @@ namespace Fonlow.Poco2TsCore
 		public CustomAssembliesSet(string[] customAssemblyNames, string clientSuffix)
 		{
 			this.clientSuffix = string.IsNullOrEmpty(clientSuffix) ? "" : $"{clientSuffix}.";
-			//Assembly[] loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+			//Assembly[] loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies(); It could happen that some assemblies are not loaded yet when this constructor is called.
+			// and after all, it is not a big deal that the app programmers have declared some assembly names that are actually rubbish.
 			//common = loadedAssemblies.Select(d => d.GetName().Name).Intersect(customAssemblyNames, StringComparer.OrdinalIgnoreCase).ToArray();
 			common = customAssemblyNames;
 		}

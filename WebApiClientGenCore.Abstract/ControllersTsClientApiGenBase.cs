@@ -397,7 +397,6 @@ namespace Fonlow.CodeDom.Web.Ts
 			ns.Types.Add(targetClass);
 			AddConstructor(targetClass);
 
-			//Console.WriteLine("controller className: " + className);
 			return targetClass;
 		}
 

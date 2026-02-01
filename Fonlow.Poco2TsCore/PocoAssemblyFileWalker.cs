@@ -1,8 +1,7 @@
-﻿using System;
-using System.Reflection;
-using System.Diagnostics;
-using Fonlow.Poco2Client;
+﻿using Fonlow.Poco2Client;
+using System;
 using System.CodeDom;
+using System.Reflection;
 
 namespace Fonlow.Poco2Ts
 {
@@ -35,7 +34,6 @@ namespace Fonlow.Poco2Ts
 			gen.SaveCodeToFile(tsFilePath);
 			string msg = $"{tsFilePath} is generated.";
 			Console.WriteLine(msg);
-			Trace.WriteLine(msg);
 		}
 
 		static Assembly LoadAssemblyFile(string assemblyFilePath)
@@ -47,8 +45,7 @@ namespace Fonlow.Poco2Ts
 			catch (Exception ex) when (ex is System.IO.FileLoadException || ex is BadImageFormatException || ex is System.IO.FileNotFoundException || ex is ArgumentException )
 			{
 				string msg = String.Format("When loading {0}, errors occur: {1}", assemblyFilePath, ex.Message);
-				Console.WriteLine(msg);
-				Trace.TraceWarning(msg);
+				Console.Error.WriteLine(msg);
 				return null;
 			}
 		}

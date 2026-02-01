@@ -75,7 +75,6 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <returns></returns>
 		CodeTypeDeclaration FindCodeTypeDeclaration(string typeName)
 		{
-			//Console.WriteLine("All TypeDeclarations: " + string.Join("; ", currentCodeNamespace.Types.OfType<CodeTypeDeclaration>().Select(d=>d.Name)));
 			for (int i = 0; i < codeNamespaceCollection.Count; i++)
 			{
 				CodeNamespace ns = codeNamespaceCollection[i];
@@ -255,7 +254,6 @@ namespace Fonlow.TypeScriptCodeDom
 
 			if (customAttributes?.Length > 0)
 			{
-				//Console.WriteLine("customAttributes: " + string.Join(", ",  customAttributes));
 				List<string> validatorList = new List<string>();
 				for (int i = 0; i < customAttributes.Length; i++)
 				{

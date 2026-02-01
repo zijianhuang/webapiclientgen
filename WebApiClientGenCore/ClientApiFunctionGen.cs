@@ -299,8 +299,6 @@ namespace Fonlow.CodeDom.Web.Cs
 
 					return typeText;
 				}).Aggregate((c, n) => c + "," + n) + ")";
-
-				Console.WriteLine("FullName: " + methodFullName);
 			}
 
 			Fonlow.DocComment.docMember methodComments = null;

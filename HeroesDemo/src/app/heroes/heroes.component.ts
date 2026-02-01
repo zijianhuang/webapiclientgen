@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import * as namespaces from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
+import {DemoWebApi_Controllers_Client} from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NGMDModule } from '../ngmd.module';
@@ -19,10 +19,10 @@ import { NGMDModule } from '../ngmd.module';
   ],
 })
 export class HeroesComponent implements OnInit {
-  heroes?: namespaces.DemoWebApi_Controllers_Client.Hero[];
-  selectedHero?: namespaces.DemoWebApi_Controllers_Client.Hero;
+  heroes?: DemoWebApi_Controllers_Client.Hero[];
+  selectedHero?: DemoWebApi_Controllers_Client.Hero;
   constructor(
-    private heroService: namespaces.DemoWebApi_Controllers_Client.Heroes,
+    private heroService: DemoWebApi_Controllers_Client.Heroes,
     private router: Router,
     private ref: ChangeDetectorRef) { }
   getHeroes(): void {
@@ -43,7 +43,7 @@ export class HeroesComponent implements OnInit {
         this.ref.detectChanges();
       });
   }
-  delete(hero: namespaces.DemoWebApi_Controllers_Client.Hero): void {
+  delete(hero: DemoWebApi_Controllers_Client.Hero): void {
     this.heroService.delete(hero.id!).subscribe(
       () => {
         this.heroes = this.heroes?.filter(h => h !== hero);
@@ -56,7 +56,7 @@ export class HeroesComponent implements OnInit {
   ngOnInit(): void {
     this.getHeroes();
   }
-  onSelect(hero: namespaces.DemoWebApi_Controllers_Client.Hero): void {
+  onSelect(hero: DemoWebApi_Controllers_Client.Hero): void {
     this.selectedHero = hero;
     this.ref.detectChanges();
   }

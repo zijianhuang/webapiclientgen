@@ -100,10 +100,6 @@ namespace Fonlow.Poco2Client
 			if (type == null)
 				return null;// new CodeTypeReference("void");
 
-			if (type.Name == "TextJsonPerson")
-			{
-				Console.WriteLine("kkkk");
-			}
 			if (pendingTypes.Contains(type))
 			{
 				return new CodeTypeReference(RefineCustomComplexTypeText(type));
@@ -288,12 +284,6 @@ namespace Fonlow.Poco2Client
 
 				if (!type.IsValueType)
 				{
-
-					if (type.Name.Contains("Trust"))
-					{
-						Console.WriteLine(type.Name);
-					}
-
 					if (namespacesOfTypes.Contains(type.BaseType.Namespace))
 					{
 						typeDeclaration.BaseTypes.Add(RefineCustomComplexTypeText(type.BaseType));
@@ -336,10 +326,6 @@ namespace Fonlow.Poco2Client
 						continue;
 					}
 
-					if (propertyInfo.Name == "People2")
-					{
-						Console.WriteLine("22222");
-					}
 					CheckOrAdd(propertyInfo.PropertyType, true);
 
 					CherryType cherryType = CherryPicking.GetMemberCherryType(propertyInfo, cherryPickingMethods, withDataContract);

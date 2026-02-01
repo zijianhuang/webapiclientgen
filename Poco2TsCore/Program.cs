@@ -64,7 +64,7 @@ For all classes, properties and fields
 			}
 			catch (System.IO.FileNotFoundException e)
 			{
-				Console.WriteLine(e.ToString());
+				Console.Error.WriteLine(e.ToString());
 				string dirOfRequestingAssembly = System.IO.Path.GetDirectoryName(args.RequestingAssembly.Location);
 				string assemblyShortName = args.Name.Substring(0, args.Name.IndexOf(','));
 				string assemblyFullPath = System.IO.Path.Combine(dirOfRequestingAssembly, assemblyShortName + ".dll");//hopefully nobody would use exe for the dependency.

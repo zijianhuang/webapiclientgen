@@ -289,11 +289,6 @@ namespace Fonlow.Poco2Ts
 					typeDeclaration = PodGenHelper.CreatePodClientInterface(clientNamespace, tsName);
 				}
 
-				if (type.Name.Contains("Trust"))
-				{
-					Console.WriteLine(type.Name);
-				}
-
 				if (!type.IsValueType)
 				{
 					if (namespacesOfTypes.Contains(type.BaseType.Namespace))

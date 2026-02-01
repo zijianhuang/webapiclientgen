@@ -5,17 +5,13 @@ using System.Runtime.Serialization;
 
 namespace DemoWebApi.DemoDataEx
 {
-	[DataContract]
 	public class Trust : BizEntity
 	{
-		[DataMember]
 		public string Trustee { get; set; }
 	}
 
-	[DataContract]
 	public class TextJsonPerson
 	{
-		[DataMember]
 		public string Surname { get; set; }
 		[DataMember]
 		public string GivenName { get; set; }
@@ -53,5 +49,10 @@ namespace DemoWebApi.DemoDataEx
 
 		[DataMember]
 		public HashSet<byte> BytesHashSet { get; set; }
+	}
+
+	public class AAMyGenericNested : MyGeneric<Person, MyGenericInt, MyGeneric<decimal, ZListCheck, Company>>
+	{
+		public MyGeneric<MyGeneric<double, MyGenericInt, Entity>, ZListCheck, MimsResult<TextJsonPerson>> Special { get; set; }
 	}
 }

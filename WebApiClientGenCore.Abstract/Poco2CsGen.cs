@@ -148,6 +148,7 @@ namespace Fonlow.Poco2Client
 
 			this.pendingTypes.AddRange(types);
 
+			//group by namespace
 			IGrouping<string, Type>[] typeGroupedByNamespace = types
 				.GroupBy(d => d.Namespace)
 				.OrderBy(k => k.Key).ToArray(); // order by namespace
@@ -265,7 +266,7 @@ namespace Fonlow.Poco2Client
 		{
 			string typeName = type.Name;
 			Debug.WriteLine("clientClass: " + clientNamespace + "  " + typeName);
-			if (typeName == "ZListCheck")
+			if (typeName.Contains("ZZMyGeneric"))
 			{
 				Console.WriteLine("kkkk");
 			}
@@ -293,7 +294,7 @@ namespace Fonlow.Poco2Client
 						var existingClientNamespaceIdx = clientCodeCompileUnit.Namespaces.FindIndex(type.BaseType.Namespace + this.codeGenOutputsSettings.CSClientNamespaceSuffix);
 						if (existingClientNamespaceIdx >= 0) // for base class in the other assembly
 						{
-							typeDeclaration.BaseTypes.Add(RefineCustomComplexTypeText(type.BaseType));
+							typeDeclaration.BaseTypes.Add(CreateTypeReference(type.BaseType));
 						}
 						else
 						{
@@ -877,8 +878,7 @@ namespace Fonlow.Poco2Client
 		{
 			if (type.IsGenericType && !type.IsGenericTypeDefinition && customAssembliesSet.IsCustomType(type))
 			{
-				var ts = type.GenericTypeArguments;
-				var tsText = string.Join(", ", ts.Select(d => customAssembliesSet.GetClientTypeName(d)));
+				var tsText = string.Join(", ", type.GenericTypeArguments.Select(t => RefineCustomComplexTypeText(t)));
 				string[] nameSegments = type.Name.Split('`');
 				string genericClassName = nameSegments[0];
 				return customAssembliesSet.GetClientTypeName(type) + $"<{tsText}>";
@@ -887,6 +887,20 @@ namespace Fonlow.Poco2Client
 			else
 			{
 				return customAssembliesSet.GetClientTypeName(type);
+			}
+		}
+
+		CodeTypeReference CreateTypeReference(Type type)
+		{
+			if (type.IsGenericType && !type.IsGenericTypeDefinition && customAssembliesSet.IsCustomType(type))
+			{
+				var references = type.GenericTypeArguments.Select(t => CreateTypeReference(t));
+				var typeCodeTypeReference = new CodeTypeReference(customAssembliesSet.GetClientTypeName(type), references.ToArray());
+				return typeCodeTypeReference;
+			}
+			else
+			{
+				return new CodeTypeReference(customAssembliesSet.GetClientTypeName(type));
 			}
 		}
 

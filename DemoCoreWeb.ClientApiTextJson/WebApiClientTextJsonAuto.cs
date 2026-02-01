@@ -9724,6 +9724,56 @@ namespace DemoCoreWeb.Controllers.Client
 				responseMessage.Dispose();
 			}
 		}
+		
+		/// <summary>
+		/// Very complex generic
+		/// POST api/SpecialTypes/VeryComplexGeneric
+		/// </summary>
+		public async Task<DemoWebApi.DemoData.Client.MyGeneric<DemoWebApi.DemoData.Client.MyGeneric<double, DemoWebApi.DemoData.Client.MyGenericInt, DemoWebApi.DemoData.Base.Client.Entity>, DemoWebApi.DemoDataEx.Client.ZListCheck, DemoWebApi.DemoData.Client.MimsResult<DemoWebApi.DemoDataEx.Client.TextJsonPerson>>> PostVeryComplexGenericAsync(DemoWebApi.DemoData.Client.MyGeneric<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.MyGenericInt, DemoWebApi.DemoData.Client.MyGeneric<decimal, DemoWebApi.DemoDataEx.Client.ZListCheck, DemoWebApi.DemoData.Client.Company>> body, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SpecialTypes/VeryComplexGeneric";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var content = System.Net.Http.Json.JsonContent.Create(body, mediaType: null, jsonSerializerSettings);
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				return JsonSerializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<DemoWebApi.DemoData.Client.MyGeneric<double, DemoWebApi.DemoData.Client.MyGenericInt, DemoWebApi.DemoData.Base.Client.Entity>, DemoWebApi.DemoDataEx.Client.ZListCheck, DemoWebApi.DemoData.Client.MimsResult<DemoWebApi.DemoDataEx.Client.TextJsonPerson>>>(stream, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Very complex generic
+		/// POST api/SpecialTypes/VeryComplexGeneric
+		/// </summary>
+		public DemoWebApi.DemoData.Client.MyGeneric<DemoWebApi.DemoData.Client.MyGeneric<double, DemoWebApi.DemoData.Client.MyGenericInt, DemoWebApi.DemoData.Base.Client.Entity>, DemoWebApi.DemoDataEx.Client.ZListCheck, DemoWebApi.DemoData.Client.MimsResult<DemoWebApi.DemoDataEx.Client.TextJsonPerson>> PostVeryComplexGeneric(DemoWebApi.DemoData.Client.MyGeneric<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.MyGenericInt, DemoWebApi.DemoData.Client.MyGeneric<decimal, DemoWebApi.DemoDataEx.Client.ZListCheck, DemoWebApi.DemoData.Client.Company>> body, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SpecialTypes/VeryComplexGeneric";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var content = System.Net.Http.Json.JsonContent.Create(body, mediaType: null, jsonSerializerSettings);
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = responseMessage.Content.ReadAsStream();
+				return JsonSerializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<DemoWebApi.DemoData.Client.MyGeneric<double, DemoWebApi.DemoData.Client.MyGenericInt, DemoWebApi.DemoData.Base.Client.Entity>, DemoWebApi.DemoDataEx.Client.ZListCheck, DemoWebApi.DemoData.Client.MimsResult<DemoWebApi.DemoDataEx.Client.TextJsonPerson>>>(stream, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
 	}
 }
 

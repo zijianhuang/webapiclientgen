@@ -1,11 +1,14 @@
-﻿using System;
+﻿using DemoWebApi.DemoData;
+using DemoWebApi.DemoData.Base;
+using DemoWebApi.DemoDataEx;
+using DemoWebApi.Models;
+using Fonlow.Auth.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DemoWebApi.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Fonlow.Auth.Models;
 namespace DemoCoreWeb.Controllers
 {
 	[ApiController]
@@ -111,7 +114,16 @@ namespace DemoCoreWeb.Controllers
 			return obj;
 		}
 
-
+		/// <summary>
+		/// Very complex generic
+		/// </summary>
+		/// <param name="body"></param>
+		/// <returns></returns>
+		[HttpPost]
+		[Route("VeryComplexGeneric")]
+		public MyGeneric<MyGeneric<double, MyGenericInt, Entity>, ZListCheck, MimsResult<TextJsonPerson>> PostVeryComplexGeneric([FromBody] MyGeneric<Person, MyGenericInt, MyGeneric<decimal, ZListCheck, Company>> body){
+			return new MyGeneric<MyGeneric<double, MyGenericInt, Entity>, ZListCheck, MimsResult<TextJsonPerson>>();
+		}
 
 	}
 }

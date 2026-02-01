@@ -287,7 +287,7 @@ namespace Fonlow.Poco2Client
 				{
 					if (namespacesOfTypes.Contains(type.BaseType.Namespace))
 					{
-						typeDeclaration.BaseTypes.Add(RefineCustomComplexTypeText(type.BaseType));
+						typeDeclaration.BaseTypes.Add(CreateTypeReference(type.BaseType));
 					}
 					else
 					{
@@ -761,7 +761,6 @@ namespace Fonlow.Poco2Client
 
 			// This is for custom generic type, which may want .Client suffix or alike.
 			return new CodeTypeReference(RefineCustomComplexTypeText(genericTypeDefinition), genericArguments.Select(t => TranslateToClientTypeReference(t)).ToArray());
-
 		}
 
 		public string TranslateCodeTypeReferenceToCSharp(CodeTypeReference codeTypeReference)
@@ -932,7 +931,7 @@ namespace Fonlow.Poco2Client
 
 		CodeTypeReference CreateArrayOfCustomTypeReference(Type elementType, int arrayRank)
 		{
-			CodeTypeReference elementTypeReference = new CodeTypeReference(RefineCustomComplexTypeText(elementType));
+			CodeTypeReference elementTypeReference = CreateTypeReference(elementType);
 			CodeTypeReference typeReference = new CodeTypeReference(new CodeTypeReference(), arrayRank)
 			{
 				ArrayElementType = elementTypeReference,

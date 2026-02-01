@@ -10289,7 +10289,7 @@ namespace DemoWebApi.DemoData.Client
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.Serializable()]
-	public class MyGenericInt : DemoWebApi.DemoData.Client.MyGeneric<System.Int32, DemoWebApi.DemoData.Base.Client.Entity, System.DateTime>
+	public class MyGenericInt : DemoWebApi.DemoData.Client.MyGeneric<int, DemoWebApi.DemoData.Base.Client.Entity, System.DateTime>
 	{
 	}
 	

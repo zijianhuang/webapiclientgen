@@ -67,7 +67,7 @@ namespace Fonlow.Poco2Client
 		}
 
 		/// <summary>
-		/// Create CodeDOM of POCO classes
+		/// Create CodeDOM of POCO classes of assembly
 		/// </summary>
 		/// <param name="assembly"></param>
 		/// <param name="cherryPickingMethods"></param>
@@ -91,7 +91,7 @@ namespace Fonlow.Poco2Client
 
 		/// <summary>
 		/// Translate custom types, generic types, array and some special http message types to client code type refernce.
-		/// For custom complex types, it will return the propery client CodeTypeReference.
+		/// For custom complex types, it will return the propery client CodeTypeReference. The type could be IList Person.
 		/// </summary>
 		/// <param name="type"></param>
 		/// <returns></returns>
@@ -100,6 +100,10 @@ namespace Fonlow.Poco2Client
 			if (type == null)
 				return null;// new CodeTypeReference("void");
 
+			if (type.Name == "TextJsonPerson")
+			{
+				Console.WriteLine("kkkk");
+			}
 			if (pendingTypes.Contains(type))
 			{
 				return new CodeTypeReference(RefineCustomComplexTypeText(type));
@@ -134,7 +138,7 @@ namespace Fonlow.Poco2Client
 		}
 
 		/// <summary>
-		/// Create CodeDOM for POCO types. 
+		/// Create and add POCO types as CodeTypedeclaration to CodeDOM. 
 		/// For an enum type, all members will be processed regardless of EnumMemberAttribute.
 		/// </summary>
 		/// <param name="types">POCO types, generally of the same assembly</param>
@@ -166,7 +170,7 @@ namespace Fonlow.Poco2Client
 		}
 
 		/// <summary>
-		/// Check if custom Poco type is already registered as a client type.
+		/// Check if custom Poco type is already registered as a client type. Recurisively check and add dependent types as needed.
 		/// If not, create a new CodeTypeDeclaration, optionally with a new CodeNamespace.
 		/// It is up to the client codes to decide what pocoType to come int. BCL types and other non-POCO types are not welcome.
 		/// </summary>
@@ -225,6 +229,12 @@ namespace Fonlow.Poco2Client
 			return null;
 		}
 
+		/// <summary>
+		/// Creates and adds a CodeTypeDeclaration for the specified type to the client code namespace. Being called recursively by CheckOrAdd().
+		/// </summary>
+		/// <param name="type">The type for which to generate and add a CodeTypeDeclaration. Cannot be a generic type parameter.</param>
+		/// <param name="dcOnly">true to add the type declaration only to the data contract namespace; otherwise, false.</param>
+		/// <returns>A CodeTypeDeclaration representing the specified type, or null if the type is a generic type parameter.</returns>
 		CodeTypeDeclaration AddCodeTypeDeclaration(Type type, bool dcOnly)
 		{
 			if (type.IsGenericTypeParameter && type.IsGenericParameter)
@@ -257,8 +267,12 @@ namespace Fonlow.Poco2Client
 		/// <returns></returns>
 		CodeTypeDeclaration TypeToCodeTypeDeclaration(Type type, CodeNamespaceEx clientNamespace, string[] namespacesOfTypes, CherryPickingMethods cherryPickingMethods)
 		{
-			string tsName = type.Name;
-			Debug.WriteLine("clientClass: " + clientNamespace + "  " + tsName);
+			string typeName = type.Name;
+			Debug.WriteLine("clientClass: " + clientNamespace + "  " + typeName);
+			if (typeName == "ZListCheck")
+			{
+				Console.WriteLine("kkkk");
+			}
 
 			CodeTypeDeclaration typeDeclaration;
 			if (TypeHelper.IsClassOrStruct(type))
@@ -269,7 +283,7 @@ namespace Fonlow.Poco2Client
 				}
 				else
 				{
-					typeDeclaration = type.IsClass ? PodGenHelper.CreatePodClientClass(clientNamespace, tsName) : PodGenHelper.CreatePodClientStruct(clientNamespace, tsName);
+					typeDeclaration = type.IsClass ? PodGenHelper.CreatePodClientClass(clientNamespace, typeName) : PodGenHelper.CreatePodClientStruct(clientNamespace, typeName);
 				}
 
 				if (!type.IsValueType)
@@ -322,6 +336,10 @@ namespace Fonlow.Poco2Client
 						continue;
 					}
 
+					if (propertyInfo.Name == "People2")
+					{
+						Console.WriteLine("22222");
+					}
 					CheckOrAdd(propertyInfo.PropertyType, true);
 
 					CherryType cherryType = CherryPicking.GetMemberCherryType(propertyInfo, cherryPickingMethods, withDataContract);
@@ -446,7 +464,7 @@ namespace Fonlow.Poco2Client
 			}
 			else if (type.IsEnum)
 			{
-				typeDeclaration = PodGenHelper.CreatePodClientEnum(clientNamespace, tsName);
+				typeDeclaration = PodGenHelper.CreatePodClientEnum(clientNamespace, typeName);
 
 				CreateTypeDocComment(type, typeDeclaration);
 
@@ -684,6 +702,13 @@ namespace Fonlow.Poco2Client
 			}
 		}
 
+		/// <summary>
+		/// Create property as CodeMemberField.
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="type"></param>
+		/// <param name="defaultValue"></param>
+		/// <returns></returns>
 		CodeMemberField CreateProperty(string name, Type type, string defaultValue)
 		{
 			// This is a little hack. Since you cant create auto properties in CodeDOM,
@@ -708,6 +733,11 @@ namespace Fonlow.Poco2Client
 			return result;
 		}
 
+		/// <summary>
+		/// it could be IList Person
+		/// </summary>
+		/// <param name="type"></param>
+		/// <returns></returns>
 		CodeTypeReference TranslateGenericTypeDefinitionToTypeReference(Type type)
 		{
 			Type genericTypeDefinition = type.GetGenericTypeDefinition();
@@ -862,10 +892,10 @@ namespace Fonlow.Poco2Client
 			if (type.IsGenericType && !type.IsGenericTypeDefinition && customAssembliesSet.IsCustomType(type))
 			{
 				var ts = type.GenericTypeArguments;
-				var tsText = string.Join(", ", ts.Select(d => TranslateToClientTypeReference(d).BaseType));
+				var tsText = string.Join(", ", ts.Select(d => customAssembliesSet.GetClientTypeName(d)));
 				string[] nameSegments = type.Name.Split('`');
 				string genericClassName = nameSegments[0];
-				return type.Namespace + this.codeGenOutputsSettings.CSClientNamespaceSuffix + "." + genericClassName + $"<{tsText}>";
+				return customAssembliesSet.GetClientTypeName(type) + $"<{tsText}>";
 				//so to return something like DemoWebApi.DemoData.Client.MyGeneric<Int32, String, DateTime> as the parent type
 			}
 			else

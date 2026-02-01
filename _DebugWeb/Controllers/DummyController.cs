@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using DemoWebApi.DemoData;
 using System.Diagnostics;
 
 namespace DebugWeb.Controllers
@@ -12,12 +11,12 @@ namespace DebugWeb.Controllers
 	[Route("[controller]")]
 	public class DummyController : ControllerBase
 	{
-		[HttpPost]
-		[Route("createPersonSomething")]
-		public MyGeneric<int, double, Company> CreatePersonSomething([FromBody] MyGeneric<int, double, Person> p)
-		{
-			return new MyGeneric<int, double, Company> { MyK = p.MyK };
-		}
+		//[HttpPost]
+		//[Route("createPersonSomething")]
+		//public MyGeneric<int, double, Company> CreatePersonSomething([FromBody] MyGeneric<int, double, Person> p)
+		//{
+		//	return new MyGeneric<int, double, Company> { MyK = p.MyK };
+		//}
 
 	}
 }

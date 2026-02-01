@@ -12,31 +12,46 @@ namespace DemoWebApi.DemoDataEx
 		public string Trustee { get; set; }
 	}
 
+	[DataContract]
 	public class TextJsonPerson
 	{
+		[DataMember]
 		public string Surname { get; set; }
-		[System.Text.Json.Serialization.JsonIgnore]
+		[DataMember]
 		public string GivenName { get; set; }
 	}
 
-	public class ListCheck
+	[DataContract]
+	public class ZListCheck
 	{
+		[DataMember]
 		public IEnumerable<int> Numbers { get; set; }
 
+		[DataMember]
 		public IList<Person> People { get; set; }
 
+		[DataMember]
+		public IList<TextJsonPerson> People2 { get; set; }
+
+		[DataMember]
 		public IQueryable<Company> Companies { get; set; }
 
+		[DataMember]
 		public IReadOnlyList<Trust> Trusts { get; set; }
 
+		[DataMember]
 		public IReadOnlyCollection<BizEntity> BizEntities { get; set; }
 
+		[DataMember]
 		public ObservableCollection<Entity> Entities { get; set; }
 
+		[DataMember]
 		public IAsyncEnumerable<Decimal> Decimals { get; set; }
 
+		[DataMember]
 		public Collection<string> Strings { get; set; }
 
+		[DataMember]
 		public HashSet<byte> BytesHashSet { get; set; }
 	}
 }

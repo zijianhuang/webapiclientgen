@@ -89,11 +89,11 @@ namespace Fonlow.CodeDom.Web.Cs
 		{
 			if (codeGenSettings.ApiSelections.DataModelAssemblyNames != null)
 			{
-				Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+				Assembly[] loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 				CherryPickingMethods cherryPickingMethods = codeGenSettings.ApiSelections.CherryPickingMethods;
 				foreach (string assemblyName in codeGenSettings.ApiSelections.DataModelAssemblyNames)
 				{
-					Assembly assembly = allAssemblies.FirstOrDefault(d => d.GetName().Name.Equals(assemblyName, StringComparison.OrdinalIgnoreCase));
+					Assembly assembly = loadedAssemblies.FirstOrDefault(d => d.GetName().Name.Equals(assemblyName, StringComparison.OrdinalIgnoreCase));
 					if (assembly != null)
 					{
 						Poco2CsGenerator.CreateCodeDomForAssembly(assembly, cherryPickingMethods, codeGenSettings.ClientApiOutputs.DataAnnotationsToComments);

@@ -7,191 +7,53 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DemoWebApi.DemoData.Base.Client
+namespace DemoWebApi.DemoDataEx.Client
 {
 	
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.Serializable()]
-	public class Entity : object
+	public class TextJsonPerson : object
 	{
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Address> Addresses { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Nullable<System.Guid> Id { get; set; }
-		
-		[System.ComponentModel.DataAnnotations.Required()]
-		[System.ComponentModel.DataAnnotations.MinLength(2)]
-		[System.ComponentModel.DataAnnotations.MaxLength(255)]
-		[System.Runtime.Serialization.DataMember(IsRequired =true)]
-		public string Name { get; set; }
-	}
-}
-namespace DebugWeb.Controllers.Client
-{
-	using System;
-	using System.Linq;
-	using System.Collections.Generic;
-	using System.Threading.Tasks;
-	using System.Net.Http;
-	using System.Text.Json;
-	using System.Text.Json.Serialization;
-	using Fonlow.Net.Http;
-	
-	
-	/// <summary>
-	/// To contain API functions that the codegen hasn't support well, for new features or breaking changes or whatever broken
-	/// </summary>
-	public partial class Dummy
-	{
-		
-		private System.Net.Http.HttpClient client;
-		
-		private JsonSerializerOptions jsonSerializerSettings;
-		
-		public Dummy(System.Net.Http.HttpClient client, JsonSerializerOptions jsonSerializerSettings=null)
-		{
-			if (client == null)
-				throw new ArgumentNullException(nameof(client), "Null HttpClient.");
-
-			if (client.BaseAddress == null)
-				throw new ArgumentNullException(nameof(client), "HttpClient has no BaseAddress");
-
-			this.client = client;
-			this.jsonSerializerSettings = jsonSerializerSettings;
-		}
-		
-		/// <summary>
-		/// POST Dummy/createPersonSomething
-		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.MyGeneric<int, double, DemoWebApi.DemoData.Client.Company>> CreatePersonSomethingAsync(DemoWebApi.DemoData.Client.MyGeneric<int, double, DemoWebApi.DemoData.Client.Person> p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
-		{
-			var requestUri = "Dummy/createPersonSomething";
-			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-			var content = System.Net.Http.Json.JsonContent.Create(p, mediaType: null, jsonSerializerSettings);
-			httpRequestMessage.Content = content;
-			handleHeaders?.Invoke(httpRequestMessage.Headers);
-			var responseMessage = await client.SendAsync(httpRequestMessage);
-			try
-			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				return JsonSerializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<int, double, DemoWebApi.DemoData.Client.Company>>(stream, jsonSerializerSettings);
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
-		
-		/// <summary>
-		/// POST Dummy/createPersonSomething
-		/// </summary>
-		public DemoWebApi.DemoData.Client.MyGeneric<int, double, DemoWebApi.DemoData.Client.Company> CreatePersonSomething(DemoWebApi.DemoData.Client.MyGeneric<int, double, DemoWebApi.DemoData.Client.Person> p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
-		{
-			var requestUri = "Dummy/createPersonSomething";
-			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-			var content = System.Net.Http.Json.JsonContent.Create(p, mediaType: null, jsonSerializerSettings);
-			httpRequestMessage.Content = content;
-			handleHeaders?.Invoke(httpRequestMessage.Headers);
-			var responseMessage = client.SendAsync(httpRequestMessage).Result;
-			try
-			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStream();
-				return JsonSerializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<int, double, DemoWebApi.DemoData.Client.Company>>(stream, jsonSerializerSettings);
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
-	}
-}
-namespace DemoWebApi.DemoData.Client
-{
-	
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public class MyGeneric<T, K, U> : object
-	{
-		
-		[System.Runtime.Serialization.DataMember()]
-		public K MyK { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public T MyT { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public U MyU { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public string Status { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public class Address : object
-	{
-		
-		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=2)]
-		[System.Runtime.Serialization.DataMember()]
-		public string Street1 { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public class Company : DemoWebApi.DemoData.Base.Client.Entity
-	{
-		
-		[System.Runtime.Serialization.DataMember(Name="BusinessNum")]
-		public string BusinessNumber { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public string BusinessNumberType { get; set; }
-		
-		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
-		[System.Runtime.Serialization.DataMember()]
-		public System.DateTimeOffset FoundDate { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.DateOnly RegisterDate { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public string[][] TextMatrix { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public int[,] Int2D { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public int[][] Int2DJagged { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Collections.Generic.IEnumerable<string> Lines { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.Serializable()]
-	public class Person : DemoWebApi.DemoData.Base.Client.Entity
-	{
-		
-		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
-		[System.Runtime.Serialization.DataMember()]
-		public System.Nullable<System.DateTimeOffset> Baptised { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Nullable<System.DateOnly> DOB { get; set; }
 		
 		[System.Runtime.Serialization.DataMember()]
 		public string GivenName { get; set; }
 		
 		[System.Runtime.Serialization.DataMember()]
 		public string Surname { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.Serializable()]
+	public class Trust : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Trustee { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.Serializable()]
+	public class ZListCheck : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.HashSet<byte> BytesHashSet { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public decimal[] Decimals { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IEnumerable<int> Numbers { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IList<DemoWebApi.DemoDataEx.Client.TextJsonPerson> People2 { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.ObjectModel.Collection<string> Strings { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IReadOnlyList<DemoWebApi.DemoDataEx.Client.Trust> Trusts { get; set; }
 	}
 }
 

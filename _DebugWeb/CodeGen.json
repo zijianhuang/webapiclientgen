@@ -6,7 +6,7 @@
 		],
 
 		"DataModelAssemblyNames": [ "DebugWeb" ],
-		"CherryPickingMethods": 32
+		"CherryPickingMethods": 1
 	},
 
 	"ClientApiOutputs": {

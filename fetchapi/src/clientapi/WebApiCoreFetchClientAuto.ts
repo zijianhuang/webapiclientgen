@@ -1623,7 +1623,16 @@ export namespace DemoWebApi_Controllers_Client {
 }
 
 export namespace DemoWebApi_DemoDataEx_Client {
-	export interface ListCheck {
+	export interface TextJsonPerson {
+		givenName?: string | null;
+		surname?: string | null;
+	}
+
+	export interface Trust extends DemoWebApi_DemoData_Client.BizEntity {
+		trustee?: string | null;
+	}
+
+	export interface ZListCheck {
 		bizEntities?: Array<DemoWebApi_DemoData_Client.BizEntity>;
 		bytesHashSet?: Array<number>;
 		companies?: Array<DemoWebApi_DemoData_Client.Company>;
@@ -1631,16 +1640,9 @@ export namespace DemoWebApi_DemoDataEx_Client {
 		entities?: Array<DemoWebApi_DemoData_Base_Client.Entity>;
 		numbers?: Array<number>;
 		people?: Array<DemoWebApi_DemoData_Client.Person>;
+		people2?: Array<DemoWebApi_DemoDataEx_Client.TextJsonPerson>;
 		strings?: Array<string>;
 		trusts?: Array<DemoWebApi_DemoDataEx_Client.Trust>;
-	}
-
-	export interface TextJsonPerson {
-		surname?: string | null;
-	}
-
-	export interface Trust extends DemoWebApi_DemoData_Client.BizEntity {
-		trustee?: string | null;
 	}
 
 }

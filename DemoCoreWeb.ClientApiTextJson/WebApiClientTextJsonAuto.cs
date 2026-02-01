@@ -9234,7 +9234,21 @@ namespace DemoWebApi.DemoDataEx.Client
 {
 	
 	
-	public class ListCheck : object
+	public class TextJsonPerson : object
+	{
+		
+		public string GivenName { get; set; }
+		
+		public string Surname { get; set; }
+	}
+	
+	public class Trust : DemoWebApi.DemoData.Client.BizEntity
+	{
+		
+		public string Trustee { get; set; }
+	}
+	
+	public class ZListCheck : object
 	{
 		
 		public System.Collections.Generic.IReadOnlyCollection<DemoWebApi.DemoData.Client.BizEntity> BizEntities { get; set; }
@@ -9251,21 +9265,11 @@ namespace DemoWebApi.DemoDataEx.Client
 		
 		public System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Person> People { get; set; }
 		
+		public System.Collections.Generic.IList<DemoWebApi.DemoDataEx.Client.TextJsonPerson> People2 { get; set; }
+		
 		public System.Collections.ObjectModel.Collection<string> Strings { get; set; }
 		
-		public System.Collections.Generic.IReadOnlyList<DemoWebApi.DemoDataEx.Trust> Trusts { get; set; }
-	}
-	
-	public class TextJsonPerson : object
-	{
-		
-		public string Surname { get; set; }
-	}
-	
-	public class Trust : DemoWebApi.DemoData.Client.BizEntity
-	{
-		
-		public string Trustee { get; set; }
+		public System.Collections.Generic.IReadOnlyList<DemoWebApi.DemoDataEx.Client.Trust> Trusts { get; set; }
 	}
 }
 namespace DemoWebApi.Models.Client

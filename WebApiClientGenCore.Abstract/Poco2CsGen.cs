@@ -102,7 +102,7 @@ namespace Fonlow.Poco2Client
 
 			if (pendingTypes.Contains(type))
 			{
-				return new CodeTypeReference(RefineCustomComplexTypeText(type));
+				return CreateTypeReference(type);
 			}
 			else if (type.IsGenericType)
 			{

@@ -2080,6 +2080,14 @@ export namespace DemoCoreWeb_Controllers_Client {
 		postAnonymousObject2(obj?: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
 			return fetch(this.baseUri + 'api/SpecialTypes/AnonymousObject2', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(obj) });
 		}
+
+		/**
+		 * Very complex generic
+		 * POST api/SpecialTypes/VeryComplexGeneric
+		 */
+		postVeryComplexGeneric(body?: DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.Company>> | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Base_Client.Entity>, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.MimsResult<DemoWebApi_DemoDataEx_Client.TextJsonPerson>>> {
+			return fetch(this.baseUri + 'api/SpecialTypes/VeryComplexGeneric', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(body) }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
+		}
 	}
 
 }

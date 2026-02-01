@@ -1636,6 +1636,10 @@ export namespace DemoWebApi_Controllers_Client {
 }
 
 export namespace DemoWebApi_DemoDataEx_Client {
+	export interface AAMyGenericNested extends DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Client.MyGeneric`3> {
+		special?: DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Base_Client.Entity>, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.MimsResult<DemoWebApi_DemoDataEx_Client.TextJsonPerson>>;
+	}
+
 	export interface TextJsonPerson {
 		givenName?: string | null;
 		surname?: string | null;
@@ -2089,6 +2093,14 @@ export namespace DemoCoreWeb_Controllers_Client {
 		 */
 		postAnonymousObject2(obj?: any, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
 			return this.http.post(this.baseUri + 'api/SpecialTypes/AnonymousObject2', JSON.stringify(obj), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
+		}
+
+		/**
+		 * Very complex generic
+		 * POST api/SpecialTypes/VeryComplexGeneric
+		 */
+		postVeryComplexGeneric(body?: DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.Company>> | null, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Base_Client.Entity>, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.MimsResult<DemoWebApi_DemoDataEx_Client.TextJsonPerson>>> {
+			return this.http.post<DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Base_Client.Entity>, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.MimsResult<DemoWebApi_DemoDataEx_Client.TextJsonPerson>>>(this.baseUri + 'api/SpecialTypes/VeryComplexGeneric', JSON.stringify(body), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 	}
 

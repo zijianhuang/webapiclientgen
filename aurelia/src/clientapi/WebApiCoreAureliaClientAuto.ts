@@ -1635,6 +1635,10 @@ export namespace DemoWebApi_Controllers_Client {
 }
 
 export namespace DemoWebApi_DemoDataEx_Client {
+	export interface AAMyGenericNested extends DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Client.MyGeneric`3> {
+		special?: DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Base_Client.Entity>, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.MimsResult<DemoWebApi_DemoDataEx_Client.TextJsonPerson>>;
+	}
+
 	export interface TextJsonPerson {
 		givenName?: string | null;
 		surname?: string | null;
@@ -2088,6 +2092,14 @@ export namespace DemoCoreWeb_Controllers_Client {
 		 */
 		postAnonymousObject2(obj: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
 			return this.http.post('api/SpecialTypes/AnonymousObject2', JSON.stringify(obj), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * Very complex generic
+		 * POST api/SpecialTypes/VeryComplexGeneric
+		 */
+		postVeryComplexGeneric(body: DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.Company>> | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Base_Client.Entity>, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.MimsResult<DemoWebApi_DemoDataEx_Client.TextJsonPerson>>> {
+			return this.http.post('api/SpecialTypes/VeryComplexGeneric', JSON.stringify(body), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => {if (d.status<=204) return d.json(); throw d;});
 		}
 	}
 

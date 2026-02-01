@@ -1624,8 +1624,30 @@ namespace DemoWebApi_Controllers_Client {
 }
 
 namespace DemoWebApi_DemoDataEx_Client {
+	export interface AAMyGenericNested extends DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Client.MyGeneric`3> {
+		special?: DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Base_Client.Entity>, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.MimsResult<DemoWebApi_DemoDataEx_Client.TextJsonPerson>>;
+	}
+
+	export interface TextJsonPerson {
+		givenName?: string | null;
+		surname?: string | null;
+	}
+
 	export interface Trust extends DemoWebApi_DemoData_Client.BizEntity {
 		trustee?: string | null;
+	}
+
+	export interface ZListCheck {
+		bizEntities?: Array<DemoWebApi_DemoData_Client.BizEntity>;
+		bytesHashSet?: Array<number>;
+		companies?: Array<DemoWebApi_DemoData_Client.Company>;
+		decimals?: Array<number>;
+		entities?: Array<DemoWebApi_DemoData_Base_Client.Entity>;
+		numbers?: Array<number>;
+		people?: Array<DemoWebApi_DemoData_Client.Person>;
+		people2?: Array<DemoWebApi_DemoDataEx_Client.TextJsonPerson>;
+		strings?: Array<string>;
+		trusts?: Array<DemoWebApi_DemoDataEx_Client.Trust>;
 	}
 
 }
@@ -2058,6 +2080,14 @@ namespace DemoCoreWeb_Controllers_Client {
 		 */
 		postAnonymousObject2(obj: any, callback: (data : any) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.post(this.baseUri + 'api/SpecialTypes/AnonymousObject2', obj, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
+
+		/**
+		 * Very complex generic
+		 * POST api/SpecialTypes/VeryComplexGeneric
+		 */
+		postVeryComplexGeneric(body: DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.Company>> | null, callback: (data : DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Base_Client.Entity>, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.MimsResult<DemoWebApi_DemoDataEx_Client.TextJsonPerson>>) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.post(this.baseUri + 'api/SpecialTypes/VeryComplexGeneric', body, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
 		}
 	}
 

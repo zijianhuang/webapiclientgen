@@ -9161,7 +9161,7 @@ namespace DemoWebApi.DemoData.Client
 		public string Status { get; set; }
 	}
 	
-	public class MyGenericInt : DemoWebApi.DemoData.Client.MyGeneric<System.Int32, DemoWebApi.DemoData.Base.Client.Entity, System.DateTime>
+	public class MyGenericInt : DemoWebApi.DemoData.Client.MyGeneric<int, DemoWebApi.DemoData.Base.Client.Entity, System.DateTime>
 	{
 	}
 	

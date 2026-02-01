@@ -17,6 +17,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\DemoWebApi.DemoDataCore\DemoWebApi.DemoDataCore.csproj" />
+		<ProjectReference Include="..\DemoWebApiDemoDataEx\DemoWebApiDemoDataEx.csproj" />
 		<ProjectReference Include="..\Fonlow.Auth.PayloadConverters\Fonlow.Auth.PayloadConverters.csproj" />
 		<ProjectReference Include="..\WebApiClientGenCore\WebApiClientGenCore.csproj" />
 	</ItemGroup>

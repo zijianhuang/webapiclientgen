@@ -10385,11 +10385,65 @@ namespace DemoWebApi.DemoDataEx.Client
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.Serializable()]
-	public class Trust : DemoWebApi.DemoData.Client.BizEntity
+	public class AAMyGenericNested : DemoWebApi.DemoData.Client.MyGeneric<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.MyGenericInt, DemoWebApi.DemoData.Client.MyGeneric<decimal, DemoWebApi.DemoDataEx.Client.ZListCheck, DemoWebApi.DemoData.Client.Company>>
+	{
+		
+		public DemoWebApi.DemoData.Client.MyGeneric<DemoWebApi.DemoData.Client.MyGeneric<double, DemoWebApi.DemoData.Client.MyGenericInt, DemoWebApi.DemoData.Base.Client.Entity>, DemoWebApi.DemoDataEx.Client.ZListCheck, DemoWebApi.DemoData.Client.MimsResult<DemoWebApi.DemoDataEx.Client.TextJsonPerson>> Special { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.Serializable()]
+	public class TextJsonPerson : object
 	{
 		
 		[System.Runtime.Serialization.DataMember()]
+		public string GivenName { get; set; }
+		
+		public string Surname { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.Serializable()]
+	public class Trust : DemoWebApi.DemoData.Client.BizEntity
+	{
+		
 		public string Trustee { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.Serializable()]
+	public class ZListCheck : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IReadOnlyCollection<DemoWebApi.DemoData.Client.BizEntity> BizEntities { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.HashSet<byte> BytesHashSet { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Linq.IQueryable<DemoWebApi.DemoData.Client.Company> Companies { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public decimal[] Decimals { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.ObjectModel.ObservableCollection<DemoWebApi.DemoData.Base.Client.Entity> Entities { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IEnumerable<int> Numbers { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Person> People { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IList<DemoWebApi.DemoDataEx.Client.TextJsonPerson> People2 { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.ObjectModel.Collection<string> Strings { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IReadOnlyList<DemoWebApi.DemoDataEx.Client.Trust> Trusts { get; set; }
 	}
 }
 namespace DemoWebApi.Models.Client
@@ -10886,6 +10940,66 @@ namespace DemoCoreWeb.Controllers.Client
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Very complex generic
+		/// POST api/SpecialTypes/VeryComplexGeneric
+		/// </summary>
+		public async Task<DemoWebApi.DemoData.Client.MyGeneric<DemoWebApi.DemoData.Client.MyGeneric<double, DemoWebApi.DemoData.Client.MyGenericInt, DemoWebApi.DemoData.Base.Client.Entity>, DemoWebApi.DemoDataEx.Client.ZListCheck, DemoWebApi.DemoData.Client.MimsResult<DemoWebApi.DemoDataEx.Client.TextJsonPerson>>> PostVeryComplexGenericAsync(DemoWebApi.DemoData.Client.MyGeneric<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.MyGenericInt, DemoWebApi.DemoData.Client.MyGeneric<decimal, DemoWebApi.DemoDataEx.Client.ZListCheck, DemoWebApi.DemoData.Client.Company>> body, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SpecialTypes/VeryComplexGeneric";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			using var requestWriter = new System.IO.StringWriter();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, body);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<DemoWebApi.DemoData.Client.MyGeneric<double, DemoWebApi.DemoData.Client.MyGenericInt, DemoWebApi.DemoData.Base.Client.Entity>, DemoWebApi.DemoDataEx.Client.ZListCheck, DemoWebApi.DemoData.Client.MimsResult<DemoWebApi.DemoDataEx.Client.TextJsonPerson>>>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Very complex generic
+		/// POST api/SpecialTypes/VeryComplexGeneric
+		/// </summary>
+		public DemoWebApi.DemoData.Client.MyGeneric<DemoWebApi.DemoData.Client.MyGeneric<double, DemoWebApi.DemoData.Client.MyGenericInt, DemoWebApi.DemoData.Base.Client.Entity>, DemoWebApi.DemoDataEx.Client.ZListCheck, DemoWebApi.DemoData.Client.MimsResult<DemoWebApi.DemoDataEx.Client.TextJsonPerson>> PostVeryComplexGeneric(DemoWebApi.DemoData.Client.MyGeneric<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.MyGenericInt, DemoWebApi.DemoData.Client.MyGeneric<decimal, DemoWebApi.DemoDataEx.Client.ZListCheck, DemoWebApi.DemoData.Client.Company>> body, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SpecialTypes/VeryComplexGeneric";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			using var requestWriter = new System.IO.StringWriter();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, body);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = responseMessage.Content.ReadAsStream();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<DemoWebApi.DemoData.Client.MyGeneric<double, DemoWebApi.DemoData.Client.MyGenericInt, DemoWebApi.DemoData.Base.Client.Entity>, DemoWebApi.DemoDataEx.Client.ZListCheck, DemoWebApi.DemoData.Client.MimsResult<DemoWebApi.DemoDataEx.Client.TextJsonPerson>>>(jsonReader);
 			}
 			finally
 			{

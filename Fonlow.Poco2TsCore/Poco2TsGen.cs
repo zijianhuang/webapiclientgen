@@ -1,5 +1,7 @@
-﻿using Fonlow.DocComment;
+﻿using Fonlow.CodeDom;
+using Fonlow.DocComment;
 using Fonlow.Poco2Client;
+using Fonlow.Poco2TsCore;
 using Fonlow.Reflection;
 using Fonlow.TypeScriptCodeDom;
 using System;
@@ -12,8 +14,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Metadata;
-using Fonlow.CodeDom;
 
 namespace Fonlow.Poco2Ts
 {
@@ -39,6 +39,8 @@ namespace Fonlow.Poco2Ts
 		readonly string[] dataModelAssemblyNames;
 		readonly CherryPickingMethods cherryPickingMethod;
 
+		readonly CustomAssembliesSet customAssembliesSet;
+
 		/// <summary>
 		/// Poco2TsGen will share the same CodeCompileUnit with other CodeGen components.
 		/// </summary>
@@ -46,7 +48,7 @@ namespace Fonlow.Poco2Ts
 		/// <param name="clientNamespaceSuffix"></param>
 		/// <param name="helpStrictMode"></param>
 		/// <param name="codeObjectHelper"></param>
-		public Poco2TsGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper)
+		public Poco2TsGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper, CherryPickingMethods cherryPickingMethod, string[] dataModelAssemblyNames)
 		{
 			this.clientCodeCompileUnit = codeCompileUnit;
 			pendingTypes = new List<Type>();
@@ -58,16 +60,12 @@ namespace Fonlow.Poco2Ts
 			attribueCommentDic = annotationCommentGenerator.Get();
 			declaratinDic = AnnotationDeclarationGenerator.Create();
 			dotNetTypeCommentDic = DotNetTypeCommentGenerator.Get();
-		}
 
-		/// <summary>
-		/// For god assembly.
-		/// </summary>
-		public Poco2TsGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper, string[] dataModelAssemblyNames, CherryPickingMethods cherryPickingMethod) : this(codeCompileUnit, clientNamespaceSuffix, helpStrictMode, codeObjectHelper)
-		{
 			this.dataModelAssemblyNames = dataModelAssemblyNames;
 			this.cherryPickingMethod = cherryPickingMethod;
+			customAssembliesSet = new CustomAssembliesSet(dataModelAssemblyNames, clientNamespaceSuffix);
 		}
+
 		/// <summary>
 		/// Save TypeScript codes generated into a file.
 		/// </summary>
@@ -282,7 +280,7 @@ namespace Fonlow.Poco2Ts
 			{
 				if (type.IsGenericType)
 				{
-					typeDeclaration = PodGenHelper.CreatePodClientGenericInterface(clientNamespace, type);
+					typeDeclaration = PodGenHelper.CreatePodClientGenericInterface(clientNamespace, type, customAssembliesSet);
 				}
 				else
 				{

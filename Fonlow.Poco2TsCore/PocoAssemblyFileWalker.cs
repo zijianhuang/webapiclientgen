@@ -29,7 +29,7 @@ namespace Fonlow.Poco2Ts
 
 			DocComment.DocCommentLookup lookup = Fonlow.DocComment.DocCommentLookup.Create(DocComment.DocCommentLookup.GetXmlPath(assembly));
 			CodeCompileUnit targetUnit = new CodeCompileUnit();
-			Poco2TsGen gen = new Poco2TsGen(targetUnit, clientNamespaceSuffix, helpStrictMode, new TypeScriptCodeDom.CodeObjectHelper(true));
+			Poco2TsGen gen = new Poco2TsGen(targetUnit, clientNamespaceSuffix, helpStrictMode, new TypeScriptCodeDom.CodeObjectHelper(true), CherryPickingMethods.All, []);
 			gen.CreateCodeDomInAssembly(assembly, methods, lookup, dataAnnotationsToComments);
 			gen.SaveCodeToFile(tsFilePath);
 			string msg = $"{tsFilePath} is generated.";

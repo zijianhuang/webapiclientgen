@@ -9,21 +9,8 @@ namespace Poco2TsTests
 		static void Verify(Type type, string expected)
 		{
 			CodeCompileUnit targetUnit = new CodeCompileUnit();
-			Poco2TsGen gen = new Poco2TsGen(targetUnit, ".Client", false, new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg2FormGroup(targetUnit.Namespaces, new Fonlow.CodeDom.Web.JSOutput { NgDateOnlyFormControlEnabled = false, ApiSelections = null, NgUseRegexAttribute= Fonlow.CodeDom.Web.UseRegexAttr.Use }));
+			Poco2TsGen gen = new Poco2TsGen(targetUnit, ".Client", false, new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg2FormGroup(targetUnit.Namespaces, new Fonlow.CodeDom.Web.JSOutput { NgDateOnlyFormControlEnabled = false, ApiSelections = null, NgUseRegexAttribute= Fonlow.CodeDom.Web.UseRegexAttr.Use }), CherryPickingMethods.All, []);
 			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.DataContract);
-			using (StringWriter writer = new StringWriter())
-			{
-				gen.WriteCode(writer);
-				string s = writer.ToString();
-				Assert.Equal(expected, s, ignoreLineEndingDifferences: true);
-			}
-		}
-
-		static void VerifyJson(Type type, string expected)
-		{
-			CodeCompileUnit targetUnit = new CodeCompileUnit();
-			Poco2TsGen gen = new Poco2TsGen(targetUnit, ".Client", false, new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg2FormGroup(targetUnit.Namespaces, new Fonlow.CodeDom.Web.JSOutput { NgDateOnlyFormControlEnabled = false, ApiSelections = null }));
-			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.NewtonsoftJson);
 			using (StringWriter writer = new StringWriter())
 			{
 				gen.WriteCode(writer);

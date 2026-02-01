@@ -11,13 +11,13 @@ namespace Fonlow.Poco2Ts
 	public class PocoToTsResponseGen : Poco2TsGen
 	{
 		public PocoToTsResponseGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper)
-			: base(codeCompileUnit, clientNamespaceSuffix, helpStrictMode, codeObjectHelper ?? new CodeObjectHelper(true))
+			: base(codeCompileUnit, clientNamespaceSuffix, helpStrictMode, codeObjectHelper ?? new CodeObjectHelper(true), CherryPickingMethods.All, [])
 		{
 
 		}
 
 		public PocoToTsResponseGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper, string[] dataModelAssemblyNames, CherryPickingMethods cherryPickingMethods)
-			: base(codeCompileUnit, clientNamespaceSuffix, helpStrictMode, codeObjectHelper ?? new CodeObjectHelper(true), dataModelAssemblyNames, cherryPickingMethods)
+			: base(codeCompileUnit, clientNamespaceSuffix, helpStrictMode, codeObjectHelper ?? new CodeObjectHelper(true), cherryPickingMethods, dataModelAssemblyNames)
 		{
 
 		}

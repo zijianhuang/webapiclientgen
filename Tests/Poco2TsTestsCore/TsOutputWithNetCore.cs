@@ -17,7 +17,7 @@ namespace Poco2TsTests
 		static void Verify(Type type, string expected)
 		{
 			CodeCompileUnit targetUnit = new CodeCompileUnit();
-			Poco2TsGen gen = new Poco2TsGen(targetUnit, ".Client", false, new CodeObjectHelper(true));
+			Poco2TsGen gen = new Poco2TsGen(targetUnit, ".Client", false, new CodeObjectHelper(true), CherryPickingMethods.All, []);
 			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.NetCore);
 			Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase = false;
 			using (StringWriter writer = new StringWriter())

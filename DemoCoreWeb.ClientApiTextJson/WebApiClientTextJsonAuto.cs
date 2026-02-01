@@ -9234,12 +9234,6 @@ namespace DemoWebApi.DemoDataEx.Client
 {
 	
 	
-	public class AAMyGenericNested : DemoWebApi.DemoData.Client.MyGeneric<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.MyGenericInt, DemoWebApi.DemoData.Client.MyGeneric<decimal, DemoWebApi.DemoDataEx.Client.ZListCheck, DemoWebApi.DemoData.Client.Company>>
-	{
-		
-		public DemoWebApi.DemoData.Client.MyGeneric<DemoWebApi.DemoData.Client.MyGeneric<double, DemoWebApi.DemoData.Client.MyGenericInt, DemoWebApi.DemoData.Base.Client.Entity>, DemoWebApi.DemoDataEx.Client.ZListCheck, DemoWebApi.DemoData.Client.MimsResult<DemoWebApi.DemoDataEx.Client.TextJsonPerson>> Special { get; set; }
-	}
-	
 	public class TextJsonPerson : object
 	{
 		

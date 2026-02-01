@@ -70,35 +70,6 @@ namespace Fonlow.Poco2Client
 			return targetClass;
 		}
 
-		/// <summary>
-		/// Add type to namespace of CodeDOM.
-		/// </summary>
-		/// <param name="ns"></param>
-		/// <param name="type"></param>
-		/// <returns></returns>
-		public static CodeTypeDeclaration CreatePodClientGenericClass(CodeNamespace ns, Type type, CustomAssembliesSet customAssembliesSet)
-		{
-			Type genericTypeDefinition = type.GetGenericTypeDefinition();
-			Type[] genericArguments = type.GetGenericArguments();
-			var isClosedGeneric = !type.IsGenericTypeDefinition;
-
-			string goodGenericClassName = SanitiseGenericClassName(genericTypeDefinition.Name);
-
-			CodeTypeDeclaration targetClass = new CodeTypeDeclaration(goodGenericClassName)
-			{
-				TypeAttributes = TypeAttributes.Public | TypeAttributes.Class, //setting IsInterface has no use
-			};
-
-			targetClass.TypeParameters.AddRange(genericArguments.Select(d => new CodeTypeParameter()
-			{
-				Name = isClosedGeneric ? customAssembliesSet.GetClientTypeName(d) : d.Name,
-			}).ToArray()
-			);
-
-			ns.Types.Add(targetClass);
-			return targetClass;
-		}
-
 		public static CodeTypeDeclaration CreatePodClientStruct(CodeNamespace ns, string className)
 		{
 			CodeTypeDeclaration targetClass = new CodeTypeDeclaration(className)
@@ -122,29 +93,72 @@ namespace Fonlow.Poco2Client
 			return targetClass;
 		}
 
-		public static CodeTypeDeclaration CreatePodClientGenericInterface(CodeNamespace ns, Type type)
+		/// <summary>
+		/// Add type as class to namespace of CodeDOM.
+		/// </summary>
+		/// <param name="ns"></param>
+		/// <param name="type"></param>
+		/// <param name="customAssembliesSet"></param>
+		/// <returns></returns>
+		public static CodeTypeDeclaration CreatePodClientGenericClass(CodeNamespace ns, Type type, CustomAssembliesSet customAssembliesSet)
 		{
 			Type genericTypeDefinition = type.GetGenericTypeDefinition();
 			Type[] genericArguments = type.GetGenericArguments();
+			var isClosedGeneric = !type.IsGenericTypeDefinition;
 
 			string goodGenericClassName = SanitiseGenericClassName(genericTypeDefinition.Name);
 
-			CodeTypeDeclaration targetClass = new CodeTypeDeclaration(goodGenericClassName)
+			CodeTypeDeclaration ctd = new CodeTypeDeclaration(goodGenericClassName)
+			{
+				TypeAttributes = TypeAttributes.Public | TypeAttributes.Class, //setting IsInterface has no use
+			};
+
+			ctd.TypeParameters.AddRange(genericArguments.Select(d => new CodeTypeParameter()
+			{
+				Name = isClosedGeneric ? customAssembliesSet.GetClientTypeName(d) : d.Name,
+			}).ToArray()
+			);
+
+			ns.Types.Add(ctd);
+			return ctd;
+		}
+
+		/// <summary>
+		/// Create type as interface in CodeDOM namespace. Basically for TypeScript.
+		/// </summary>
+		/// <param name="ns"></param>
+		/// <param name="type"></param>
+		/// <param name="customAssembliesSet"></param>
+		/// <returns></returns>
+		public static CodeTypeDeclaration CreatePodClientGenericInterface(CodeNamespace ns, Type type, CustomAssembliesSet customAssembliesSet)
+		{
+			Type genericTypeDefinition = type.GetGenericTypeDefinition();
+			Type[] genericArguments = type.GetGenericArguments();
+			var isClosedGeneric = !type.IsGenericTypeDefinition;
+
+			string goodGenericClassName = SanitiseGenericClassName(genericTypeDefinition.Name);
+
+			CodeTypeDeclaration ctd = new CodeTypeDeclaration(goodGenericClassName)
 			{
 				TypeAttributes = TypeAttributes.Public | TypeAttributes.Interface, //setting IsInterface has no use
 			};
 
-			targetClass.TypeParameters.AddRange(genericArguments.Select(d => new CodeTypeParameter()
+			ctd.TypeParameters.AddRange(genericArguments.Select(d => new CodeTypeParameter()
 			{
-				Name = d.ToString(),
+				Name = isClosedGeneric ? customAssembliesSet.GetClientTypeName(d) : d.ToString(),
 			}).ToArray()
 			);
 
 
-			ns.Types.Add(targetClass);
-			return targetClass;
+			ns.Types.Add(ctd);
+			return ctd;
 		}
 
+		/// <summary>
+		/// Remove the ` and generic parameter count suffix from generic class name.
+		/// </summary>
+		/// <param name="s"></param>
+		/// <returns></returns>
 		static string SanitiseGenericClassName(string s)
 		{
 			int index = s.IndexOf('`');

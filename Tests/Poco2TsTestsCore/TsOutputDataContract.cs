@@ -18,7 +18,7 @@ namespace Poco2TsTests
 		static void Verify(Type type, string expected)
 		{
 			CodeCompileUnit targetUnit = new CodeCompileUnit();
-			Poco2TsGen gen = new Poco2TsGen(targetUnit, ".Client", false, new CodeObjectHelper(true));
+			Poco2TsGen gen = new Poco2TsGen(targetUnit, ".Client", false, new CodeObjectHelper(true), CherryPickingMethods.All, []);
 			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.DataContract);
 			Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase = false;
 			using (StringWriter writer = new StringWriter())
@@ -33,7 +33,7 @@ namespace Poco2TsTests
 		public void TestPersonWithRegions()
 		{
 			CodeCompileUnit targetUnit = new CodeCompileUnit();
-			Poco2TsGen gen = new Poco2TsGen(targetUnit, ".Client", false, new CodeObjectHelper(true));
+			Poco2TsGen gen = new Poco2TsGen(targetUnit, ".Client", false, new CodeObjectHelper(true), CherryPickingMethods.All, []);
 			gen.CreateCodeDom(new Type[] { typeof(DemoWebApi.DemoData.Person) }, CherryPickingMethods.DataContract);
 			CodeTypeDeclaration typeDeclaration = targetUnit.Namespaces[0].Types[0];
 			typeDeclaration.StartDirectives.Add(new CodeRegionDirective(CodeRegionMode.Start, "Type Block"));
@@ -66,7 +66,7 @@ namespace Poco2TsTests
 		public void Test2TypesWithRegions()
 		{
 			CodeCompileUnit targetUnit = new CodeCompileUnit();
-			Poco2TsGen gen = new Poco2TsGen(targetUnit, ".Client", false, new CodeObjectHelper(true));
+			Poco2TsGen gen = new Poco2TsGen(targetUnit, ".Client", false, new CodeObjectHelper(true), CherryPickingMethods.All, []);
 			gen.CreateCodeDom(new Type[] { typeof(DemoWebApi.DemoData.Person), typeof(DemoWebApi.DemoData.AddressType) }, CherryPickingMethods.DataContract);
 			CodeTypeDeclaration typeDeclaration = targetUnit.Namespaces[0].Types[0];
 			CodeTypeDeclaration typeDeclaration1 = targetUnit.Namespaces[0].Types[1];

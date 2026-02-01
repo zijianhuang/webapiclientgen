@@ -51,8 +51,8 @@ namespace DemoWebApi.DemoDataEx
 		public HashSet<byte> BytesHashSet { get; set; }
 	}
 
-	public class AAMyGenericNested : MyGeneric<Person, MyGenericInt, MyGeneric<decimal, ZListCheck, Company>>
-	{
-		public MyGeneric<MyGeneric<double, MyGenericInt, Entity>, ZListCheck, MimsResult<TextJsonPerson>> Special { get; set; }
-	}
+	//public class AAMyGenericNested : MyGeneric<Person, MyGenericInt, MyGeneric<decimal, ZListCheck, Company>>
+	//{
+	//	public MyGeneric<MyGeneric<double, MyGenericInt, Entity>, ZListCheck, MimsResult<TextJsonPerson>> Special { get; set; }
+	//}
 }

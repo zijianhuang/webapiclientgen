@@ -1625,10 +1625,6 @@ export namespace DemoWebApi_Controllers_Client {
 }
 
 export namespace DemoWebApi_DemoDataEx_Client {
-	export interface AAMyGenericNested extends DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Client.MyGeneric`3> {
-		special?: DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Base_Client.Entity>, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.MimsResult<DemoWebApi_DemoDataEx_Client.TextJsonPerson>>;
-	}
-
 	export interface TextJsonPerson {
 		givenName?: string | null;
 		surname?: string | null;

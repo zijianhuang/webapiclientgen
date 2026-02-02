@@ -19,7 +19,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override void CreatePoco2TsGen(string clientNamespaceSuffix)
 		{
-			Poco2TsGen = new Fonlow.Poco2Ts.Poco2TsGen(TargetUnit, clientNamespaceSuffix, jsOutput.HelpStrictMode, new TypeScriptCodeDom.CodeObjectHelper(false), jsOutput.ApiSelections.CherryPickingMethods, jsOutput.ApiSelections.DataModelAssemblyNames);
+			Poco2TsGen = new Fonlow.Poco2Ts.Poco2TsGen(TargetUnit, clientNamespaceSuffix, jsOutput.HelpStrictMode, new TypeScriptCodeDom.CodeObjectHelper(false), jsOutput.ApiSelections.CherryPickingMethods, jsOutput.ApiSelections.AllDataModelAssemblyNames);
 		}
 
 		protected override void AddBasicReferences()

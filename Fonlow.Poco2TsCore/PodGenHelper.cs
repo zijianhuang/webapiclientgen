@@ -59,38 +59,38 @@ namespace Fonlow.Poco2Client
 			return found;
 		}
 
-		public static CodeTypeDeclaration CreatePodClientClass(CodeNamespace ns, string className)
+		public static CodeTypeDeclaration CreatePodClientClass(CodeNamespace ns, string typeName)
 		{
-			CodeTypeDeclaration targetClass = new CodeTypeDeclaration(className)
+			CodeTypeDeclaration ctd = new CodeTypeDeclaration(typeName)
 			{
 				TypeAttributes = TypeAttributes.Public | TypeAttributes.Class, //setting IsInterface has no use
 			};
 
-			ns.Types.Add(targetClass);
-			return targetClass;
+			ns.Types.Add(ctd);
+			return ctd;
 		}
 
-		public static CodeTypeDeclaration CreatePodClientStruct(CodeNamespace ns, string className)
+		public static CodeTypeDeclaration CreatePodClientStruct(CodeNamespace ns, string typeName)
 		{
-			CodeTypeDeclaration targetClass = new CodeTypeDeclaration(className)
+			CodeTypeDeclaration ctd = new CodeTypeDeclaration(typeName)
 			{
 				TypeAttributes = TypeAttributes.Public,
 				IsStruct = true
 			};
 
-			ns.Types.Add(targetClass);
-			return targetClass;
+			ns.Types.Add(ctd);
+			return ctd;
 		}
 
-		public static CodeTypeDeclaration CreatePodClientInterface(CodeNamespace ns, string className)
+		public static CodeTypeDeclaration CreatePodClientInterface(CodeNamespace ns, string typeName)
 		{
-			CodeTypeDeclaration targetClass = new CodeTypeDeclaration(className)
+			CodeTypeDeclaration ctd = new CodeTypeDeclaration(typeName)
 			{
 				TypeAttributes = TypeAttributes.Public | TypeAttributes.Interface, //setting IsInterface has no use
 			};
 
-			ns.Types.Add(targetClass);
-			return targetClass;
+			ns.Types.Add(ctd);
+			return ctd;
 		}
 
 		/// <summary>

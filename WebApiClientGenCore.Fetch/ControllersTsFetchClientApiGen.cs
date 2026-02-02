@@ -19,8 +19,8 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override void CreatePoco2TsGen(string clientNamespaceSuffix)
 		{
-			Poco2TsGen = jsOutput.ApiSelections.CherryPickingMethods == Poco2Client.CherryPickingMethods.ApiOnly ? new Fonlow.Poco2Ts.PocoToTsResponseGen(TargetUnit, clientNamespaceSuffix, jsOutput.HelpStrictMode, null, jsOutput.ApiSelections.DataModelAssemblyNames, jsOutput.ApiSelections.CherryPickingMethods)
-				: new Fonlow.Poco2Ts.PocoToTsResponseGen(TargetUnit, clientNamespaceSuffix, jsOutput.HelpStrictMode, null);
+			Poco2TsGen = jsOutput.ApiSelections.CherryPickingMethods == Poco2Client.CherryPickingMethods.ApiOnly ? new Fonlow.Poco2Ts.PocoToTsResponseGen(TargetUnit, clientNamespaceSuffix, jsOutput.HelpStrictMode, null, jsOutput.ApiSelections.AllDataModelAssemblyNames, jsOutput.ApiSelections.CherryPickingMethods)
+				: new Fonlow.Poco2Ts.PocoToTsResponseGen(TargetUnit, clientNamespaceSuffix, jsOutput.HelpStrictMode, null, jsOutput.ApiSelections.AllDataModelAssemblyNames);
 		}
 
 		protected override void AddBasicReferences()

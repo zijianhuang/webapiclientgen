@@ -13,10 +13,11 @@ namespace Fonlow.Poco2TsCore
 		/// assembly names.
 		/// </summary>
 		/// <param name="customAssemblyNames">An array of assembly names to match against the loaded assemblies. Commonly from codeGenSettings.ApiSelections.AllDataModelAssemblyNames</param>
-		/// <param name="clientSuffix">The suffix to append to the namespace for client types. In general, from codeGen.json.</param>
-		public CustomAssembliesSet(string[] customAssemblyNames, string clientSuffix)
+		/// <param name="clientSuffix">The suffix to append to the namespace for client types. In general, from codeGen.json. Typically like ".Client"</param>
+		public CustomAssembliesSet(string[] customAssemblyNames, string clientSuffix, bool forTS=false)
 		{
-			this.clientSuffix = string.IsNullOrEmpty(clientSuffix) ? "" : $"{clientSuffix}.";
+			this.forTS = forTS;
+			this.clientSuffix = string.IsNullOrEmpty(clientSuffix) ? "" : $"{(forTS ? clientSuffix.Replace('.', '_') : clientSuffix)}."; // for TS, _Client.
 			//Assembly[] loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies(); It could happen that some assemblies are not loaded yet when this constructor is called.
 			// and after all, it is not a big deal that the app programmers have declared some assembly names that are actually rubbish.
 			//common = loadedAssemblies.Select(d => d.GetName().Name).Intersect(customAssemblyNames, StringComparer.OrdinalIgnoreCase).ToArray();
@@ -25,6 +26,7 @@ namespace Fonlow.Poco2TsCore
 
 		readonly string[] common;
 		readonly string clientSuffix;
+		readonly bool forTS;
 
 		/// <summary>
 		/// Being included means the type with the assembly is a custom type.
@@ -42,20 +44,21 @@ namespace Fonlow.Poco2TsCore
 		public string GetClientTypeName(Type type)
 		{
 			ArgumentNullException.ThrowIfNull(type);
+			var typeNamespace = forTS ? type.Namespace.Replace('.', '_') : type.Namespace;
 			if (IsCustomType(type))
 			{
 				if (type.IsGenericType)
 				{
 					var idx = type.Name.IndexOf('`');
 					var typeName = type.Name.Substring(0, idx);
-					return type.Namespace + clientSuffix + typeName;
+					return typeNamespace + clientSuffix + typeName;
 				}
 
-				return type.Namespace + clientSuffix + type.Name;
+				return typeNamespace + clientSuffix + type.Name;
 			}
 			else
 			{
-				return type.ToString();
+				return type.ToString(); // if forTS, the type name has been adjusted with _.
 			}
 		}
 	}

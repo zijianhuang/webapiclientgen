@@ -63,7 +63,7 @@ namespace Fonlow.Poco2Ts
 
 			this.dataModelAssemblyNames = dataModelAssemblyNames;
 			this.cherryPickingMethod = cherryPickingMethod;
-			customAssembliesSet = new CustomAssembliesSet(dataModelAssemblyNames, clientNamespaceSuffix);
+			customAssembliesSet = new CustomAssembliesSet(dataModelAssemblyNames, clientNamespaceSuffix, true);
 		}
 
 		/// <summary>
@@ -212,7 +212,7 @@ namespace Fonlow.Poco2Ts
 			{
 				if (extra != null && extra.Count > 0)
 				{
-					comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(dm.summary.Text?.Union(extra.Where(d=>d!=null))), true));
+					comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(dm.summary.Text?.Union(extra.Where(d => d != null))), true));
 				}
 				else
 				{
@@ -250,7 +250,8 @@ namespace Fonlow.Poco2Ts
 				foreach (Type type in orderedGroupedTypes)
 				{
 					TypeToCodeTypeDeclaration(type, clientNamespace, namespacesOfTypes, methods);
-				};
+				}
+				;
 			}
 
 
@@ -271,7 +272,8 @@ namespace Fonlow.Poco2Ts
 		/// type.</param>
 		/// <returns>A CodeTypeDeclaration representing the structure and members of the specified type, or null if the type is not
 		/// supported.</returns>
-		CodeTypeDeclaration TypeToCodeTypeDeclaration(Type type, CodeNamespaceEx clientNamespace, string[] namespacesOfTypes, CherryPickingMethods methods){
+		CodeTypeDeclaration TypeToCodeTypeDeclaration(Type type, CodeNamespaceEx clientNamespace, string[] namespacesOfTypes, CherryPickingMethods methods)
+		{
 			string tsName = type.Name;
 			Debug.WriteLine("tsClass: " + clientNamespace + "  " + tsName);
 
@@ -298,7 +300,11 @@ namespace Fonlow.Poco2Ts
 						var existingClientNamespaceIdx = clientCodeCompileUnit.Namespaces.FindIndex(RefineNamespaceText(type.BaseType.Namespace));
 						if (existingClientNamespaceIdx >= 0) // for base class in the other assembly
 						{
-							typeDeclaration.BaseTypes.Add(RefineCustomComplexTypeText(type.BaseType));
+							if (type.BaseType.Name.Contains("BizEntity"))
+							{
+								Console.WriteLine("lkkkk");
+							}
+							typeDeclaration.BaseTypes.Add(CreateTypeReference(type.BaseType));
 						}
 						else
 						{
@@ -615,8 +621,30 @@ namespace Fonlow.Poco2Ts
 			}
 		}
 
-		string RefineNamespaceText(string n){
+		/// <summary>
+		/// For TS namespace, generates a refined namespace string by replacing periods with underscores and appending a client namespace
+		/// suffix.
+		/// </summary>
+		/// <param name="n">The original namespace string to be refined. Cannot be null.</param>
+		/// <returns>A string representing the refined namespace, with periods replaced by underscores and the client namespace suffix
+		/// appended.</returns>
+		string RefineNamespaceText(string n)
+		{
 			return n.Replace('.', '_') + ClientNamespaceSuffix.Replace('.', '_');
+		}
+
+		CodeTypeReference CreateTypeReference(Type type)
+		{
+			if (type.IsGenericType && !type.IsGenericTypeDefinition && customAssembliesSet.IsCustomType(type))
+			{
+				var references = type.GenericTypeArguments.Select(t => CreateTypeReference(t));
+				var typeCodeTypeReference = new CodeTypeReference(customAssembliesSet.GetClientTypeName(type), references.ToArray());
+				return typeCodeTypeReference;
+			}
+			else
+			{
+				return new CodeTypeReference(customAssembliesSet.GetClientTypeName(type));
+			}
 		}
 
 		CodeTypeReference CreateArrayOfCustomTypeReference(Type elementType, int arrayRank)
@@ -713,7 +741,7 @@ namespace Fonlow.Poco2Ts
 			if (isClosedGeneric)
 			{
 				var assemblyFilename = type.Assembly.GetName().Name;
-				if (cherryPickingMethod== CherryPickingMethods.ApiOnly && dataModelAssemblyNames != null && dataModelAssemblyNames.Contains(assemblyFilename))
+				if (cherryPickingMethod == CherryPickingMethods.ApiOnly && dataModelAssemblyNames != null && dataModelAssemblyNames.Contains(assemblyFilename))
 				{
 					Type foundTypeDef = PodGenHelper.FindGenericTypeDef(type.Assembly, $"{type.Namespace}.{type.Name}");
 					if (foundTypeDef is not null && LookupExistingClassOfCs(foundTypeDef) is null)
@@ -740,7 +768,7 @@ namespace Fonlow.Poco2Ts
 			else
 			{
 				var assemblyFilename = type.Assembly.GetName().Name;
-				if (cherryPickingMethod == CherryPickingMethods.ApiOnly &&  dataModelAssemblyNames != null && dataModelAssemblyNames.Contains(assemblyFilename))
+				if (cherryPickingMethod == CherryPickingMethods.ApiOnly && dataModelAssemblyNames != null && dataModelAssemblyNames.Contains(assemblyFilename))
 				{
 					AddCodeTypeDeclaration(type, dcOnly);
 				}
@@ -803,32 +831,6 @@ namespace Fonlow.Poco2Ts
 
 			return null;
 		}
-
-		///// <summary>
-		///// Including namespace
-		///// </summary>
-		///// <param name="className"></param>
-		///// <returns></returns>
-		//public CodeTypeDeclaration LookupExistingClassOfCs(string className)
-		//{
-		//	for (int i = 0; i < codeCompileUnit.Namespaces.Count; i++)
-		//	{
-		//		CodeNamespace ns = codeCompileUnit.Namespaces[i];
-		//		if (ns.Name == namespaceText + ClientNamespaceSuffix)
-		//		{
-		//			for (int k = 0; k < ns.Types.Count; k++)
-		//			{
-		//				CodeTypeDeclaration c = ns.Types[k];
-		//				if (c.Name == typeName)
-		//				{
-		//					return c;
-		//				}
-		//			}
-		//		}
-		//	}
-
-		//	return null;
-		//}
 
 		CodeTypeDeclaration AddCodeTypeDeclaration(Type type, bool dcOnly)
 		{

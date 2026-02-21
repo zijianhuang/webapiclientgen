@@ -714,11 +714,6 @@ namespace Fonlow.Poco2Ts
 			foreach (Attribute attribute in attributes)
 			{
 				Type attributeType = attribute.GetType();
-				//if (attributeType == typeof(RequiredAttribute) && requiredAdded)
-				//{
-				//	continue;
-				//}
-
 				if (declaratinDic.TryGetValue(attributeType, out Func<Attribute, CodeAttributeDeclaration> textGenerator))
 				{
 					codeTypeMember.CustomAttributes.Add(textGenerator(attribute));

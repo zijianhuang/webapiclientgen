@@ -19,11 +19,14 @@ namespace DemoWebApi.DemoDataEx
 	{
 		[DataMember(IsRequired =true)]
 		public string Surname { get; set; }
+
 		[DataMember]
-		[Required]
 		public string GivenName { get; set; }
 	}
 
+	/// <summary>
+	/// Checking array.
+	/// </summary>
 	[DataContract]
 	public class ZListCheck
 	{

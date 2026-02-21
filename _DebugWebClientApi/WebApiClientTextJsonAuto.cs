@@ -50,10 +50,6 @@ namespace DemoWebApi.DemoDataEx.Client
 	public class TextJsonPerson : object
 	{
 		
-		/// <summary>
-		/// Required. Null or empty is invalid.
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.Required()]
 		[System.Runtime.Serialization.DataMember()]
 		public string GivenName { get; set; }
 		
@@ -70,6 +66,9 @@ namespace DemoWebApi.DemoDataEx.Client
 		public string Trustee { get; set; }
 	}
 	
+	/// <summary>
+	/// Checking array.
+	/// </summary>
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.Serializable()]
 	public class ZListCheck : object

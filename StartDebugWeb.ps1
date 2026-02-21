@@ -3,11 +3,10 @@ Set-Location $PSScriptRoot
 $path = "$PSScriptRoot/_DebugWeb"
 $procArgs = @{
     FilePath         = "dotnet.exe"
-    ArgumentList     = "run $path/DebugWeb.csproj --no-build"
+    ArgumentList     = "run --project $path/DebugWeb.csproj --no-build --launch-profile http"
     WorkingDirectory = $path
     PassThru         = $true
 }
 $process = Start-Process @procArgs
 
-Invoke-RestMethod http://localhost:5000/api/values -Method GET
 

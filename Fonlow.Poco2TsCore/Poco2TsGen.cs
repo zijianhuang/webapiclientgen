@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json.Serialization;
 
 namespace Fonlow.Poco2Ts
 {
@@ -541,6 +542,15 @@ namespace Fonlow.Poco2Ts
 
 		readonly List<Type> pendingTypes;
 
+		/// <summary>
+		/// Translates a generic Common Language Runtime (CLR) type to its corresponding TypeScript type reference.
+		/// </summary>
+		/// <remarks>This method supports translation of various generic types, including nullable types, tasks,
+		/// collections, tuples, and dictionaries. The resulting TypeScript type reference reflects the structure and
+		/// constraints of the original CLR type, ensuring accurate type mapping for code generation scenarios.</remarks>
+		/// <param name="type">The generic CLR type to translate. This parameter must represent a generic type definition or a constructed
+		/// generic type.</param>
+		/// <returns>A CodeTypeReference that represents the TypeScript equivalent of the specified generic CLR type.</returns>
 		CodeTypeReference TranslateGenericToTsTypeReference(Type type)
 		{
 			Type genericTypeDefinition = type.GetGenericTypeDefinition();
@@ -689,11 +699,11 @@ namespace Fonlow.Poco2Ts
 			attributes.Sort((x, y) =>
 			{
 				// Special-case RequiredAttribute so that it shows up on top
-				if (x is RequiredAttribute)
+				if (x is RequiredAttribute || x is JsonRequiredAttribute)
 				{
 					return -1;
 				}
-				if (y is RequiredAttribute)
+				if (y is RequiredAttribute || x is JsonRequiredAttribute)
 				{
 					return 1;
 				}
@@ -704,10 +714,10 @@ namespace Fonlow.Poco2Ts
 			foreach (Attribute attribute in attributes)
 			{
 				Type attributeType = attribute.GetType();
-				if (attributeType == typeof(RequiredAttribute) && requiredAdded)
-				{
-					continue;
-				}
+				//if (attributeType == typeof(RequiredAttribute) && requiredAdded)
+				//{
+				//	continue;
+				//}
 
 				if (declaratinDic.TryGetValue(attributeType, out Func<Attribute, CodeAttributeDeclaration> textGenerator))
 				{

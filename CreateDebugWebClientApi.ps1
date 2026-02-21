@@ -4,31 +4,36 @@ Set-Location $PSScriptRoot
 $path = "$PSScriptRoot/_DebugWeb"
 $procArgs = @{
     FilePath         = "dotnet.exe"
-    ArgumentList     = "run $path/DebugWeb.csproj --no-build"
+    ArgumentList     = "run $path/DebugWeb.csproj --no-build --launch-profile http"
     WorkingDirectory = $path
     PassThru         = $true
 }
 $process = Start-Process @procArgs
 
 #Step 2: Run CodeGen
+$jsonBody = Get-Content "$path/CodeGen.json" -Raw
 $restArgs = @{
     Uri         = 'http://localhost:5000/api/codegen'
     Method      = 'Post'
-    InFile      = "$path/CodeGen.json"
+    Body        = $jsonBody
     ContentType = 'application/json'
 }
-try {
-        $result = Invoke-RestMethod @restArgs
-        Write-Output $result
+
+$response = Invoke-WebRequest @restArgs -SkipHttpErrorCheck
+Write-Output $response.GetType().FullName
+
+$status = $response.StatusCode
+$body = $response.Content
+
+Write-Output "Status: $status"
+if ($status -lt 299) {
+    Write-Output $body
 }
-catch {
-        Write-Output $_.Exception.Response.StatusCode
-        $response = $_.Exception.Response.GetResponseStream()
-        $reader = New-Object System.IO.StreamReader($response)
-        $reader.BaseStream.Position = 0
-        $reader.DiscardBufferedData()
-        $responseBody = $reader.ReadToEnd()
-        Write-Output  $responseBody
+else {
+    Write-Warning "Response body: $body"
+    Stop-Process $process
+    return
 }
+
 
 Stop-Process $process

@@ -983,11 +983,6 @@ namespace Fonlow.Poco2Client
 			foreach (Attribute attribute in attributes)
 			{
 				Type attributeType = attribute.GetType();
-				//if (attributeType == typeof(RequiredAttribute) && requiredAdded)
-				//{
-				//	continue;
-				//}
-
 				if (declarationDic.TryGetValue(attributeType, out Func<Attribute, CodeAttributeDeclaration> textGenerator))
 				{
 					codeTypeMember.CustomAttributes.Add(textGenerator(attribute));

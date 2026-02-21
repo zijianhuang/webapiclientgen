@@ -25,8 +25,6 @@ export namespace DebugWeb_Data_Client {
 
 export namespace DemoWebApi_DemoDataEx_Client {
 	export interface TextJsonPerson {
-
-		/** Required. Null or empty is invalid. */
 		givenName?: string | null;
 		surname: string;
 	}
@@ -35,6 +33,10 @@ export namespace DemoWebApi_DemoDataEx_Client {
 		trustee?: string | null;
 	}
 
+
+	/**
+	 * Checking array.
+	 */
 	export interface ZListCheck {
 		bytesHashSet?: Array<number>;
 		decimals?: Array<number>;

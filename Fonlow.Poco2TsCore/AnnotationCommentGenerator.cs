@@ -4,6 +4,9 @@ using System.Globalization;
 
 namespace Fonlow.Poco2Client
 {
+	/// <summary>
+	/// Provide a dictionary of doc comment generators to translate an attribute object to doc comment. The client code should call Get().TryGetValue to get a generator.
+	/// </summary>
 	public sealed class AnnotationCommentGenerator
 	{
 		/// <summary>

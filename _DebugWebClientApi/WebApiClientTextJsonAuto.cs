@@ -19,17 +19,24 @@ namespace DebugWeb.Data.Client
 		public string Description { get; set; }
 		
 		/// <summary>
+		/// Required. Null or empty is invalid.
+		/// JSON Required. Null or empty may be fine.
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		[System.Text.Json.Serialization.JsonRequired()]
+		public string DoubleRequired { get; set; }
+		
+		/// <summary>
 		/// Required means the property is required and cannot be null or empty string.
-		/// Required. Nnull or empty is invalid.
+		/// Required. Null or empty is invalid.
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		public string Location { get; set; }
 		
 		/// <summary>
 		/// JsonRequired means the property is required in JSON, but it can be null or empty string.
-		/// JSON Required. Null or empty is fine.
+		/// JSON Required. Null or empty may be fine.
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.Required()]
 		[System.Text.Json.Serialization.JsonRequired()]
 		public string Name { get; set; }
 	}
@@ -44,13 +51,12 @@ namespace DemoWebApi.DemoDataEx.Client
 	{
 		
 		/// <summary>
-		/// Required. Nnull or empty is invalid.
+		/// Required. Null or empty is invalid.
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		[System.Runtime.Serialization.DataMember()]
 		public string GivenName { get; set; }
 		
-		[System.ComponentModel.DataAnnotations.Required()]
 		[System.Runtime.Serialization.DataMember(IsRequired =true)]
 		public string Surname { get; set; }
 	}

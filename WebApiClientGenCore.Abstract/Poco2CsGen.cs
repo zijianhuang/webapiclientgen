@@ -343,10 +343,10 @@ namespace Fonlow.Poco2Client
 
 					CodeMemberField clientProperty = CreateProperty(tsPropertyName, propertyInfo.PropertyType, defaultValue); //hacky way of creating clean getter and writter.
 					bool isRequired = cherryType == CherryType.BigCherry;
-					if (isRequired)
-					{
-						clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.Required"));
-					}
+					//if (isRequired)
+					//{
+					//	clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.Required"));
+					//}
 
 					if (codeGenOutputsSettings.DataAnnotationsEnabled)
 					{
@@ -983,10 +983,10 @@ namespace Fonlow.Poco2Client
 			foreach (Attribute attribute in attributes)
 			{
 				Type attributeType = attribute.GetType();
-				if (attributeType == typeof(RequiredAttribute) && requiredAdded)
-				{
-					continue;
-				}
+				//if (attributeType == typeof(RequiredAttribute) && requiredAdded)
+				//{
+				//	continue;
+				//}
 
 				if (declarationDic.TryGetValue(attributeType, out Func<Attribute, CodeAttributeDeclaration> textGenerator))
 				{

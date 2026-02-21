@@ -9317,7 +9317,6 @@ namespace DemoWebApi.Models.Client
 		/// JSON Required. Null or empty may be fine.
 		/// Data type: Password
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.Required()]
 		[System.Text.Json.Serialization.JsonRequired()]
 		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
 		[System.Text.Json.Serialization.JsonPropertyName("oldPwd")]

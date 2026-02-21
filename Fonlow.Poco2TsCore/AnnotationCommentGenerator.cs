@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
 namespace Fonlow.Poco2Client
@@ -11,21 +10,21 @@ namespace Fonlow.Poco2Client
 		/// Generate doc comment with generators for each custom attribute
 		/// </summary>
 		/// <param name="forTS">For generating TS only docComment this should be true.</param>
-		public AnnotationCommentGenerator(bool forTS=false)
+		public AnnotationCommentGenerator(bool forTS = false)
 		{
 			if (forTS)
 			{
 				generator.Add(typeof(ObsoleteAttribute), a => //https://jsdoc.app/tags-deprecated
 				{
-					ObsoleteAttribute obsoleteAttr = (ObsoleteAttribute)a;
+					var obsoleteAttr = (ObsoleteAttribute)a;
 					return GenerateObsoleteAttributeComments(obsoleteAttr); //no such doc comment needed for C#, since IDE will show obsolete info.
 				});
 			}
 
 			//JsDoc does not support some regular expressions, not even with mechanism of eacaping.
-			generator.Add(typeof(RegularExpressionAttribute), a =>
+			generator.Add(typeof(System.ComponentModel.DataAnnotations.RegularExpressionAttribute), a =>
 			{
-				RegularExpressionAttribute regularExpression = (RegularExpressionAttribute)a;
+				var regularExpression = (System.ComponentModel.DataAnnotations.RegularExpressionAttribute)a;
 				var pattern = forTS ? EscapeForJsDoc(regularExpression.Pattern) : regularExpression.Pattern;
 				return String.Format(CultureInfo.CurrentCulture, "Regex pattern: {0}", pattern);
 			});
@@ -43,40 +42,41 @@ namespace Fonlow.Poco2Client
 
 		readonly Dictionary<Type, Func<object, string>> generator = new Dictionary<Type, Func<object, string>>
 		{
-			{ typeof(RequiredAttribute), a => "Required" },
-			{ typeof(RangeAttribute), a =>
+			{ typeof(System.ComponentModel.DataAnnotations.RequiredAttribute), a => "Required" },
+			{ typeof(System.Text.Json.Serialization.JsonRequiredAttribute), a => "Required" },
+			{ typeof(System.ComponentModel.DataAnnotations.RangeAttribute), a =>
 				{
-					RangeAttribute range = (RangeAttribute)a;
+					var range = (System.ComponentModel.DataAnnotations.RangeAttribute)a;
 					return String.Format(CultureInfo.CurrentCulture, "Range: inclusive between {0} and {1}", range.Minimum, range.Maximum);
 				}
 			},
-			{ typeof(MaxLengthAttribute), a =>
+			{ typeof(System.ComponentModel.DataAnnotations.MaxLengthAttribute), a =>
 				{
-					MaxLengthAttribute maxLength = (MaxLengthAttribute)a;
+					var maxLength = (System.ComponentModel.DataAnnotations.MaxLengthAttribute)a;
 					return String.Format(CultureInfo.CurrentCulture, "Max length: {0}", maxLength.Length);
 				}
 			},
-			{ typeof(MinLengthAttribute), a =>
+			{ typeof(System.ComponentModel.DataAnnotations.MinLengthAttribute), a =>
 				{
-					MinLengthAttribute minLength = (MinLengthAttribute)a;
+					var minLength = (System.ComponentModel.DataAnnotations.MinLengthAttribute)a;
 					return String.Format(CultureInfo.CurrentCulture, "Min length: {0}", minLength.Length);
 				}
 			},
-			{ typeof(LengthAttribute), a =>
+			{ typeof(System.ComponentModel.DataAnnotations.LengthAttribute), a =>
 				{
-					LengthAttribute lengthAttr = (LengthAttribute)a;
+					var lengthAttr = (System.ComponentModel.DataAnnotations.LengthAttribute)a;
 					return String.Format(CultureInfo.CurrentCulture, "Length min: {0}, max: {1}", lengthAttr.MinimumLength, lengthAttr.MaximumLength);
 				}
 			},
-			{ typeof(StringLengthAttribute), a =>
+			{ typeof(System.ComponentModel.DataAnnotations.StringLengthAttribute), a =>
 				{
-					StringLengthAttribute strLength = (StringLengthAttribute)a;
+					var strLength = (System.ComponentModel.DataAnnotations.StringLengthAttribute)a;
 					return String.Format(CultureInfo.CurrentCulture, "String length: inclusive between {0} and {1}", strLength.MinimumLength, strLength.MaximumLength);
 				}
 			},
-			{ typeof(DataTypeAttribute), a =>
+			{ typeof(System.ComponentModel.DataAnnotations.DataTypeAttribute), a =>
 				{
-					DataTypeAttribute dataType = (DataTypeAttribute)a;
+					var dataType = (System.ComponentModel.DataAnnotations.DataTypeAttribute)a;
 					return String.Format(CultureInfo.CurrentCulture, "Data type: {0}", dataType.CustomDataType ?? dataType.DataType.ToString());
 				}
 			}

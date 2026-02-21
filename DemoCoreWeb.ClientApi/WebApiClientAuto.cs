@@ -10475,6 +10475,7 @@ namespace DemoWebApi.Models.Client
 		
 		/// <summary>
 		/// Required
+		/// Required
 		/// String length: inclusive between 6 and 100
 		/// Data type: Password
 		/// </summary>

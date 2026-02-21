@@ -2422,6 +2422,7 @@ export namespace DemoWebApi_Models_Client {
 
 		/**
 		 * Required
+		 * Required
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
@@ -2440,6 +2441,7 @@ export namespace DemoWebApi_Models_Client {
 
 		/**
 		 * Required
+		 * Required
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
@@ -2455,7 +2457,7 @@ export namespace DemoWebApi_Models_Client {
 		return new FormGroup<ChangePasswordBindingModelFormProperties>({
 			confirmPassword: new FormControl<string | null | undefined>(undefined),
 			newPassword: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(6), Validators.maxLength(100)]),
-			OldPwd: new FormControl<string | null | undefined>(undefined, [Validators.required]),
+			OldPwd: new FormControl<string | null | undefined>(undefined),
 		});
 
 	}

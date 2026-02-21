@@ -7,6 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+namespace DebugWeb.Data.Client
+{
+	
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.Serializable()]
+	public class DotNetJsonType : object
+	{
+		
+		public string Description { get; set; }
+		
+		[System.ComponentModel.DataAnnotations.Required()]
+		public string Location { get; set; }
+		
+		public string Name { get; set; }
+	}
+}
 namespace DemoWebApi.DemoDataEx.Client
 {
 	
@@ -16,10 +33,15 @@ namespace DemoWebApi.DemoDataEx.Client
 	public class TextJsonPerson : object
 	{
 		
+		/// <summary>
+		/// Required
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
 		[System.Runtime.Serialization.DataMember()]
 		public string GivenName { get; set; }
 		
-		[System.Runtime.Serialization.DataMember()]
+		[System.ComponentModel.DataAnnotations.Required()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
 		public string Surname { get; set; }
 	}
 	

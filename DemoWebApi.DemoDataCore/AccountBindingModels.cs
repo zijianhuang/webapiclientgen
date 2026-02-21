@@ -20,7 +20,7 @@ namespace DemoWebApi.Models
 		[JsonProperty(PropertyName ="OldPwd")]
 		[System.Text.Json.Serialization.JsonPropertyName("oldPwd")]
 		[System.Text.Json.Serialization.JsonRequired]
-		[Required]
+		//[Required]
 		[DataType(DataType.Password)]
 		[Display(Name = "Current password")]
 		public string OldPassword { get; set; }

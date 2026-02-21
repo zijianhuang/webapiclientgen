@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Security.Principal;
+using System.Text.Json.Serialization;
 
 namespace DemoWebApi.DemoDataEx
 {
@@ -15,9 +17,10 @@ namespace DemoWebApi.DemoDataEx
 	[DataContract]
 	public class TextJsonPerson
 	{
-		[DataMember]
+		[DataMember(IsRequired =true)]
 		public string Surname { get; set; }
 		[DataMember]
+		[Required]
 		public string GivenName { get; set; }
 	}
 

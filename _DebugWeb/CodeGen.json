@@ -5,8 +5,17 @@
 			"DemoWebApi.Controllers.FileUpload"
 		],
 
-		"DataModelAssemblyNames": [ "DebugWeb" ],
-		"CherryPickingMethods": 1
+		"DataModels": [
+			{
+				"AssemblyName": "DebugWeb",
+				"CherryPickingMethods": 1
+			},
+
+			{
+				"AssemblyName": "DebugWeb.Data",
+				"CherryPickingMethods": 0
+			}
+		]
 	},
 
 	"ClientApiOutputs": {

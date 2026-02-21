@@ -1956,6 +1956,7 @@ export namespace DemoWebApi_Models_Client {
 
 		/**
 		 * Required
+		 * Required
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */

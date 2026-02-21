@@ -40,8 +40,15 @@
 		"JsonSerializerContextNamespace": "DemoTextJsonWeb.Serialization",
 
 		"Plugins": [
-
-
+			{
+				"AssemblyName": "Fonlow.WebApiClientGenCore.Fetch",
+				"TargetDir": "../fetchapi/src/clientapi",
+				"TSFile": "WebApiCoreFetchClientAuto.ts",
+				"AsModule": true,
+				"ContentType": "application/json;charset=UTF-8",
+				"DataAnnotationsToComments": true,
+				"HelpStrictMode": true
+			}
 		]
 	}
 }

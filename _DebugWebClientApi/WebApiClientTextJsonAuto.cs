@@ -21,6 +21,7 @@ namespace DebugWeb.Data.Client
 		[System.ComponentModel.DataAnnotations.Required()]
 		public string Location { get; set; }
 		
+		[System.ComponentModel.DataAnnotations.Required()]
 		public string Name { get; set; }
 	}
 }
@@ -34,7 +35,7 @@ namespace DemoWebApi.DemoDataEx.Client
 	{
 		
 		/// <summary>
-		/// Required
+		/// Required. Not null or empty.
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		[System.Runtime.Serialization.DataMember()]

@@ -64,7 +64,7 @@ namespace Fonlow.Poco2Client
 		Cherry,
 
 		/// <summary>
-		/// Signal required property
+		/// Signal required property. The property must be presented. Whether to allow null and empty depends on RequirtedAttribute or JsonRequiredAttribute.
 		/// </summary>
 		BigCherry,
 	}

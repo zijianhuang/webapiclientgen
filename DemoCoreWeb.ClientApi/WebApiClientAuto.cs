@@ -63,7 +63,7 @@ namespace DemoWebApi.Controllers.Client
 		public long Id { get; set; }
 		
 		/// <summary>
-		/// Required
+		/// Required. Nnull or empty is invalid.
 		/// String length: inclusive between 2 and 120
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
@@ -9912,7 +9912,7 @@ namespace DemoWebApi.DemoData.Base.Client
 		
 		/// <summary>
 		/// Name of the entity.
-		/// Required
+		/// Required. Nnull or empty is invalid.
 		/// Min length: 2
 		/// Max length: 255
 		/// </summary>
@@ -10126,7 +10126,7 @@ namespace DemoWebApi.DemoData.Client
 		public System.Nullable<System.Guid> NullableId { get; set; }
 		
 		/// <summary>
-		/// Required
+		/// Required. Nnull or empty is invalid.
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		[System.Runtime.Serialization.DataMember(IsRequired =true)]
@@ -10456,7 +10456,7 @@ namespace DemoWebApi.Models.Client
 	{
 		
 		/// <summary>
-		/// Required
+		/// Required. Nnull or empty is invalid.
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		public string ExternalAccessToken { get; set; }
@@ -10474,21 +10474,23 @@ namespace DemoWebApi.Models.Client
 		public string ConfirmPassword { get; set; }
 		
 		/// <summary>
-		/// Required
-		/// Required
+		/// Required. Nnull or empty is invalid.
+		/// JSON Required. Null or empty is fine.
 		/// String length: inclusive between 6 and 100
 		/// Data type: Password
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
+		[System.Text.Json.Serialization.JsonRequired()]
 		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
 		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
 		public string NewPassword { get; set; }
 		
 		/// <summary>
-		/// Required
+		/// JSON Required. Null or empty is fine.
 		/// Data type: Password
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
+		[System.Text.Json.Serialization.JsonRequired()]
 		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
 		public string OldPassword { get; set; }
 	}
@@ -10505,13 +10507,13 @@ namespace DemoWebApi.Models.Client
 		public string ConfirmPassword { get; set; }
 		
 		/// <summary>
-		/// Required
+		/// Required. Nnull or empty is invalid.
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		public string Email { get; set; }
 		
 		/// <summary>
-		/// Required
+		/// Required. Nnull or empty is invalid.
 		/// String length: inclusive between 6 and 100
 		/// Data type: Password
 		/// </summary>
@@ -10527,7 +10529,7 @@ namespace DemoWebApi.Models.Client
 	{
 		
 		/// <summary>
-		/// Required
+		/// Required. Nnull or empty is invalid.
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		public string Email { get; set; }
@@ -10539,13 +10541,13 @@ namespace DemoWebApi.Models.Client
 	{
 		
 		/// <summary>
-		/// Required
+		/// Required. Nnull or empty is invalid.
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		public string LoginProvider { get; set; }
 		
 		/// <summary>
-		/// Required
+		/// Required. Nnull or empty is invalid.
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		public string ProviderKey { get; set; }
@@ -10563,7 +10565,7 @@ namespace DemoWebApi.Models.Client
 		public string ConfirmPassword { get; set; }
 		
 		/// <summary>
-		/// Required
+		/// Required. Nnull or empty is invalid.
 		/// String length: inclusive between 6 and 100
 		/// Data type: Password
 		/// </summary>

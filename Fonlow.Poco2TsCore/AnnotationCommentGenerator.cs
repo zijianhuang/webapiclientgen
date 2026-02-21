@@ -42,8 +42,8 @@ namespace Fonlow.Poco2Client
 
 		readonly Dictionary<Type, Func<object, string>> generator = new Dictionary<Type, Func<object, string>>
 		{
-			{ typeof(System.ComponentModel.DataAnnotations.RequiredAttribute), a => "Required. Not null or empty." },
-			{ typeof(System.Text.Json.Serialization.JsonRequiredAttribute), a => "JSON Required. Null is fine." },
+			{ typeof(System.ComponentModel.DataAnnotations.RequiredAttribute), a => "Required. Null or empty is invalid." },
+			{ typeof(System.Text.Json.Serialization.JsonRequiredAttribute), a => "JSON Required. Null or empty may be fine." },
 			{ typeof(System.ComponentModel.DataAnnotations.RangeAttribute), a =>
 				{
 					var range = (System.ComponentModel.DataAnnotations.RangeAttribute)a;

@@ -2,6 +2,7 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Fonlow.Poco2Client
 {
@@ -17,6 +18,7 @@ namespace Fonlow.Poco2Client
 
 		static readonly IDictionary<Type, Func<Attribute, CodeAttributeDeclaration>> declaratinDic = new Dictionary<Type, Func<Attribute, CodeAttributeDeclaration>>
 		{
+			{ typeof(JsonRequiredAttribute), a => new CodeAttributeDeclaration("System.Text.Json.Serialization.JsonRequired") },
 			{ typeof(RequiredAttribute), a => new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.Required") },
 			{ typeof(RangeAttribute), a =>
 				{

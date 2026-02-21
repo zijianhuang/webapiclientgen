@@ -38,7 +38,7 @@ namespace Poco2TsTests
 @"export namespace DemoWebApi_Models_Client {
 	export interface ChangePasswordBindingModel {
 		ConfirmPassword?: string | null;
-		NewPassword?: string | null;
+		NewPassword: string;
 		oldPwd: string;
 	}
 

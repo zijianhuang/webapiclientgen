@@ -265,6 +265,9 @@ namespace Fonlow.TypeScriptCodeDom
 						case "System.ComponentModel.DataAnnotations.RequiredAttribute":
 							validatorList.Add("Validators.required");
 							break;
+						//case "System.Text.Json.Serialization.JsonRequiredAttribute": no need. because null and empty string is allowed already.
+						//	validatorList.Add("Validators.required");
+						//	break;
 						case "System.ComponentModel.DataAnnotations.MaxLengthAttribute":
 							System.ComponentModel.DataAnnotations.MaxLengthAttribute a = ca as System.ComponentModel.DataAnnotations.MaxLengthAttribute;
 							validatorList.Add($"Validators.maxLength({a.Length})");

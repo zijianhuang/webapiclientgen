@@ -34,7 +34,7 @@ export namespace DemoWebApi_Controllers_Client {
 		id?: string | null;
 
 		/**
-		 * Required
+		 * Required. Null or empty is invalid.
 		 * String length: inclusive between 2 and 120
 		 */
 		name?: string | null;
@@ -1705,7 +1705,7 @@ export namespace DemoWebApi_DemoData_Base_Client {
 
 		/**
 		 * Name of the entity.
-		 * Required
+		 * Required. Null or empty is invalid.
 		 * Min length: 2
 		 * Max length: 255
 		 */
@@ -1825,7 +1825,7 @@ export namespace DemoWebApi_DemoData_Client {
 		idNotEmitDefaultValue?: string | null;
 		nullableId?: string | null;
 
-		/** Required */
+		/** Required. Null or empty is invalid. */
 		requiredName: string;
 		text?: string | null;
 	}
@@ -1957,8 +1957,8 @@ export namespace DemoWebApi_DemoData_Client {
 export namespace DemoWebApi_Models_Client {
 	export interface AddExternalLoginBindingModel {
 
-		/** Required */
-		externalAccessToken?: string | null;
+		/** Required. Null or empty is invalid. */
+		externalAccessToken: string;
 	}
 
 	export interface ChangePasswordBindingModel {
@@ -1967,15 +1967,15 @@ export namespace DemoWebApi_Models_Client {
 		confirmPassword?: string | null;
 
 		/**
-		 * Required
-		 * Required
+		 * Required. Null or empty is invalid.
+		 * JSON Required. Null or empty may be fine.
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
 		newPassword: string;
 
 		/**
-		 * Required
+		 * JSON Required. Null or empty may be fine.
 		 * Data type: Password
 		 */
 		OldPwd: string;
@@ -1986,30 +1986,30 @@ export namespace DemoWebApi_Models_Client {
 		/** Data type: Password */
 		confirmPassword?: string | null;
 
-		/** Required */
-		email?: string | null;
+		/** Required. Null or empty is invalid. */
+		email: string;
 
 		/**
-		 * Required
+		 * Required. Null or empty is invalid.
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
-		password?: string | null;
+		password: string;
 	}
 
 	export interface RegisterExternalBindingModel {
 
-		/** Required */
-		email?: string | null;
+		/** Required. Null or empty is invalid. */
+		email: string;
 	}
 
 	export interface RemoveLoginBindingModel {
 
-		/** Required */
-		loginProvider?: string | null;
+		/** Required. Null or empty is invalid. */
+		loginProvider: string;
 
-		/** Required */
-		providerKey?: string | null;
+		/** Required. Null or empty is invalid. */
+		providerKey: string;
 	}
 
 	export interface SetPasswordBindingModel {
@@ -2018,11 +2018,11 @@ export namespace DemoWebApi_Models_Client {
 		confirmPassword?: string | null;
 
 		/**
-		 * Required
+		 * Required. Null or empty is invalid.
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
-		newPassword?: string | null;
+		newPassword: string;
 	}
 
 

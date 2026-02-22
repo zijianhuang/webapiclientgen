@@ -35,12 +35,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Fonlow.TypeScriptCodeDomCore" Version="3.6.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Fonlow.DocCommentCore\Fonlow.DocCommentCore.csproj" />
+		<ProjectReference Include="..\Fonlow.TypeScriptCodeDomCore\Fonlow.TypeScriptCodeDomCore.csproj" />
 		<None Include="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 

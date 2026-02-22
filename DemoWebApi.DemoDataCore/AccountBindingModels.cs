@@ -26,7 +26,6 @@ namespace DemoWebApi.Models
 		public string OldPassword { get; set; }
 
 		[JsonProperty(Required = Required.Always)]
-		[System.Text.Json.Serialization.JsonRequired]
 		[Required]
 		[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
 		[DataType(DataType.Password)]

@@ -354,12 +354,14 @@ namespace Fonlow.Poco2Ts
 
 					AddValidationAttributesCodeToTypeMember(propertyInfo, clientField, false);
 					clientField.UserData.Add(UserDataKeys.CustomAttributes, propertyInfo.GetCustomAttributes().ToArray());
+					var jsonRequiredPresented = TypeHelper.AttributeExists(propertyInfo, "System.Text.Json.Serialization.JsonRequiredAttribute") != null;
 					clientField.Type.UserData.Add(UserDataKeys.FieldTypeInfo,
 						new FieldTypeInfo
 						{
 							IsComplex = CodeObjectHelper.IsComplexType(propertyInfo.PropertyType),
 							IsArray = clientField.Type.ArrayRank > 0,
 							ClrType = propertyInfo.PropertyType,
+							IsJsonRequired = jsonRequiredPresented,
 						});
 
 					CreatePropertyDocComment(propertyInfo, clientField);
@@ -402,12 +404,15 @@ namespace Fonlow.Poco2Ts
 					};
 
 					clientField.UserData.Add(UserDataKeys.CustomAttributes, fieldInfo.GetCustomAttributes().ToArray());
-					clientField.Type.UserData.Add(UserDataKeys.FieldTypeInfo, new FieldTypeInfo
-					{
-						IsComplex = CodeObjectHelper.IsComplexType(fieldInfo.FieldType),
-						IsArray = clientField.Type.ArrayRank > 0,
-						ClrType = fieldInfo.FieldType,
-					});
+					var jsonRequiredPresented = TypeHelper.AttributeExists(fieldInfo, "System.Text.Json.Serialization.JsonRequiredAttribute") != null;
+					clientField.Type.UserData.Add(UserDataKeys.FieldTypeInfo,
+						new FieldTypeInfo
+						{
+							IsComplex = CodeObjectHelper.IsComplexType(fieldInfo.FieldType),
+							IsArray = clientField.Type.ArrayRank > 0,
+							ClrType = fieldInfo.FieldType,
+							IsJsonRequired = jsonRequiredPresented,
+						});
 					CreateFieldDocComment(fieldInfo, clientField);
 
 					typeDeclaration.Members.Add(clientField);
@@ -857,6 +862,38 @@ namespace Fonlow.Poco2Ts
 			return r;
 		}
 
+		static void RefineForJsonRequired(CodeMemberField codeMemberField)
+		{
+			var isRequired = !codeMemberField.Name.EndsWith('?');
+			if (!isRequired)
+			{
+				return;
+			}
+
+			var fieldName = codeMemberField.Name;
+			var tsTypeName = GetCodeTypeReferenceText(codeMemberField.Type);
+			var isAny = codeMemberField.Name == "any";
+			var fieldTypeInfo = codeMemberField.Type.UserData[UserDataKeys.FieldTypeInfo] as FieldTypeInfo;
+			if (fieldTypeInfo != null)
+			{
+				var isComplex = fieldTypeInfo.IsArray || fieldTypeInfo.IsComplex;
+				var alreadyNullable = tsTypeName.Contains("| null");
+				if (!alreadyNullable && !isAny && !isComplex)  //todo: refine this after
+				{
+					tsTypeName += " | null"; //optional null
+				}
+
+			}
+			else
+			{
+				Console.Error.WriteLine("No FieldTypeInfo in UserData");
+			}
+		}
+
+		static string GetCodeTypeReferenceText(CodeTypeReference codeTypeReference)
+		{
+			return TypeMapper.MapCodeTypeReferenceToTsText(codeTypeReference);
+		}
 
 	}
 

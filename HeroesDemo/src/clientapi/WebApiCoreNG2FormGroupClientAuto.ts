@@ -1752,7 +1752,7 @@ export namespace DemoWebApi_DemoDataEx_Client {
 		return new FormGroup<TrustFormProperties>({
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			id: new FormControl<string | null | undefined>(undefined),
-			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
+			name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
 			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$/)]),
 			foundDate: new FormControl<Date | null | undefined>(undefined),
 			registerDate: CreateDateOnlyFormControl(),
@@ -1816,18 +1816,18 @@ export namespace DemoWebApi_DemoData_Another_Client {
 		 * X
 		 * Type: double
 		 */
-		x: FormControl<number | null | undefined>,
+		x: FormControl<number | null>,
 
 		/**
 		 * Y
 		 * Type: double
 		 */
-		y: FormControl<number | null | undefined>,
+		y: FormControl<number | null>,
 	}
 	export function CreateMyPointFormGroup() {
 		return new FormGroup<MyPointFormProperties>({
-			x: new FormControl<number | null | undefined>(undefined),
-			y: new FormControl<number | null | undefined>(undefined),
+			x: new FormControl<number | null>(undefined),
+			y: new FormControl<number | null>(undefined),
 		});
 
 	}
@@ -1881,7 +1881,7 @@ export namespace DemoWebApi_DemoData_Base_Client {
 		 * Min length: 2
 		 * Max length: 255
 		 */
-		name: FormControl<string | null | undefined>,
+		name: FormControl<string | null>,
 
 		/**
 		 * Type: Uri
@@ -1893,7 +1893,7 @@ export namespace DemoWebApi_DemoData_Base_Client {
 		return new FormGroup<EntityFormProperties>({
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			id: new FormControl<string | null | undefined>(undefined),
-			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
+			name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
 			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$/)]),
 		});
 
@@ -2040,7 +2040,7 @@ export namespace DemoWebApi_DemoData_Client {
 		return new FormGroup<BizEntityFormProperties>({
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			id: new FormControl<string | null | undefined>(undefined),
-			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
+			name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
 			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$/)]),
 			foundDate: new FormControl<Date | null | undefined>(undefined),
 			registerDate: CreateDateOnlyFormControl(),
@@ -2074,7 +2074,7 @@ export namespace DemoWebApi_DemoData_Client {
 		return new FormGroup<CompanyFormProperties>({
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			id: new FormControl<string | null | undefined>(undefined),
-			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
+			name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
 			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$/)]),
 			foundDate: new FormControl<Date | null | undefined>(undefined),
 			registerDate: CreateDateOnlyFormControl(),
@@ -2129,7 +2129,7 @@ export namespace DemoWebApi_DemoData_Client {
 		nullableId: FormControl<string | null | undefined>,
 
 		/** Required. Null or empty is invalid. */
-		requiredName: FormControl<string | null | undefined>,
+		requiredName: FormControl<string | null>,
 		text: FormControl<string | null | undefined>,
 	}
 	export function CreateIdMapFormGroup() {
@@ -2137,7 +2137,7 @@ export namespace DemoWebApi_DemoData_Client {
 			id: new FormControl<string | null | undefined>(undefined),
 			idNotEmitDefaultValue: new FormControl<string | null | undefined>(undefined),
 			nullableId: new FormControl<string | null | undefined>(undefined),
-			requiredName: new FormControl<string | null | undefined>(undefined, [Validators.required]),
+			requiredName: new FormControl<string | null>(null, [Validators.required]),
 			text: new FormControl<string | null | undefined>(undefined),
 		});
 
@@ -2199,7 +2199,7 @@ export namespace DemoWebApi_DemoData_Client {
 		return new FormGroup<IntegralEntityFormProperties>({
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			id: new FormControl<string | null | undefined>(undefined),
-			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
+			name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
 			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$/)]),
 			byte: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(256)]),
 			int: new FormControl<number | null | undefined>(undefined, [Validators.min(-2147483648), Validators.max(2147483647)]),
@@ -2345,7 +2345,7 @@ export namespace DemoWebApi_DemoData_Client {
 		return new FormGroup<PersonFormProperties>({
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			id: new FormControl<string | null | undefined>(undefined),
-			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
+			name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
 			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$/)]),
 			baptised: new FormControl<Date | null | undefined>(undefined),
 			dob: CreateDateOnlyFormControl(),
@@ -2406,11 +2406,11 @@ export namespace DemoWebApi_Models_Client {
 	export interface AddExternalLoginBindingModelFormProperties {
 
 		/** Required. Null or empty is invalid. */
-		externalAccessToken: FormControl<string | null | undefined>,
+		externalAccessToken: FormControl<string | null>,
 	}
 	export function CreateAddExternalLoginBindingModelFormGroup() {
 		return new FormGroup<AddExternalLoginBindingModelFormProperties>({
-			externalAccessToken: new FormControl<string | null | undefined>(undefined, [Validators.required]),
+			externalAccessToken: new FormControl<string | null>(null, [Validators.required]),
 		});
 
 	}
@@ -2422,7 +2422,6 @@ export namespace DemoWebApi_Models_Client {
 
 		/**
 		 * Required. Null or empty is invalid.
-		 * JSON Required. Null or empty may be fine.
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
@@ -2432,7 +2431,7 @@ export namespace DemoWebApi_Models_Client {
 		 * JSON Required. Null or empty may be fine.
 		 * Data type: Password
 		 */
-		OldPwd: string;
+		OldPwd: string | null;
 	}
 	export interface ChangePasswordBindingModelFormProperties {
 
@@ -2441,23 +2440,22 @@ export namespace DemoWebApi_Models_Client {
 
 		/**
 		 * Required. Null or empty is invalid.
-		 * JSON Required. Null or empty may be fine.
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
-		newPassword: FormControl<string | null | undefined>,
+		newPassword: FormControl<string | null>,
 
 		/**
 		 * JSON Required. Null or empty may be fine.
 		 * Data type: Password
 		 */
-		OldPwd: FormControl<string | null | undefined>,
+		OldPwd: FormControl<string | null>,
 	}
 	export function CreateChangePasswordBindingModelFormGroup() {
 		return new FormGroup<ChangePasswordBindingModelFormProperties>({
 			confirmPassword: new FormControl<string | null | undefined>(undefined),
-			newPassword: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(6), Validators.maxLength(100)]),
-			OldPwd: new FormControl<string | null | undefined>(undefined),
+			newPassword: new FormControl<string | null>(null, [Validators.required, Validators.minLength(6), Validators.maxLength(100)]),
+			OldPwd: new FormControl<string | null>(null),
 		});
 
 	}
@@ -2483,20 +2481,20 @@ export namespace DemoWebApi_Models_Client {
 		confirmPassword: FormControl<string | null | undefined>,
 
 		/** Required. Null or empty is invalid. */
-		email: FormControl<string | null | undefined>,
+		email: FormControl<string | null>,
 
 		/**
 		 * Required. Null or empty is invalid.
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
-		password: FormControl<string | null | undefined>,
+		password: FormControl<string | null>,
 	}
 	export function CreateRegisterBindingModelFormGroup() {
 		return new FormGroup<RegisterBindingModelFormProperties>({
 			confirmPassword: new FormControl<string | null | undefined>(undefined),
-			email: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.email]),
-			password: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(6), Validators.maxLength(100)]),
+			email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
+			password: new FormControl<string | null>(null, [Validators.required, Validators.minLength(6), Validators.maxLength(100)]),
 		});
 
 	}
@@ -2509,11 +2507,11 @@ export namespace DemoWebApi_Models_Client {
 	export interface RegisterExternalBindingModelFormProperties {
 
 		/** Required. Null or empty is invalid. */
-		email: FormControl<string | null | undefined>,
+		email: FormControl<string | null>,
 	}
 	export function CreateRegisterExternalBindingModelFormGroup() {
 		return new FormGroup<RegisterExternalBindingModelFormProperties>({
-			email: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.email]),
+			email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
 		});
 
 	}
@@ -2529,15 +2527,15 @@ export namespace DemoWebApi_Models_Client {
 	export interface RemoveLoginBindingModelFormProperties {
 
 		/** Required. Null or empty is invalid. */
-		loginProvider: FormControl<string | null | undefined>,
+		loginProvider: FormControl<string | null>,
 
 		/** Required. Null or empty is invalid. */
-		providerKey: FormControl<string | null | undefined>,
+		providerKey: FormControl<string | null>,
 	}
 	export function CreateRemoveLoginBindingModelFormGroup() {
 		return new FormGroup<RemoveLoginBindingModelFormProperties>({
-			loginProvider: new FormControl<string | null | undefined>(undefined, [Validators.required]),
-			providerKey: new FormControl<string | null | undefined>(undefined, [Validators.required]),
+			loginProvider: new FormControl<string | null>(null, [Validators.required]),
+			providerKey: new FormControl<string | null>(null, [Validators.required]),
 		});
 
 	}
@@ -2564,12 +2562,12 @@ export namespace DemoWebApi_Models_Client {
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
-		newPassword: FormControl<string | null | undefined>,
+		newPassword: FormControl<string | null>,
 	}
 	export function CreateSetPasswordBindingModelFormGroup() {
 		return new FormGroup<SetPasswordBindingModelFormProperties>({
 			confirmPassword: new FormControl<string | null | undefined>(undefined),
-			newPassword: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(6), Validators.maxLength(100)]),
+			newPassword: new FormControl<string | null>(null, [Validators.required, Validators.minLength(6), Validators.maxLength(100)]),
 		});
 
 	}

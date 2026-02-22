@@ -1969,7 +1969,6 @@ export namespace DemoWebApi_Models_Client {
 
 		/**
 		 * Required. Null or empty is invalid.
-		 * JSON Required. Null or empty may be fine.
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
@@ -1979,7 +1978,7 @@ export namespace DemoWebApi_Models_Client {
 		 * JSON Required. Null or empty may be fine.
 		 * Data type: Password
 		 */
-		OldPwd: string;
+		OldPwd: string | null;
 	}
 
 	export interface RegisterBindingModel {

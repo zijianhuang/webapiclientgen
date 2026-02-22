@@ -178,41 +178,6 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 		}
 
-		/// <summary>
-		/// Return the text of a FormControl field, like:
-		/// dob : FormControl&lt;Date&gt;
-		/// </summary>
-		/// <param name="codeMemberField"></param>
-		/// <returns></returns>
-		static string GetCodeMemberFieldTextForAngularFormControl(CodeMemberField codeMemberField)
-		{
-			string tsTypeName = RefineAngularFormControlTypeName(codeMemberField);
-			string fieldName = codeMemberField.Name.EndsWith('?') ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
-			return $"{fieldName}: FormControl<{tsTypeName}>";
-		}
-
-		/// <summary>
-		/// Refine the FormControl type of the FormGroup type interface, and add " | null | undefined".
-		/// </summary>
-		/// <param name="codeMemberField"></param>
-		/// <returns></returns>
-		static string RefineAngularFormControlTypeName(CodeMemberField codeMemberField)
-		{
-			string tsTypeName = GetCodeTypeReferenceText(codeMemberField.Type);
-			bool alreadyNullable = tsTypeName.Contains("| null");
-			if (alreadyNullable)
-			{
-				tsTypeName += " | undefined";
-			}
-			else
-			{
-				tsTypeName += " | null | undefined"; // optional null
-			}
-
-			return tsTypeName;
-		}
-
-
 		readonly Dictionary<string, string> integralJsNumberValidatorsDic = new Dictionary<string, string>
 		{
 			{ "System.SByte", "Validators.min(-127), Validators.max(127)" },
@@ -235,6 +200,49 @@ namespace Fonlow.TypeScriptCodeDom
 		};
 
 		/// <summary>
+		/// Return the text of a FormControl field, like:
+		/// dob : FormControl&lt;Date&gt;
+		/// </summary>
+		/// <param name="codeMemberField"></param>
+		/// <returns></returns>
+		static string GetCodeMemberFieldTextForAngularFormControl(CodeMemberField codeMemberField)
+		{
+			//	string tsTypeName = RefineAngularFormControlTypeName(codeMemberField);
+			string tsTypeName = RefineFieldTypeNameOfFormControl(codeMemberField);
+			string fieldName = codeMemberField.Name.EndsWith('?') ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
+			return $"{fieldName}: FormControl<{tsTypeName}>";
+		}
+
+		static string RefineFieldTypeNameOfFormControl(CodeMemberField codeMemberField)
+		{
+			var isOptional = codeMemberField.Name.EndsWith('?');
+			var fieldName = codeMemberField.Name;
+			var tsTypeName = GetCodeTypeReferenceText(codeMemberField.Type);
+			var isAny = codeMemberField.Name == "any";
+			var fieldTypeInfo = codeMemberField.Type.UserData[UserDataKeys.FieldTypeInfo] as FieldTypeInfo;
+			if (fieldTypeInfo != null)
+			{
+				var isComplex = fieldTypeInfo.IsArray || fieldTypeInfo.IsComplex;
+				var alreadyWithNull = tsTypeName.Contains("| null");
+				if ((!alreadyWithNull && !isAny) || fieldTypeInfo.IsJsonRequired)
+				{
+					tsTypeName += " | null"; //optional null
+				}
+
+				if (isOptional)
+				{
+					tsTypeName += " | undefined";
+				}
+			}
+			else
+			{
+				Console.Error.WriteLine("No FieldTypeInfo in UserData");
+			}
+
+			return tsTypeName;
+		}
+
+		/// <summary>
 		/// For FormGroup creation, return something like:
 		/// "name: new FormControl&lt;string | null | undefined&gt;(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)])"
 		/// </summary>
@@ -244,7 +252,8 @@ namespace Fonlow.TypeScriptCodeDom
 		{
 			Attribute[] customAttributes = codeMemberField.UserData[UserDataKeys.CustomAttributes] as Attribute[];
 			string fieldName = codeMemberField.Name.EndsWith('?') ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
-			string tsTypeName = RefineAngularFormControlTypeName(codeMemberField);
+			//string tsTypeName = RefineAngularFormControlTypeName(codeMemberField);
+			string tsTypeName = RefineFieldTypeNameOfFormControl(codeMemberField);
 			bool isFieldDateOnly = false;
 			FieldTypeInfo fieldTypeInfo = codeMemberField.Type.UserData[UserDataKeys.FieldTypeInfo] as FieldTypeInfo;
 			if (fieldTypeInfo?.ClrType == typeof(DateOnly) || fieldTypeInfo?.ClrType == typeof(DateOnly?))
@@ -348,6 +357,14 @@ namespace Fonlow.TypeScriptCodeDom
 				}
 
 				string text = String.Join(", ", validatorList);
+				var isOptional = codeMemberField.Name.EndsWith('?');
+				//var tsTypeName = GetCodeTypeReferenceText(codeMemberField.Type);
+				var alreadyWithNull = tsTypeName.Contains("| null");
+				var initValue = "undefined";
+				if (alreadyWithNull && !isOptional)
+				{
+					initValue = "null";
+				}
 
 				if (isFieldDateOnly && careForDateOnly)
 				{
@@ -362,8 +379,8 @@ namespace Fonlow.TypeScriptCodeDom
 					}
 					else
 					{
-						return string.IsNullOrEmpty(text) ? $"{fieldName}: new FormControl<{tsTypeName}>(undefined)" :
-							$"{fieldName}: new FormControl<{tsTypeName}>(undefined, [{text}])";
+						return string.IsNullOrEmpty(text) ? $"{fieldName}: new FormControl<{tsTypeName}>({initValue})" :
+							$"{fieldName}: new FormControl<{tsTypeName}>({initValue}, [{text}])";
 					}
 
 
@@ -383,27 +400,12 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 		}
 
-		//static string EscapeRegexCapturingGroup(string s)
-		//{
-		//	Regex regex = new Regex("\\\\\\d+");
-		//	string r = s;
-		//	MatchCollection matches = regex.Matches(s);
-		//	foreach (Match m in matches.ToArray())
-		//	{
-		//		string refinedP = m.Value.Replace("\\", "\\\\");
-		//		r = r.Replace(m.Value, refinedP);
-		//	}
-
-		//	return r;
-		//}
-
 		void WriteAngularFormTypeMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
 		{
 
 			if (typeDeclaration.IsEnum)
 			{
 				throw new NotSupportedException("Should run to here");
-				//w.WriteLine($"{typeDeclaration.Name}: {typeDeclaration.BaseTypes}");
 			}
 			else
 			{
@@ -523,15 +525,6 @@ namespace Fonlow.TypeScriptCodeDom
 				return;
 			}
 
-			//if (WriteCodeMemberProperty(ctm as CodeMemberProperty, w, o))
-			//	return;
-
-			//if (ctm is CodeSnippetTypeMember snippetTypeMember)
-			//{
-			//	w.WriteLine(snippetTypeMember.Text);
-			//	return;
-			//}
-
 			throw new ArgumentException("Expect CodeMemberField", nameof(ctm));
 		}
 
@@ -560,8 +553,6 @@ namespace Fonlow.TypeScriptCodeDom
 				w.WriteLine(GetCodeMemberFieldTextForAngularFormGroup(codeMemberField, forSignalForm) + ",");
 				return;
 			}
-
-			//CodeMemberProperty is not supported
 
 			throw new ArgumentException("Expect CodeMemberField", nameof(ctm));
 		}

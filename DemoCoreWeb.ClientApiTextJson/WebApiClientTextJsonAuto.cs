@@ -9303,12 +9303,10 @@ namespace DemoWebApi.Models.Client
 		
 		/// <summary>
 		/// Required. Null or empty is invalid.
-		/// JSON Required. Null or empty may be fine.
 		/// String length: inclusive between 6 and 100
 		/// Data type: Password
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
-		[System.Text.Json.Serialization.JsonRequired()]
 		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
 		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
 		public string NewPassword { get; set; }

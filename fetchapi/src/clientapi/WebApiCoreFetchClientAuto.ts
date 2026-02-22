@@ -1664,13 +1664,13 @@ export namespace DemoWebApi_DemoData_Another_Client {
 		 * X
 		 * Type: double
 		 */
-		x: number;
+		x?: number | null;
 
 		/**
 		 * Y
 		 * Type: double
 		 */
-		y: number;
+		y?: number | null;
 	}
 
 }

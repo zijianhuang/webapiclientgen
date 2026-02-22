@@ -1796,13 +1796,13 @@ export namespace DemoWebApi_DemoData_Another_Client {
 		 * X
 		 * Type: double
 		 */
-		x: number;
+		x?: number | null;
 
 		/**
 		 * Y
 		 * Type: double
 		 */
-		y: number;
+		y?: number | null;
 	}
 
 	/**
@@ -1816,18 +1816,18 @@ export namespace DemoWebApi_DemoData_Another_Client {
 		 * X
 		 * Type: double
 		 */
-		x: FormControl<number | null>,
+		x: FormControl<number | null | undefined>,
 
 		/**
 		 * Y
 		 * Type: double
 		 */
-		y: FormControl<number | null>,
+		y: FormControl<number | null | undefined>,
 	}
 	export function CreateMyPointFormGroup() {
 		return new FormGroup<MyPointFormProperties>({
-			x: new FormControl<number | null>(undefined),
-			y: new FormControl<number | null>(undefined),
+			x: new FormControl<number | null | undefined>(undefined),
+			y: new FormControl<number | null | undefined>(undefined),
 		});
 
 	}

@@ -154,14 +154,9 @@ namespace Fonlow.Poco2Ts
 		/// </summary>
 		/// <param name="propertyInfo"></param>
 		/// <param name="codeField"></param>
-		void CreatePropertyDocComment(PropertyInfo propertyInfo, CodeMemberField codeField)
+		void CreateMemberInfoDocComment(MemberInfo memberInfo, Type memberType, string PF, CodeMemberField codeField)
 		{
-			CreateMemberDocComment(propertyInfo, propertyInfo.PropertyType, "P", codeField);
-		}
-
-		void CreateFieldDocComment(FieldInfo fieldInfo, CodeMemberField codeField)
-		{
-			CreateMemberDocComment(fieldInfo, fieldInfo.FieldType, "F", codeField);
+			CreateMemberDocComment(memberInfo, memberType, PF, codeField);
 		}
 
 		/// <summary>
@@ -301,10 +296,6 @@ namespace Fonlow.Poco2Ts
 						var existingClientNamespaceIdx = clientCodeCompileUnit.Namespaces.FindIndex(RefineNamespaceText(type.BaseType.Namespace));
 						if (existingClientNamespaceIdx >= 0) // for base class in the other assembly
 						{
-							if (type.BaseType.Name.Contains("BizEntity"))
-							{
-								Console.WriteLine("lkkkk");
-							}
 							typeDeclaration.BaseTypes.Add(CreateTypeReference(type.BaseType));
 						}
 						else
@@ -318,104 +309,69 @@ namespace Fonlow.Poco2Ts
 
 				CherryPickingMethods typeCherryMethods = CherryPicking.GetTypeCherryMethods(type);
 				bool withDataContract = (typeCherryMethods & CherryPickingMethods.DataContract) == CherryPickingMethods.DataContract;
-				PropertyInfo[] typeProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name).ToArray();
-				foreach (PropertyInfo propertyInfo in typeProperties)
+
+				bool HandleMember(MemberInfo memberInfo, Type memberType, string PF)
 				{
-					var propertyObsolete = propertyInfo.GetCustomAttribute<ObsoleteAttribute>();
+					var propertyObsolete = memberInfo.GetCustomAttribute<ObsoleteAttribute>();
 					if (propertyObsolete != null && propertyObsolete.IsError)
 					{
-						continue;
+						return false;
 					}
 
-					CherryType cherryType = CherryPicking.GetMemberCherryType(propertyInfo, methods, withDataContract);
+					CherryType cherryType = CherryPicking.GetMemberCherryType(memberInfo, methods, withDataContract);
 					if (cherryType == CherryType.None)
-						continue;
+						return false;
+
 					string tsPropertyName;
 
 
 					bool isRequired = cherryType == CherryType.BigCherry;
-					string customName = CherryPicking.GetFieldCustomName(propertyInfo, methods);
+					string customName = CherryPicking.GetFieldCustomName(memberInfo, methods);
 					if (String.IsNullOrEmpty(customName))
 					{
-						tsPropertyName = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase ? Fonlow.Text.StringExtensions.ToCamelCase(propertyInfo.Name) : propertyInfo.Name;
+						tsPropertyName = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase ? Fonlow.Text.StringExtensions.ToCamelCase(memberInfo.Name) : memberInfo.Name;
 					}
 					else
 					{
 						tsPropertyName = customName;
 					}
 
-					Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
+					Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, memberType.Name));
 					CodeMemberField clientField = new CodeMemberField()//Yes, clr property translated to ts field
 					{
 						Name = tsPropertyName + (isRequired ? String.Empty : "?"),
-						Type = TranslateToClientTypeReference(propertyInfo.PropertyType),
+						Type = TranslateToClientTypeReference(memberType),
 
 					};
 
-					AddValidationAttributesCodeToTypeMember(propertyInfo, clientField, false);
-					clientField.UserData.Add(UserDataKeys.CustomAttributes, propertyInfo.GetCustomAttributes().ToArray());
-					var jsonRequiredPresented = TypeHelper.AttributeExists(propertyInfo, "System.Text.Json.Serialization.JsonRequiredAttribute") != null;
+					AddValidationAttributesCodeToTypeMember(memberInfo, clientField, false);
+					clientField.UserData.Add(UserDataKeys.CustomAttributes, memberInfo.GetCustomAttributes().ToArray());
+					var jsonRequiredPresented = TypeHelper.AttributeExists(memberInfo, "System.Text.Json.Serialization.JsonRequiredAttribute") != null;
 					clientField.Type.UserData.Add(UserDataKeys.FieldTypeInfo,
 						new FieldTypeInfo
 						{
-							IsComplex = CodeObjectHelper.IsComplexType(propertyInfo.PropertyType),
+							IsComplex = CodeObjectHelper.IsComplexType(memberType),
 							IsArray = clientField.Type.ArrayRank > 0,
-							ClrType = propertyInfo.PropertyType,
+							ClrType = memberType,
 							IsJsonRequired = jsonRequiredPresented,
 						});
 
-					CreatePropertyDocComment(propertyInfo, clientField);
+					CreateMemberInfoDocComment(memberInfo, memberType, PF, clientField);
 
 					typeDeclaration.Members.Add(clientField);
+					return true;
+				}
+
+				PropertyInfo[] typeProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name).ToArray();
+				foreach (PropertyInfo propertyInfo in typeProperties)
+				{
+					HandleMember(propertyInfo, propertyInfo.PropertyType, "P");
 				}
 
 				FieldInfo[] typeFields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(f => f.Name).ToArray();
 				foreach (FieldInfo fieldInfo in typeFields)
 				{
-					var fieldObsolete = fieldInfo.GetCustomAttribute<ObsoleteAttribute>();
-					if (fieldObsolete != null && fieldObsolete.IsError)
-					{
-						continue;
-					}
-
-					CherryType cherryType = CherryPicking.GetMemberCherryType(fieldInfo, methods, withDataContract);
-					if (cherryType == CherryType.None)
-						continue;
-					string tsPropertyName;
-
-
-					bool isRequired = (cherryType == CherryType.BigCherry) || !type.IsClass;//public fields in struct should all be value types, so required
-					string customName = CherryPicking.GetFieldCustomName(fieldInfo, methods);
-					if (String.IsNullOrEmpty(customName))
-					{
-						tsPropertyName = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase ? Fonlow.Text.StringExtensions.ToCamelCase(fieldInfo.Name) : fieldInfo.Name;
-					}
-					else
-					{
-						tsPropertyName = customName;
-					}
-
-					Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
-
-					CodeMemberField clientField = new CodeMemberField()
-					{
-						Name = tsPropertyName + (isRequired ? String.Empty : "?"),
-						Type = TranslateToClientTypeReference(fieldInfo.FieldType),
-					};
-
-					clientField.UserData.Add(UserDataKeys.CustomAttributes, fieldInfo.GetCustomAttributes().ToArray());
-					var jsonRequiredPresented = TypeHelper.AttributeExists(fieldInfo, "System.Text.Json.Serialization.JsonRequiredAttribute") != null;
-					clientField.Type.UserData.Add(UserDataKeys.FieldTypeInfo,
-						new FieldTypeInfo
-						{
-							IsComplex = CodeObjectHelper.IsComplexType(fieldInfo.FieldType),
-							IsArray = clientField.Type.ArrayRank > 0,
-							ClrType = fieldInfo.FieldType,
-							IsJsonRequired = jsonRequiredPresented,
-						});
-					CreateFieldDocComment(fieldInfo, clientField);
-
-					typeDeclaration.Members.Add(clientField);
+					HandleMember(fieldInfo, fieldInfo.FieldType, "F");
 				}
 			}
 			else if (type.IsEnum)
@@ -443,7 +399,7 @@ namespace Fonlow.Poco2Ts
 							InitExpression = isInitialized ? new CodePrimitiveExpression(intValue) : null,
 						};
 
-						CreateFieldDocComment(fieldInfo, clientField);
+						CreateMemberInfoDocComment(fieldInfo, fieldInfo.FieldType, "F", clientField);
 						typeDeclaration.Members.Add(clientField);
 					}
 
@@ -464,7 +420,7 @@ namespace Fonlow.Poco2Ts
 								InitExpression = new CodePrimitiveExpression(vm.TypedValue),
 							};
 
-							CreateFieldDocComment(fieldInfo, mField);
+							CreateMemberInfoDocComment(fieldInfo, fieldInfo.FieldType, "F", mField);
 							typeDeclaration.Members.Add(mField);
 						}
 						else

@@ -9240,6 +9240,34 @@ namespace DemoWebApi.DemoDataEx.Client
 		public DemoWebApi.DemoData.Client.MyGeneric<DemoWebApi.DemoData.Client.MyGeneric<double, DemoWebApi.DemoData.Client.MyGenericInt, DemoWebApi.DemoData.Base.Client.Entity>, DemoWebApi.DemoDataEx.Client.ZListCheck, DemoWebApi.DemoData.Client.MimsResult<DemoWebApi.DemoDataEx.Client.TextJsonPerson>> Special { get; set; }
 	}
 	
+	public class DotNetJsonType : object
+	{
+		
+		public string Description { get; set; }
+		
+		/// <summary>
+		/// Required. Null or empty is invalid.
+		/// JSON Required. Null or empty may be fine.
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		[System.Text.Json.Serialization.JsonRequired()]
+		public string DoubleRequired { get; set; }
+		
+		/// <summary>
+		/// Required means the property is required and cannot be null or empty string.
+		/// Required. Null or empty is invalid.
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		public string Location { get; set; }
+		
+		/// <summary>
+		/// JsonRequired means the property is required in JSON, but it can be null or empty string.
+		/// JSON Required. Null or empty may be fine.
+		/// </summary>
+		[System.Text.Json.Serialization.JsonRequired()]
+		public string Name { get; set; }
+	}
+	
 	public class TextJsonPerson : object
 	{
 		

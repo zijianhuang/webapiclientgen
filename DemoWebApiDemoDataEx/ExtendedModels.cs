@@ -1,7 +1,9 @@
 ﻿using DemoWebApi.DemoData;
 using DemoWebApi.DemoData.Base;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace DemoWebApi.DemoDataEx
 {
@@ -17,37 +19,26 @@ namespace DemoWebApi.DemoDataEx
 		public string GivenName { get; set; }
 	}
 
-	[DataContract]
 	public class ZListCheck
 	{
-		[DataMember]
 		public IEnumerable<int> Numbers { get; set; }
 
-		[DataMember]
 		public IList<Person> People { get; set; }
 
-		[DataMember]
 		public IList<TextJsonPerson> People2 { get; set; }
 
-		[DataMember]
 		public IQueryable<Company> Companies { get; set; }
 
-		[DataMember]
 		public IReadOnlyList<Trust> Trusts { get; set; }
 
-		[DataMember]
 		public IReadOnlyCollection<BizEntity> BizEntities { get; set; }
 
-		[DataMember]
 		public ObservableCollection<Entity> Entities { get; set; }
 
-		[DataMember]
 		public IAsyncEnumerable<Decimal> Decimals { get; set; }
 
-		[DataMember]
 		public Collection<string> Strings { get; set; }
 
-		[DataMember]
 		public HashSet<byte> BytesHashSet { get; set; }
 	}
 
@@ -55,4 +46,26 @@ namespace DemoWebApi.DemoDataEx
 	{
 		public MyGeneric<MyGeneric<double, MyGenericInt, Entity>, ZListCheck, MimsResult<TextJsonPerson>> Special { get; set; }
 	}
+
+	public class DotNetJsonType
+	{
+		/// <summary>
+		/// JsonRequired means the property is required in JSON, but it can be null or empty string. 
+		/// </summary>
+		[JsonRequired]
+		public string Name { get; set; }
+
+		/// <summary>
+		/// Required means the property is required and cannot be null or empty string.
+		/// </summary>
+		[Required]
+		public string Location { get; set; }
+
+		public string Description { get; set; }
+
+		[Required]
+		[JsonRequired]
+		public string DoubleRequired { get; set; }
+	}
+
 }

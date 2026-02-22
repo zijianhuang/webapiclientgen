@@ -47,14 +47,14 @@ namespace Poco2TsTests
 	export interface EntityFormProperties {
 		EmailAddress: FormControl<string | null | undefined>,
 		Id: FormControl<string | null | undefined>,
-		Name: FormControl<string | null | undefined>,
+		Name: FormControl<string | null>,
 		Web: FormControl<string | null | undefined>,
 	}
 	export function CreateEntityFormGroup() {
 		return new FormGroup<EntityFormProperties>({
 			EmailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			Id: new FormControl<string | null | undefined>(undefined),
-			Name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
+			Name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
 			Web: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$/)]),
 		});
 

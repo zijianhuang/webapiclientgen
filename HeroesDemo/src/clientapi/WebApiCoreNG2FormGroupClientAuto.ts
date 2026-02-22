@@ -1726,6 +1726,58 @@ export namespace DemoWebApi_DemoDataEx_Client {
 		special?: DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Base_Client.Entity>, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.MimsResult<DemoWebApi_DemoDataEx_Client.TextJsonPerson>>;
 	}
 
+	export interface DotNetJsonType {
+		description?: string | null;
+
+		/**
+		 * Required. Null or empty is invalid.
+		 * JSON Required. Null or empty may be fine.
+		 */
+		doubleRequired: string | null;
+
+		/**
+		 * Required means the property is required and cannot be null or empty string.
+		 * Required. Null or empty is invalid.
+		 */
+		location: string;
+
+		/**
+		 * JsonRequired means the property is required in JSON, but it can be null or empty string.
+		 * JSON Required. Null or empty may be fine.
+		 */
+		name: string | null;
+	}
+	export interface DotNetJsonTypeFormProperties {
+		description: FormControl<string | null | undefined>,
+
+		/**
+		 * Required. Null or empty is invalid.
+		 * JSON Required. Null or empty may be fine.
+		 */
+		doubleRequired: FormControl<string | null>,
+
+		/**
+		 * Required means the property is required and cannot be null or empty string.
+		 * Required. Null or empty is invalid.
+		 */
+		location: FormControl<string | null>,
+
+		/**
+		 * JsonRequired means the property is required in JSON, but it can be null or empty string.
+		 * JSON Required. Null or empty may be fine.
+		 */
+		name: FormControl<string | null>,
+	}
+	export function CreateDotNetJsonTypeFormGroup() {
+		return new FormGroup<DotNetJsonTypeFormProperties>({
+			description: new FormControl<string | null | undefined>(undefined),
+			doubleRequired: new FormControl<string | null>(null, [Validators.required]),
+			location: new FormControl<string | null>(null, [Validators.required]),
+			name: new FormControl<string | null>(null),
+		});
+
+	}
+
 	export interface TextJsonPerson {
 		givenName?: string | null;
 		surname?: string | null;

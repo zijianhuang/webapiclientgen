@@ -36,7 +36,7 @@ namespace Poco2TsTests
 	export interface ChangePasswordBindingModel {
 		ConfirmPassword?: string | null;
 		NewPassword: string;
-		OldPassword: string;
+		OldPassword: string | null;
 	}
 
 }
@@ -92,8 +92,8 @@ namespace Poco2TsTests
 			Verify(typeof(DemoWebApi.DemoData.Another.MyPoint),
 @"export namespace DemoWebApi_DemoData_Another_Client {
 	export interface MyPoint {
-		x: number;
-		y: number;
+		x?: number | null;
+		y?: number | null;
 	}
 
 }

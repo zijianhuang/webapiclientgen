@@ -21,9 +21,12 @@ namespace DebugWeb.Data.Client
 		/// <summary>
 		/// Required. Null or empty is invalid.
 		/// JSON Required. Null or empty may be fine.
+		/// Description: This is a property with both Required and JsonRequired, and it has a JsonPropertyName to specify the name in JSON. It also has a Description attribute for doc comment.
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		[System.Text.Json.Serialization.JsonRequired()]
+		[System.ComponentModel.Description("This is a property with both Required and JsonRequired, and it has a JsonPropertyName to specify the name in JSON. It also has a Description attribute for doc comment.")]
+		[System.Text.Json.Serialization.JsonPropertyName("double_required")]
 		public string DoubleRequired { get; set; }
 		
 		/// <summary>

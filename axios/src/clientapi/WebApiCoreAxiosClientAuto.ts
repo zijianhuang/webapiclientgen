@@ -1634,9 +1634,10 @@ export namespace DemoWebApi_DemoDataEx_Client {
 
 		/**
 		 * Required. Null or empty is invalid.
+		 * Description: mostly about UI / content concerning users
 		 * JSON Required. Null or empty may be fine.
 		 */
-		doubleRequired: string | null;
+		double_required: string | null;
 
 		/**
 		 * Required means the property is required and cannot be null or empty string.

@@ -14,6 +14,7 @@
     <ProjectReference Include="..\WebApiClientGenCore.Fetch\WebApiClientGenCore.Fetch.csproj" />
     <ProjectReference Include="..\WebApiClientGenCore.NG2FormGroup\WebApiClientGenCore.NG2FormGroup.csproj" />
     <ProjectReference Include="..\WebApiClientGenCore\WebApiClientGenCore.csproj" />
+    <ProjectReference Include="..\_DebugWeb.Data\DebugWeb.Data.csproj" />
   </ItemGroup>
 
 	<ItemGroup>

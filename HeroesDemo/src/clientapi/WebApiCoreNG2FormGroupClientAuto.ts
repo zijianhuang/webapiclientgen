@@ -1731,9 +1731,10 @@ export namespace DemoWebApi_DemoDataEx_Client {
 
 		/**
 		 * Required. Null or empty is invalid.
+		 * Description: mostly about UI / content concerning users
 		 * JSON Required. Null or empty may be fine.
 		 */
-		doubleRequired: string | null;
+		double_required: string | null;
 
 		/**
 		 * Required means the property is required and cannot be null or empty string.
@@ -1752,9 +1753,10 @@ export namespace DemoWebApi_DemoDataEx_Client {
 
 		/**
 		 * Required. Null or empty is invalid.
+		 * Description: mostly about UI / content concerning users
 		 * JSON Required. Null or empty may be fine.
 		 */
-		doubleRequired: FormControl<string | null>,
+		double_required: FormControl<string | null>,
 
 		/**
 		 * Required means the property is required and cannot be null or empty string.
@@ -1771,7 +1773,7 @@ export namespace DemoWebApi_DemoDataEx_Client {
 	export function CreateDotNetJsonTypeFormGroup() {
 		return new FormGroup<DotNetJsonTypeFormProperties>({
 			description: new FormControl<string | null | undefined>(undefined),
-			doubleRequired: new FormControl<string | null>(null, [Validators.required]),
+			double_required: new FormControl<string | null>(null, [Validators.required]),
 			location: new FormControl<string | null>(null, [Validators.required]),
 			name: new FormControl<string | null>(null),
 		});

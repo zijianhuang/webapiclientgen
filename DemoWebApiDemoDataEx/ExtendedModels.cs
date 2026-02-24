@@ -1,6 +1,7 @@
 ﻿using DemoWebApi.DemoData;
 using DemoWebApi.DemoData.Base;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
@@ -63,8 +64,10 @@ namespace DemoWebApi.DemoDataEx
 
 		public string Description { get; set; }
 
+		[Description("mostly about UI / content concerning users")]
 		[Required]
 		[JsonRequired]
+		[JsonPropertyName("double_required")]
 		public string DoubleRequired { get; set; }
 	}
 

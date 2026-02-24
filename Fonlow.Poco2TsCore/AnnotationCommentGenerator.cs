@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 
 namespace Fonlow.Poco2Client
@@ -81,6 +82,12 @@ namespace Fonlow.Poco2Client
 				{
 					var dataType = (System.ComponentModel.DataAnnotations.DataTypeAttribute)a;
 					return String.Format(CultureInfo.CurrentCulture, "Data type: {0}", dataType.CustomDataType ?? dataType.DataType.ToString());
+				}
+			},
+			{ typeof(DescriptionAttribute), a =>
+				{
+					var dataType = (DescriptionAttribute)a;
+					return String.Format(CultureInfo.CurrentCulture, "Description: {0}", dataType.Description);
 				}
 			}
 

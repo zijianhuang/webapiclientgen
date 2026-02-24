@@ -171,7 +171,7 @@ namespace Fonlow.Poco2Client
 		}
 
 		/// <summary>
-		/// Get custom property name if decorated by DataMemberAttribute or Newtonsoft.Json.JsonPropertyAttribute. If not defined, return null.
+		/// Get custom property name if decorated by DataMemberAttribute or Newtonsoft.Json.JsonPropertyAttribute or JsonPropertyNameAttribute. If not defined, return null.
 		/// </summary>
 		/// <param name="memberInfo"></param>
 		/// <param name="methods"></param>
@@ -205,16 +205,14 @@ namespace Fonlow.Poco2Client
 				}
 			}
 
-			if ((methods & CherryPickingMethods.NetCore) == CherryPickingMethods.NetCore)
+			//Now JsonPropertyNameAttribute is used unless DataContract and NewtonsoftJson is prefered since v4.8
+			System.Text.Json.Serialization.JsonIgnoreAttribute jsonIgnoreAttribute = memberInfo.GetCustomAttribute<System.Text.Json.Serialization.JsonIgnoreAttribute>();
+			if (jsonIgnoreAttribute == null)
 			{
-				System.Text.Json.Serialization.JsonIgnoreAttribute a = memberInfo.GetCustomAttribute<System.Text.Json.Serialization.JsonIgnoreAttribute>();
-				if (a == null)
+				System.Text.Json.Serialization.JsonPropertyNameAttribute njAttribute = memberInfo.GetCustomAttribute<System.Text.Json.Serialization.JsonPropertyNameAttribute>();
+				if (njAttribute != null && !String.IsNullOrEmpty(njAttribute.Name))
 				{
-					System.Text.Json.Serialization.JsonPropertyNameAttribute njAttribute = memberInfo.GetCustomAttribute<System.Text.Json.Serialization.JsonPropertyNameAttribute>();
-					if (njAttribute != null && !String.IsNullOrEmpty(njAttribute.Name))
-					{
-						return njAttribute.Name;
-					}
+					return njAttribute.Name;
 				}
 			}
 

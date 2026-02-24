@@ -9247,10 +9247,13 @@ namespace DemoWebApi.DemoDataEx.Client
 		
 		/// <summary>
 		/// Required. Null or empty is invalid.
+		/// Description: mostly about UI / content concerning users
 		/// JSON Required. Null or empty may be fine.
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.Description("mostly about UI / content concerning users")]
 		[System.Text.Json.Serialization.JsonRequired()]
+		[System.Text.Json.Serialization.JsonPropertyName("double_required")]
 		public string DoubleRequired { get; set; }
 		
 		/// <summary>

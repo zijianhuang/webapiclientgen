@@ -138,10 +138,20 @@ namespace Fonlow.Poco2Client
 					return CreateDeclaration(obj);
 				}
 			},
+			{ typeof(System.ComponentModel.DescriptionAttribute), a =>
+				{
+					var obj= a as System.ComponentModel.DescriptionAttribute;
+					CodeSnippetExpression len = new CodeSnippetExpression($"\"{obj.Description}\"");
+					List<CodeAttributeArgument> attributeParams = new() { new CodeAttributeArgument(len) };
+					return new CodeAttributeDeclaration("System.ComponentModel.Description", attributeParams.ToArray());
+				}
+			},
+
 
 		};
 
-		public static CodeAttributeDeclaration CreateDeclaration(ObsoleteAttribute obj){
+		public static CodeAttributeDeclaration CreateDeclaration(ObsoleteAttribute obj)
+		{
 			List<CodeAttributeArgument> attributeParams = new();
 
 			if (!string.IsNullOrEmpty(obj.Message))

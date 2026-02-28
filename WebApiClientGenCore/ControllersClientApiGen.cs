@@ -225,7 +225,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					.Select(d =>
 					{
 						string controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName; // like DemoCoreWeb.Controllers  Entities
-						if (codeGenSettings.ApiSelections.ExcludedControllerNames != null && codeGenSettings.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
+						if (codeGenSettings.ApiSelections.ControllerShouldBeExcluded(controllerFullName))
 							return null;
 
 						string containerClassName = ConcatOptionalSuffix(d.ControllerName); // optionally become EntitiesClient
@@ -288,7 +288,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				string controllerNamespace = d.ActionDescriptor.ControllerDescriptor.ControllerType.Namespace;
 				string controllerName = d.ActionDescriptor.ControllerDescriptor.ControllerName;
 				string controllerFullName = controllerNamespace + "." + controllerName;
-				if (codeGenSettings.ApiSelections.ExcludedControllerNames != null && codeGenSettings.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
+				if (codeGenSettings.ApiSelections.ControllerShouldBeExcluded(controllerFullName))
 					continue;
 
 				CodeTypeDeclaration existingClientClass = LookupExistingClassOfCs(controllerNamespace, ConcatOptionalSuffix(controllerName));

@@ -115,6 +115,13 @@ namespace Fonlow.CodeDom.Web
 
 			return combinedArray;
 		}
+
+		public bool ControllerShouldBeExcluded(string controllerFullName)
+		{
+			if (ExcludedControllerNames == null || ExcludedControllerNames.Length == 0)
+				return false;
+			return ExcludedControllerNames.Contains(controllerFullName);
+		}
 	}
 
 	/// <summary>

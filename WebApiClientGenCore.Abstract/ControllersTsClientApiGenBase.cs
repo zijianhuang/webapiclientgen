@@ -108,7 +108,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					.Select(d =>
 					{
 						string controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName; // like DemoCoreWeb.Controllers  Entities
-						if (apiSelections.ExcludedControllerNames != null && apiSelections.ExcludedControllerNames.Contains(controllerFullName))
+						if (apiSelections.ControllerShouldBeExcluded(controllerFullName))
 							return null;
 
 						string containerClassName = GetContainerClassName(d.ControllerName); // optionally become EntitiesClient
@@ -169,7 +169,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				string controllerNamespace = apiDesc.ActionDescriptor.ControllerDescriptor.ControllerType.Namespace;
 				string controllerName = apiDesc.ActionDescriptor.ControllerDescriptor.ControllerName;
 				string controllerFullName = controllerNamespace + "." + controllerName;
-				if (apiSelections.ExcludedControllerNames != null && apiSelections.ExcludedControllerNames.Contains(controllerFullName))
+				if (apiSelections.ControllerShouldBeExcluded(controllerFullName))
 					continue;
 
 				CodeTypeDeclaration existingClientClass = LookupExistingClassOfTsInCodeDom(controllerNamespace, GetContainerClassName(controllerName));

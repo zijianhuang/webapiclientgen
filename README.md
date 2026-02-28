@@ -5,7 +5,7 @@ WebApiClientGen does not rely on Swagger/OpenAPI definitions. Instead, it walks 
 ## Downloads and Use Cases
 
 The component set is released mostly through NuGet.
-1. [Fonlow.WebApiClientGenCore <img src="Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" />](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore/) for generating C# client API. And to generate TypeScript client APIs, add the following plugins:
+1. [Fonlow.WebApiClientGenCore <img src="Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" />](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore/) for generating C# client API. And to generate TypeScript client APIs optimized for some development frameworks or libraries, add the following plugins:
 	1. [Fetch API <img src="Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" />](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Fetch/)
 	1. [Angular 6+ <img src="Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" />](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.NG2/)
 	1. [Angular 6+ with Reactive Forms <img src="Doc/icons/nuget-svgrepo-com.svg" height="28" width="28" />](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.NG2FormGroup/) as [explained](https://github.com/zijianhuang/webapiclientgen/wiki/Angular-Reactive-Forms)

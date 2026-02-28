@@ -36,7 +36,7 @@ namespace Poco2TsTests
 	export interface ChangePasswordBindingModel {
 		ConfirmPassword?: string | null;
 		NewPassword: string;
-		OldPassword: string | null;
+		oldPwd: string | null;
 	}
 
 }

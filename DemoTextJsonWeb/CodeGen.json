@@ -3,7 +3,7 @@
 	"ApiSelections": {
 		"ExcludedControllerNames": [
 			"DemoWebApi.Controllers.Home",
-			"DemoWebApi.Controllers.FileUpload"
+			"DemoWebApi.Controllers.File*"
 		],
 
 		"DataModels": [

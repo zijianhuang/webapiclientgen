@@ -46,10 +46,26 @@ namespace Fonlow.CodeDom.Web
 	/// </summary>
 	public sealed class CodeGenConfig
 	{
+		string[] excludedControllerNames;
 		/// <summary>
-		/// To exclude some controllers. For example, [My.Namespace.Home, My.Namespace.FileUpload] for My.Namespace.HomeController and My.Namespace.FileUploadController.
+		/// Filters to exclude some controllers. For example, [My.Namespace.Home, My.Namespace.FileUpload] for My.Namespace.HomeController and My.Namespace.FileUploadController.
+		/// Wildcard "My.Mvc*" will filter out "My.Mvc.Home" and "My.MvcSomething".
 		/// </summary>
-		public string[] ExcludedControllerNames { get; set; }
+		public string[] ExcludedControllerNames
+		{
+			get { return excludedControllerNames; }
+			set
+			{
+				excludedControllerNames = value;
+				var candidates = excludedControllerNames.Where(d=> d.EndsWith('*')).ToArray();
+				if (candidates.Length > 0)
+				{
+					excludedWildCard = candidates.Select(d => d.TrimEnd('*')).ToArray();
+				}
+			}
+		}
+
+		string[] excludedWildCard;
 
 		string[] dataModelAssemblyNames;
 
@@ -120,7 +136,21 @@ namespace Fonlow.CodeDom.Web
 		{
 			if (ExcludedControllerNames == null || ExcludedControllerNames.Length == 0)
 				return false;
-			return ExcludedControllerNames.Contains(controllerFullName);
+			
+			var toExclude = ExcludedControllerNames.Contains(controllerFullName);
+			if (toExclude)
+			{
+				return true;
+			}
+
+			if (excludedWildCard != null && excludedWildCard.Length>0)
+			{
+#pragma warning disable CA1310 // Specify StringComparison for correctness
+				return excludedWildCard.Any(prefix => controllerFullName.StartsWith(prefix));
+#pragma warning restore CA1310 // Specify StringComparison for correctness
+			}
+
+			return false;
 		}
 	}
 

@@ -1,9 +1,7 @@
 ﻿using DemoWebApi.DemoData;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.Numerics;
-using System.Threading.Tasks;
 namespace DemoWebApi.Controllers
 {
 	/// <summary>

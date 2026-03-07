@@ -180,8 +180,8 @@ namespace Fonlow.TypeScriptCodeDom
 
 		readonly Dictionary<string, string> integralJsNumberValidatorsDic = new Dictionary<string, string>
 		{
-			{ "System.SByte", "Validators.min(-127), Validators.max(127)" },
-			{ "System.Byte", "Validators.min(0), Validators.max(256)" },
+			{ "System.SByte", "Validators.min(-128), Validators.max(127)" },
+			{ "System.Byte", "Validators.min(0), Validators.max(255)" },
 			{ "System.Int16", "Validators.min(-32768), Validators.max(32767)" },
 			{ "System.UInt16", "Validators.min(0), Validators.max(65535)" },
 			{ "System.Int32", "Validators.min(-2147483648), Validators.max(2147483647)" },

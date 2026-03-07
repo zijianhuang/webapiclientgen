@@ -2251,10 +2251,10 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 	export function CreateIntegralEntityFormGroup() {
 		return new FormGroup<IntegralEntityFormProperties>({
-			byte: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(256)]),
+			byte: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(255)]),
 			int: new FormControl<number | null | undefined>(undefined, [Validators.min(-2147483648), Validators.max(2147483647)]),
 			itemCount: new FormControl<number | null | undefined>(undefined, [Validators.min(-1000), Validators.max(1000000)]),
-			sByte: new FormControl<number | null | undefined>(undefined, [Validators.min(-127), Validators.max(127)]),
+			sByte: new FormControl<number | null | undefined>(undefined, [Validators.min(-128), Validators.max(127)]),
 			short: new FormControl<number | null | undefined>(undefined, [Validators.min(-32768), Validators.max(32767)]),
 			uInt: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(4294967295)]),
 			uShort: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(65535)]),

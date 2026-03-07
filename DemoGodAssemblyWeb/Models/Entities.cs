@@ -200,7 +200,7 @@ namespace DemoWebApi.DemoData
 	}
 
 	
-	public class IntegralEntity : Entity
+	public class IntegralEntity
 	{
 		
 		public sbyte SByte { get; set; }
@@ -220,8 +220,7 @@ namespace DemoWebApi.DemoData
 		
 		public uint UInt { get; set; }
 
-		[Range(-1000, 1000000)]
-		
+		[Range(-1000, 1000000)]		
 		public int ItemCount { get; set; }
 	}
 

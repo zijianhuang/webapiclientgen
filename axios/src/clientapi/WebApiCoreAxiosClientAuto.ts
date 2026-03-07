@@ -1843,7 +1843,7 @@ export namespace DemoWebApi_DemoData_Client {
 		text?: string | null;
 	}
 
-	export interface IntegralEntity extends DemoWebApi_DemoData_Base_Client.Entity {
+	export interface IntegralEntity {
 
 		/** Type: byte, 0 to 255 */
 		byte?: number | null;

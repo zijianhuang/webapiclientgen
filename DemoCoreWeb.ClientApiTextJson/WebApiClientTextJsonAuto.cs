@@ -9055,7 +9055,7 @@ namespace DemoWebApi.DemoData.Client
 		public string Text { get; set; }
 	}
 	
-	public class IntegralEntity : DemoWebApi.DemoData.Base.Client.Entity
+	public class IntegralEntity : object
 	{
 		
 		public byte Byte { get; set; }

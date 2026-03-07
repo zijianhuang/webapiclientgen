@@ -1334,7 +1334,7 @@ describe('SuperDemo API', () => {
     );
 
     /**
-     * ASP.NET 8 System.Text.Json cannot handle this.
+     * ASP.NET Core  up to 10 System.Text.Json cannot handle this. NewtonSoft.Json is OK with DemoCoreWeb
      */
     it('getInt2D', () => {
         service.getInt2D().subscribe(
@@ -1346,8 +1346,8 @@ describe('SuperDemo API', () => {
 
             },
             error => {
-                throw new Error(errorResponseToString(error));
-
+               // throw new Error(errorResponseToString(error));
+                expect(errorResponseToString(error)).contain('Serialization and deserialization of '); // with DemoTextJsonWeb
             }
         );
 
@@ -1397,7 +1397,7 @@ fail: Microsoft.AspNetCore.Server.Kestrel[13]
     );
 
     /**
-     * ASP.NET 8 System.Text.Json could not handle this.
+     * ASP.NET Core up to 10 with System.Text.Json could not handle this. With NewtonSoft.Json is OK.
      */
     it('postInt2D', () => {
         service.postInt2D([[1, 2, 3, 4], [5, 6, 7, 8]]).subscribe(
@@ -1406,8 +1406,8 @@ fail: Microsoft.AspNetCore.Server.Kestrel[13]
 
             },
             error => {
-                throw new Error(errorResponseToString(error));
-
+                //throw new Error(errorResponseToString(error));
+                expect(errorResponseToString(error)).contain('Serialization and deserialization of ');
             }
         );
 
@@ -2235,7 +2235,7 @@ describe('Numbers API', () => {
     );
 
     it('postIntegralEntity', () => {
-        service.postIntegralEntity({ name: 'Some one', byte: 255, uShort: 65535 }).subscribe(
+        service.postIntegralEntity({  byte: 255, uShort: 65535 }).subscribe(
             r => {
                 expect(r.byte).toBe(255);
                 expect(r.uShort).toBe(65535);
@@ -2250,7 +2250,7 @@ describe('Numbers API', () => {
     );
 
     it('postIntegralEntityInvalid', () => {
-        service.postIntegralEntity({ name: 'Some one', byte: 260, uShort: 65540 }).subscribe(
+        service.postIntegralEntity({  byte: 260, uShort: 65540 }).subscribe(
             r => {
                 throw new Error('validation');
 
@@ -2267,7 +2267,7 @@ describe('Numbers API', () => {
      * Backend checks if the data is null, likely due to invalid properties. And throw error.
      */
     it('postIntegralEntityInvalidButBackendCheckNull', () => {
-        service.postIntegralEntityMustBeValid({ name: 'Some one', byte: 260, uShort: 65540 }).subscribe(
+        service.postIntegralEntityMustBeValid({byte: 260, uShort: 65540 }).subscribe(
             r => {
                 throw new Error('backend should throw 500')
 

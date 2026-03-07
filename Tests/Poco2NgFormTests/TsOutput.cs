@@ -70,7 +70,7 @@ namespace Poco2TsTests
 		{
 			Verify(typeof(DemoWebApi.DemoData.IntegralEntity),
 @"export namespace DemoWebApi_DemoData_Client {
-	export interface IntegralEntity extends DemoWebApi.DemoData.Base.Entity {
+	export interface IntegralEntity {
 		Byte?: number | null;
 		Int?: number | null;
 		ItemCount?: number | null;
@@ -79,7 +79,7 @@ namespace Poco2TsTests
 		UInt?: number | null;
 		UShort?: number | null;
 	}
-	export interface IntegralEntityFormProperties extends DemoWebApi.DemoData.Base.EntityFormProperties {
+	export interface IntegralEntityFormProperties {
 		Byte: FormControl<number | null | undefined>,
 		Int: FormControl<number | null | undefined>,
 		ItemCount: FormControl<number | null | undefined>,

@@ -31,6 +31,10 @@ builder.Services.AddControllers(configure =>
 	configure.Conventions.Add(new Fonlow.CodeDom.Web.ApiExplorerVisibilityEnabledConvention());//To make ApiExplorer be visible to WebApiClientGen
 #endif
 })
+.ConfigureApiBehaviorOptions(options =>
+{
+	options.SuppressModelStateInvalidFilter = false; //No effect on the API designs here which rarely return BadRequestObjectResult directly.
+})
 .AddJsonOptions(// as of .NET 7/8, could not handle JS/CS test cases getInt2D, postInt2D and PostDictionaryOfPeople, around 14 C# test cases fail.
 options =>
 {

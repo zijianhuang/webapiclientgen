@@ -2197,7 +2197,7 @@ export namespace DemoWebApi_DemoData_Client {
 
 	}
 
-	export interface IntegralEntity extends DemoWebApi_DemoData_Base_Client.Entity {
+	export interface IntegralEntity {
 
 		/** Type: byte, 0 to 255 */
 		byte?: number | null;
@@ -2223,7 +2223,7 @@ export namespace DemoWebApi_DemoData_Client {
 		/** Type: ushort, 0 to 65,535 */
 		uShort?: number | null;
 	}
-	export interface IntegralEntityFormProperties extends DemoWebApi_DemoData_Base_Client.EntityFormProperties {
+	export interface IntegralEntityFormProperties {
 
 		/** Type: byte, 0 to 255 */
 		byte: FormControl<number | null | undefined>,
@@ -2251,10 +2251,6 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 	export function CreateIntegralEntityFormGroup() {
 		return new FormGroup<IntegralEntityFormProperties>({
-			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
-			id: new FormControl<string | null | undefined>(undefined),
-			name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
-			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$/)]),
 			byte: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(256)]),
 			int: new FormControl<number | null | undefined>(undefined, [Validators.min(-2147483648), Validators.max(2147483647)]),
 			itemCount: new FormControl<number | null | undefined>(undefined, [Validators.min(-1000), Validators.max(1000000)]),

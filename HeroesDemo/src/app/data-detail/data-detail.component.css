@@ -1,0 +1,11 @@
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  max-width: 800px;
+}
+
+.button-row {
+  grid-column: 1 / -1;
+  margin-top: 16px;
+}

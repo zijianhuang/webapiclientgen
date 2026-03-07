@@ -201,7 +201,7 @@ namespace DemoWebApi.DemoData
 	}
 
 	[DataContract(Namespace = Constants.DataNamespace)]
-	public class IntegralEntity : Entity
+	public class IntegralEntity
 	{
 		[DataMember]
 		public sbyte SByte { get; set; }

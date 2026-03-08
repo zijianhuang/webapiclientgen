@@ -24,9 +24,9 @@ import { DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client } from '../..
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CodexDetailComponent {
-	readonly form: FormGroup<DemoWebApi_DemoData_Client.MixedDataEntityFormProperties> = DemoWebApi_DemoData_Client.CreateMixedDataEntityFormGroup();
+	readonly form = DemoWebApi_DemoData_Client.CreateMixedDataEntityFormGroup();
 
-	private readonly focused: Record<keyof DemoWebApi_DemoData_Client.MixedDataEntityFormProperties, boolean> = {
+	private readonly focused: Record<keyof DemoWebApi_DemoData_Client.MixedDataEntity, boolean> = {
 		byte: false,
 		int: false,
 		itemCount: false,
@@ -40,24 +40,24 @@ export class CodexDetailComponent {
 		web: false,
 	};
 
-	setFocused(field: keyof DemoWebApi_DemoData_Client.MixedDataEntityFormProperties, isFocused: boolean): void {
+	setFocused(field: keyof DemoWebApi_DemoData_Client.MixedDataEntity, isFocused: boolean): void {
 		this.focused[field] = isFocused;
 	}
 
-	isFocused(field: keyof DemoWebApi_DemoData_Client.MixedDataEntityFormProperties): boolean {
+	isFocused(field: keyof DemoWebApi_DemoData_Client.MixedDataEntity): boolean {
 		return this.focused[field];
 	}
 
-	control(name: keyof DemoWebApi_DemoData_Client.MixedDataEntityFormProperties): FormControl {
+	control(name: keyof DemoWebApi_DemoData_Client.MixedDataEntity): FormControl {
 		return this.form.controls[name] as FormControl;
 	}
 
-	shouldShowError(name: keyof DemoWebApi_DemoData_Client.MixedDataEntityFormProperties): boolean {
+	shouldShowError(name: keyof DemoWebApi_DemoData_Client.MixedDataEntity): boolean {
 		const c = this.control(name);
 		return c.invalid && (c.dirty || c.touched);
 	}
 
-	errorMessage(name: keyof DemoWebApi_DemoData_Client.MixedDataEntityFormProperties): string {
+	errorMessage(name: keyof DemoWebApi_DemoData_Client.MixedDataEntity): string {
 		const c = this.control(name);
 
 		if (c.hasError('required')) return 'This field is required.';

@@ -2230,34 +2230,34 @@ export namespace DemoWebApi_DemoData_Client {
 		/** Type: ushort, 0 to 65,535 */
 		uShort?: number | null;
 	}
-	export interface IntegralEntityFormProperties {
+	// export interface IntegralEntityFormProperties {
 
-		/** Type: byte, 0 to 255 */
-		byte: FormControl<number | null | undefined>,
+	// 	/** Type: byte, 0 to 255 */
+	// 	byte: FormControl<number | null | undefined>,
 
-		/** Type: int, -2,147,483,648 to 2,147,483,647 */
-		int: FormControl<number | null | undefined>,
+	// 	/** Type: int, -2,147,483,648 to 2,147,483,647 */
+	// 	int: FormControl<number | null | undefined>,
 
-		/**
-		 * Type: int
-		 * Range: inclusive between -1000 and 1000000
-		 */
-		itemCount: FormControl<number | null | undefined>,
+	// 	/**
+	// 	 * Type: int
+	// 	 * Range: inclusive between -1000 and 1000000
+	// 	 */
+	// 	itemCount: FormControl<number | null | undefined>,
 
-		/** Type: sbyte, -128 to 127 */
-		sByte: FormControl<number | null | undefined>,
+	// 	/** Type: sbyte, -128 to 127 */
+	// 	sByte: FormControl<number | null | undefined>,
 
-		/** Type: short, -32,768 to 32,767 */
-		short: FormControl<number | null | undefined>,
+	// 	/** Type: short, -32,768 to 32,767 */
+	// 	short: FormControl<number | null | undefined>,
 
-		/** Type: uint, 0 to 4,294,967,295 */
-		uInt: FormControl<number | null | undefined>,
+	// 	/** Type: uint, 0 to 4,294,967,295 */
+	// 	uInt: FormControl<number | null | undefined>,
 
-		/** Type: ushort, 0 to 65,535 */
-		uShort: FormControl<number | null | undefined>,
-	}
+	// 	/** Type: ushort, 0 to 65,535 */
+	// 	uShort: FormControl<number | null | undefined>,
+	// }
 	export function CreateIntegralEntityFormGroup() {
-		return new FormGroup<IntegralEntityFormProperties>({
+		return new FormGroup ({
 			byte: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(255)]),
 			int: new FormControl<number | null | undefined>(undefined, [Validators.min(-2147483648), Validators.max(2147483647)]),
 			itemCount: new FormControl<number | null | undefined>(undefined, [Validators.min(-1000), Validators.max(1000000)]),
@@ -2362,29 +2362,29 @@ export namespace DemoWebApi_DemoData_Client {
 		 */
 		web?: string | null;
 	}
-	export interface MixedDataEntityFormProperties extends DemoWebApi_DemoData_Client.IntegralEntityFormProperties {
+	// export interface MixedDataEntityFormProperties extends DemoWebApi_DemoData_Client.IntegralEntityFormProperties {
 
-		/** Type: DateOnly */
-		dob: FormControl<Date | null | undefined>,
+	// 	/** Type: DateOnly */
+	// 	dob: FormControl<Date | null | undefined>,
 
-		/** Max length: 255 */
-		emailAddress: FormControl<string | null | undefined>,
+	// 	/** Max length: 255 */
+	// 	emailAddress: FormControl<string | null | undefined>,
 
-		/**
-		 * Required. Null or empty is invalid.
-		 * Min length: 2
-		 * Max length: 255
-		 */
-		name: FormControl<string | null>,
+	// 	/**
+	// 	 * Required. Null or empty is invalid.
+	// 	 * Min length: 2
+	// 	 * Max length: 255
+	// 	 */
+	// 	name: FormControl<string | null>,
 
-		/**
-		 * Type: Uri
-		 * Regex pattern: ^(https?:\\/\\/)?[da-z.-]+.[a-z.]\{2,6\}([\/\w .-]\*)\*\\/?$
-		 */
-		web: FormControl<string | null | undefined>,
-	}
+	// 	/**
+	// 	 * Type: Uri
+	// 	 * Regex pattern: ^(https?:\\/\\/)?[da-z.-]+.[a-z.]\{2,6\}([\/\w .-]\*)\*\\/?$
+	// 	 */
+	// 	web: FormControl<string | null | undefined>,
+	// }
 	export function CreateMixedDataEntityFormGroup() {
-		return new FormGroup<MixedDataEntityFormProperties>({
+		return new FormGroup({
 			byte: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(255)]),
 			int: new FormControl<number | null | undefined>(undefined, [Validators.min(-2147483648), Validators.max(2147483647)]),
 			itemCount: new FormControl<number | null | undefined>(undefined, [Validators.min(-1000), Validators.max(1000000)]),

@@ -15,11 +15,10 @@ import { DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client } from '../..
 })
 export class DataDetailComponent {
 
-	form: FormGroup<DemoWebApi_DemoData_Client.MixedDataEntityFormProperties>;
+	form = DemoWebApi_DemoData_Client.CreateMixedDataEntityFormGroup();
 
 	focused: string | null = null;
 	constructor() {
-		this.form = DemoWebApi_DemoData_Client.CreateMixedDataEntityFormGroup();
 	}
 	ngOnInit(): void {
 	}

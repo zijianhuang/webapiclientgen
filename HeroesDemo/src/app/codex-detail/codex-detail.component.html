@@ -1,0 +1,162 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="form-container">
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" (focus)="setFocused('name', true)" (blur)="setFocused('name', false)" />
+    @if (isFocused('name')) {
+      <mat-hint>Required, length 2-255.</mat-hint>
+    }
+    @if (shouldShowError('name')) {
+      <mat-error>{{ errorMessage('name') }}</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Date of Birth</mat-label>
+    <input
+      matInput
+      [matDatepicker]="dobPicker"
+      formControlName="dob"
+      (focus)="setFocused('dob', true)"
+      (blur)="setFocused('dob', false)"
+    />
+    <mat-datepicker-toggle matIconSuffix [for]="dobPicker"></mat-datepicker-toggle>
+    <mat-datepicker #dobPicker></mat-datepicker>
+    @if (isFocused('dob')) {
+      <mat-hint>Date only.</mat-hint>
+    }
+    @if (shouldShowError('dob')) {
+      <mat-error>{{ errorMessage('dob') }}</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Email Address</mat-label>
+    <input
+      matInput
+      type="email"
+      formControlName="emailAddress"
+      (focus)="setFocused('emailAddress', true)"
+      (blur)="setFocused('emailAddress', false)"
+    />
+    @if (isFocused('emailAddress')) {
+      <mat-hint>Optional, valid email, max length 255.</mat-hint>
+    }
+    @if (shouldShowError('emailAddress')) {
+      <mat-error>{{ errorMessage('emailAddress') }}</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Website</mat-label>
+    <input matInput formControlName="web" (focus)="setFocused('web', true)" (blur)="setFocused('web', false)" />
+    @if (isFocused('web')) {
+      <mat-hint>Optional URI pattern.</mat-hint>
+    }
+    @if (shouldShowError('web')) {
+      <mat-error>{{ errorMessage('web') }}</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Byte</mat-label>
+    <input matInput type="number" formControlName="byte" (focus)="setFocused('byte', true)" (blur)="setFocused('byte', false)" />
+    @if (isFocused('byte')) {
+      <mat-hint>Range: 0 to 255.</mat-hint>
+    }
+    @if (shouldShowError('byte')) {
+      <mat-error>{{ errorMessage('byte') }}</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Int</mat-label>
+    <input matInput type="number" formControlName="int" (focus)="setFocused('int', true)" (blur)="setFocused('int', false)" />
+    @if (isFocused('int')) {
+      <mat-hint>Range: -2147483648 to 2147483647.</mat-hint>
+    }
+    @if (shouldShowError('int')) {
+      <mat-error>{{ errorMessage('int') }}</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Item Count</mat-label>
+    <input
+      matInput
+      type="number"
+      formControlName="itemCount"
+      (focus)="setFocused('itemCount', true)"
+      (blur)="setFocused('itemCount', false)"
+    />
+    @if (isFocused('itemCount')) {
+      <mat-hint>Range: -1000 to 1000000.</mat-hint>
+    }
+    @if (shouldShowError('itemCount')) {
+      <mat-error>{{ errorMessage('itemCount') }}</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>SByte</mat-label>
+    <input
+      matInput
+      type="number"
+      formControlName="sByte"
+      (focus)="setFocused('sByte', true)"
+      (blur)="setFocused('sByte', false)"
+    />
+    @if (isFocused('sByte')) {
+      <mat-hint>Range: -128 to 127.</mat-hint>
+    }
+    @if (shouldShowError('sByte')) {
+      <mat-error>{{ errorMessage('sByte') }}</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Short</mat-label>
+    <input
+      matInput
+      type="number"
+      formControlName="short"
+      (focus)="setFocused('short', true)"
+      (blur)="setFocused('short', false)"
+    />
+    @if (isFocused('short')) {
+      <mat-hint>Range: -32768 to 32767.</mat-hint>
+    }
+    @if (shouldShowError('short')) {
+      <mat-error>{{ errorMessage('short') }}</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>UInt</mat-label>
+    <input matInput type="number" formControlName="uInt" (focus)="setFocused('uInt', true)" (blur)="setFocused('uInt', false)" />
+    @if (isFocused('uInt')) {
+      <mat-hint>Range: 0 to 4294967295.</mat-hint>
+    }
+    @if (shouldShowError('uInt')) {
+      <mat-error>{{ errorMessage('uInt') }}</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>UShort</mat-label>
+    <input
+      matInput
+      type="number"
+      formControlName="uShort"
+      (focus)="setFocused('uShort', true)"
+      (blur)="setFocused('uShort', false)"
+    />
+    @if (isFocused('uShort')) {
+      <mat-hint>Range: 0 to 65535.</mat-hint>
+    }
+    @if (shouldShowError('uShort')) {
+      <mat-error>{{ errorMessage('uShort') }}</mat-error>
+    }
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
+</form>

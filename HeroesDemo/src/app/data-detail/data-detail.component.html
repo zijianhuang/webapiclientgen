@@ -1,100 +1,233 @@
 <form [formGroup]="form" (ngSubmit)="submit()" class="form-container">
 
-    <mat-form-field appearance="outline">
-    <mat-label>Byte</mat-label>
-    <input matInput type="number" formControlName="byte">
-    <mat-hint>Range: 0 - 255</mat-hint>
+  <!-- Name -->
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
 
-    @if (form.controls.byte.hasError('min')) {
-      <mat-error>Must be ≥ 0</mat-error>
+    <input matInput formControlName="name"
+           (focus)="onFocus('name')" (blur)="onBlur()" />
+
+    @if (focused === 'name') {
+      <mat-hint>Required • 2–255 characters</mat-hint>
     }
-    @if (form.controls.byte.hasError('max')) {
-      <mat-error>Must be ≤ 255</mat-error>
+
+    @if (form.controls.name.errors && form.controls.name.touched) {
+      <mat-error>
+        @if (form.controls.name.errors['required']) { Name is required }
+        @if (form.controls.name.errors['minlength']) { Minimum length is 2 }
+        @if (form.controls.name.errors['maxlength']) { Maximum length is 255 }
+      </mat-error>
     }
   </mat-form-field>
 
+
+  <!-- Email -->
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+
+    <input matInput formControlName="emailAddress"
+           (focus)="onFocus('emailAddress')" (blur)="onBlur()" />
+
+    @if (focused === 'emailAddress') {
+      <mat-hint>Valid email • max length 255</mat-hint>
+    }
+
+    @if (form.controls.emailAddress.errors && form.controls.emailAddress.touched) {
+      <mat-error>
+        @if (form.controls.emailAddress.errors['email']) { Invalid email }
+        @if (form.controls.emailAddress.errors['maxlength']) { Maximum length is 255 }
+      </mat-error>
+    }
+  </mat-form-field>
+
+
+  <!-- Website -->
+  <mat-form-field appearance="outline">
+    <mat-label>Website</mat-label>
+
+    <input matInput formControlName="web"
+           (focus)="onFocus('web')" (blur)="onBlur()" />
+
+    @if (focused === 'web') {
+      <mat-hint>Valid URL (http/https)</mat-hint>
+    }
+
+    @if (form.controls.web.errors && form.controls.web.touched) {
+      <mat-error>
+        @if (form.controls.web.errors['pattern']) { Invalid URL format }
+      </mat-error>
+    }
+  </mat-form-field>
+
+
+  <!-- Date of birth -->
+  <mat-form-field appearance="outline">
+    <mat-label>Date of Birth</mat-label>
+
+    <input matInput [matDatepicker]="picker"
+           formControlName="dob"
+           (focus)="onFocus('dob')" (blur)="onBlur()" />
+
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+
+    @if (focused === 'dob') {
+      <mat-hint>Select a valid date</mat-hint>
+    }
+  </mat-form-field>
+
+
+  <!-- Byte -->
+  <mat-form-field appearance="outline">
+    <mat-label>Byte</mat-label>
+
+    <input matInput type="number"
+           formControlName="byte"
+           (focus)="onFocus('byte')" (blur)="onBlur()" />
+
+    @if (focused === 'byte') {
+      <mat-hint>Range: 0 – 255</mat-hint>
+    }
+
+    @if (form.controls.byte.errors && form.controls.byte.touched) {
+      <mat-error>
+        @if (form.controls.byte.errors['min']) { Must be ≥ 0 }
+        @if (form.controls.byte.errors['max']) { Must be ≤ 255 }
+      </mat-error>
+    }
+  </mat-form-field>
+
+
+  <!-- Int -->
   <mat-form-field appearance="outline">
     <mat-label>Int</mat-label>
-    <input matInput type="number" formControlName="int">
-    <mat-hint>Range: -2147483648 - 2147483647</mat-hint>
 
-    @if (form.controls.int.hasError('min')) {
-      <mat-error>Must be ≥ -2147483648</mat-error>
+    <input matInput type="number"
+           formControlName="int"
+           (focus)="onFocus('int')" (blur)="onBlur()" />
+
+    @if (focused === 'int') {
+      <mat-hint>-2,147,483,648 to 2,147,483,647</mat-hint>
     }
-    @if (form.controls.int.hasError('max')) {
-      <mat-error>Must be ≤ 2147483647</mat-error>
+
+    @if (form.controls.int.errors && form.controls.int.touched) {
+      <mat-error>
+        @if (form.controls.int.errors['min']) { Value too small }
+        @if (form.controls.int.errors['max']) { Value too large }
+      </mat-error>
     }
   </mat-form-field>
 
+
+  <!-- ItemCount -->
   <mat-form-field appearance="outline">
     <mat-label>Item Count</mat-label>
-    <input matInput type="number" formControlName="itemCount">
-    <mat-hint>Range: -1000 - 1000000</mat-hint>
 
-    @if (form.controls.itemCount.hasError('min')) {
-      <mat-error>Must be ≥ -1000</mat-error>
+    <input matInput type="number"
+           formControlName="itemCount"
+           (focus)="onFocus('itemCount')" (blur)="onBlur()" />
+
+    @if (focused === 'itemCount') {
+      <mat-hint>Range: -1000 to 1,000,000</mat-hint>
     }
-    @if (form.controls.itemCount.hasError('max')) {
-      <mat-error>Must be ≤ 1000000</mat-error>
+
+    @if (form.controls.itemCount.errors && form.controls.itemCount.touched) {
+      <mat-error>
+        @if (form.controls.itemCount.errors['min']) { Must be ≥ -1000 }
+        @if (form.controls.itemCount.errors['max']) { Must be ≤ 1,000,000 }
+      </mat-error>
     }
   </mat-form-field>
 
+
+  <!-- sByte -->
   <mat-form-field appearance="outline">
     <mat-label>SByte</mat-label>
-    <input matInput type="number" formControlName="sByte">
-    <mat-hint>Range: -128 - 127</mat-hint>
 
-    @if (form.controls.sByte.hasError('min')) {
-      <mat-error>Must be ≥ -128</mat-error>
+    <input matInput type="number"
+           formControlName="sByte"
+           (focus)="onFocus('sByte')" (blur)="onBlur()" />
+
+    @if (focused === 'sByte') {
+      <mat-hint>Range: -128 to 127</mat-hint>
     }
-    @if (form.controls.sByte.hasError('max')) {
-      <mat-error>Must be ≤ 127</mat-error>
+
+    @if (form.controls.sByte.errors && form.controls.sByte.touched) {
+      <mat-error>
+        @if (form.controls.sByte.errors['min']) { Must be ≥ -128 }
+        @if (form.controls.sByte.errors['max']) { Must be ≤ 127 }
+      </mat-error>
     }
   </mat-form-field>
 
+
+  <!-- Short -->
   <mat-form-field appearance="outline">
     <mat-label>Short</mat-label>
-    <input matInput type="number" formControlName="short">
-    <mat-hint>Range: -32768 - 32767</mat-hint>
 
-    @if (form.controls.short.hasError('min')) {
-      <mat-error>Must be ≥ -32768</mat-error>
+    <input matInput type="number"
+           formControlName="short"
+           (focus)="onFocus('short')" (blur)="onBlur()" />
+
+    @if (focused === 'short') {
+      <mat-hint>Range: -32,768 to 32,767</mat-hint>
     }
-    @if (form.controls.short.hasError('max')) {
-      <mat-error>Must be ≤ 32767</mat-error>
+
+    @if (form.controls.short.errors && form.controls.short.touched) {
+      <mat-error>
+        @if (form.controls.short.errors['min']) { Must be ≥ -32768 }
+        @if (form.controls.short.errors['max']) { Must be ≤ 32767 }
+      </mat-error>
     }
   </mat-form-field>
 
+
+  <!-- UInt -->
   <mat-form-field appearance="outline">
     <mat-label>UInt</mat-label>
-    <input matInput type="number" formControlName="uInt">
-    <mat-hint>Range: 0 - 4294967295</mat-hint>
 
-    @if (form.controls.uInt.hasError('min')) {
-      <mat-error>Must be ≥ 0</mat-error>
+    <input matInput type="number"
+           formControlName="uInt"
+           (focus)="onFocus('uInt')" (blur)="onBlur()" />
+
+    @if (focused === 'uInt') {
+      <mat-hint>0 to 4,294,967,295</mat-hint>
     }
-    @if (form.controls.uInt.hasError('max')) {
-      <mat-error>Must be ≤ 4294967295</mat-error>
+
+    @if (form.controls.uInt.errors && form.controls.uInt.touched) {
+      <mat-error>
+        @if (form.controls.uInt.errors['min']) { Must be ≥ 0 }
+        @if (form.controls.uInt.errors['max']) { Value exceeds uint range }
+      </mat-error>
     }
   </mat-form-field>
 
+
+  <!-- UShort -->
   <mat-form-field appearance="outline">
     <mat-label>UShort</mat-label>
-    <input matInput type="number" formControlName="uShort">
-    <mat-hint>Range: 0 - 65535</mat-hint>
 
-    @if (form.controls.uShort.hasError('min')) {
-      <mat-error>Must be ≥ 0</mat-error>
+    <input matInput type="number"
+           formControlName="uShort"
+           (focus)="onFocus('uShort')" (blur)="onBlur()" />
+
+    @if (focused === 'uShort') {
+      <mat-hint>0 – 65,535</mat-hint>
     }
-    @if (form.controls.uShort.hasError('max')) {
-      <mat-error>Must be ≤ 65535</mat-error>
+
+    @if (form.controls.uShort.errors && form.controls.uShort.touched) {
+      <mat-error>
+        @if (form.controls.uShort.errors['min']) { Must be ≥ 0 }
+        @if (form.controls.uShort.errors['max']) { Must be ≤ 65535 }
+      </mat-error>
     }
   </mat-form-field>
 
-  <div class="button-row">
-    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">
-      Submit
-    </button>
-  </div>
+
+  <button mat-raised-button color="primary"
+          type="submit"
+          [disabled]="form.invalid">
+    Save
+  </button>
 
 </form>

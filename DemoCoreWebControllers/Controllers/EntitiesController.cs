@@ -325,5 +325,11 @@ namespace DemoWebApi.Controllers
 		{
 			return idMap;
 		}
+
+		[HttpPost("MixedDataEntity")]
+		public MixedDataEntity PostMixedDataEntity([FromBody] MixedDataEntity entity)
+		{
+			return entity;
+		}
 	}
 }

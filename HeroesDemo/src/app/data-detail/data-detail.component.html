@@ -3,7 +3,7 @@
     <mat-form-field appearance="outline">
     <mat-label>Byte</mat-label>
     <input matInput type="number" formControlName="byte">
-    <mat-hint>Range: 0 – 255</mat-hint>
+    <mat-hint>Range: 0 - 255</mat-hint>
 
     @if (form.controls.byte.hasError('min')) {
       <mat-error>Must be ≥ 0</mat-error>
@@ -16,7 +16,7 @@
   <mat-form-field appearance="outline">
     <mat-label>Int</mat-label>
     <input matInput type="number" formControlName="int">
-    <mat-hint>Range: -2147483648 – 2147483647</mat-hint>
+    <mat-hint>Range: -2147483648 - 2147483647</mat-hint>
 
     @if (form.controls.int.hasError('min')) {
       <mat-error>Must be ≥ -2147483648</mat-error>
@@ -29,7 +29,7 @@
   <mat-form-field appearance="outline">
     <mat-label>Item Count</mat-label>
     <input matInput type="number" formControlName="itemCount">
-    <mat-hint>Range: -1000 – 1000000</mat-hint>
+    <mat-hint>Range: -1000 - 1000000</mat-hint>
 
     @if (form.controls.itemCount.hasError('min')) {
       <mat-error>Must be ≥ -1000</mat-error>
@@ -42,7 +42,7 @@
   <mat-form-field appearance="outline">
     <mat-label>SByte</mat-label>
     <input matInput type="number" formControlName="sByte">
-    <mat-hint>Range: -128 – 127</mat-hint>
+    <mat-hint>Range: -128 - 127</mat-hint>
 
     @if (form.controls.sByte.hasError('min')) {
       <mat-error>Must be ≥ -128</mat-error>
@@ -55,7 +55,7 @@
   <mat-form-field appearance="outline">
     <mat-label>Short</mat-label>
     <input matInput type="number" formControlName="short">
-    <mat-hint>Range: -32768 – 32767</mat-hint>
+    <mat-hint>Range: -32768 - 32767</mat-hint>
 
     @if (form.controls.short.hasError('min')) {
       <mat-error>Must be ≥ -32768</mat-error>
@@ -68,7 +68,7 @@
   <mat-form-field appearance="outline">
     <mat-label>UInt</mat-label>
     <input matInput type="number" formControlName="uInt">
-    <mat-hint>Range: 0 – 4294967295</mat-hint>
+    <mat-hint>Range: 0 - 4294967295</mat-hint>
 
     @if (form.controls.uInt.hasError('min')) {
       <mat-error>Must be ≥ 0</mat-error>
@@ -81,7 +81,7 @@
   <mat-form-field appearance="outline">
     <mat-label>UShort</mat-label>
     <input matInput type="number" formControlName="uShort">
-    <mat-hint>Range: 0 – 65535</mat-hint>
+    <mat-hint>Range: 0 - 65535</mat-hint>
 
     @if (form.controls.uShort.hasError('min')) {
       <mat-error>Must be ≥ 0</mat-error>

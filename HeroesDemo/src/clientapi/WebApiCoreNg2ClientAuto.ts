@@ -393,6 +393,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * POST api/Entities/MixedDataEntity
+		 */
+		postMixedDataEntity(entity?: DemoWebApi_DemoData_Client.MixedDataEntity | null, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.MixedDataEntity> {
+			return this.http.post<DemoWebApi_DemoData_Client.MixedDataEntity>(this.baseUri + 'api/Entities/MixedDataEntity', JSON.stringify(entity), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
 		 * PUT api/Entities/updatePerson
 		 */
 		updatePerson(person?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => HttpHeaders): Observable<string> {
@@ -1915,6 +1922,28 @@ export namespace DemoWebApi_DemoData_Client {
 		message?: string | null;
 		result?: T;
 		success?: boolean | null;
+	}
+
+	export interface MixedDataEntity extends DemoWebApi_DemoData_Client.IntegralEntity {
+
+		/** Type: DateOnly */
+		dob?: Date | null;
+
+		/** Max length: 255 */
+		emailAddress?: string | null;
+
+		/**
+		 * Required. Null or empty is invalid.
+		 * Min length: 2
+		 * Max length: 255
+		 */
+		name: string;
+
+		/**
+		 * Type: Uri
+		 * Regex pattern: ^(https?:\\/\\/)?[da-z.-]+.[a-z.]\{2,6\}([\/\w .-]\*)\*\\/?$
+		 */
+		web?: string | null;
 	}
 
 	export enum MyEnumType { First = 1, Two = 2 }

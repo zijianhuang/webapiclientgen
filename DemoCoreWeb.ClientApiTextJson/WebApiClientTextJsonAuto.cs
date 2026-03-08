@@ -2044,6 +2044,54 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// POST api/Entities/MixedDataEntity
+		/// </summary>
+		public async Task<DemoWebApi.DemoData.Client.MixedDataEntity> PostMixedDataEntityAsync(DemoWebApi.DemoData.Client.MixedDataEntity entity, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Entities/MixedDataEntity";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var content = System.Net.Http.Json.JsonContent.Create(entity, mediaType: null, jsonSerializerSettings);
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				return JsonSerializer.Deserialize<DemoWebApi.DemoData.Client.MixedDataEntity>(stream, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Entities/MixedDataEntity
+		/// </summary>
+		public DemoWebApi.DemoData.Client.MixedDataEntity PostMixedDataEntity(DemoWebApi.DemoData.Client.MixedDataEntity entity, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Entities/MixedDataEntity";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var content = System.Net.Http.Json.JsonContent.Create(entity, mediaType: null, jsonSerializerSettings);
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = responseMessage.Content.ReadAsStream();
+				return JsonSerializer.Deserialize<DemoWebApi.DemoData.Client.MixedDataEntity>(stream, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
 		/// PUT api/Entities/updatePerson
 		/// </summary>
 		public async Task<string> UpdatePersonAsync(DemoWebApi.DemoData.Client.Person person, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -9139,6 +9187,34 @@ namespace DemoWebApi.DemoData.Client
 		public T Result { get; set; }
 		
 		public bool Success { get; set; }
+	}
+	
+	public class MixedDataEntity : DemoWebApi.DemoData.Client.IntegralEntity
+	{
+		
+		public System.DateOnly DOB { get; set; }
+		
+		/// <summary>
+		/// Max length: 255
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.MaxLength(255)]
+		public string EmailAddress { get; set; }
+		
+		/// <summary>
+		/// Required. Null or empty is invalid.
+		/// Min length: 2
+		/// Max length: 255
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.DataAnnotations.MinLength(2)]
+		[System.ComponentModel.DataAnnotations.MaxLength(255)]
+		public string Name { get; set; }
+		
+		/// <summary>
+		/// Regex pattern: ^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RegularExpression(@"^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$")]
+		public System.Uri Web { get; set; }
 	}
 	
 	public enum MyEnumType

@@ -479,6 +479,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * POST api/Entities/MixedDataEntity
+		 */
+		postMixedDataEntity(entity?: DemoWebApi_DemoData_Client.MixedDataEntity | null, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.MixedDataEntity> {
+			return this.http.post<DemoWebApi_DemoData_Client.MixedDataEntity>(this.baseUri + 'api/Entities/MixedDataEntity', JSON.stringify(entity), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
 		 * PUT api/Entities/updatePerson
 		 */
 		updatePerson(person?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => HttpHeaders): Observable<string> {
@@ -2332,6 +2339,65 @@ export namespace DemoWebApi_DemoData_Client {
 		message?: string | null;
 		result?: T;
 		success?: boolean | null;
+	}
+
+	export interface MixedDataEntity extends DemoWebApi_DemoData_Client.IntegralEntity {
+
+		/** Type: DateOnly */
+		dob?: Date | null;
+
+		/** Max length: 255 */
+		emailAddress?: string | null;
+
+		/**
+		 * Required. Null or empty is invalid.
+		 * Min length: 2
+		 * Max length: 255
+		 */
+		name: string;
+
+		/**
+		 * Type: Uri
+		 * Regex pattern: ^(https?:\\/\\/)?[da-z.-]+.[a-z.]\{2,6\}([\/\w .-]\*)\*\\/?$
+		 */
+		web?: string | null;
+	}
+	export interface MixedDataEntityFormProperties extends DemoWebApi_DemoData_Client.IntegralEntityFormProperties {
+
+		/** Type: DateOnly */
+		dob: FormControl<Date | null | undefined>,
+
+		/** Max length: 255 */
+		emailAddress: FormControl<string | null | undefined>,
+
+		/**
+		 * Required. Null or empty is invalid.
+		 * Min length: 2
+		 * Max length: 255
+		 */
+		name: FormControl<string | null>,
+
+		/**
+		 * Type: Uri
+		 * Regex pattern: ^(https?:\\/\\/)?[da-z.-]+.[a-z.]\{2,6\}([\/\w .-]\*)\*\\/?$
+		 */
+		web: FormControl<string | null | undefined>,
+	}
+	export function CreateMixedDataEntityFormGroup() {
+		return new FormGroup<MixedDataEntityFormProperties>({
+			byte: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(255)]),
+			int: new FormControl<number | null | undefined>(undefined, [Validators.min(-2147483648), Validators.max(2147483647)]),
+			itemCount: new FormControl<number | null | undefined>(undefined, [Validators.min(-1000), Validators.max(1000000)]),
+			sByte: new FormControl<number | null | undefined>(undefined, [Validators.min(-128), Validators.max(127)]),
+			short: new FormControl<number | null | undefined>(undefined, [Validators.min(-32768), Validators.max(32767)]),
+			uInt: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(4294967295)]),
+			uShort: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(65535)]),
+			dob: CreateDateOnlyFormControl(),
+			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
+			name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
+			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$/)]),
+		});
+
 	}
 
 	export enum MyEnumType { First = 1, Two = 2 }

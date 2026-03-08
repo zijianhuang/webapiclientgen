@@ -226,6 +226,25 @@ namespace DemoWebApi.DemoData
 		public int ItemCount { get; set; }
 	}
 
+	[DataContract(Namespace = Constants.DataNamespace)]
+	public class MixedDataEntity : IntegralEntity
+	{
+		[DataMember]
+		public DateOnly DOB { get; set; }
+
+		[DataMember(IsRequired = true)]//MVC and Web API does not care
+		[System.ComponentModel.DataAnnotations.Required]//MVC and Web API care about only this
+		[MinLength(2), MaxLength(255)]
+		public string Name { get; set; }
+
+		[DataMember]
+		[RegularExpression(@"^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$")]
+		public Uri Web { get; set; }
+
+		[DataMember, EmailAddress, MaxLength(255)]
+		public string EmailAddress { get; set; }
+	}
+
 
 	[DataContract(Namespace = Constants.DataNamespace)]
 	public class Person : Entity

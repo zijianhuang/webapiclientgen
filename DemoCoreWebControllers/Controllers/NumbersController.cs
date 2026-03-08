@@ -29,10 +29,6 @@ namespace DemoWebApi.Controllers
 		[Route("IntegralEntityMustBeValid")]
 		public IntegralEntity PostIntegralEntityMustBeValid([FromBody] IntegralEntity integralEntity)
 		{
-			//if (integralEntity == null)
-			//{
-			//	throw new ArgumentNullException(nameof(integralEntity), "The client posted null or invalid object.");
-			//}
 			return integralEntity;
 		}
 

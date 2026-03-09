@@ -19,18 +19,6 @@ namespace Poco2TsTests
 			}
 		}
 
-		//		[Fact]
-		//		public void TestEnumAddressType()visual 
-		//		{
-		//			Verify(typeof(DemoWebApi.DemoData.AddressType),
-		//@"export namespace DemoWebApi_DemoData_Client {
-		//	export enum AddressType { Postal, Residential }
-
-		//}
-
-		//");
-		//		}
-
 		[Fact]
 		public void TestEntity()
 		{
@@ -44,14 +32,8 @@ namespace Poco2TsTests
 		PhoneNumbers?: Array<any>;
 		Web?: string | null;
 	}
-	export interface EntityFormProperties {
-		EmailAddress: FormControl<string | null | undefined>,
-		Id: FormControl<string | null | undefined>,
-		Name: FormControl<string | null>,
-		Web: FormControl<string | null | undefined>,
-	}
 	export function CreateEntityFormGroup() {
-		return new FormGroup<EntityFormProperties>({
+		return new FormGroup({
 			EmailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			Id: new FormControl<string | null | undefined>(undefined),
 			Name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
@@ -79,21 +61,12 @@ namespace Poco2TsTests
 		UInt?: number | null;
 		UShort?: number | null;
 	}
-	export interface IntegralEntityFormProperties {
-		Byte: FormControl<number | null | undefined>,
-		Int: FormControl<number | null | undefined>,
-		ItemCount: FormControl<number | null | undefined>,
-		SByte: FormControl<number | null | undefined>,
-		Short: FormControl<number | null | undefined>,
-		UInt: FormControl<number | null | undefined>,
-		UShort: FormControl<number | null | undefined>,
-	}
 	export function CreateIntegralEntityFormGroup() {
-		return new FormGroup<IntegralEntityFormProperties>({
-			Byte: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(256)]),
+		return new FormGroup({
+			Byte: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(255)]),
 			Int: new FormControl<number | null | undefined>(undefined, [Validators.min(-2147483648), Validators.max(2147483647)]),
 			ItemCount: new FormControl<number | null | undefined>(undefined, [Validators.min(-1000), Validators.max(1000000)]),
-			SByte: new FormControl<number | null | undefined>(undefined, [Validators.min(-127), Validators.max(127)]),
+			SByte: new FormControl<number | null | undefined>(undefined, [Validators.min(-128), Validators.max(127)]),
 			Short: new FormControl<number | null | undefined>(undefined, [Validators.min(-32768), Validators.max(32767)]),
 			UInt: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(4294967295)]),
 			UShort: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(65535)]),
@@ -117,14 +90,8 @@ namespace Poco2TsTests
 		GivenName?: string | null;
 		Surname?: string | null;
 	}
-	export interface PersonFormProperties extends DemoWebApi.DemoData.Base.EntityFormProperties {
-		Baptised: FormControl<Date | null | undefined>,
-		DOB: FormControl<Date | null | undefined>,
-		GivenName: FormControl<string | null | undefined>,
-		Surname: FormControl<string | null | undefined>,
-	}
 	export function CreatePersonFormGroup() {
-		return new FormGroup<PersonFormProperties>({
+		return new FormGroup({
 			Baptised: new FormControl<Date | null | undefined>(undefined),
 			DOB: new FormControl<Date | null | undefined>(undefined),
 			GivenName: new FormControl<string | null | undefined>(undefined),
@@ -154,19 +121,8 @@ namespace Poco2TsTests
 		Type?: number | null;
 		Location?: any;
 	}
-	export interface AddressFormProperties {
-		City: FormControl<string | null | undefined>,
-		Country: FormControl<string | null | undefined>,
-		Id: FormControl<string | null | undefined>,
-		PostalCode: FormControl<string | null | undefined>,
-		State: FormControl<string | null | undefined>,
-		Street1: FormControl<string | null | undefined>,
-		Street2: FormControl<string | null | undefined>,
-		Type: FormControl<number | null | undefined>,
-		Location: FormControl<any | null | undefined>,
-	}
 	export function CreateAddressFormGroup() {
-		return new FormGroup<AddressFormProperties>({
+		return new FormGroup({
 			City: new FormControl<string | null | undefined>(undefined, [Validators.minLength(2), Validators.maxLength(50)]),
 			Country: new FormControl<string | null | undefined>(undefined, [Validators.minLength(2), Validators.maxLength(30)]),
 			Id: new FormControl<string | null | undefined>(undefined),

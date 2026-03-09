@@ -13,7 +13,8 @@ The schema and the semantic meanings of the JSON data are described in "[CodeGen
 ### ExcludedControllerNames
 ```c#
 /// <summary>
-/// To exclude some controllers. For example, [My.Namespace.Home, My.Namespace.FileUpload] for My.Namespace.HomeController and My.Namespace.FileUploadController.
+/// Filters to exclude some controllers. For example, [My.Namespace.Home, My.Namespace.FileUpload] for My.Namespace.HomeController and My.Namespace.FileUploadController.
+/// Wildcard "My.Mvc*" will filter out "My.Mvc.Home" and "My.MvcSomething".
 /// </summary>
 public string[] ExcludedControllerNames { get; set; }
 ```
@@ -22,7 +23,7 @@ WebApiClientGen is focused on strongly typed Web API, while some Web APIs are no
 
 **Hints**
 
-* Decorating respective controllers with `[ApiExplorerSettings(IgnoreApi = true)]` instead may be more practical, since [ApiExplorerSettingsAttribute](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.apiexplorersettingsattribute) was firstly introduced in .NET Framework 4.5.1, while the early releases of WebApiClientGen were built for .NET Framework 4.5. Therefore, "ExcludedControllerNames" may be considered as obsolete.
+* Decorating respective controllers with `[ApiExplorerSettings(IgnoreApi = true)]` instead may be more practical, since [ApiExplorerSettingsAttribute](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.apiexplorersettingsattribute) was firstly introduced in .NET Framework 4.5.1, while the early releases of WebApiClientGen were built for .NET Framework 4.5. Therefore, "ExcludedControllerNames" may be an alternative approach, depending how you would make Web API controllers become visible to API Explorer.
 * [ApiExplorerSettingsAttribute](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.apiexplorersettingsattribute) can decorate a controller class or a controller function. If you intend to mix strongly typed API functions and weakly typed ones in the same controller, you may use the attribute to decoreate at the method level.
 
 Typically, a strongly typed API function is associated with such content type in payloads of request and response:
@@ -784,4 +785,5 @@ If you are sure that regular expressions used in RegularExpressionAttribute are 
 		/// </summary>
 		Use = 1,
 	}
+
 ```

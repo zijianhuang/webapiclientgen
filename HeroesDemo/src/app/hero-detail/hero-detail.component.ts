@@ -2,18 +2,20 @@ import { CommonModule, Location } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client } from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
+import { DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client, InnerOfFormGroup } from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
 import { NGMDModule } from '../ngmd.module';
 
-export interface HeroWithNestedFormProperties extends DemoWebApi_Controllers_Client.HeroFormProperties {
-    address?: FormGroup<DemoWebApi_DemoData_Client.AddressFormProperties>,
-    phoneNumbers?: FormArray<FormGroup<DemoWebApi_DemoData_Client.PhoneNumberFormProperties>>,
+type HeroFormProperties = InnerOfFormGroup<ReturnType<typeof DemoWebApi_Controllers_Client.CreateHeroFormGroup>>;
+
+export interface HeroWithNestedFormProperties extends HeroFormProperties {
+    address?: ReturnType<typeof DemoWebApi_DemoData_Client.CreateAddressFormGroup>,
+    phoneNumbers?: FormArray<ReturnType<typeof DemoWebApi_DemoData_Client.CreatePhoneNumberFormGroup>>,
 }
 
 export function CreateHeroWithNestedFormGroup() {
     const fg: FormGroup<HeroWithNestedFormProperties> = DemoWebApi_Controllers_Client.CreateHeroFormGroup();
     fg.controls.address = DemoWebApi_DemoData_Client.CreateAddressFormGroup();
-    fg.controls.phoneNumbers = new FormArray<FormGroup<DemoWebApi_DemoData_Client.PhoneNumberFormProperties>>([]);
+    fg.controls.phoneNumbers = new FormArray<ReturnType<typeof DemoWebApi_DemoData_Client.CreatePhoneNumberFormGroup>>([]);
     return fg;
 }
 
@@ -31,14 +33,14 @@ export function CreateHeroWithNestedFormGroup() {
 })
 export class HeroDetailComponent implements OnInit {
     hero?: DemoWebApi_Controllers_Client.Hero;
-    heroForm: FormGroup<HeroWithNestedFormProperties>;
+    heroForm= CreateHeroWithNestedFormGroup();
     constructor(
         private heroService: DemoWebApi_Controllers_Client.Heroes,
         private route: ActivatedRoute,
         private location: Location,
         private ref: ChangeDetectorRef,
     ) {
-        this.heroForm = CreateHeroWithNestedFormGroup();
+
     }
     ngOnInit(): void {
         this.route.params.forEach((params: Params) => {
@@ -85,7 +87,7 @@ export class HeroDetailComponent implements OnInit {
                         this.ref.detectChanges();
    }
 
-    removePhoneNumber(pg: FormGroup<DemoWebApi_DemoData_Client.PhoneNumberFormProperties>) {
+    removePhoneNumber(pg: ReturnType<typeof DemoWebApi_DemoData_Client.CreatePhoneNumberFormGroup>) {
         const idx = this.heroForm.controls.phoneNumbers?.controls.indexOf(pg);
         if (idx != undefined) {
             this.heroForm.controls.phoneNumbers?.removeAt(idx);

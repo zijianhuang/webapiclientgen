@@ -58,7 +58,7 @@ namespace Fonlow.TypeScriptCodeDom
 				bool isGeneric = typeExpression.Contains('<') || IsParentClosedGenericType(ctd);
 				if (!ctd.IsPartial && !isGeneric) //controllerClass is partial, as declared in CreateControllerClientClass()
 				{
-					GenerateAngularFormFromType(ctd, w, o);
+					//GenerateAngularFormFromType(ctd, w, o);
 					GenerateAngularFormGroupFunctionFromType(cn, ctd, w, o);
 				}
 
@@ -166,7 +166,7 @@ namespace Fonlow.TypeScriptCodeDom
 				}
 				else
 				{
-					w.Write($"{o.IndentString}{o.IndentString}return new FormGroup<{formGroupInterface}>({{");
+					w.Write($"{o.IndentString}{o.IndentString}return new FormGroup({{");
 				}
 
 				WriteAngularFormGroupMembersAndCloseBracing(ctd, w, o, forSignalForm);

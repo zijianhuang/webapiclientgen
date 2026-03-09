@@ -40,6 +40,9 @@ namespace Fonlow.CodeDom.Web.Ts
 			if (jsOutput.NgDateOnlyFormControlEnabled)
 			{
 				TargetUnit.ReferencedAssemblies.Add(@"
+/** Extract the generic parameter from FormGroup<T> */
+export type InnerOfFormGroup<T> = T extends FormGroup<infer U> ? U : never;
+
 function CreateDateOnlyFormControl() {
 	const fc = new FormControl<any | null | undefined>(undefined);
 	fc.valueChanges.subscribe(v => {

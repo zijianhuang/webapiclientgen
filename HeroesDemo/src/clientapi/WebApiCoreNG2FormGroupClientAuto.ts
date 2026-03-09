@@ -3,6 +3,9 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+/** Extract the generic parameter from FormGroup<T> */
+export type InnerOfFormGroup<T> = T extends FormGroup<infer U> ? U : never;
+
 function CreateDateOnlyFormControl() {
 	const fc = new FormControl<any | null | undefined>(undefined);
 	fc.valueChanges.subscribe(v => {
@@ -35,19 +38,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		submitter?: string | null;
 	}
-
-	/**
-	 * This class is used to carry the result of various file uploads.
-	 */
-	export interface FileResultFormProperties {
-
-		/**
-		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
-		 */
-		submitter: FormControl<string | null | undefined>,
-	}
 	export function CreateFileResultFormGroup() {
-		return new FormGroup<FileResultFormProperties>({
+		return new FormGroup({
 			submitter: new FormControl<string | null | undefined>(undefined),
 		});
 
@@ -81,34 +73,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		webAddress?: string | null;
 	}
-
-	/**
-	 * Complex hero type
-	 */
-	export interface HeroFormProperties {
-		death: FormControl<Date | null | undefined>,
-
-		/** Type: DateOnly */
-		dob: FormControl<Date | null | undefined>,
-		emailAddress: FormControl<string | null | undefined>,
-
-		/** Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
-		id: FormControl<string | null | undefined>,
-
-		/**
-		 * Required. Null or empty is invalid.
-		 * String length: inclusive between 2 and 120
-		 */
-		name: FormControl<string | null | undefined>,
-
-		/**
-		 * Min length: 6
-		 * Regex pattern: ^(https?:\\/\\/)?[da-z.-]+.[a-z.]\{2,6\}([\/\w .-]\*)\*\\/?$
-		 */
-		webAddress: FormControl<string | null | undefined>,
-	}
 	export function CreateHeroFormGroup() {
-		return new FormGroup<HeroFormProperties>({
+		return new FormGroup({
 			death: CreateDateOnlyFormControl(),
 			dob: CreateDateOnlyFormControl(),
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
@@ -122,11 +88,8 @@ export namespace DemoWebApi_Controllers_Client {
 	export interface SuperHero extends DemoWebApi_Controllers_Client.Hero {
 		super?: boolean | null;
 	}
-	export interface SuperHeroFormProperties extends DemoWebApi_Controllers_Client.HeroFormProperties {
-		super: FormControl<boolean | null | undefined>,
-	}
 	export function CreateSuperHeroFormGroup() {
-		return new FormGroup<SuperHeroFormProperties>({
+		return new FormGroup({
 			death: CreateDateOnlyFormControl(),
 			dob: CreateDateOnlyFormControl(),
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
@@ -1755,30 +1718,8 @@ export namespace DemoWebApi_DemoDataEx_Client {
 		 */
 		name: string | null;
 	}
-	export interface DotNetJsonTypeFormProperties {
-		description: FormControl<string | null | undefined>,
-
-		/**
-		 * Required. Null or empty is invalid.
-		 * Description: mostly about UI / content concerning users
-		 * JSON Required. Null or empty may be fine.
-		 */
-		double_required: FormControl<string | null>,
-
-		/**
-		 * Required means the property is required and cannot be null or empty string.
-		 * Required. Null or empty is invalid.
-		 */
-		location: FormControl<string | null>,
-
-		/**
-		 * JsonRequired means the property is required in JSON, but it can be null or empty string.
-		 * JSON Required. Null or empty may be fine.
-		 */
-		name: FormControl<string | null>,
-	}
 	export function CreateDotNetJsonTypeFormGroup() {
-		return new FormGroup<DotNetJsonTypeFormProperties>({
+		return new FormGroup({
 			description: new FormControl<string | null | undefined>(undefined),
 			double_required: new FormControl<string | null>(null, [Validators.required]),
 			location: new FormControl<string | null>(null, [Validators.required]),
@@ -1791,12 +1732,8 @@ export namespace DemoWebApi_DemoDataEx_Client {
 		givenName?: string | null;
 		surname?: string | null;
 	}
-	export interface TextJsonPersonFormProperties {
-		givenName: FormControl<string | null | undefined>,
-		surname: FormControl<string | null | undefined>,
-	}
 	export function CreateTextJsonPersonFormGroup() {
-		return new FormGroup<TextJsonPersonFormProperties>({
+		return new FormGroup({
 			givenName: new FormControl<string | null | undefined>(undefined),
 			surname: new FormControl<string | null | undefined>(undefined),
 		});
@@ -1806,11 +1743,8 @@ export namespace DemoWebApi_DemoDataEx_Client {
 	export interface Trust extends DemoWebApi_DemoData_Client.BizEntity {
 		trustee?: string | null;
 	}
-	export interface TrustFormProperties extends DemoWebApi_DemoData_Client.BizEntityFormProperties {
-		trustee: FormControl<string | null | undefined>,
-	}
 	export function CreateTrustFormGroup() {
-		return new FormGroup<TrustFormProperties>({
+		return new FormGroup({
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			id: new FormControl<string | null | undefined>(undefined),
 			name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
@@ -1834,10 +1768,8 @@ export namespace DemoWebApi_DemoDataEx_Client {
 		strings?: Array<string>;
 		trusts?: Array<DemoWebApi_DemoDataEx_Client.Trust>;
 	}
-	export interface ZListCheckFormProperties {
-	}
 	export function CreateZListCheckFormGroup() {
-		return new FormGroup<ZListCheckFormProperties>({
+		return new FormGroup({
 		});
 
 	}
@@ -1865,28 +1797,8 @@ export namespace DemoWebApi_DemoData_Another_Client {
 		 */
 		y?: number | null;
 	}
-
-	/**
-	 * 2D position
-	 * with X and Y
-	 * for Demo
-	 */
-	export interface MyPointFormProperties {
-
-		/**
-		 * X
-		 * Type: double
-		 */
-		x: FormControl<number | null | undefined>,
-
-		/**
-		 * Y
-		 * Type: double
-		 */
-		y: FormControl<number | null | undefined>,
-	}
 	export function CreateMyPointFormGroup() {
-		return new FormGroup<MyPointFormProperties>({
+		return new FormGroup({
 			x: new FormControl<number | null | undefined>(undefined),
 			y: new FormControl<number | null | undefined>(undefined),
 		});
@@ -1926,32 +1838,8 @@ export namespace DemoWebApi_DemoData_Base_Client {
 		 */
 		web?: string | null;
 	}
-
-	/**
-	 * Base class of company and person
-	 */
-	export interface EntityFormProperties {
-
-		/** Max length: 255 */
-		emailAddress: FormControl<string | null | undefined>,
-		id: FormControl<string | null | undefined>,
-
-		/**
-		 * Name of the entity.
-		 * Required. Null or empty is invalid.
-		 * Min length: 2
-		 * Max length: 255
-		 */
-		name: FormControl<string | null>,
-
-		/**
-		 * Type: Uri
-		 * Regex pattern: ^(https?:\\/\\/)?[da-z.-]+.[a-z.]\{2,6\}([\/\w .-]\*)\*\\/?$
-		 */
-		web: FormControl<string | null | undefined>,
-	}
 	export function CreateEntityFormGroup() {
-		return new FormGroup<EntityFormProperties>({
+		return new FormGroup({
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			id: new FormControl<string | null | undefined>(undefined),
 			name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
@@ -1992,32 +1880,8 @@ export namespace DemoWebApi_DemoData_Client {
 		 */
 		location?: DemoWebApi_DemoData_Another_Client.MyPoint;
 	}
-	export interface AddressFormProperties {
-
-		/** String length: inclusive between 2 and 50 */
-		city: FormControl<string | null | undefined>,
-
-		/** String length: inclusive between 2 and 30 */
-		country: FormControl<string | null | undefined>,
-
-		/** Type: GUID */
-		id: FormControl<string | null | undefined>,
-
-		/** String length: inclusive between 2 and 10 */
-		postalCode: FormControl<string | null | undefined>,
-
-		/** String length: inclusive between 2 and 30 */
-		state: FormControl<string | null | undefined>,
-
-		/** String length: inclusive between 2 and 100 */
-		street1: FormControl<string | null | undefined>,
-
-		/** Length min: 2, max: 100 */
-		street2: FormControl<string | null | undefined>,
-		type: FormControl<DemoWebApi_DemoData_Client.AddressType | null | undefined>,
-	}
 	export function CreateAddressFormGroup() {
-		return new FormGroup<AddressFormProperties>({
+		return new FormGroup({
 			city: new FormControl<string | null | undefined>(undefined, [Validators.minLength(2), Validators.maxLength(50)]),
 			country: new FormControl<string | null | undefined>(undefined, [Validators.minLength(2), Validators.maxLength(30)]),
 			id: new FormControl<string | null | undefined>(undefined),
@@ -2051,27 +1915,8 @@ export namespace DemoWebApi_DemoData_Client {
 		/** Type: ulong, 0 to 18,446,744,073,709,551,615 */
 		unsigned64?: string | null;
 	}
-
-	/**  */
-	export interface BigNumbersFormProperties {
-
-		/** Type: BigInteger */
-		bigInt: FormControl<string | null | undefined>,
-
-		/** Type: Int128, -170141183460469231731687303715884105728 to 170141183460469231731687303715884105727 */
-		signed128: FormControl<string | null | undefined>,
-
-		/** Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
-		signed64: FormControl<string | null | undefined>,
-
-		/** Type: UInt128, 0 to 340282366920938463463374607431768211455 */
-		unsigned128: FormControl<string | null | undefined>,
-
-		/** Type: ulong, 0 to 18,446,744,073,709,551,615 */
-		unsigned64: FormControl<string | null | undefined>,
-	}
 	export function CreateBigNumbersFormGroup() {
-		return new FormGroup<BigNumbersFormProperties>({
+		return new FormGroup({
 			bigInt: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^-?\d*$/)]),
 			signed128: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^-?\d{0,39}$/)]),
 			signed64: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^-?\d{0,19}$/)]),
@@ -2089,16 +1934,8 @@ export namespace DemoWebApi_DemoData_Client {
 		/** Type: DateOnly */
 		registerDate?: Date | null;
 	}
-	export interface BizEntityFormProperties extends DemoWebApi_DemoData_Base_Client.EntityFormProperties {
-
-		/** Data type: Date */
-		foundDate: FormControl<Date | null | undefined>,
-
-		/** Type: DateOnly */
-		registerDate: FormControl<Date | null | undefined>,
-	}
 	export function CreateBizEntityFormGroup() {
-		return new FormGroup<BizEntityFormProperties>({
+		return new FormGroup({
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			id: new FormControl<string | null | undefined>(undefined),
 			name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
@@ -2123,16 +1960,8 @@ export namespace DemoWebApi_DemoData_Client {
 		int2DJagged?: Array<Array<number>>;
 		lines?: Array<string>;
 	}
-	export interface CompanyFormProperties extends DemoWebApi_DemoData_Client.BizEntityFormProperties {
-
-		/**
-		 * BusinessNumber to be serialized as BusinessNum
-		 */
-		business_no: FormControl<string | null | undefined>,
-		businessNumberType: FormControl<string | null | undefined>,
-	}
 	export function CreateCompanyFormGroup() {
-		return new FormGroup<CompanyFormProperties>({
+		return new FormGroup({
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			id: new FormControl<string | null | undefined>(undefined),
 			name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
@@ -2176,25 +2005,8 @@ export namespace DemoWebApi_DemoData_Client {
 		requiredName: string;
 		text?: string | null;
 	}
-
-	/**
-	 * To test different serializations against Guid
-	 */
-	export interface IdMapFormProperties {
-
-		/** Type: GUID */
-		id: FormControl<string | null | undefined>,
-
-		/** Type: GUID */
-		idNotEmitDefaultValue: FormControl<string | null | undefined>,
-		nullableId: FormControl<string | null | undefined>,
-
-		/** Required. Null or empty is invalid. */
-		requiredName: FormControl<string | null>,
-		text: FormControl<string | null | undefined>,
-	}
 	export function CreateIdMapFormGroup() {
-		return new FormGroup<IdMapFormProperties>({
+		return new FormGroup({
 			id: new FormControl<string | null | undefined>(undefined),
 			idNotEmitDefaultValue: new FormControl<string | null | undefined>(undefined),
 			nullableId: new FormControl<string | null | undefined>(undefined),
@@ -2230,34 +2042,8 @@ export namespace DemoWebApi_DemoData_Client {
 		/** Type: ushort, 0 to 65,535 */
 		uShort?: number | null;
 	}
-	// export interface IntegralEntityFormProperties {
-
-	// 	/** Type: byte, 0 to 255 */
-	// 	byte: FormControl<number | null | undefined>,
-
-	// 	/** Type: int, -2,147,483,648 to 2,147,483,647 */
-	// 	int: FormControl<number | null | undefined>,
-
-	// 	/**
-	// 	 * Type: int
-	// 	 * Range: inclusive between -1000 and 1000000
-	// 	 */
-	// 	itemCount: FormControl<number | null | undefined>,
-
-	// 	/** Type: sbyte, -128 to 127 */
-	// 	sByte: FormControl<number | null | undefined>,
-
-	// 	/** Type: short, -32,768 to 32,767 */
-	// 	short: FormControl<number | null | undefined>,
-
-	// 	/** Type: uint, 0 to 4,294,967,295 */
-	// 	uInt: FormControl<number | null | undefined>,
-
-	// 	/** Type: ushort, 0 to 65,535 */
-	// 	uShort: FormControl<number | null | undefined>,
-	// }
 	export function CreateIntegralEntityFormGroup() {
-		return new FormGroup ({
+		return new FormGroup({
 			byte: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(255)]),
 			int: new FormControl<number | null | undefined>(undefined, [Validators.min(-2147483648), Validators.max(2147483647)]),
 			itemCount: new FormControl<number | null | undefined>(undefined, [Validators.min(-1000), Validators.max(1000000)]),
@@ -2297,32 +2083,8 @@ export namespace DemoWebApi_DemoData_Client {
 		/** @deprecated Just for testing */
 		tagForTest2?: string | null;
 	}
-
-	/** @deprecated Type with properties deprecated for testing */
-	export interface MimsPackageFormProperties {
-
-		/**
-		 * Type: int
-		 * Range: inclusive between 10 and 100
-		 */
-		kk: FormControl<number | null | undefined>,
-
-		/**
-		 * Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
-		 * and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
-		 * Type: int, -2,147,483,648 to 2,147,483,647
-		 */
-		kK2: FormControl<number | null | undefined>,
-		optionalEnum: FormControl<DemoWebApi_DemoData_Client.MyEnumType | null | undefined>,
-		optionalInt: FormControl<number | null | undefined>,
-		result: FormControl<DemoWebApi_DemoData_Client.MimsResult<number> | null | undefined>,
-		tag: FormControl<string | null | undefined>,
-
-		/** @deprecated Just for testing */
-		tagForTest2: FormControl<string | null | undefined>,
-	}
 	export function CreateMimsPackageFormGroup() {
-		return new FormGroup<MimsPackageFormProperties>({
+		return new FormGroup({
 			kk: new FormControl<number | null | undefined>(undefined, [Validators.min(10), Validators.max(100)]),
 			kK2: new FormControl<number | null | undefined>(undefined, [Validators.min(-2147483648), Validators.max(2147483647)]),
 			optionalEnum: new FormControl<DemoWebApi_DemoData_Client.MyEnumType | null | undefined>(undefined),
@@ -2362,27 +2124,6 @@ export namespace DemoWebApi_DemoData_Client {
 		 */
 		web?: string | null;
 	}
-	// export interface MixedDataEntityFormProperties extends DemoWebApi_DemoData_Client.IntegralEntityFormProperties {
-
-	// 	/** Type: DateOnly */
-	// 	dob: FormControl<Date | null | undefined>,
-
-	// 	/** Max length: 255 */
-	// 	emailAddress: FormControl<string | null | undefined>,
-
-	// 	/**
-	// 	 * Required. Null or empty is invalid.
-	// 	 * Min length: 2
-	// 	 * Max length: 255
-	// 	 */
-	// 	name: FormControl<string | null>,
-
-	// 	/**
-	// 	 * Type: Uri
-	// 	 * Regex pattern: ^(https?:\\/\\/)?[da-z.-]+.[a-z.]\{2,6\}([\/\w .-]\*)\*\\/?$
-	// 	 */
-	// 	web: FormControl<string | null | undefined>,
-	// }
 	export function CreateMixedDataEntityFormGroup() {
 		return new FormGroup({
 			byte: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(255)]),
@@ -2417,13 +2158,8 @@ export namespace DemoWebApi_DemoData_Client {
 		dic?: {[id: string]: DemoWebApi_DemoData_Client.Person };
 		intDic?: {[id: number]: string };
 	}
-	export interface MyPeopleDicFormProperties {
-		anotherDic: FormControl<{[id: string]: string } | null | undefined>,
-		dic: FormControl<{[id: string]: DemoWebApi_DemoData_Client.Person } | null | undefined>,
-		intDic: FormControl<{[id: number]: string } | null | undefined>,
-	}
 	export function CreateMyPeopleDicFormGroup() {
-		return new FormGroup<MyPeopleDicFormProperties>({
+		return new FormGroup({
 			anotherDic: new FormControl<{[id: string]: string } | null | undefined>(undefined),
 			dic: new FormControl<{[id: string]: DemoWebApi_DemoData_Client.Person } | null | undefined>(undefined),
 			intDic: new FormControl<{[id: number]: string } | null | undefined>(undefined),
@@ -2444,21 +2180,8 @@ export namespace DemoWebApi_DemoData_Client {
 		givenName?: string | null;
 		surname?: string | null;
 	}
-	export interface PersonFormProperties extends DemoWebApi_DemoData_Base_Client.EntityFormProperties {
-
-		/** Data type: Date */
-		baptised: FormControl<Date | null | undefined>,
-
-		/**
-		 * Date of Birth.
-		 * This is optional.
-		 */
-		dob: FormControl<Date | null | undefined>,
-		givenName: FormControl<string | null | undefined>,
-		surname: FormControl<string | null | undefined>,
-	}
 	export function CreatePersonFormGroup() {
-		return new FormGroup<PersonFormProperties>({
+		return new FormGroup({
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			id: new FormControl<string | null | undefined>(undefined),
 			name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
@@ -2477,14 +2200,8 @@ export namespace DemoWebApi_DemoData_Client {
 		fullNumber?: string | null;
 		phoneType?: DemoWebApi_DemoData_Client.PhoneType | null;
 	}
-	export interface PhoneNumberFormProperties {
-
-		/** Max length: 120 */
-		fullNumber: FormControl<string | null | undefined>,
-		phoneType: FormControl<DemoWebApi_DemoData_Client.PhoneType | null | undefined>,
-	}
 	export function CreatePhoneNumberFormGroup() {
-		return new FormGroup<PhoneNumberFormProperties>({
+		return new FormGroup({
 			fullNumber: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(120)]),
 			phoneType: new FormControl<DemoWebApi_DemoData_Client.PhoneType | null | undefined>(undefined),
 		});
@@ -2519,13 +2236,8 @@ export namespace DemoWebApi_Models_Client {
 		/** Required. Null or empty is invalid. */
 		externalAccessToken: string;
 	}
-	export interface AddExternalLoginBindingModelFormProperties {
-
-		/** Required. Null or empty is invalid. */
-		externalAccessToken: FormControl<string | null>,
-	}
 	export function CreateAddExternalLoginBindingModelFormGroup() {
-		return new FormGroup<AddExternalLoginBindingModelFormProperties>({
+		return new FormGroup({
 			externalAccessToken: new FormControl<string | null>(null, [Validators.required]),
 		});
 
@@ -2549,26 +2261,8 @@ export namespace DemoWebApi_Models_Client {
 		 */
 		OldPwd: string | null;
 	}
-	export interface ChangePasswordBindingModelFormProperties {
-
-		/** Data type: Password */
-		confirmPassword: FormControl<string | null | undefined>,
-
-		/**
-		 * Required. Null or empty is invalid.
-		 * String length: inclusive between 6 and 100
-		 * Data type: Password
-		 */
-		newPassword: FormControl<string | null>,
-
-		/**
-		 * JSON Required. Null or empty may be fine.
-		 * Data type: Password
-		 */
-		OldPwd: FormControl<string | null>,
-	}
 	export function CreateChangePasswordBindingModelFormGroup() {
-		return new FormGroup<ChangePasswordBindingModelFormProperties>({
+		return new FormGroup({
 			confirmPassword: new FormControl<string | null | undefined>(undefined),
 			newPassword: new FormControl<string | null>(null, [Validators.required, Validators.minLength(6), Validators.maxLength(100)]),
 			OldPwd: new FormControl<string | null>(null),
@@ -2591,23 +2285,8 @@ export namespace DemoWebApi_Models_Client {
 		 */
 		password: string;
 	}
-	export interface RegisterBindingModelFormProperties {
-
-		/** Data type: Password */
-		confirmPassword: FormControl<string | null | undefined>,
-
-		/** Required. Null or empty is invalid. */
-		email: FormControl<string | null>,
-
-		/**
-		 * Required. Null or empty is invalid.
-		 * String length: inclusive between 6 and 100
-		 * Data type: Password
-		 */
-		password: FormControl<string | null>,
-	}
 	export function CreateRegisterBindingModelFormGroup() {
-		return new FormGroup<RegisterBindingModelFormProperties>({
+		return new FormGroup({
 			confirmPassword: new FormControl<string | null | undefined>(undefined),
 			email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
 			password: new FormControl<string | null>(null, [Validators.required, Validators.minLength(6), Validators.maxLength(100)]),
@@ -2620,13 +2299,8 @@ export namespace DemoWebApi_Models_Client {
 		/** Required. Null or empty is invalid. */
 		email: string;
 	}
-	export interface RegisterExternalBindingModelFormProperties {
-
-		/** Required. Null or empty is invalid. */
-		email: FormControl<string | null>,
-	}
 	export function CreateRegisterExternalBindingModelFormGroup() {
-		return new FormGroup<RegisterExternalBindingModelFormProperties>({
+		return new FormGroup({
 			email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
 		});
 
@@ -2640,16 +2314,8 @@ export namespace DemoWebApi_Models_Client {
 		/** Required. Null or empty is invalid. */
 		providerKey: string;
 	}
-	export interface RemoveLoginBindingModelFormProperties {
-
-		/** Required. Null or empty is invalid. */
-		loginProvider: FormControl<string | null>,
-
-		/** Required. Null or empty is invalid. */
-		providerKey: FormControl<string | null>,
-	}
 	export function CreateRemoveLoginBindingModelFormGroup() {
-		return new FormGroup<RemoveLoginBindingModelFormProperties>({
+		return new FormGroup({
 			loginProvider: new FormControl<string | null>(null, [Validators.required]),
 			providerKey: new FormControl<string | null>(null, [Validators.required]),
 		});
@@ -2668,20 +2334,8 @@ export namespace DemoWebApi_Models_Client {
 		 */
 		newPassword: string;
 	}
-	export interface SetPasswordBindingModelFormProperties {
-
-		/** Data type: Password */
-		confirmPassword: FormControl<string | null | undefined>,
-
-		/**
-		 * Required. Null or empty is invalid.
-		 * String length: inclusive between 6 and 100
-		 * Data type: Password
-		 */
-		newPassword: FormControl<string | null>,
-	}
 	export function CreateSetPasswordBindingModelFormGroup() {
-		return new FormGroup<SetPasswordBindingModelFormProperties>({
+		return new FormGroup({
 			confirmPassword: new FormControl<string | null | undefined>(undefined),
 			newPassword: new FormControl<string | null>(null, [Validators.required, Validators.minLength(6), Validators.maxLength(100)]),
 		});
@@ -2702,22 +2356,8 @@ export namespace DemoWebApi_Models_Client {
 		token_type?: string | null;
 		username?: string | null;
 	}
-
-	/**
-	 * Auth token
-	 */
-	export interface TokenResponseModelFormProperties {
-		access_token: FormControl<string | null | undefined>,
-		expires: FormControl<string | null | undefined>,
-
-		/** Type: int, -2,147,483,648 to 2,147,483,647 */
-		expires_in: FormControl<number | null | undefined>,
-		issued: FormControl<string | null | undefined>,
-		token_type: FormControl<string | null | undefined>,
-		username: FormControl<string | null | undefined>,
-	}
 	export function CreateTokenResponseModelFormGroup() {
-		return new FormGroup<TokenResponseModelFormProperties>({
+		return new FormGroup({
 			access_token: new FormControl<string | null | undefined>(undefined),
 			expires: new FormControl<string | null | undefined>(undefined),
 			expires_in: new FormControl<number | null | undefined>(undefined, [Validators.min(-2147483648), Validators.max(2147483647)]),

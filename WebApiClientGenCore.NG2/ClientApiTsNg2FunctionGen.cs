@@ -114,7 +114,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			string uriText = GetFullUriText();
 
-			if (ReturnType != null && TypeHelper.IsStringType(ReturnType) && this.StringAsString)//stringAsString is for .NET Core Web API
+			if (ReturnType != null && TypeHelper.IsStringType(ReturnType))
 			{
 				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{

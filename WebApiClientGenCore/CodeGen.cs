@@ -52,7 +52,6 @@ namespace Fonlow.CodeDom.Web
 						JSPath = CreateTsPath(plugin.TargetDir, plugin.TSFile, webRootPath),
 						AsModule = plugin.AsModule,
 						ContentType = plugin.ContentType,
-						StringAsString = settings.ClientApiOutputs.StringAsString,
 
 						ApiSelections = settings.ApiSelections,
 						ClientNamespaceSuffix = plugin.ClientNamespaceSuffix,

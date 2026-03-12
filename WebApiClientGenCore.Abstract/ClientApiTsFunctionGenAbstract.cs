@@ -25,7 +25,6 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected Type ReturnType { get; private set; }
 		protected CodeMemberMethod Method { get; private set; }
 		protected IPoco2Client Poco2TsGen { get; private set; }
-		protected bool StringAsString { get; private set; }
 		protected bool StrictMode { get; private set; }
 		protected string HttpMethodName { get; private set; }
 		protected bool ReturnTypeIsNullable { get; private set; }
@@ -68,7 +67,6 @@ namespace Fonlow.CodeDom.Web.Ts
 			this.Poco2TsGen = poco2TsGen;
 			this.poco2CsGen = poco2CsGen;
 			this.jsOutput = jsOutput;
-			this.StringAsString = jsOutput.StringAsString;
 			this.StrictMode = jsOutput.HelpStrictMode;
 
 			HttpMethodName = Description.HttpMethod.ToLower(CultureInfo.CurrentCulture); //Method is always uppercase. 

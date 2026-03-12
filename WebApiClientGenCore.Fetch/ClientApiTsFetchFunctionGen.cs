@@ -72,9 +72,9 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override void RenderImplementation()
 		{
-			const string returnNullOrText = "{if (d.status<=204) return d.status == 204 ? null : d.text(); throw d;}";
-			const string returnBolb = "{if (d.status<=202) return d.blob(); else if (d.status==204) return null; throw d;}";
-			const string returnJson = "{if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;}";
+			const string returnNullOrText = "{if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d;}";
+			const string returnBolb = "{if (d.status <= 202) return d.blob(); else if (d.status == 204) return null; throw d;}";
+			const string returnJson = "{if (d.status <= 202) return d.json(); else if (d.status == 204) return null; throw d;}";
 
 			string GetContentOptionsForString(string dataToPost)
 			{
@@ -112,7 +112,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			string uriText = GetFullUriText();
 
-			if (ReturnType != null && TypeHelper.IsStringType(ReturnType) && this.StringAsString)//stringAsString is for .NET Core Web API
+			if (ReturnType != null && TypeHelper.IsStringType(ReturnType))
 			{
 				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{

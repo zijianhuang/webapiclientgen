@@ -31,7 +31,6 @@ namespace Fonlow.CodeDom.Web.Cs
 		CodeMemberMethod clientMethod;
 		readonly Poco2Client.Poco2CsGen poco2CsGen;
 		readonly bool forAsync;
-		readonly bool stringAsString;
 		readonly string statementOfEnsureSuccessStatusCode;
 		readonly CodeGenOutputs codeGenOutputsSettings;
 		readonly System.Reflection.ParameterInfo[] parameterInfoArray;
@@ -45,7 +44,6 @@ namespace Fonlow.CodeDom.Web.Cs
 			this.poco2CsGen = poco2CsGen;
 			this.codeGenOutputsSettings = codeGenSettings.ClientApiOutputs;
 			this.forAsync = forAsync;
-			this.stringAsString = codeGenOutputsSettings.StringAsString;
 			statementOfEnsureSuccessStatusCode = codeGenOutputsSettings.UseEnsureSuccessStatusCodeEx ? "EnsureSuccessStatusCodeEx" : "EnsureSuccessStatusCode";
 			methodName = webApiDescription.ActionDescriptor.ActionName;
 			if (methodName.EndsWith("Async", StringComparison.Ordinal))
@@ -615,12 +613,12 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			if (returnType != null && TypeHelper.IsStringType(returnType))
 			{
-				if (this.stringAsString)
+				if (true)
 				{
 					statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);"));
 					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("streamReader.ReadToEnd();")));
 				}
-				else
+				else //check [Produces("application/json")] on controller. #70
 				{
 					if (codeGenOutputsSettings.UseSystemTextJson)
 					{

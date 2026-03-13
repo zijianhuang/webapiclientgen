@@ -72,11 +72,13 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override void RenderImplementation()
 		{
-			const string returnNullOrText = "{if (d.status <= 203) return d.status == 204 ? null : d.text(); throw d;}";
+			const string returnNullOrText = "{if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d;}";
+			const string returnNullOrBlob = "{if (d.status <= 204) return d.status == 204 ? null : d.blob(); throw d;}";
+			const string returnNullOrJson = "{if (d.status <= 204) return d.status == 204 ? null : d.json(); throw d;}";
+
 			const string returnText = "{if (d.status <= 203) return d.text(); throw d;}";
-			const string returnNullOrBolb = "{if (d.status <= 203) return d.blob(); else if (d.status == 204) return null; throw d;}";
-			const string returnBolb = "{if (d.status <= 203) return d.blob(); throw d;}";
-			const string returnJson = "{if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;}";
+			const string returnBlob = "{if (d.status <= 203) return d.blob(); throw d;}";
+			const string returnJson = "{if (d.status <= 203) return d.json(); throw d;}";
 
 			string GetContentOptionsForString(string dataToPost)
 			{
@@ -109,7 +111,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			if (handleHttpRequestHeaders)
 			{
 				Method.Parameters.Add(new CodeParameterDeclarationExpression(
-					"() => {[header: string]: string}", "headersHandler?"));
+					"() => { [header: string]: string }", "headersHandler?"));
 			}
 
 			string uriText = GetFullUriText();
@@ -141,7 +143,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else if (returnTypeText == FetchtHttpBlobResponse)//translated from blobresponse to this
 			{
-				var s = ReturnTypeIsNullable ? returnNullOrBolb : returnBolb;
+				var s = ReturnTypeIsNullable ? returnNullOrBlob : returnBlob;
 				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{
 					Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForString}).then(d => {s});")); //todo: type cast is not really needed.
@@ -191,6 +193,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else
 			{
+				var s = ReturnTypeIsNullable ? returnNullOrJson : returnJson;
 				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{
 					if (returnTypeText == null)
@@ -199,7 +202,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {Options}).then(d => {returnJson});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {Options}).then(d => {s});"));
 					}
 				}
 				else if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
@@ -221,12 +224,12 @@ namespace Fonlow.CodeDom.Web.Ts
 					{
 						if (dataToPost == "null")
 						{
-							Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {Options}).then(d => {returnJson});"));
+							Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {Options}).then(d => {s});"));
 						}
 						else
 						{
 							string contentOptions = GetOptionsWithContent(dataToPost);
-							Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {contentOptions}).then(d => {returnJson});"));
+							Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {contentOptions}).then(d => {s});"));
 						}
 					}
 				}

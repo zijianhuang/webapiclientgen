@@ -113,7 +113,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			if (handleHttpRequestHeaders)
 			{
 				Method.Parameters.Add(new CodeParameterDeclarationExpression(
-					"() => {[header: string]: string}", "headersHandler?"));
+					"() => { [header: string]: string }", "headersHandler?"));
 			}
 
 			string uriText = GetFullUriText();

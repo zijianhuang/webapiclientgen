@@ -61,30 +61,30 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/DateTypes/GetDateOnlyMin
 		 * @return {Date} Type: DateOnly
 		 */
-		getDateOnlyMin(headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/DateTypes/GetDateOnlyMin', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getDateOnlyMin(headersHandler?: () => { [header: string]: string }): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/GetDateOnlyMin', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/DateTypes/NullableDatetime/{hasValue}
 		 */
-		getDateTime(hasValue?: boolean | null, headersHandler?: () => {[header: string]: string}): Promise<Date | null> {
-			return fetch(this.baseUri + 'api/DateTypes/NullableDatetime/' + hasValue, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getDateTime(hasValue?: boolean | null, headersHandler?: () => { [header: string]: string }): Promise<Date | null> {
+			return fetch(this.baseUri + 'api/DateTypes/NullableDatetime/' + hasValue, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * return DateTimeOffset.Now
 		 * GET api/DateTypes/ForDateTimeOffset
 		 */
-		getDateTimeOffset(headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/DateTypes/ForDateTimeOffset', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getDateTimeOffset(headersHandler?: () => { [header: string]: string }): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/ForDateTimeOffset', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/DateTypes/NextHour/{dt}
 		 */
-		getNextHour(dt?: Date | null, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/DateTypes/NextHour/' + dt?.toISOString(), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getNextHour(dt?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/NextHour/' + dt?.toISOString(), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -92,15 +92,15 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/DateTypes/NextHourNullable?n={n}&dt={dt}
 		 * @param {number} n Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		getNextHourNullable(n?: number | null, dt?: Date | null, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/DateTypes/NextHourNullable?n=' + n + (dt ? '&dt=' + dt?.toISOString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getNextHourNullable(n?: number | null, dt?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/NextHourNullable?n=' + n + (dt ? '&dt=' + dt?.toISOString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/DateTypes/NextYear/{dt}
 		 */
-		getNextYear(dt?: Date | null, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/DateTypes/NextYear/' + dt?.toISOString(), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getNextYear(dt?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/NextYear/' + dt?.toISOString(), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -108,23 +108,23 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/DateTypes/NextYearNullable?n={n}&dt={dt}
 		 * @param {number} n Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		getNextYearNullable(n?: number | null, dt?: Date | null, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/DateTypes/NextYearNullable?n=' + n + (dt ? '&dt=' + dt?.toISOString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getNextYearNullable(n?: number | null, dt?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/NextYearNullable?n=' + n + (dt ? '&dt=' + dt?.toISOString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * Client should send DateTime.Date
 		 * POST api/DateTypes/IsDateTimeDate
 		 */
-		isDateTimeDate(dt?: Date | null, headersHandler?: () => {[header: string]: string}): Promise<{item1: Date, item2: Date}> {
-			return fetch(this.baseUri + 'api/DateTypes/IsDateTimeDate', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(dt) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		isDateTimeDate(dt?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<{item1: Date, item2: Date}> {
+			return fetch(this.baseUri + 'api/DateTypes/IsDateTimeDate', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(dt) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/DateTypes/IsDateTimeOffsetDate
 		 */
-		isDateTimeOffsetDate(dt?: Date | null, headersHandler?: () => {[header: string]: string}): Promise<{item1: Date, item2: Date}> {
-			return fetch(this.baseUri + 'api/DateTypes/IsDateTimeOffsetDate', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(dt) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		isDateTimeOffsetDate(dt?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<{item1: Date, item2: Date}> {
+			return fetch(this.baseUri + 'api/DateTypes/IsDateTimeOffsetDate', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(dt) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -132,51 +132,51 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {Date} d Type: DateOnly
 		 * @return {Date} Type: DateOnly
 		 */
-		postDateOnly(d?: Date | null, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/DateTypes/ForDateOnly', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postDateOnly(d?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/ForDateOnly', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/DateTypes/DateOnlyNullable
 		 */
-		postDateOnlyNullable(d?: Date | null, headersHandler?: () => {[header: string]: string}): Promise<Date | null> {
-			return fetch(this.baseUri + 'api/DateTypes/DateOnlyNullable', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postDateOnlyNullable(d?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Date | null> {
+			return fetch(this.baseUri + 'api/DateTypes/DateOnlyNullable', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 204) return d.status == 204 ? null : d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/DateTypes/ForDateTime
 		 */
-		postDateTime(d?: Date | null, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/DateTypes/ForDateTime', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postDateTime(d?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/ForDateTime', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/DateTypes/DateTimeNullable
 		 */
-		postDateTimeNullable(d?: Date | null, headersHandler?: () => {[header: string]: string}): Promise<Date | null> {
-			return fetch(this.baseUri + 'api/DateTypes/DateTimeNullable', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postDateTimeNullable(d?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Date | null> {
+			return fetch(this.baseUri + 'api/DateTypes/DateTimeNullable', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 204) return d.status == 204 ? null : d.json(); throw d;});
 		}
 
 		/**
 		 * return d;
 		 * POST api/DateTypes/ForDateTimeOffset
 		 */
-		postDateTimeOffset(d?: Date | null, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/DateTypes/ForDateTimeOffset', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postDateTimeOffset(d?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/ForDateTimeOffset', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * return d.ToString("O")
 		 * POST api/DateTypes/ForDateTimeOffsetForO
 		 */
-		postDateTimeOffsetForO(d?: Date | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		postDateTimeOffsetForO(d?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/DateTypes/ForDateTimeOffsetForO', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
 		/**
 		 * POST api/DateTypes/ForDateTimeOffsetForOffset
 		 */
-		postDateTimeOffsetForOffset(d?: Date | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		postDateTimeOffsetForOffset(d?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
 			return fetch(this.baseUri + 'api/DateTypes/ForDateTimeOffsetForOffset', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) });
 		}
 
@@ -184,37 +184,37 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Returned is DateTimeOffset?
 		 * POST api/DateTypes/DateTimeOffsetNullable
 		 */
-		postDateTimeOffsetNullable(d?: Date | null, headersHandler?: () => {[header: string]: string}): Promise<Date | null> {
-			return fetch(this.baseUri + 'api/DateTypes/DateTimeOffsetNullable', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postDateTimeOffsetNullable(d?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Date | null> {
+			return fetch(this.baseUri + 'api/DateTypes/DateTimeOffsetNullable', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 204) return d.status == 204 ? null : d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/DateTypes/ForDateTimeOffsetStringForOffset
 		 */
-		postDateTimeOffsetStringForOffset(s?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		postDateTimeOffsetStringForOffset(s?: string | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
 			return fetch(this.baseUri + 'api/DateTypes/ForDateTimeOffsetStringForOffset', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(s) });
 		}
 
 		/**
 		 * POST api/DateTypes/NextYear
 		 */
-		postNextYear(dt?: Date | null, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/DateTypes/NextYear', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(dt) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postNextYear(dt?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/NextYear', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(dt) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/DateTypes/DateOnlyStringQuery?d={d}
 		 * @return {Date} Type: DateOnly
 		 */
-		queryDateOnlyAsString(d?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/DateTypes/DateOnlyStringQuery?d=' + (!d ? '' : encodeURIComponent(d)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		queryDateOnlyAsString(d?: string | null, headersHandler?: () => { [header: string]: string }): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/DateOnlyStringQuery?d=' + (!d ? '' : encodeURIComponent(d)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/DateTypes/RouteDateTimeOffset/{d}
 		 */
-		routeDateTimeOffset(d?: Date | null, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/DateTypes/RouteDateTimeOffset/' + d?.toISOString(), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		routeDateTimeOffset(d?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/RouteDateTimeOffset/' + d?.toISOString(), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -223,8 +223,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {Date | null} startDate DateTime? startDate = null
 		 * @param {Date | null} endDate DateTime? endDate = null
 		 */
-		searchDateRange(startDate?: Date | null, endDate?: Date | null, headersHandler?: () => {[header: string]: string}): Promise<{item1: Date | null, item2: Date | null}> {
-			return fetch(this.baseUri + 'api/DateTypes/SearchDateRange?' + (startDate ? 'startDate=' + startDate?.toISOString() : '') + (endDate ? '&endDate=' + endDate?.toISOString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		searchDateRange(startDate?: Date | null, endDate?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<{item1: Date | null, item2: Date | null}> {
+			return fetch(this.baseUri + 'api/DateTypes/SearchDateRange?' + (startDate ? 'startDate=' + startDate?.toISOString() : '') + (endDate ? '&endDate=' + endDate?.toISOString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 	}
 
@@ -240,69 +240,69 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * POST api/Entities/createCompany
 		 */
-		createCompany(p?: DemoWebApi_DemoData_Client.Company | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Company> {
-			return fetch(this.baseUri + 'api/Entities/createCompany', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		createCompany(p?: DemoWebApi_DemoData_Client.Company | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Company> {
+			return fetch(this.baseUri + 'api/Entities/createCompany', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Entities/createPerson
 		 * @return {string} Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */
-		createPerson(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/Entities/createPerson', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		createPerson(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
+			return fetch(this.baseUri + 'api/Entities/createPerson', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Entities/createPerson2
 		 */
-		createPerson2(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
-			return fetch(this.baseUri + 'api/Entities/createPerson2', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		createPerson2(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Entities/createPerson2', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Entities/createPerson3
 		 */
-		createPerson3(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
-			return fetch(this.baseUri + 'api/Entities/createPerson3', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		createPerson3(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Entities/createPerson3', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Entities/createPersonByAdmin
 		 * Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
 		 */
-		createPersonByAdmin(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
-			return fetch(this.baseUri + 'api/Entities/createPersonByAdmin', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		createPersonByAdmin(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Entities/createPersonByAdmin', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Entities/createPersonWeak
 		 * Status Codes: 404:NotFound, 204:NoContent, 200:OK : DemoWebApi.DemoData.Person
 		 */
-		createPersonWeak(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
-			return fetch(this.baseUri + 'api/Entities/createPersonWeak', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		createPersonWeak(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Entities/createPersonWeak', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Entities/createPersonWithNotFound
 		 * Status Codes: 404:NotFound
 		 */
-		createPersonWithNotFound(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
-			return fetch(this.baseUri + 'api/Entities/createPersonWithNotFound', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		createPersonWithNotFound(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Entities/createPersonWithNotFound', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Entities/createPersonWithStatuses
 		 * Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
 		 */
-		createPersonWithStatuses(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
-			return fetch(this.baseUri + 'api/Entities/createPersonWithStatuses', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		createPersonWithStatuses(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Entities/createPersonWithStatuses', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * DELETE api/Entities/{id}
 		 * @param {string} id Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */
-		delete(id?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		delete(id?: string | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
 			return fetch(this.baseUri + 'api/Entities/' + id, { method: 'delete', headers: headersHandler ? headersHandler() : undefined });
 		}
 
@@ -310,46 +310,46 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/Entities/Company/{id}
 		 * @param {string} id Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */
-		getCompany(id?: string | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Company> {
-			return fetch(this.baseUri + 'api/Entities/Company/' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getCompany(id?: string | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Company> {
+			return fetch(this.baseUri + 'api/Entities/Company/' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Entities/Mims
 		 */
-		getMims(p?: DemoWebApi_DemoData_Client.MimsPackage | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.MimsResult<string>> {
-			return fetch(this.baseUri + 'api/Entities/Mims', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getMims(p?: DemoWebApi_DemoData_Client.MimsPackage | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.MimsResult<string>> {
+			return fetch(this.baseUri + 'api/Entities/Mims', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * Post MyGeneric string, decimal, double
 		 * POST api/Entities/MyGeneric
 		 */
-		getMyGeneric(s?: DemoWebApi_DemoData_Client.MyGeneric<string, number, number> | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.MyGeneric<string, number, number>> {
-			return fetch(this.baseUri + 'api/Entities/MyGeneric', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(s) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getMyGeneric(s?: DemoWebApi_DemoData_Client.MyGeneric<string, number, number> | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.MyGeneric<string, number, number>> {
+			return fetch(this.baseUri + 'api/Entities/MyGeneric', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(s) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * Post MyGeneric string, decimal, Person
 		 * POST api/Entities/MyGenericPerson
 		 */
-		getMyGenericPerson(s?: DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>> {
-			return fetch(this.baseUri + 'api/Entities/MyGenericPerson', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(s) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getMyGenericPerson(s?: DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>> {
+			return fetch(this.baseUri + 'api/Entities/MyGenericPerson', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(s) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * Return empty body, status 204. MaybeNull
 		 * GET api/Entities/NullCompany
 		 */
-		getNullCompany(headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Company | null> {
-			return fetch(this.baseUri + 'api/Entities/NullCompany', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getNullCompany(headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Company | null> {
+			return fetch(this.baseUri + 'api/Entities/NullCompany', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 204) return d.status == 204 ? null : d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/Entities/NullPerson
 		 */
-		getNullPerson(headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person | null> {
-			return fetch(this.baseUri + 'api/Entities/NullPerson', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getNullPerson(headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person | null> {
+			return fetch(this.baseUri + 'api/Entities/NullPerson', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 204) return d.status == 204 ? null : d.json(); throw d;});
 		}
 
 		/**
@@ -359,52 +359,52 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {string} id unique id of that guy
 		 * @return {DemoWebApi_DemoData_Client.Person} person in db
 		 */
-		getPerson(id?: string | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
-			return fetch(this.baseUri + 'api/Entities/getPerson/' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getPerson(id?: string | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Entities/getPerson/' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/Entities/getPerson2/{id}
 		 * @param {string} id Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */
-		getPerson2(id?: string | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
-			return fetch(this.baseUri + 'api/Entities/getPerson2/' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getPerson2(id?: string | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Entities/getPerson2/' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * PUT api/Entities/link?id={id}&relationship={relationship}
 		 * @param {string} id Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */
-		linkPerson(id?: string | null, relationship?: string | null, person?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<boolean> {
-			return fetch(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + (!relationship ? '' : encodeURIComponent(relationship)), { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(person) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		linkPerson(id?: string | null, relationship?: string | null, person?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<boolean> {
+			return fetch(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + (!relationship ? '' : encodeURIComponent(relationship)), { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(person) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH
 		 * PATCH api/Entities/patchPerson
 		 */
-		patchPerson(person?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		patchPerson(person?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Entities/patchPerson', { method: 'patch', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(person) }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
 		/**
 		 * POST api/Entities/IdMap
 		 */
-		postIdMap(idMap?: DemoWebApi_DemoData_Client.IdMap | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.IdMap> {
-			return fetch(this.baseUri + 'api/Entities/IdMap', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(idMap) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postIdMap(idMap?: DemoWebApi_DemoData_Client.IdMap | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.IdMap> {
+			return fetch(this.baseUri + 'api/Entities/IdMap', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(idMap) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Entities/MixedDataEntity
 		 */
-		postMixedDataEntity(entity?: DemoWebApi_DemoData_Client.MixedDataEntity | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.MixedDataEntity> {
-			return fetch(this.baseUri + 'api/Entities/MixedDataEntity', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(entity) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postMixedDataEntity(entity?: DemoWebApi_DemoData_Client.MixedDataEntity | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.MixedDataEntity> {
+			return fetch(this.baseUri + 'api/Entities/MixedDataEntity', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(entity) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * PUT api/Entities/updatePerson
 		 */
-		updatePerson(person?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		updatePerson(person?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Entities/updatePerson', { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(person) }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 	}
@@ -421,15 +421,15 @@ export namespace DemoWebApi_Controllers_Client {
 		 * DELETE api/Heroes/{id}
 		 * @param {string} id Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */
-		delete(id?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		delete(id?: string | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
 			return fetch(this.baseUri + 'api/Heroes/' + id, { method: 'delete', headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/Heroes/asyncHeroes
 		 */
-		getAsyncHeroes(headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
-			return fetch(this.baseUri + 'api/Heroes/asyncHeroes', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getAsyncHeroes(headersHandler?: () => { [header: string]: string }): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
+			return fetch(this.baseUri + 'api/Heroes/asyncHeroes', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -437,16 +437,16 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/Heroes/{id}
 		 * @param {string} id Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */
-		getHero(id?: string | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.Hero | null> {
-			return fetch(this.baseUri + 'api/Heroes/' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getHero(id?: string | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_Controllers_Client.Hero | null> {
+			return fetch(this.baseUri + 'api/Heroes/' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 204) return d.status == 204 ? null : d.json(); throw d;});
 		}
 
 		/**
 		 * Get all heroes.
 		 * GET api/Heroes
 		 */
-		getHeroes(headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
-			return fetch(this.baseUri + 'api/Heroes', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getHeroes(headersHandler?: () => { [header: string]: string }): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
+			return fetch(this.baseUri + 'api/Heroes', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -454,15 +454,15 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/Heroes/super?id={id}
 		 * @param {string} id Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */
-		getSuperHero(id?: string | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.SuperHero | null> {
-			return fetch(this.baseUri + 'api/Heroes/super?id=' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getSuperHero(id?: string | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_Controllers_Client.SuperHero | null> {
+			return fetch(this.baseUri + 'api/Heroes/super?id=' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 204) return d.status == 204 ? null : d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Heroes
 		 */
-		post(name?: string | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.Hero> {
-			return fetch(this.baseUri + 'api/Heroes', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(name) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		post(name?: string | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_Controllers_Client.Hero> {
+			return fetch(this.baseUri + 'api/Heroes', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(name) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -471,16 +471,16 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {string} name name of hero
 		 * @return {DemoWebApi_Controllers_Client.Hero} Always object.
 		 */
-		postWithQuery(name?: string | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.Hero> {
-			return fetch(this.baseUri + 'api/Heroes/q?name=' + (!name ? '' : encodeURIComponent(name)), { method: 'post', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postWithQuery(name?: string | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_Controllers_Client.Hero> {
+			return fetch(this.baseUri + 'api/Heroes/q?name=' + (!name ? '' : encodeURIComponent(name)), { method: 'post', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * Update hero.
 		 * PUT api/Heroes
 		 */
-		put(hero?: DemoWebApi_Controllers_Client.Hero | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.Hero> {
-			return fetch(this.baseUri + 'api/Heroes', { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(hero) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		put(hero?: DemoWebApi_Controllers_Client.Hero | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_Controllers_Client.Hero> {
+			return fetch(this.baseUri + 'api/Heroes', { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(hero) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -489,8 +489,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {string} name keyword contained in hero name.
 		 * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
 		 */
-		search(name?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
-			return fetch(this.baseUri + 'api/Heroes/search/' + (!name ? '' : encodeURIComponent(name)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		search(name?: string | null, headersHandler?: () => { [header: string]: string }): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
+			return fetch(this.baseUri + 'api/Heroes/search/' + (!name ? '' : encodeURIComponent(name)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 	}
 
@@ -507,8 +507,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {number} d Type: byte, 0 to 255
 		 * @return {number} Type: byte, 0 to 255
 		 */
-		getByte(d?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/Numbers/byte?d=' + d, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getByte(d?: number | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/Numbers/byte?d=' + d, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -516,15 +516,15 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {number} d Byte for small number.
 		 * @return {number} Type: byte, 0 to 255
 		 */
-		getByteWithRange(d?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/Numbers/byteWithRange?d=' + d, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getByteWithRange(d?: number | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/Numbers/byteWithRange?d=' + d, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/Numbers/NullableInt?num={num}
 		 */
-		getNullableNumber(num?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number | null> {
-			return fetch(this.baseUri + 'api/Numbers/NullableInt?' + (num || num == 0  ? 'num=' + num.toString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getNullableNumber(num?: number | null, headersHandler?: () => { [header: string]: string }): Promise<number | null> {
+			return fetch(this.baseUri + 'api/Numbers/NullableInt?' + (num || num == 0  ? 'num=' + num.toString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 204) return d.status == 204 ? null : d.json(); throw d;});
 		}
 
 		/**
@@ -532,8 +532,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {number} d Type: byte, 0 to 255
 		 * @return {number} Type: byte, 0 to 255
 		 */
-		postByDOfByte(d?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/Numbers/byte', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postByDOfByte(d?: number | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/Numbers/byte', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -541,8 +541,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {number} d Type: sbyte, -128 to 127
 		 * @return {number} Type: sbyte, -128 to 127
 		 */
-		postByDOfSByte(d?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/Numbers/sbyte', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postByDOfSByte(d?: number | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/Numbers/sbyte', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -550,8 +550,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {number} d Type: short, -32,768 to 32,767
 		 * @return {number} Type: short, -32,768 to 32,767
 		 */
-		postByDOfInt16(d?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/Numbers/short', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postByDOfInt16(d?: number | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/Numbers/short', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -559,8 +559,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {number} d Type: ushort, 0 to 65,535
 		 * @return {number} Type: ushort, 0 to 65,535
 		 */
-		postByDOfUInt16(d?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/Numbers/ushort', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postByDOfUInt16(d?: number | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/Numbers/ushort', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -568,8 +568,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {number} d Type: int, -2,147,483,648 to 2,147,483,647
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		postByDOfInt32(d?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/Numbers/int', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postByDOfInt32(d?: number | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/Numbers/int', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -577,8 +577,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {string} d Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 * @return {string} Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */
-		postByDOfInt64(d?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/Numbers/long', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postByDOfInt64(d?: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
+			return fetch(this.baseUri + 'api/Numbers/long', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -586,8 +586,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {string} d Type: ulong, 0 to 18,446,744,073,709,551,615
 		 * @return {string} Type: ulong, 0 to 18,446,744,073,709,551,615
 		 */
-		postByDOfUInt64(d?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/Numbers/ulong', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postByDOfUInt64(d?: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
+			return fetch(this.baseUri + 'api/Numbers/ulong', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -595,22 +595,22 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {string} bigInteger Type: BigInteger
 		 * @return {string} Type: BigInteger
 		 */
-		postBigInteger(bigInteger?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/Numbers/bigInteger', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(bigInteger) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postBigInteger(bigInteger?: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
+			return fetch(this.baseUri + 'api/Numbers/bigInteger', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(bigInteger) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Numbers/bigIntegralAsStringForJs
 		 */
-		postBigIntegralAsStringForJs(bigIntegral?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		postBigIntegralAsStringForJs(bigIntegral?: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Numbers/bigIntegralAsStringForJs', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(bigIntegral) }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
 		/**
 		 * POST api/Numbers/BigNumbers
 		 */
-		postBigNumbers(bigNumbers?: DemoWebApi_DemoData_Client.BigNumbers | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.BigNumbers> {
-			return fetch(this.baseUri + 'api/Numbers/BigNumbers', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(bigNumbers) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postBigNumbers(bigNumbers?: DemoWebApi_DemoData_Client.BigNumbers | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.BigNumbers> {
+			return fetch(this.baseUri + 'api/Numbers/BigNumbers', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(bigNumbers) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -618,8 +618,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {string} int128 Type: Int128, -170141183460469231731687303715884105728 to 170141183460469231731687303715884105727
 		 * @return {string} Type: Int128, -170141183460469231731687303715884105728 to 170141183460469231731687303715884105727
 		 */
-		postInt128(int128?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/Numbers/int128', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(int128) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postInt128(int128?: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
+			return fetch(this.baseUri + 'api/Numbers/int128', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(int128) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -627,22 +627,22 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {string} int64 Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 * @return {string} Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */
-		postInt64(int64?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/Numbers/int64', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(int64) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postInt64(int64?: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
+			return fetch(this.baseUri + 'api/Numbers/int64', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(int64) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Numbers/IntegralEntity
 		 */
-		postIntegralEntity(integralEntity?: DemoWebApi_DemoData_Client.IntegralEntity | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.IntegralEntity> {
-			return fetch(this.baseUri + 'api/Numbers/IntegralEntity', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(integralEntity) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postIntegralEntity(integralEntity?: DemoWebApi_DemoData_Client.IntegralEntity | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.IntegralEntity> {
+			return fetch(this.baseUri + 'api/Numbers/IntegralEntity', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(integralEntity) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Numbers/IntegralEntityMustBeValid
 		 */
-		postIntegralEntityMustBeValid(integralEntity?: DemoWebApi_DemoData_Client.IntegralEntity | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.IntegralEntity> {
-			return fetch(this.baseUri + 'api/Numbers/IntegralEntityMustBeValid', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(integralEntity) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postIntegralEntityMustBeValid(integralEntity?: DemoWebApi_DemoData_Client.IntegralEntity | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.IntegralEntity> {
+			return fetch(this.baseUri + 'api/Numbers/IntegralEntityMustBeValid', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(integralEntity) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -651,8 +651,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 *     Range: inclusive between 1 and 100
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		postIntWithRange(d?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/Numbers/intRange', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postIntWithRange(d?: number | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/Numbers/intRange', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -662,8 +662,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 *     Range: inclusive between 1000 and 9223372036854775800
 		 * @return {string} Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */
-		postLongWithRange(d?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/Numbers/longRange', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postLongWithRange(d?: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
+			return fetch(this.baseUri + 'api/Numbers/longRange', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -671,8 +671,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {string} uint128 Type: UInt128, 0 to 340282366920938463463374607431768211455
 		 * @return {string} Type: UInt128, 0 to 340282366920938463463374607431768211455
 		 */
-		postUint128(uint128?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/Numbers/uint128', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(uint128) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postUint128(uint128?: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
+			return fetch(this.baseUri + 'api/Numbers/uint128', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(uint128) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -680,8 +680,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {string} uint64 Type: ulong, 0 to 18,446,744,073,709,551,615
 		 * @return {string} Type: ulong, 0 to 18,446,744,073,709,551,615
 		 */
-		postUint64(uint64?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/Numbers/uint64', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(uint64) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postUint64(uint64?: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
+			return fetch(this.baseUri + 'api/Numbers/uint64', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(uint64) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 	}
 
@@ -695,7 +695,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * DELETE api/ObsoleteValues/{id}
 		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		delete(id?: number | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		delete(id?: number | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
 			return fetch(this.baseUri + 'api/ObsoleteValues/' + id, { method: 'delete', headers: headersHandler ? headersHandler() : undefined });
 		}
 
@@ -703,8 +703,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Get a list of value
 		 * GET api/ObsoleteValues
 		 */
-		get(headersHandler?: () => {[header: string]: string}): Promise<Array<string>> {
-			return fetch(this.baseUri + 'api/ObsoleteValues', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		get(headersHandler?: () => { [header: string]: string }): Promise<Array<string>> {
+			return fetch(this.baseUri + 'api/ObsoleteValues', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -712,7 +712,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/ObsoleteValues/Name/{id}?name={name}
 		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		getByIdOfInt32AndNameOfString(id?: number | null, name?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		getByIdOfInt32AndNameOfString(id?: number | null, name?: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/ObsoleteValues/Name/' + id + '?name=' + (!name ? '' : encodeURIComponent(name)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
@@ -721,7 +721,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/ObsoleteValues?name={name}
 		 * @deprecated This method is obsolete, use ValuesController.Get instead.
 		 */
-		getByNameOfString(name?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		getByNameOfString(name?: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/ObsoleteValues?name=' + (!name ? '' : encodeURIComponent(name)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
@@ -730,7 +730,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/ObsoleteValues/{id}
 		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		getByIdOfInt32(id?: number | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		getByIdOfInt32(id?: number | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/ObsoleteValues/' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
@@ -738,8 +738,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Get a list of value async, it is get2
 		 * GET api/ObsoleteValues/Get2
 		 */
-		get2(headersHandler?: () => {[header: string]: string}): Promise<Array<string>> {
-			return fetch(this.baseUri + 'api/ObsoleteValues/Get2', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		get2(headersHandler?: () => { [header: string]: string }): Promise<Array<string>> {
+			return fetch(this.baseUri + 'api/ObsoleteValues/Get2', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -747,7 +747,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * PUT api/ObsoleteValues/{id}
 		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		put(id?: number | null, value?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		put(id?: number | null, value?: string | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
 			return fetch(this.baseUri + 'api/ObsoleteValues/' + id, { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(value) });
 		}
 	}
@@ -767,14 +767,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {number} skip Default 0
 		 * @param {string} order default null
 		 */
-		athletheSearch(take?: number | null, skip?: number | null, order?: string | null, sort?: string | null, search?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		athletheSearch(take?: number | null, skip?: number | null, order?: string | null, sort?: string | null, search?: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/StringData/AthletheSearch?' + (take || take == 0  ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (!order ? '' : encodeURIComponent(order)) + '&sort=' + (!sort ? '' : encodeURIComponent(sort)) + '&search=' + (!search ? '' : encodeURIComponent(search)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
 		/**
 		 * GET api/StringData/String
 		 */
-		getABCDE(headersHandler?: () => {[header: string]: string}): Promise<string> {
+		getABCDE(headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/StringData/String', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
@@ -782,7 +782,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Return empty string JSON object. Status 200.
 		 * GET api/StringData/EmptyString
 		 */
-		getEmptyString(headersHandler?: () => {[header: string]: string}): Promise<string> {
+		getEmptyString(headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/StringData/EmptyString', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
@@ -790,8 +790,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Return empty body with status 204 No Content, even though the default mime type is application/json. MaybeNull
 		 * GET api/StringData/NullString
 		 */
-		getNullString(headersHandler?: () => {[header: string]: string}): Promise<string | null> {
-			return fetch(this.baseUri + 'api/StringData/NullString', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.status == 204 ? null : d.text(); throw d;});
+		getNullString(headersHandler?: () => { [header: string]: string }): Promise<string | null> {
+			return fetch(this.baseUri + 'api/StringData/NullString', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d;});
 		}
 	}
 
@@ -806,97 +806,97 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/SuperDemo/ActionResult
 		 */
-		getActionResult(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/SuperDemo/ActionResult', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getActionResult(headersHandler?: () => { [header: string]: string }): Promise<string> {
+			return fetch(this.baseUri + 'api/SuperDemo/ActionResult', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/ActionResult2
 		 */
-		getActionResult2(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/SuperDemo/ActionResult2', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getActionResult2(headersHandler?: () => { [header: string]: string }): Promise<string> {
+			return fetch(this.baseUri + 'api/SuperDemo/ActionResult2', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/ActionStringResult
 		 * Status Codes: 200:OK : System.String
 		 */
-		getActionStringResult(headersHandler?: () => {[header: string]: string}): Promise<string> {
+		getActionStringResult(headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/SuperDemo/ActionStringResult', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/BadRequest
 		 */
-		getBadRequest(headersHandler?: () => {[header: string]: string}): Promise<Blob> {
+		getBadRequest(headersHandler?: () => { [header: string]: string }): Promise<Blob> {
 			return fetch(this.baseUri + 'api/SuperDemo/BadRequest', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.blob(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/BadRequest2
 		 */
-		getBadRequest2(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/SuperDemo/BadRequest2', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getBadRequest2(headersHandler?: () => { [header: string]: string }): Promise<string> {
+			return fetch(this.baseUri + 'api/SuperDemo/BadRequest2', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/bool
 		 */
-		getBool(headersHandler?: () => {[header: string]: string}): Promise<boolean> {
-			return fetch(this.baseUri + 'api/SuperDemo/bool', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getBool(headersHandler?: () => { [header: string]: string }): Promise<boolean> {
+			return fetch(this.baseUri + 'api/SuperDemo/bool', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/byte
 		 * @return {number} Type: byte, 0 to 255
 		 */
-		getbyte(headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/SuperDemo/byte', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getbyte(headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/byte', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/ByteArray
 		 */
-		getByteArray(headersHandler?: () => {[header: string]: string}): Promise<Array<number>> {
-			return fetch(this.baseUri + 'api/SuperDemo/ByteArray', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getByteArray(headersHandler?: () => { [header: string]: string }): Promise<Array<number>> {
+			return fetch(this.baseUri + 'api/SuperDemo/ByteArray', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/char
 		 * @return {string} Type: char
 		 */
-		getChar(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/SuperDemo/char', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getChar(headersHandler?: () => { [header: string]: string }): Promise<string> {
+			return fetch(this.baseUri + 'api/SuperDemo/char', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/Collection
 		 */
-		getCollection(headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_DemoData_Client.Person>> {
-			return fetch(this.baseUri + 'api/SuperDemo/Collection', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getCollection(headersHandler?: () => { [header: string]: string }): Promise<Array<DemoWebApi_DemoData_Client.Person>> {
+			return fetch(this.baseUri + 'api/SuperDemo/Collection', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/enumGet?d={d}
 		 */
-		getDay(d?: DemoWebApi_DemoData_Client.Days | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Days> {
-			return fetch(this.baseUri + 'api/SuperDemo/enumGet?d=' + d, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getDay(d?: DemoWebApi_DemoData_Client.Days | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Days> {
+			return fetch(this.baseUri + 'api/SuperDemo/enumGet?d=' + d, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/decimal
 		 * @return {number} Type: decimal
 		 */
-		getDecimal(headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/SuperDemo/decimal', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getDecimal(headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/decimal', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * Demo
 		 * GET api/SuperDemo/decimalArrayQ?a={a}
 		 */
-		getDecimalArrayQ(a?: Array<number> | null, headersHandler?: () => {[header: string]: string}): Promise<Array<number>> {
-			return fetch(this.baseUri + 'api/SuperDemo/decimalArrayQ?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getDecimalArrayQ(a?: Array<number> | null, headersHandler?: () => { [header: string]: string }): Promise<Array<number>> {
+			return fetch(this.baseUri + 'api/SuperDemo/decimalArrayQ?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -904,8 +904,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {number} d Type: decimal
 		 * @return {number} Type: decimal
 		 */
-		getDecimalSquare(d?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/SuperDemo/decimal/' + d, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getDecimalSquare(d?: number | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/decimal/' + d, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -913,37 +913,37 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {number} Type: decimal
 		 * @deprecated Just for test
 		 */
-		getDecimalZero(headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/SuperDemo/DecimalZero', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getDecimalZero(headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/DecimalZero', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/StringStringDic
 		 */
-		getDictionary(headersHandler?: () => {[header: string]: string}): Promise<{[id: string]: string }> {
-			return fetch(this.baseUri + 'api/SuperDemo/StringStringDic', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getDictionary(headersHandler?: () => { [header: string]: string }): Promise<{[id: string]: string }> {
+			return fetch(this.baseUri + 'api/SuperDemo/StringStringDic', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/StringPersonDic
 		 */
-		getDictionaryOfPeople(headersHandler?: () => {[header: string]: string}): Promise<{[id: string]: DemoWebApi_DemoData_Client.Person }> {
-			return fetch(this.baseUri + 'api/SuperDemo/StringPersonDic', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getDictionaryOfPeople(headersHandler?: () => { [header: string]: string }): Promise<{[id: string]: DemoWebApi_DemoData_Client.Person }> {
+			return fetch(this.baseUri + 'api/SuperDemo/StringPersonDic', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/StringPersonDic2
 		 */
-		getDictionaryOfPeople2(headersHandler?: () => {[header: string]: string}): Promise<{[id: string]: DemoWebApi_DemoData_Client.Person }> {
-			return fetch(this.baseUri + 'api/SuperDemo/StringPersonDic2', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getDictionaryOfPeople2(headersHandler?: () => { [header: string]: string }): Promise<{[id: string]: DemoWebApi_DemoData_Client.Person }> {
+			return fetch(this.baseUri + 'api/SuperDemo/StringPersonDic2', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/doulbe
 		 * @return {number} Type: double
 		 */
-		getdouble(headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/SuperDemo/doulbe', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getdouble(headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/doulbe', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -952,23 +952,23 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {number} Type: double
 		 * @deprecated for testing
 		 */
-		getDoubleZero(headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/SuperDemo/DoubleZero', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getDoubleZero(headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/DoubleZero', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * Demo IEnumerable Days
 		 * GET api/SuperDemo/enumArrayDays?a={a}
 		 */
-		getEnumArrayDays(a?: Array<DemoWebApi_DemoData_Client.Days> | null, headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
-			return fetch(this.baseUri + 'api/SuperDemo/enumArrayDays?'+a?.map(z => `a=${z}`).join('&'), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getEnumArrayDays(a?: Array<DemoWebApi_DemoData_Client.Days> | null, headersHandler?: () => { [header: string]: string }): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
+			return fetch(this.baseUri + 'api/SuperDemo/enumArrayDays?'+a?.map(z => `a=${z}`).join('&'), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/enumArrayQ2?a={a}
 		 */
-		getEnumArrayQ2(a?: Array<number> | null, headersHandler?: () => {[header: string]: string}): Promise<Array<number>> {
-			return fetch(this.baseUri + 'api/SuperDemo/enumArrayQ2?'+a?.map(z => `a=${z}`).join('&'), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getEnumArrayQ2(a?: Array<number> | null, headersHandler?: () => { [header: string]: string }): Promise<Array<number>> {
+			return fetch(this.baseUri + 'api/SuperDemo/enumArrayQ2?'+a?.map(z => `a=${z}`).join('&'), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -976,59 +976,59 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {number} Type: float
 		 * @deprecated 
 		 */
-		getFloatZero(headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/SuperDemo/FloatZero', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getFloatZero(headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/FloatZero', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/ICollection
 		 */
-		getICollection(headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_DemoData_Client.Person>> {
-			return fetch(this.baseUri + 'api/SuperDemo/ICollection', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getICollection(headersHandler?: () => { [header: string]: string }): Promise<Array<DemoWebApi_DemoData_Client.Person>> {
+			return fetch(this.baseUri + 'api/SuperDemo/ICollection', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/IList
 		 */
-		getIList(headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_DemoData_Client.Person>> {
-			return fetch(this.baseUri + 'api/SuperDemo/IList', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getIList(headersHandler?: () => { [header: string]: string }): Promise<Array<DemoWebApi_DemoData_Client.Person>> {
+			return fetch(this.baseUri + 'api/SuperDemo/IList', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/int2d
 		 */
-		getInt2D(headersHandler?: () => {[header: string]: string}): Promise<number[][]> {
-			return fetch(this.baseUri + 'api/SuperDemo/int2d', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getInt2D(headersHandler?: () => { [header: string]: string }): Promise<number[][]> {
+			return fetch(this.baseUri + 'api/SuperDemo/int2d', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/int2dJagged
 		 */
-		getInt2DJagged(headersHandler?: () => {[header: string]: string}): Promise<Array<Array<number>>> {
-			return fetch(this.baseUri + 'api/SuperDemo/int2dJagged', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getInt2DJagged(headersHandler?: () => { [header: string]: string }): Promise<Array<Array<number>>> {
+			return fetch(this.baseUri + 'api/SuperDemo/int2dJagged', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/intArray
 		 */
-		getIntArray(headersHandler?: () => {[header: string]: string}): Promise<Array<number>> {
-			return fetch(this.baseUri + 'api/SuperDemo/intArray', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getIntArray(headersHandler?: () => { [header: string]: string }): Promise<Array<number>> {
+			return fetch(this.baseUri + 'api/SuperDemo/intArray', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * Demo int[];
 		 * GET api/SuperDemo/intArrayQ?a={a}
 		 */
-		getIntArrayQ(a?: Array<number> | null, headersHandler?: () => {[header: string]: string}): Promise<Array<number>> {
-			return fetch(this.baseUri + 'api/SuperDemo/intArrayQ?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getIntArrayQ(a?: Array<number> | null, headersHandler?: () => { [header: string]: string }): Promise<Array<number>> {
+			return fetch(this.baseUri + 'api/SuperDemo/intArrayQ?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * Demo IEnumerable long
 		 * GET api/SuperDemo/intArrayQ2?a={a}
 		 */
-		getIntArrayQ2(a?: Array<string> | null, headersHandler?: () => {[header: string]: string}): Promise<Array<string>> {
-			return fetch(this.baseUri + 'api/SuperDemo/intArrayQ2?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getIntArrayQ2(a?: Array<string> | null, headersHandler?: () => { [header: string]: string }): Promise<Array<string>> {
+			return fetch(this.baseUri + 'api/SuperDemo/intArrayQ2?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -1036,105 +1036,105 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {number} d Type: int, -2,147,483,648 to 2,147,483,647
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		getIntSquare(d?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/SuperDemo/int/' + d, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getIntSquare(d?: number | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/int/' + d, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/IReadOnlyCollection
 		 */
-		getIReadOnlyCollection(headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_DemoData_Client.Person>> {
-			return fetch(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getIReadOnlyCollection(headersHandler?: () => { [header: string]: string }): Promise<Array<DemoWebApi_DemoData_Client.Person>> {
+			return fetch(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/IReadOnlyList
 		 */
-		getIReadOnlyList(headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_DemoData_Client.Person>> {
-			return fetch(this.baseUri + 'api/SuperDemo/IReadOnlyList', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getIReadOnlyList(headersHandler?: () => { [header: string]: string }): Promise<Array<DemoWebApi_DemoData_Client.Person>> {
+			return fetch(this.baseUri + 'api/SuperDemo/IReadOnlyList', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/KeyValuePair
 		 */
-		getKeyhValuePair(headersHandler?: () => {[header: string]: string}): Promise<{key: string, value: DemoWebApi_DemoData_Client.Person }> {
-			return fetch(this.baseUri + 'api/SuperDemo/KeyValuePair', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getKeyhValuePair(headersHandler?: () => { [header: string]: string }): Promise<{key: string, value: DemoWebApi_DemoData_Client.Person }> {
+			return fetch(this.baseUri + 'api/SuperDemo/KeyValuePair', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/List
 		 */
-		getList(headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_DemoData_Client.Person>> {
-			return fetch(this.baseUri + 'api/SuperDemo/List', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getList(headersHandler?: () => { [header: string]: string }): Promise<Array<DemoWebApi_DemoData_Client.Person>> {
+			return fetch(this.baseUri + 'api/SuperDemo/List', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * False to return null, and true to return 1000
 		 * GET api/SuperDemo/NullableDecimal/{hasValue}
 		 */
-		getNullableDecimal(hasValue?: boolean | null, headersHandler?: () => {[header: string]: string}): Promise<number | null> {
-			return fetch(this.baseUri + 'api/SuperDemo/NullableDecimal/' + hasValue, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getNullableDecimal(hasValue?: boolean | null, headersHandler?: () => { [header: string]: string }): Promise<number | null> {
+			return fetch(this.baseUri + 'api/SuperDemo/NullableDecimal/' + hasValue, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * MaybeNull
 		 * GET api/SuperDemo/NullObject
 		 */
-		getNullPerson(headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person | null> {
-			return fetch(this.baseUri + 'api/SuperDemo/NullObject', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getNullPerson(headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person | null> {
+			return fetch(this.baseUri + 'api/SuperDemo/NullObject', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 204) return d.status == 204 ? null : d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/DoubleNullable?location={location}&dd={dd}&de={de}
 		 */
-		getPrimitiveNullable(location?: string | null, dd?: number | null, de?: number | null, headersHandler?: () => {[header: string]: string}): Promise<{item1: string, item2: number | null, item3: number | null}> {
-			return fetch(this.baseUri + 'api/SuperDemo/DoubleNullable?location=' + (!location ? '' : encodeURIComponent(location)) + (dd || dd == 0 ? '&dd=' + dd.toString() : '') + (de || de == 0 ? '&de=' + de.toString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getPrimitiveNullable(location?: string | null, dd?: number | null, de?: number | null, headersHandler?: () => { [header: string]: string }): Promise<{item1: string, item2: number | null, item3: number | null}> {
+			return fetch(this.baseUri + 'api/SuperDemo/DoubleNullable?location=' + (!location ? '' : encodeURIComponent(location)) + (dd || dd == 0 ? '&dd=' + dd.toString() : '') + (de || de == 0 ? '&de=' + de.toString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/DoubleNullable2?dd={dd}&de={de}
 		 */
-		getPrimitiveNullable2(dd?: number | null, de?: number | null, headersHandler?: () => {[header: string]: string}): Promise<{item1: number | null, item2: number | null}> {
-			return fetch(this.baseUri + 'api/SuperDemo/DoubleNullable2?' + (dd || dd == 0  ? 'dd=' + dd.toString() : '') + (de || de == 0 ? '&de=' + de.toString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getPrimitiveNullable2(dd?: number | null, de?: number | null, headersHandler?: () => { [header: string]: string }): Promise<{item1: number | null, item2: number | null}> {
+			return fetch(this.baseUri + 'api/SuperDemo/DoubleNullable2?' + (dd || dd == 0  ? 'dd=' + dd.toString() : '') + (de || de == 0 ? '&de=' + de.toString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/sbyte
 		 * @return {number} Type: sbyte, -128 to 127
 		 */
-		getsbyte(headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/SuperDemo/sbyte', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getsbyte(headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/sbyte', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/short
 		 * @return {number} Type: short, -32,768 to 32,767
 		 */
-		getShort(headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/SuperDemo/short', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getShort(headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/short', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * Demo string array
 		 * GET api/SuperDemo/stringArrayQ?a={a}
 		 */
-		getStringArrayQ(a?: Array<string> | null, headersHandler?: () => {[header: string]: string}): Promise<Array<string>> {
-			return fetch(this.baseUri + 'api/SuperDemo/stringArrayQ?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getStringArrayQ(a?: Array<string> | null, headersHandler?: () => { [header: string]: string }): Promise<Array<string>> {
+			return fetch(this.baseUri + 'api/SuperDemo/stringArrayQ?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * Demo List string
 		 * GET api/SuperDemo/stringArrayQ2?a={a}
 		 */
-		getStringArrayQ2(a?: Array<string> | null, headersHandler?: () => {[header: string]: string}): Promise<Array<string>> {
-			return fetch(this.baseUri + 'api/SuperDemo/stringArrayQ2?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getStringArrayQ2(a?: Array<string> | null, headersHandler?: () => { [header: string]: string }): Promise<Array<string>> {
+			return fetch(this.baseUri + 'api/SuperDemo/stringArrayQ2?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * ActionResult with FileStreamResult
 		 * GET api/SuperDemo/TextStream
 		 */
-		getTextStream(headersHandler?: () => {[header: string]: string}): Promise<Blob> {
+		getTextStream(headersHandler?: () => { [header: string]: string }): Promise<Blob> {
 			return fetch(this.baseUri + 'api/SuperDemo/TextStream', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.blob(); throw d;});
 		}
 
@@ -1142,45 +1142,45 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/uint
 		 * @return {number} Type: uint, 0 to 4,294,967,295
 		 */
-		getUint(headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/SuperDemo/uint', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getUint(headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/uint', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/ulong
 		 * @return {string} Type: ulong, 0 to 18,446,744,073,709,551,615
 		 */
-		getUlong(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/SuperDemo/ulong', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getUlong(headersHandler?: () => { [header: string]: string }): Promise<string> {
+			return fetch(this.baseUri + 'api/SuperDemo/ulong', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/SuperDemo/ushort
 		 * @return {number} Type: ushort, 0 to 65,535
 		 */
-		getUShort(headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/SuperDemo/ushort', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getUShort(headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/ushort', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/SuperDemo/ActionResult
 		 */
-		postActionResult(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/SuperDemo/ActionResult', { method: 'post', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postActionResult(headersHandler?: () => { [header: string]: string }): Promise<string> {
+			return fetch(this.baseUri + 'api/SuperDemo/ActionResult', { method: 'post', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/SuperDemo/PostActionResult2
 		 */
-		postActionResult2(s?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Blob> {
+		postActionResult2(s?: string | null, headersHandler?: () => { [header: string]: string }): Promise<Blob> {
 			return fetch(this.baseUri + 'api/SuperDemo/PostActionResult2', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(s) }).then(d => {if (d.status <= 203) return d.blob(); throw d;});
 		}
 
 		/**
 		 * POST api/SuperDemo/PostActionResult3
 		 */
-		postActionResult3(person?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/SuperDemo/PostActionResult3', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(person) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postActionResult3(person?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
+			return fetch(this.baseUri + 'api/SuperDemo/PostActionResult3', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(person) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -1188,15 +1188,15 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/Collection
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		postCollection(list?: Array<DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/SuperDemo/Collection', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(list) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postCollection(list?: Array<DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/Collection', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(list) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/SuperDemo/enumPost?d={d}
 		 */
-		postDay(d?: DemoWebApi_DemoData_Client.Days | null, d2?: DemoWebApi_DemoData_Client.Days | null, headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
-			return fetch(this.baseUri + 'api/SuperDemo/enumPost?d=' + d, { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d2) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postDay(d?: DemoWebApi_DemoData_Client.Days | null, d2?: DemoWebApi_DemoData_Client.Days | null, headersHandler?: () => { [header: string]: string }): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
+			return fetch(this.baseUri + 'api/SuperDemo/enumPost?d=' + d, { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d2) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -1204,15 +1204,15 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/StringPersonDic
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		postDictionary(dic?: {[id: string]: DemoWebApi_DemoData_Client.Person } | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/SuperDemo/StringPersonDic', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(dic) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postDictionary(dic?: {[id: string]: DemoWebApi_DemoData_Client.Person } | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/StringPersonDic', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(dic) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/SuperDemo/Guids
 		 */
-		postGuids(guids?: Array<string> | null, headersHandler?: () => {[header: string]: string}): Promise<Array<string>> {
-			return fetch(this.baseUri + 'api/SuperDemo/Guids', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(guids) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postGuids(guids?: Array<string> | null, headersHandler?: () => { [header: string]: string }): Promise<Array<string>> {
+			return fetch(this.baseUri + 'api/SuperDemo/Guids', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(guids) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -1220,8 +1220,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/ICollection
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		postICollection(list?: Array<DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/SuperDemo/ICollection', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(list) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postICollection(list?: Array<DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/ICollection', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(list) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -1229,23 +1229,23 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/IList
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		postIList(list?: Array<DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/SuperDemo/IList', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(list) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postIList(list?: Array<DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/IList', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(list) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/SuperDemo/int2d
 		 */
-		postInt2D(a?: number[][] | null, headersHandler?: () => {[header: string]: string}): Promise<boolean> {
-			return fetch(this.baseUri + 'api/SuperDemo/int2d', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(a) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postInt2D(a?: number[][] | null, headersHandler?: () => { [header: string]: string }): Promise<boolean> {
+			return fetch(this.baseUri + 'api/SuperDemo/int2d', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(a) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * Demo int[][]
 		 * POST api/SuperDemo/int2djagged
 		 */
-		postInt2DJagged(a?: Array<Array<number>> | null, headersHandler?: () => {[header: string]: string}): Promise<boolean> {
-			return fetch(this.baseUri + 'api/SuperDemo/int2djagged', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(a) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postInt2DJagged(a?: Array<Array<number>> | null, headersHandler?: () => { [header: string]: string }): Promise<boolean> {
+			return fetch(this.baseUri + 'api/SuperDemo/int2djagged', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(a) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -1254,8 +1254,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {Array<number>} a Min length: 1
 		 *     Max length: 10
 		 */
-		postIntArray(a?: Array<number> | null, headersHandler?: () => {[header: string]: string}): Promise<boolean> {
-			return fetch(this.baseUri + 'api/SuperDemo/intArray', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(a) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postIntArray(a?: Array<number> | null, headersHandler?: () => { [header: string]: string }): Promise<boolean> {
+			return fetch(this.baseUri + 'api/SuperDemo/intArray', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(a) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -1263,8 +1263,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/IReadOnlyCollection
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		postIReadOnlyCollection(list?: Array<DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(list) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postIReadOnlyCollection(list?: Array<DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(list) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -1272,8 +1272,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/IReadOnlyList
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		postIReadOnlyList(list?: Array<DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/SuperDemo/IReadOnlyList', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(list) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postIReadOnlyList(list?: Array<DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/IReadOnlyList', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(list) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -1281,16 +1281,16 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/List
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		postList(list?: Array<DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/SuperDemo/List', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(list) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postList(list?: Array<DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/List', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(list) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/SuperDemo/PostEmpty/{i}
 		 * @param {number} i Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		postWithQueryButEmptyBody(s?: string | null, i?: number | null, headersHandler?: () => {[header: string]: string}): Promise<{item1: string, item2: number}> {
-			return fetch(this.baseUri + 'api/SuperDemo/PostEmpty/' + i, { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(s) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postWithQueryButEmptyBody(s?: string | null, i?: number | null, headersHandler?: () => { [header: string]: string }): Promise<{item1: string, item2: number}> {
+			return fetch(this.baseUri + 'api/SuperDemo/PostEmpty/' + i, { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(s) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 	}
 
@@ -1306,14 +1306,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/TextData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
 		 * @param {number} skip Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		athletheSearch(take?: number | null, skip?: number | null, order?: string | null, sort?: string | null, search?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		athletheSearch(take?: number | null, skip?: number | null, order?: string | null, sort?: string | null, search?: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/TextData/AthletheSearch?' + (take || take == 0  ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (!order ? '' : encodeURIComponent(order)) + '&sort=' + (!sort ? '' : encodeURIComponent(sort)) + '&search=' + (!search ? '' : encodeURIComponent(search)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
 		/**
 		 * GET api/TextData/String
 		 */
-		getABCDE(headersHandler?: () => {[header: string]: string}): Promise<string> {
+		getABCDE(headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/TextData/String', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
@@ -1321,7 +1321,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Return empty body with status 200.
 		 * GET api/TextData/EmptyString
 		 */
-		getEmptyString(headersHandler?: () => {[header: string]: string}): Promise<string> {
+		getEmptyString(headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/TextData/EmptyString', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
@@ -1329,16 +1329,16 @@ export namespace DemoWebApi_Controllers_Client {
 		 * MaybeNull
 		 * GET api/TextData/NullableString
 		 */
-		getNullableString(headersHandler?: () => {[header: string]: string}): Promise<string | null> {
-			return fetch(this.baseUri + 'api/TextData/NullableString', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.status == 204 ? null : d.text(); throw d;});
+		getNullableString(headersHandler?: () => { [header: string]: string }): Promise<string | null> {
+			return fetch(this.baseUri + 'api/TextData/NullableString', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d;});
 		}
 
 		/**
 		 * Return empty body with status 204 No Content.
 		 * GET api/TextData/NullString
 		 */
-		getNullString(headersHandler?: () => {[header: string]: string}): Promise<string | null> {
-			return fetch(this.baseUri + 'api/TextData/NullString', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.status == 204 ? null : d.text(); throw d;});
+		getNullString(headersHandler?: () => { [header: string]: string }): Promise<string | null> {
+			return fetch(this.baseUri + 'api/TextData/NullString', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d;});
 		}
 	}
 
@@ -1354,7 +1354,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Update in a transaction
 		 * PUT api/Tuple/A1TupleArray
 		 */
-		a1TupleArray(idAndOrderArray?: Array<{item1: string, item2: number}> | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		a1TupleArray(idAndOrderArray?: Array<{item1: string, item2: number}> | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
 			return fetch(this.baseUri + 'api/Tuple/A1TupleArray', { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(idAndOrderArray) });
 		}
 
@@ -1362,7 +1362,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Update IEnumerable Tuple in a transaction
 		 * PUT api/Tuple/A2TupleArray
 		 */
-		a2TupleIEnumerable(idAndOrderArray?: Array<{item1: string, item2: number}> | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		a2TupleIEnumerable(idAndOrderArray?: Array<{item1: string, item2: number}> | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
 			return fetch(this.baseUri + 'api/Tuple/A2TupleArray', { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(idAndOrderArray) });
 		}
 
@@ -1370,195 +1370,195 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Post tuple
 		 * POST api/Tuple/ChangeName
 		 */
-		changeName(d?: {item1: string, item2: DemoWebApi_DemoData_Client.Person} | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
-			return fetch(this.baseUri + 'api/Tuple/ChangeName', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		changeName(d?: {item1: string, item2: DemoWebApi_DemoData_Client.Person} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Tuple/ChangeName', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * Get Tuple in return. MaybeNull
 		 * GET api/Tuple/PeopleCompany4
 		 */
-		getPeopleCompany4(headersHandler?: () => {[header: string]: string}): Promise<{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company} | null> {
-			return fetch(this.baseUri + 'api/Tuple/PeopleCompany4', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getPeopleCompany4(headersHandler?: () => { [header: string]: string }): Promise<{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company} | null> {
+			return fetch(this.baseUri + 'api/Tuple/PeopleCompany4', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 204) return d.status == 204 ? null : d.json(); throw d;});
 		}
 
 		/**
 		 * MaybeNull
 		 * GET api/Tuple/PeopleCompany5
 		 */
-		getPeopleCompany5(headersHandler?: () => {[header: string]: string}): Promise<{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Company} | null> {
-			return fetch(this.baseUri + 'api/Tuple/PeopleCompany5', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getPeopleCompany5(headersHandler?: () => { [header: string]: string }): Promise<{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Company} | null> {
+			return fetch(this.baseUri + 'api/Tuple/PeopleCompany5', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 204) return d.status == 204 ? null : d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/Tuple/Tuple1
 		 */
-		getTuple1(headersHandler?: () => {[header: string]: string}): Promise<{item1: number}> {
-			return fetch(this.baseUri + 'api/Tuple/Tuple1', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getTuple1(headersHandler?: () => { [header: string]: string }): Promise<{item1: number}> {
+			return fetch(this.baseUri + 'api/Tuple/Tuple1', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/Tuple/Tuple2
 		 */
-		getTuple2(headersHandler?: () => {[header: string]: string}): Promise<{item1: string, item2: number}> {
-			return fetch(this.baseUri + 'api/Tuple/Tuple2', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getTuple2(headersHandler?: () => { [header: string]: string }): Promise<{item1: string, item2: number}> {
+			return fetch(this.baseUri + 'api/Tuple/Tuple2', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/Tuple/Tuple3
 		 */
-		getTuple3(headersHandler?: () => {[header: string]: string}): Promise<{item1: string, item2: string, item3: number}> {
-			return fetch(this.baseUri + 'api/Tuple/Tuple3', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getTuple3(headersHandler?: () => { [header: string]: string }): Promise<{item1: string, item2: string, item3: number}> {
+			return fetch(this.baseUri + 'api/Tuple/Tuple3', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/Tuple/Tuple4
 		 */
-		getTuple4(headersHandler?: () => {[header: string]: string}): Promise<{item1: string, item2: string, item3: string, item4: number}> {
-			return fetch(this.baseUri + 'api/Tuple/Tuple4', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getTuple4(headersHandler?: () => { [header: string]: string }): Promise<{item1: string, item2: string, item3: string, item4: number}> {
+			return fetch(this.baseUri + 'api/Tuple/Tuple4', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/Tuple/Tuple5
 		 */
-		getTuple5(headersHandler?: () => {[header: string]: string}): Promise<{item1: string, item2: string, item3: string, item4: string, item5: number}> {
-			return fetch(this.baseUri + 'api/Tuple/Tuple5', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getTuple5(headersHandler?: () => { [header: string]: string }): Promise<{item1: string, item2: string, item3: string, item4: string, item5: number}> {
+			return fetch(this.baseUri + 'api/Tuple/Tuple5', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/Tuple/Tuple6
 		 */
-		getTuple6(headersHandler?: () => {[header: string]: string}): Promise<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: number}> {
-			return fetch(this.baseUri + 'api/Tuple/Tuple6', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getTuple6(headersHandler?: () => { [header: string]: string }): Promise<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: number}> {
+			return fetch(this.baseUri + 'api/Tuple/Tuple6', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * GET api/Tuple/Tuple7
 		 */
-		getTuple7(headersHandler?: () => {[header: string]: string}): Promise<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number}> {
-			return fetch(this.baseUri + 'api/Tuple/Tuple7', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getTuple7(headersHandler?: () => { [header: string]: string }): Promise<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number}> {
+			return fetch(this.baseUri + 'api/Tuple/Tuple7', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * Post nested tuple
 		 * GET api/Tuple/Tuple8
 		 */
-		getTuple8(headersHandler?: () => {[header: string]: string}): Promise<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number, rest: {item1: string, item2: string, item3: string}}> {
-			return fetch(this.baseUri + 'api/Tuple/Tuple8', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		getTuple8(headersHandler?: () => { [header: string]: string }): Promise<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number, rest: {item1: string, item2: string, item3: string}}> {
+			return fetch(this.baseUri + 'api/Tuple/Tuple8', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany2
 		 */
-		linkPeopleCompany2(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
-			return fetch(this.baseUri + 'api/Tuple/PeopleCompany2', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		linkPeopleCompany2(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Tuple/PeopleCompany2', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany3
 		 */
-		linkPeopleCompany3(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
-			return fetch(this.baseUri + 'api/Tuple/PeopleCompany3', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		linkPeopleCompany3(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Tuple/PeopleCompany3', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany4
 		 */
-		linkPeopleCompany4(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
-			return fetch(this.baseUri + 'api/Tuple/PeopleCompany4', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		linkPeopleCompany4(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Tuple/PeopleCompany4', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany5
 		 */
-		linkPeopleCompany5(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
-			return fetch(this.baseUri + 'api/Tuple/PeopleCompany5', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		linkPeopleCompany5(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Tuple/PeopleCompany5', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany6
 		 */
-		linkPeopleCompany6(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
-			return fetch(this.baseUri + 'api/Tuple/PeopleCompany6', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		linkPeopleCompany6(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Tuple/PeopleCompany6', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * Post long tuple
 		 * POST api/Tuple/PeopleCompany7
 		 */
-		linkPeopleCompany7(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Person, item7: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
-			return fetch(this.baseUri + 'api/Tuple/PeopleCompany7', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		linkPeopleCompany7(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Person, item7: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Tuple/PeopleCompany7', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany8
 		 */
-		linkPeopleCompany8(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Person, item7: DemoWebApi_DemoData_Client.Person, rest: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
-			return fetch(this.baseUri + 'api/Tuple/PeopleCompany8', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		linkPeopleCompany8(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Person, item7: DemoWebApi_DemoData_Client.Person, rest: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Tuple/PeopleCompany8', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Tuple/PersonCompany1
 		 */
-		linkPersonCompany1(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
-			return fetch(this.baseUri + 'api/Tuple/PersonCompany1', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		linkPersonCompany1(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Tuple/PersonCompany1', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Tuple/Tuple1
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		postTuple1(tuple?: {item1: number} | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
-			return fetch(this.baseUri + 'api/Tuple/Tuple1', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(tuple) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postTuple1(tuple?: {item1: number} | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+			return fetch(this.baseUri + 'api/Tuple/Tuple1', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(tuple) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * Post tuple string int
 		 * POST api/Tuple/Tuple2
 		 */
-		postTuple2(tuple?: {item1: string, item2: number} | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		postTuple2(tuple?: {item1: string, item2: number} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple2', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(tuple) }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
 		/**
 		 * POST api/Tuple/Tuple3
 		 */
-		postTuple3(tuple?: {item1: string, item2: string, item3: number} | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		postTuple3(tuple?: {item1: string, item2: string, item3: number} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple3', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(tuple) }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
 		/**
 		 * POST api/Tuple/Tuple4
 		 */
-		postTuple4(tuple?: {item1: string, item2: string, item3: string, item4: number} | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		postTuple4(tuple?: {item1: string, item2: string, item3: string, item4: number} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple4', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(tuple) }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
 		/**
 		 * POST api/Tuple/Tuple5
 		 */
-		postTuple5(tuple?: {item1: string, item2: string, item3: string, item4: string, item5: number} | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		postTuple5(tuple?: {item1: string, item2: string, item3: string, item4: string, item5: number} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple5', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(tuple) }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
 		/**
 		 * POST api/Tuple/Tuple6
 		 */
-		postTuple6(tuple?: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: number} | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		postTuple6(tuple?: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: number} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple6', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(tuple) }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
 		/**
 		 * POST api/Tuple/Tuple7
 		 */
-		postTuple7(tuple?: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number} | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		postTuple7(tuple?: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple7', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(tuple) }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
 		/**
 		 * POST api/Tuple/Tuple8
 		 */
-		postTuple8(tuple?: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: string, rest: {item1: string, item2: string, item3: string}} | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		postTuple8(tuple?: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: string, rest: {item1: string, item2: string, item3: string}} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple8', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(tuple) }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 	}
@@ -1571,7 +1571,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * DELETE api/Values/{id}
 		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		delete(id?: number | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		delete(id?: number | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
 			return fetch(this.baseUri + 'api/Values/' + id, { method: 'delete', headers: headersHandler ? headersHandler() : undefined });
 		}
 
@@ -1579,8 +1579,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Get a list of value
 		 * GET api/Values
 		 */
-		get(headersHandler?: () => {[header: string]: string}): Promise<Array<string>> {
-			return fetch(this.baseUri + 'api/Values', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		get(headersHandler?: () => { [header: string]: string }): Promise<Array<string>> {
+			return fetch(this.baseUri + 'api/Values', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
@@ -1588,7 +1588,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/Values/Name/{id}?name={name}
 		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		getByIdOfInt32AndNameOfString(id?: number | null, name?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		getByIdOfInt32AndNameOfString(id?: number | null, name?: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Values/Name/' + id + '?name=' + (!name ? '' : encodeURIComponent(name)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
@@ -1596,7 +1596,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Get by name
 		 * GET api/Values?name={name}
 		 */
-		getByNameOfString(name?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		getByNameOfString(name?: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Values?name=' + (!name ? '' : encodeURIComponent(name)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
@@ -1605,7 +1605,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/Values/{id}
 		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		getByIdOfInt32(id?: number | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		getByIdOfInt32(id?: number | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Values/' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
@@ -1613,14 +1613,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Get a list of value async, it is get2
 		 * GET api/Values/Get2
 		 */
-		get2(headersHandler?: () => {[header: string]: string}): Promise<Array<string>> {
-			return fetch(this.baseUri + 'api/Values/Get2', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		get2(headersHandler?: () => { [header: string]: string }): Promise<Array<string>> {
+			return fetch(this.baseUri + 'api/Values/Get2', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 
 		/**
 		 * POST api/Values
 		 */
-		post(value?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		post(value?: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Values', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(value) }).then(d => {if (d.status <= 203) return d.text(); throw d;});
 		}
 
@@ -1629,7 +1629,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * PUT api/Values/{id}
 		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		put(id?: number | null, value?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		put(id?: number | null, value?: string | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
 			return fetch(this.baseUri + 'api/Values/' + id, { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(value) });
 		}
 	}
@@ -2098,7 +2098,7 @@ export namespace DemoCoreWeb_Controllers_Client {
 		 * GET api/SpecialTypes/AnonymousDynamic
 		 * @return {any} dyanmic things
 		 */
-		getAnonymousDynamic(headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		getAnonymousDynamic(headersHandler?: () => { [header: string]: string }): Promise<Response> {
 			return fetch(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', { method: 'get', headers: headersHandler ? headersHandler() : undefined });
 		}
 
@@ -2106,14 +2106,14 @@ export namespace DemoCoreWeb_Controllers_Client {
 		 * Async function returing dynamic
 		 * GET api/SpecialTypes/AnonymousDynamic2
 		 */
-		getAnonymousDynamic2(headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		getAnonymousDynamic2(headersHandler?: () => { [header: string]: string }): Promise<Response> {
 			return fetch(this.baseUri + 'api/SpecialTypes/AnonymousDynamic2', { method: 'get', headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SpecialTypes/AnonymousObject
 		 */
-		getAnonymousObject(headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		getAnonymousObject(headersHandler?: () => { [header: string]: string }): Promise<Response> {
 			return fetch(this.baseUri + 'api/SpecialTypes/AnonymousObject', { method: 'get', headers: headersHandler ? headersHandler() : undefined });
 		}
 
@@ -2121,14 +2121,14 @@ export namespace DemoCoreWeb_Controllers_Client {
 		 * Async function returning object
 		 * GET api/SpecialTypes/AnonymousObject2
 		 */
-		getAnonymousObject2(headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		getAnonymousObject2(headersHandler?: () => { [header: string]: string }): Promise<Response> {
 			return fetch(this.baseUri + 'api/SpecialTypes/AnonymousObject2', { method: 'get', headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * POST api/SpecialTypes/AnonymousObject
 		 */
-		postAnonymousObject(obj?: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		postAnonymousObject(obj?: any, headersHandler?: () => { [header: string]: string }): Promise<Response> {
 			return fetch(this.baseUri + 'api/SpecialTypes/AnonymousObject', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(obj) });
 		}
 
@@ -2136,7 +2136,7 @@ export namespace DemoCoreWeb_Controllers_Client {
 		 * Async returning object, Post dynamic
 		 * POST api/SpecialTypes/AnonymousObject2
 		 */
-		postAnonymousObject2(obj?: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		postAnonymousObject2(obj?: any, headersHandler?: () => { [header: string]: string }): Promise<Response> {
 			return fetch(this.baseUri + 'api/SpecialTypes/AnonymousObject2', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(obj) });
 		}
 
@@ -2144,8 +2144,8 @@ export namespace DemoCoreWeb_Controllers_Client {
 		 * Very complex generic
 		 * POST api/SpecialTypes/VeryComplexGeneric
 		 */
-		postVeryComplexGeneric(body?: DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.Company>> | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Base_Client.Entity>, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.MimsResult<DemoWebApi_DemoDataEx_Client.TextJsonPerson>>> {
-			return fetch(this.baseUri + 'api/SpecialTypes/VeryComplexGeneric', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(body) }).then(d => {if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;});
+		postVeryComplexGeneric(body?: DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.Company>> | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Base_Client.Entity>, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.MimsResult<DemoWebApi_DemoDataEx_Client.TextJsonPerson>>> {
+			return fetch(this.baseUri + 'api/SpecialTypes/VeryComplexGeneric', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(body) }).then(d => {if (d.status <= 203) return d.json(); throw d;});
 		}
 	}
 

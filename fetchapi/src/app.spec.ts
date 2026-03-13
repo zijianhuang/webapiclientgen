@@ -568,6 +568,7 @@ describe('SuperDemo API', () => {
       },
       async error => {
         fail(await errorResponseToString(error));
+        done();
       }
     );
 

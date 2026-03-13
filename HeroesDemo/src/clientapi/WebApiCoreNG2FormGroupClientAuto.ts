@@ -400,6 +400,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/Entities/NullPerson
+		 */
+		getNullPerson(headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person | null> {
+			return this.http.get<DemoWebApi_DemoData_Client.Person | null>(this.baseUri + 'api/Entities/NullPerson', { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
 		 * Get a person
 		 * so to know the person
 		 * GET api/Entities/getPerson/{id}
@@ -1202,7 +1209,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/ulong
 		 * @return {string} Type: ulong, 0 to 18,446,744,073,709,551,615
 		 */
-		getulong(headersHandler?: () => HttpHeaders): Observable<string> {
+		getUlong(headersHandler?: () => HttpHeaders): Observable<string> {
 			return this.http.get<string>(this.baseUri + 'api/SuperDemo/ulong', { headers: headersHandler ? headersHandler() : undefined });
 		}
 

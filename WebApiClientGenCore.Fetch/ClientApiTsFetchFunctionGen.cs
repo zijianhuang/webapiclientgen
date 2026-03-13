@@ -72,9 +72,11 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override void RenderImplementation()
 		{
-			const string returnNullOrText = "{if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d;}";
-			const string returnBolb = "{if (d.status <= 202) return d.blob(); else if (d.status == 204) return null; throw d;}";
-			const string returnJson = "{if (d.status <= 202) return d.json(); else if (d.status == 204) return null; throw d;}";
+			const string returnNullOrText = "{if (d.status <= 203) return d.status == 204 ? null : d.text(); throw d;}";
+			const string returnText = "{if (d.status <= 203) return d.text(); throw d;}";
+			const string returnNullOrBolb = "{if (d.status <= 203) return d.blob(); else if (d.status == 204) return null; throw d;}";
+			const string returnBolb = "{if (d.status <= 203) return d.blob(); throw d;}";
+			const string returnJson = "{if (d.status <= 203) return d.json(); else if (d.status == 204) return null; throw d;}";
 
 			string GetContentOptionsForString(string dataToPost)
 			{
@@ -114,9 +116,10 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			if (ReturnType != null && TypeHelper.IsStringType(ReturnType))
 			{
+				var s = ReturnTypeIsNullable ? returnNullOrText : returnText;
 				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForString}).then(d => {returnNullOrText});"));
+					Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForString}).then(d => {s});"));
 					return;
 				}
 
@@ -125,12 +128,12 @@ namespace Fonlow.CodeDom.Web.Ts
 					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForString}).then(d => {returnNullOrText});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForString}).then(d => {s});"));
 					}
 					else
 					{
 						string contentOptions = GetContentOptionsForString(dataToPost);
-						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {contentOptions}).then(d => {returnNullOrText});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {contentOptions}).then(d => {s});"));
 					}
 
 					return;
@@ -138,9 +141,10 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else if (returnTypeText == FetchtHttpBlobResponse)//translated from blobresponse to this
 			{
+				var s = ReturnTypeIsNullable ? returnNullOrBolb : returnBolb;
 				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForString}).then(d => {returnBolb});")); //todo: type cast is not really needed.
+					Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForString}).then(d => {s});")); //todo: type cast is not really needed.
 					return;
 				}
 
@@ -149,12 +153,12 @@ namespace Fonlow.CodeDom.Web.Ts
 					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForString}).then(d => {returnBolb});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForString}).then(d => {s});"));
 					}
 					else
 					{
 						string contentOptions = GetContentOptionsForString(dataToPost);
-						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {contentOptions}).then(d => {returnBolb});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {contentOptions}).then(d => {s});"));
 					}
 
 					return;

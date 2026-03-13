@@ -33,7 +33,7 @@ namespace DemoWebApi_Controllers_Client {
 		id?: string | null;
 
 		/**
-		 * Required. Nnull or empty is invalid.
+		 * Required. Null or empty is invalid.
 		 * String length: inclusive between 2 and 120
 		 */
 		name?: string | null;
@@ -347,6 +347,13 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/Entities/NullPerson
+		 */
+		getNullPerson(callback: (data : DemoWebApi_DemoData_Client.Person) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/Entities/NullPerson', callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
 		 * Get a person
 		 * so to know the person
 		 * GET api/Entities/getPerson/{id}
@@ -386,6 +393,13 @@ namespace DemoWebApi_Controllers_Client {
 		 */
 		postIdMap(idMap: DemoWebApi_DemoData_Client.IdMap | null, callback: (data : DemoWebApi_DemoData_Client.IdMap) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.post(this.baseUri + 'api/Entities/IdMap', idMap, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
+
+		/**
+		 * POST api/Entities/MixedDataEntity
+		 */
+		postMixedDataEntity(entity: DemoWebApi_DemoData_Client.MixedDataEntity | null, callback: (data : DemoWebApi_DemoData_Client.MixedDataEntity) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.post(this.baseUri + 'api/Entities/MixedDataEntity', entity, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
 		}
 
 		/**
@@ -1137,7 +1151,7 @@ namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/ulong
 		 * @return {string} Type: ulong, 0 to 18,446,744,073,709,551,615
 		 */
-		getulong(callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
+		getUlong(callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.get(this.baseUri + 'api/SuperDemo/ulong', callback, this.error, this.statusCode, headersHandler);
 		}
 
@@ -1628,6 +1642,29 @@ namespace DemoWebApi_DemoDataEx_Client {
 		special?: DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Base_Client.Entity>, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.MimsResult<DemoWebApi_DemoDataEx_Client.TextJsonPerson>>;
 	}
 
+	export interface DotNetJsonType {
+		description?: string | null;
+
+		/**
+		 * Required. Null or empty is invalid.
+		 * Description: mostly about UI / content concerning users
+		 * JSON Required. Null or empty may be fine.
+		 */
+		double_required: string | null;
+
+		/**
+		 * Required means the property is required and cannot be null or empty string.
+		 * Required. Null or empty is invalid.
+		 */
+		location: string;
+
+		/**
+		 * JsonRequired means the property is required in JSON, but it can be null or empty string.
+		 * JSON Required. Null or empty may be fine.
+		 */
+		name: string | null;
+	}
+
 	export interface TextJsonPerson {
 		givenName?: string | null;
 		surname?: string | null;
@@ -1665,13 +1702,13 @@ namespace DemoWebApi_DemoData_Another_Client {
 		 * X
 		 * Type: double
 		 */
-		x: number;
+		x?: number | null;
 
 		/**
 		 * Y
 		 * Type: double
 		 */
-		y: number;
+		y?: number | null;
 	}
 
 }
@@ -1694,7 +1731,7 @@ namespace DemoWebApi_DemoData_Base_Client {
 
 		/**
 		 * Name of the entity.
-		 * Required. Nnull or empty is invalid.
+		 * Required. Null or empty is invalid.
 		 * Min length: 2
 		 * Max length: 255
 		 */
@@ -1814,12 +1851,12 @@ namespace DemoWebApi_DemoData_Client {
 		idNotEmitDefaultValue?: string | null;
 		nullableId?: string | null;
 
-		/** Required. Nnull or empty is invalid. */
+		/** Required. Null or empty is invalid. */
 		requiredName: string;
 		text?: string | null;
 	}
 
-	export interface IntegralEntity extends DemoWebApi_DemoData_Base_Client.Entity {
+	export interface IntegralEntity {
 
 		/** Type: byte, 0 to 255 */
 		byte?: number | null;
@@ -1880,6 +1917,28 @@ namespace DemoWebApi_DemoData_Client {
 		message?: string | null;
 		result?: T;
 		success?: boolean | null;
+	}
+
+	export interface MixedDataEntity extends DemoWebApi_DemoData_Client.IntegralEntity {
+
+		/** Type: DateOnly */
+		dob?: Date | null;
+
+		/** Max length: 255 */
+		emailAddress?: string | null;
+
+		/**
+		 * Required. Null or empty is invalid.
+		 * Min length: 2
+		 * Max length: 255
+		 */
+		name: string;
+
+		/**
+		 * Type: Uri
+		 * Regex pattern: ^(https?:\\/\\/)?[da-z.-]+.[a-z.]\{2,6\}([\/\w .-]\*)\*\\/?$
+		 */
+		web?: string | null;
 	}
 
 	export enum MyEnumType { First = 1, Two = 2 }
@@ -1946,7 +2005,7 @@ namespace DemoWebApi_DemoData_Client {
 namespace DemoWebApi_Models_Client {
 	export interface AddExternalLoginBindingModel {
 
-		/** Required. Nnull or empty is invalid. */
+		/** Required. Null or empty is invalid. */
 		externalAccessToken: string;
 	}
 
@@ -1956,18 +2015,17 @@ namespace DemoWebApi_Models_Client {
 		confirmPassword?: string | null;
 
 		/**
-		 * Required. Nnull or empty is invalid.
-		 * JSON Required. Null or empty is fine.
+		 * Required. Null or empty is invalid.
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
 		newPassword: string;
 
 		/**
-		 * JSON Required. Null or empty is fine.
+		 * JSON Required. Null or empty may be fine.
 		 * Data type: Password
 		 */
-		OldPwd: string;
+		OldPwd: string | null;
 	}
 
 	export interface RegisterBindingModel {
@@ -1975,11 +2033,11 @@ namespace DemoWebApi_Models_Client {
 		/** Data type: Password */
 		confirmPassword?: string | null;
 
-		/** Required. Nnull or empty is invalid. */
+		/** Required. Null or empty is invalid. */
 		email: string;
 
 		/**
-		 * Required. Nnull or empty is invalid.
+		 * Required. Null or empty is invalid.
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
@@ -1988,16 +2046,16 @@ namespace DemoWebApi_Models_Client {
 
 	export interface RegisterExternalBindingModel {
 
-		/** Required. Nnull or empty is invalid. */
+		/** Required. Null or empty is invalid. */
 		email: string;
 	}
 
 	export interface RemoveLoginBindingModel {
 
-		/** Required. Nnull or empty is invalid. */
+		/** Required. Null or empty is invalid. */
 		loginProvider: string;
 
-		/** Required. Nnull or empty is invalid. */
+		/** Required. Null or empty is invalid. */
 		providerKey: string;
 	}
 
@@ -2007,7 +2065,7 @@ namespace DemoWebApi_Models_Client {
 		confirmPassword?: string | null;
 
 		/**
-		 * Required. Nnull or empty is invalid.
+		 * Required. Null or empty is invalid.
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */

@@ -212,7 +212,7 @@ namespace DemoWebApi.Controllers
 
 		[HttpGet]
 		[Route("ulong")]
-		public ulong Getulong()
+		public ulong GetUlong()
 		{
 			return 18446744073709551615;
 		}

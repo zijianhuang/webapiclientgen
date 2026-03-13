@@ -348,6 +348,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/Entities/NullPerson
+		 */
+		getNullPerson(headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person | null> {
+			return Axios.get<DemoWebApi_DemoData_Client.Person | null>(this.baseUri + 'api/Entities/NullPerson', { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 204) return d.data; throw d;});
+		}
+
+		/**
 		 * Get a person
 		 * so to know the person
 		 * GET api/Entities/getPerson/{id}
@@ -1145,7 +1152,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/ulong
 		 * @return {string} Type: ulong, 0 to 18,446,744,073,709,551,615
 		 */
-		getulong(headersHandler?: () => {[header: string]: string}): Promise<string> {
+		getUlong(headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return Axios.get<string>(this.baseUri + 'api/SuperDemo/ulong', { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status <= 204) return d.data; throw d;});
 		}
 

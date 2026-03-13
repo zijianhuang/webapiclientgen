@@ -203,6 +203,12 @@ namespace DemoWebApi.Controllers
 			return null;
 		}
 
+		[HttpGet("NullPerson")]
+		public Person? GetNullPerson()
+		{
+			return null;
+		}
+
 		[Route("Company/{id}")]
 		[HttpGet]
 		public Company GetCompany(long id)

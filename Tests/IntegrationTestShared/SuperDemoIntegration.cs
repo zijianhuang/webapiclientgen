@@ -212,7 +212,7 @@ namespace IntegrationTests
 		[Fact]
 		public void TestGetUlong()
 		{
-			Assert.Equal(18446744073709551615, api.Getulong());
+			Assert.Equal(18446744073709551615, api.GetUlong());
 		}
 
 		[Fact]

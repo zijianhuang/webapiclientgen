@@ -6,6 +6,7 @@
 		<AnalysisLevel>latest-minimum</AnalysisLevel>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<Version>2.1</Version>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>

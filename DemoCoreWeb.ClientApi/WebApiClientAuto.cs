@@ -63,7 +63,7 @@ namespace DemoWebApi.Controllers.Client
 		public long Id { get; set; }
 		
 		/// <summary>
-		/// Required. Nnull or empty is invalid.
+		/// Required. Null or empty is invalid.
 		/// String length: inclusive between 2 and 120
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
@@ -2090,6 +2090,54 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// GET api/Entities/NullPerson
+		/// </summary>
+		public async Task<DemoWebApi.DemoData.Client.Person> GetNullPersonAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Entities/NullPerson";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Entities/NullPerson
+		/// </summary>
+		public DemoWebApi.DemoData.Client.Person GetNullPerson(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Entities/NullPerson";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = responseMessage.Content.ReadAsStream();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
 		/// Get a person
 		/// so to know the person
 		/// GET api/Entities/getPerson/{id}
@@ -2356,6 +2404,64 @@ namespace DemoWebApi.Controllers.Client
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.IdMap>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Entities/MixedDataEntity
+		/// </summary>
+		public async Task<DemoWebApi.DemoData.Client.MixedDataEntity> PostMixedDataEntityAsync(DemoWebApi.DemoData.Client.MixedDataEntity entity, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Entities/MixedDataEntity";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			using var requestWriter = new System.IO.StringWriter();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, entity);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.MixedDataEntity>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Entities/MixedDataEntity
+		/// </summary>
+		public DemoWebApi.DemoData.Client.MixedDataEntity PostMixedDataEntity(DemoWebApi.DemoData.Client.MixedDataEntity entity, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Entities/MixedDataEntity";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			using var requestWriter = new System.IO.StringWriter();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, entity);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = responseMessage.Content.ReadAsStream();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.MixedDataEntity>(jsonReader);
 			}
 			finally
 			{
@@ -6683,7 +6789,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/SuperDemo/ulong
 		/// </summary>
-		public async Task<ulong> GetulongAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public async Task<ulong> GetUlongAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/ulong";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -6705,7 +6811,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/SuperDemo/ulong
 		/// </summary>
-		public ulong Getulong(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public ulong GetUlong(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/ulong";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -9912,7 +10018,7 @@ namespace DemoWebApi.DemoData.Base.Client
 		
 		/// <summary>
 		/// Name of the entity.
-		/// Required. Nnull or empty is invalid.
+		/// Required. Null or empty is invalid.
 		/// Min length: 2
 		/// Max length: 255
 		/// </summary>
@@ -10126,7 +10232,7 @@ namespace DemoWebApi.DemoData.Client
 		public System.Nullable<System.Guid> NullableId { get; set; }
 		
 		/// <summary>
-		/// Required. Nnull or empty is invalid.
+		/// Required. Null or empty is invalid.
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		[System.Runtime.Serialization.DataMember(IsRequired =true)]
@@ -10138,7 +10244,7 @@ namespace DemoWebApi.DemoData.Client
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.Serializable()]
-	public class IntegralEntity : DemoWebApi.DemoData.Base.Client.Entity
+	public class IntegralEntity : object
 	{
 		
 		[System.Runtime.Serialization.DataMember()]
@@ -10255,6 +10361,40 @@ namespace DemoWebApi.DemoData.Client
 		
 		[System.Runtime.Serialization.DataMember()]
 		public bool Success { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.Serializable()]
+	public class MixedDataEntity : DemoWebApi.DemoData.Client.IntegralEntity
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.DateOnly DOB { get; set; }
+		
+		/// <summary>
+		/// Max length: 255
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.MaxLength(255)]
+		[System.Runtime.Serialization.DataMember()]
+		public string EmailAddress { get; set; }
+		
+		/// <summary>
+		/// Required. Null or empty is invalid.
+		/// Min length: 2
+		/// Max length: 255
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.DataAnnotations.MinLength(2)]
+		[System.ComponentModel.DataAnnotations.MaxLength(255)]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public string Name { get; set; }
+		
+		/// <summary>
+		/// Regex pattern: ^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RegularExpression(@"^(https?:\/\/)?[da-z.-]+.[a-z.]{2,6}([/\w .-]*)*\/?$")]
+		[System.Runtime.Serialization.DataMember()]
+		public System.Uri Web { get; set; }
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
@@ -10393,6 +10533,38 @@ namespace DemoWebApi.DemoDataEx.Client
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.Serializable()]
+	public class DotNetJsonType : object
+	{
+		
+		public string Description { get; set; }
+		
+		/// <summary>
+		/// Required. Null or empty is invalid.
+		/// Description: mostly about UI / content concerning users
+		/// JSON Required. Null or empty may be fine.
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.Description("mostly about UI / content concerning users")]
+		[System.Text.Json.Serialization.JsonRequired()]
+		public string DoubleRequired { get; set; }
+		
+		/// <summary>
+		/// Required means the property is required and cannot be null or empty string.
+		/// Required. Null or empty is invalid.
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		public string Location { get; set; }
+		
+		/// <summary>
+		/// JsonRequired means the property is required in JSON, but it can be null or empty string.
+		/// JSON Required. Null or empty may be fine.
+		/// </summary>
+		[System.Text.Json.Serialization.JsonRequired()]
+		public string Name { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.Serializable()]
 	public class TextJsonPerson : object
 	{
 		
@@ -10415,34 +10587,24 @@ namespace DemoWebApi.DemoDataEx.Client
 	public class ZListCheck : object
 	{
 		
-		[System.Runtime.Serialization.DataMember()]
 		public System.Collections.Generic.IReadOnlyCollection<DemoWebApi.DemoData.Client.BizEntity> BizEntities { get; set; }
 		
-		[System.Runtime.Serialization.DataMember()]
 		public System.Collections.Generic.HashSet<byte> BytesHashSet { get; set; }
 		
-		[System.Runtime.Serialization.DataMember()]
 		public System.Linq.IQueryable<DemoWebApi.DemoData.Client.Company> Companies { get; set; }
 		
-		[System.Runtime.Serialization.DataMember()]
 		public decimal[] Decimals { get; set; }
 		
-		[System.Runtime.Serialization.DataMember()]
 		public System.Collections.ObjectModel.ObservableCollection<DemoWebApi.DemoData.Base.Client.Entity> Entities { get; set; }
 		
-		[System.Runtime.Serialization.DataMember()]
 		public System.Collections.Generic.IEnumerable<int> Numbers { get; set; }
 		
-		[System.Runtime.Serialization.DataMember()]
 		public System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Person> People { get; set; }
 		
-		[System.Runtime.Serialization.DataMember()]
 		public System.Collections.Generic.IList<DemoWebApi.DemoDataEx.Client.TextJsonPerson> People2 { get; set; }
 		
-		[System.Runtime.Serialization.DataMember()]
 		public System.Collections.ObjectModel.Collection<string> Strings { get; set; }
 		
-		[System.Runtime.Serialization.DataMember()]
 		public System.Collections.Generic.IReadOnlyList<DemoWebApi.DemoDataEx.Client.Trust> Trusts { get; set; }
 	}
 }
@@ -10456,7 +10618,7 @@ namespace DemoWebApi.Models.Client
 	{
 		
 		/// <summary>
-		/// Required. Nnull or empty is invalid.
+		/// Required. Null or empty is invalid.
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		public string ExternalAccessToken { get; set; }
@@ -10474,22 +10636,19 @@ namespace DemoWebApi.Models.Client
 		public string ConfirmPassword { get; set; }
 		
 		/// <summary>
-		/// Required. Nnull or empty is invalid.
-		/// JSON Required. Null or empty is fine.
+		/// Required. Null or empty is invalid.
 		/// String length: inclusive between 6 and 100
 		/// Data type: Password
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
-		[System.Text.Json.Serialization.JsonRequired()]
 		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
 		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
 		public string NewPassword { get; set; }
 		
 		/// <summary>
-		/// JSON Required. Null or empty is fine.
+		/// JSON Required. Null or empty may be fine.
 		/// Data type: Password
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.Required()]
 		[System.Text.Json.Serialization.JsonRequired()]
 		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
 		public string OldPassword { get; set; }
@@ -10507,13 +10666,13 @@ namespace DemoWebApi.Models.Client
 		public string ConfirmPassword { get; set; }
 		
 		/// <summary>
-		/// Required. Nnull or empty is invalid.
+		/// Required. Null or empty is invalid.
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		public string Email { get; set; }
 		
 		/// <summary>
-		/// Required. Nnull or empty is invalid.
+		/// Required. Null or empty is invalid.
 		/// String length: inclusive between 6 and 100
 		/// Data type: Password
 		/// </summary>
@@ -10529,7 +10688,7 @@ namespace DemoWebApi.Models.Client
 	{
 		
 		/// <summary>
-		/// Required. Nnull or empty is invalid.
+		/// Required. Null or empty is invalid.
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		public string Email { get; set; }
@@ -10541,13 +10700,13 @@ namespace DemoWebApi.Models.Client
 	{
 		
 		/// <summary>
-		/// Required. Nnull or empty is invalid.
+		/// Required. Null or empty is invalid.
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		public string LoginProvider { get; set; }
 		
 		/// <summary>
-		/// Required. Nnull or empty is invalid.
+		/// Required. Null or empty is invalid.
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		public string ProviderKey { get; set; }
@@ -10565,7 +10724,7 @@ namespace DemoWebApi.Models.Client
 		public string ConfirmPassword { get; set; }
 		
 		/// <summary>
-		/// Required. Nnull or empty is invalid.
+		/// Required. Null or empty is invalid.
 		/// String length: inclusive between 6 and 100
 		/// Data type: Password
 		/// </summary>

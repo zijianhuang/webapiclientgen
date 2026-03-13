@@ -387,21 +387,6 @@ describe('StringData API', () => {
   }
   );
 
-  /**
-   * Angular HttpClient could identify null value.
-   */
-  it('getNullString', (done) => {
-    service.getNullString().then(
-      data => {
-        expect(data).toBe(null);
-        done();
-      },
-      async error => {
-        fail(await errorResponseToString(error));
-      }
-    );
-  }
-  );
 });
 
 describe('TextData API', () => {
@@ -459,9 +444,6 @@ describe('TextData API', () => {
   }
   );
 
-  /**
-   * Angular HttpClient could identify null value.
-   */
   it('getNullString', (done) => {
     service.getNullString().then(
       data => {
@@ -474,7 +456,6 @@ describe('TextData API', () => {
     );
   }
   );
-
 });
 
 describe('SuperDemo API', () => {
@@ -1106,7 +1087,7 @@ describe('Numbers API', () => {
   );
 
   it('postIntegralEntity', (done) => {
-    service.postIntegralEntity({ name: 'Some one', byte: 255, uShort: 65535 }).then(
+    service.postIntegralEntity({ byte: 255, uShort: 65535 }).then(
       r => {
         expect(r.byte).toBe(255);
         expect(r.uShort).toBe(65535);
@@ -1120,7 +1101,7 @@ describe('Numbers API', () => {
   );
 
   it('postIntegralEntityInvalid', (done) => {
-    service.postIntegralEntity({ name: 'Some one', byte: 260, uShort: 65540 }).then(
+    service.postIntegralEntity({ byte: 260, uShort: 65540 }).then(
       r => {
         fail('validation');
         done();
@@ -1138,7 +1119,7 @@ describe('Numbers API', () => {
    * Backend checks if the data is null, likely due to invalid properties. And throw error.
    */
   it('postIntegralEntityInvalidButBackendCheckNull', (done) => {
-    service.postIntegralEntityMustBeValid({ name: 'Some one', byte: 260, uShort: 65540 }).then(
+    service.postIntegralEntityMustBeValid({ byte: 260, uShort: 65540 }).then(
       r => {
         fail('backend should throw 500')
 

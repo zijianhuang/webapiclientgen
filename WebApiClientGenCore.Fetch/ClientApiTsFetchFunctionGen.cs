@@ -72,13 +72,13 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override void RenderImplementation()
 		{
-			const string returnNullOrText = "{if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d;}";
-			const string returnNullOrBlob = "{if (d.status <= 204) return d.status == 204 ? null : d.blob(); throw d;}";
-			const string returnNullOrJson = "{if (d.status <= 204) return d.status == 204 ? null : d.json(); throw d;}";
+			const string returnTextOrNull = "{ if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; }";
+			const string returnBlobOrNull = "{ if (d.status <= 204) return d.status == 204 ? null : d.blob(); throw d; }";
+			const string returnJsonOrNull = "{ if (d.status <= 204) return d.status == 204 ? null : d.json(); throw d; }";
 
-			const string returnText = "{if (d.status <= 203) return d.text(); throw d;}";
-			const string returnBlob = "{if (d.status <= 203) return d.blob(); throw d;}";
-			const string returnJson = "{if (d.status <= 203) return d.json(); throw d;}";
+			const string returnText = "{ if (d.status <= 204) return d.text(); throw d; }";
+			const string returnBlob = "{ if (d.status <= 204) return d.blob(); throw d; }";
+			const string returnJson = "{ if (d.status <= 204) return d.json(); throw d; }";
 
 			string GetContentOptionsForString(string dataToPost)
 			{
@@ -118,7 +118,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			if (ReturnType != null && TypeHelper.IsStringType(ReturnType))
 			{
-				var s = ReturnTypeIsNullable ? returnNullOrText : returnText;
+				var s = ReturnTypeIsNullable ? returnTextOrNull : returnText;
 				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{
 					Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForString}).then(d => {s});"));
@@ -143,7 +143,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else if (returnTypeText == FetchtHttpBlobResponse)//translated from blobresponse to this
 			{
-				var s = ReturnTypeIsNullable ? returnNullOrBlob : returnBlob;
+				var s = ReturnTypeIsNullable ? returnBlobOrNull : returnBlob;
 				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{
 					Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForString}).then(d => {s});")); //todo: type cast is not really needed.
@@ -193,7 +193,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else
 			{
-				var s = ReturnTypeIsNullable ? returnNullOrJson : returnJson;
+				var s = ReturnTypeIsNullable ? returnJsonOrNull : returnJson;
 				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{
 					if (returnTypeText == null)

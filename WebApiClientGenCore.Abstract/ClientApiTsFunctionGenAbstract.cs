@@ -88,12 +88,12 @@ namespace Fonlow.CodeDom.Web.Ts
 				if (jsOutput.MaybeNullAttributeOnMethod)
 				{
 					ReturnTypeIsNullable = ReturnType != null && (Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.MaybeNullAttribute))
-						|| NullabilityInspector.IsNullable(methodInfo.ReturnParameter));
+						|| NullabilityInspector.IsNullable(methodInfo.ReturnParameter) || Nullable.GetUnderlyingType(ReturnType) != null);
 				}
 				else if (jsOutput.NotNullAttributeOnMethod)
 				{
 					ReturnTypeIsNullable = ReturnType != null && (!Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute))
-						|| NullabilityInspector.IsNullable(methodInfo.ReturnParameter));
+						|| NullabilityInspector.IsNullable(methodInfo.ReturnParameter) || Nullable.GetUnderlyingType(ReturnType) != null);
 				}
 
 				obsoleteAttribute = methodInfo.GetCustomAttribute<ObsoleteAttribute>();

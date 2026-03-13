@@ -562,13 +562,11 @@ describe('SuperDemo API', () => {
   it('getNullableDecimalNull', (done) => {
     service.getNullableDecimal(false).then(
       data => {
-        //expect(data).toBeNull();
         expect(data).toBeNull(); // .net core return 204 nocontent empty body
         done();
       },
       async error => {
         fail(await errorResponseToString(error));
-        done();
       }
     );
 

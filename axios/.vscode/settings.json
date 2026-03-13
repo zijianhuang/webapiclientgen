@@ -1,0 +1,14 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+
+	"search.exclude": {
+		"**/documentation": true,
+		"**/appdist": true,
+		"**/dist": true
+	},
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"editor.tabSize": 4,
+	"files.exclude": {
+    "**/node_modules": true
+}

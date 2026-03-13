@@ -38,11 +38,11 @@ builder.Services.AddControllers(configure =>
 .AddJsonOptions(// as of .NET 7/8, could not handle JS/CS test cases getInt2D, postInt2D and PostDictionaryOfPeople, around 14 C# test cases fail.
 options =>
 {
-	options.JsonSerializerOptions.Converters.Add(new BigIntegerJsonConverter());
 	options.JsonSerializerOptions.Converters.Add(new Int64JsonConverter());
-	options.JsonSerializerOptions.Converters.Add(new UInt64JsonConverter());
 	options.JsonSerializerOptions.Converters.Add(new Int128JsonConverter());
+	options.JsonSerializerOptions.Converters.Add(new UInt64JsonConverter());
 	options.JsonSerializerOptions.Converters.Add(new UInt128JsonConverter());
+	options.JsonSerializerOptions.Converters.Add(new BigIntegerJsonConverter());
 
 	options.JsonSerializerOptions.NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString; // for the sake of UInt128
 

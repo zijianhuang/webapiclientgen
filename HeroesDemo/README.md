@@ -21,6 +21,8 @@ Run `ng generate component component-name` to generate a new component. You can 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Test
+Launch backend through `StartDemoCoreWeb.ps1` or `StartDemoTextJsonWeb.ps1`. The tests should work well with both NewtonSoft.Json backend and System.Text.Json backend.
+
 Run:
 ```
 npx vitest --run

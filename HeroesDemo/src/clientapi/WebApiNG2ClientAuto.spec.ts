@@ -106,77 +106,77 @@ describe('Values API', () => {
     });
 
     it('get', () => {
-        service.get().subscribe(
-            data => {
+        service.get().subscribe({
+            next: data => {
                 console.debug(data!.length);
                 expect(data![1]).toBe('value2');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('getByIdAndName', () => {
-        service.getByIdOfInt32AndNameOfString(1, 'Abc').subscribe(
-            data => {
+        service.getByIdOfInt32AndNameOfString(1, 'Abc').subscribe({
+            next: data => {
                 console.debug(data!.length);
                 expect(data).toBe('Abc1');
 
             },
-            error => {
+            error: error => {
                 expect.fail(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('getByName', () => {
-        service.getByNameOfString('Abc').subscribe(
-            data => {
+        service.getByNameOfString('Abc').subscribe({
+            next: data => {
                 console.debug(data!.length);
                 expect(data).toBe('ABC');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('Post', () => {
-        service.post('Abc').subscribe(
-            data => {
+        service.post('Abc').subscribe({
+            next: data => {
                 console.debug(data!.length);
                 expect(data).toBe('ABC');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('getByIdAndChinese', () => {
-        service.getByIdOfInt32AndNameOfString(1, 'something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.\'; <>: \"').subscribe(
-            data => {
+        service.getByIdOfInt32AndNameOfString(1, 'something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.\'; <>: \"').subscribe({
+            next: data => {
                 console.debug(data!.length);
                 expect(data).toBe('something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.\'; <>: \"1');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
@@ -207,47 +207,47 @@ describe('Heroes API', () => {
     });
 
     it('getAll', () => {
-        service.getHeroes().subscribe(
-            data => {
+        service.getHeroes().subscribe({
+            next: data => {
                 console.debug(data!.length);
                 expect(data!.length).toBeGreaterThan(0);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getHero', () => {
-        service.getHero('9999').subscribe(
-            data => {
+        service.getHero('9999').subscribe({
+            next: data => {
                 expect(data).toBeNull();
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('Add', () => {
-        service.post('somebody').subscribe(
-            data => {
+        service.post('somebody').subscribe({
+            next: data => {
                 expect(data!.name).toBe('somebody');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
@@ -256,33 +256,33 @@ describe('Heroes API', () => {
      * The service always returns an object and the return is decorated with NotNullAttribute.
      */
     it('PostWithQuery', () => {
-        service.postWithQuery('somebodyqqq').subscribe(
-            data => {
+        service.postWithQuery('somebodyqqq').subscribe({
+            next: data => {
                 expect(data.name).toBe('somebodyqqq');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('search', () => {
-        service.search('Torna').subscribe(
-            data => {
+        service.search('Torna').subscribe({
+            next: data => {
                 console.debug(data!.length);
                 expect(data!.length).toBe(1);
                 expect(data![0].name).toBe('Tornado');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
@@ -321,17 +321,17 @@ describe('entities API', () => {
         };
 
         client.createPerson(newPerson)
-            .subscribe(
-                data => {
+            .subscribe({
+                next: data => {
                     id = data;
                     expect(data).toBeTruthy();
     
                 },
-                error => {
+                error: error => {
                     throw new Error(errorResponseToString(error));
     
                 }
-            );
+            });
 
     }
     );
@@ -346,8 +346,8 @@ describe('entities API', () => {
         };
 
         client.createPerson3(newPerson, () => new HttpHeaders({ middle: 'HaHa' }))
-            .subscribe(
-                data => {
+            .subscribe({
+                next: data => {
                     expect(data!.givenName).toBe('HaHa');
                     const d1: any = data!.dob;
                     const d2: any = data!.baptised;
@@ -355,11 +355,11 @@ describe('entities API', () => {
                     expect(d2).toContain('1980-01-30T00:00:00'); //System.Text.Json returns 1980-01-30T00:00:00.0000000+00:00, while Newtonsoft.Json gives 1980-01-30T00:00:00+00:00
     
                 },
-                error => {
+                error: error => {
                     throw new Error(errorResponseToString(error));
     
                 }
-            );
+            });
 
     }
     );
@@ -373,16 +373,16 @@ describe('entities API', () => {
         };
 
         client.getMims(c)
-            .subscribe(
-                data => {
+            .subscribe({
+                next: data => {
                     throw new Error('Should fail')
     
                 },
-                error => {
+                error: error => {
                     expect(errorResponseToString(error)).toContain('KK has to be between 10 and 100');
     
                 }
-            );
+            });
 
     }
     );
@@ -403,32 +403,32 @@ describe('entities API', () => {
         };
 
         client.getMyGenericPerson(c)
-            .subscribe(
-                data => {
+            .subscribe({
+                next: data => {
                     expect(data!.myU?.name).toBe('John Smith');
                     expect(data!.status).toBe('OK');
     
                 },
-                error => {
+                error: error => {
                     throw new Error(errorResponseToString(error));
     
                 }
-            );
+            });
 
     }
     );
 
     it('getNullCompany', () => {
-        client.getNullCompany().subscribe(
-            data => {
+        client.getNullCompany().subscribe({
+            next: data => {
                 expect(data).toBeNull();
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     });
 
 });
@@ -458,17 +458,17 @@ describe('DateTypes API', () => {
     it('GetNextHour', () => {
         const dt = new Date(Date.now());
         const h = dt.getHours();
-        service.getNextHour(dt).subscribe(
-            data => {
+        service.getNextHour(dt).subscribe({
+            next: data => {
                 const dd = new Date(data!);
                 expect(dd.getHours()).toBe(h + 1);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
@@ -476,17 +476,17 @@ describe('DateTypes API', () => {
     it('GetNextYear', () => {
         const dt = new Date(Date.now());
         const h = dt.getFullYear();
-        service.getNextYear(dt).subscribe(
-            data => {
+        service.getNextYear(dt).subscribe({
+            next: data => {
                 const dd = new Date(data!);
                 expect(dd.getFullYear()).toBe(h + 1);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
@@ -494,63 +494,63 @@ describe('DateTypes API', () => {
     it('PostNextYear', () => {
         const dt = new Date(Date.now());
         const h = dt.getFullYear();
-        service.postNextYear(dt).subscribe(
-            data => {
+        service.postNextYear(dt).subscribe({
+            next: data => {
                 const dd = new Date(data!);
                 expect(dd.getFullYear()).toBe(h + 1);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getDateTime', () => {
-        service.getDateTime(true).subscribe(
-            data => {
+        service.getDateTime(true).subscribe({
+            next: data => {
                 expect(data).toBeDefined();
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getDateTimeNull', () => {
-        service.getDateTime(false).subscribe(
-            data => {
+        service.getDateTime(false).subscribe({
+            next: data => {
                 expect(data).toBeNull();
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('postDateTimeOffset', () => {
         const dt = new Date(Date.now());
-        service.postDateTimeOffset(dt).subscribe(
-            data => {
+        service.postDateTimeOffset(dt).subscribe({
+            next: data => {
                 expect(new Date(data!)).toEqual(dt);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
@@ -559,24 +559,24 @@ describe('DateTypes API', () => {
      * Newtonsoft.Json will throw error Error converting value {null} to type 'System.DateTimeOffset'
      */
     it('postDateTimeOffsetWithNull', () => {
-        service.postDateTimeOffset(null).subscribe(
-            data => {
+        service.postDateTimeOffset(null).subscribe({
+            next: data => {
                 throw new Error("validation")
 
             },
-            error => {
+            error: error => {
                 expect(errorResponseToString(error)).toContain('Error converting value {null} to type');
 
             }
-        );
+        });
 
     }
     );
 
     it('postDateTimeOffsetNullable', () => {
         const dt = new Date(Date.now());
-        service.postDateTimeOffsetNullable(dt).subscribe(
-            data => {
+        service.postDateTimeOffsetNullable(dt).subscribe({
+            next: data => {
                 if (data) {
                     expect(new Date(data)).toEqual(dt);
                 } else {
@@ -584,309 +584,309 @@ describe('DateTypes API', () => {
                 }
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('postDateTimeOffsetNullableWithNull', () => {
-        service.postDateTimeOffsetNullable(null).subscribe(
-            data => {
+        service.postDateTimeOffsetNullable(null).subscribe({
+            next: data => {
                 expect(data).toBeNull();
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('postDateTimeOffsetNullableWithUndefined', () => {
-        service.postDateTimeOffsetNullable(undefined!).subscribe(
-            data => {
+        service.postDateTimeOffsetNullable(undefined!).subscribe({
+            next: data => {
                 expect(data).toBeNull();
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('postDateOnly', () => {
         const dt = new Date(Date.parse('2018-12-25')); //JS will serialize it to 2018-12-25T00:00:00.000Z.
-        service.postDateOnly(dt).subscribe(
-            data => {
+        service.postDateOnly(dt).subscribe({
+            next: data => {
                 const v: any = data; //string 2008-12-25
                 expect(v).toEqual('2018-12-25');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('postDateOnlyWithUtc', () => {
         const dt = new Date(Date.parse('2018-12-25T00:00:00.000Z')); //JS will serialize it to 2018-12-25T00:00:00.000Z.
-        service.postDateOnly(dt).subscribe(
-            data => {
+        service.postDateOnly(dt).subscribe({
+            next: data => {
                 const v: any = data; //string 2008-12-25
                 expect(v).toEqual('2018-12-25');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('postDateOnlyWithAusMidnight', () => {
         const dt = new Date(Date.parse('2018-12-24T14:00:00.000Z')); //Angular Material DatePicker by default will give this when picking 2018-12-25
-        service.postDateOnly(dt).subscribe(
-            data => {
+        service.postDateOnly(dt).subscribe({
+            next: data => {
                 const v: any = data;
                 expect(v).toEqual('2018-12-24');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('postDateOnlyText', () => {
         let obj: any = '2018-12-25';
-        service.postDateOnly(obj).subscribe(
-            data => {
+        service.postDateOnly(obj).subscribe({
+            next: data => {
                 const v: any = data; //string 2008-12-25
                 expect(v).toEqual('2018-12-25');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('postDateOnlyUtcText', () => {
         let obj: any = '2018-12-25T00:00:00.000Z';
-        service.postDateOnly(obj).subscribe(
-            data => {
+        service.postDateOnly(obj).subscribe({
+            next: data => {
                 const v: any = data;
                 expect(v).toEqual('2018-12-25');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('postDateOnlyAusMidnightText', () => {
         let obj: any = '2018-12-24T23:00:01.001Z';
-        service.postDateOnly(obj).subscribe(
-            data => {
+        service.postDateOnly(obj).subscribe({
+            next: data => {
                 const v: any = data;
                 expect(v).toEqual('2018-12-24');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
 
     it('postDateOnlyWithNull', () => {
-        service.postDateOnly(null!).subscribe( //strict mode happy
-            data => {
+        service.postDateOnly(null!).subscribe({ //strict mode happy
+            next: data => {
                 const v: any = data;
                 expect(v).toEqual('0001-01-01');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('postDateOnlyNullable', () => {
         const dt = new Date(Date.parse('2018-12-23'));
-        service.postDateOnlyNullable(dt).subscribe(
-            data => {
+        service.postDateOnlyNullable(dt).subscribe({
+            next: data => {
                 const v: any = data;
                 expect(v).toEqual('2018-12-23');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('postDateOnlyNullableWithNull', () => {
-        service.postDateOnlyNullable(null).subscribe(
-            data => {
+        service.postDateOnlyNullable(null).subscribe({
+            next: data => {
                 expect(data).toBeNull();
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('postDateOnlyNullableWithUndefined', () => {
-        service.postDateOnlyNullable(null).subscribe(
-            data => {
+        service.postDateOnlyNullable(null).subscribe({
+            next: data => {
                 expect(data).toBeNull();
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('isDateTimeOffsetDate', () => {
         const dt = new Date(Date.parse('2018-12-23'));
-        service.isDateTimeOffsetDate(dt).subscribe(
-            data => {
+        service.isDateTimeOffsetDate(dt).subscribe({
+            next: data => {
                 const v: any = data!.item1;
                 expect(v).toEqual('2018-12-23');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('isDateTimeDate', () => {
         const dt = new Date(Date.parse('2018-12-23'));
-        service.isDateTimeDate(dt).subscribe(
-            data => {
+        service.isDateTimeDate(dt).subscribe({
+            next: data => {
                 const v: any = data!.item1;
                 expect(v).toEqual('2018-12-23');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getNextYearNullable', () => {
         const now = new Date(Date.now());
-        service.getNextYearNullable(2, now).subscribe(
-            data => {
+        service.getNextYearNullable(2, now).subscribe({
+            next: data => {
                 const dt = new Date(data!); // data is actually string, NG HttpClient does not translate it to Date
                 expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getNextHourNullable', () => {
         const now = new Date(Date.now());
-        service.getNextHourNullable(2, now).subscribe(
-            data => {
+        service.getNextHourNullable(2, now).subscribe({
+            next: data => {
                 const dt = new Date(data!);
                 expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getNextYearNullable2', () => {
         const now = new Date(Date.now());
-        service.getNextYearNullable(2, undefined!).subscribe(
-            data => {
+        service.getNextYearNullable(2, undefined!).subscribe({
+            next: data => {
                 const dt = new Date(data!);
                 expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getNextHourNullable2', () => {
         const now = new Date(Date.now());
-        service.getNextHourNullable(2, null).subscribe(
-            data => {
+        service.getNextHourNullable(2, null).subscribe({
+            next: data => {
                 const dt = new Date(data!);
                 expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
@@ -895,8 +895,8 @@ describe('DateTypes API', () => {
     it('searchDateRange', () => {
         const startDt = new Date(Date.now());
         const endDt = new Date(Date.now() + 100000);
-        service.searchDateRange(startDt, endDt).subscribe(
-            data => {
+        service.searchDateRange(startDt, endDt).subscribe({
+            next: data => {
                 if (data!.item1 && data!.item2) {
                     expect(new Date(data!.item1)).toEqual(startDt);
                     expect(new Date(data!.item2)).toEqual(endDt);
@@ -905,11 +905,11 @@ describe('DateTypes API', () => {
                 }
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
@@ -918,8 +918,8 @@ describe('DateTypes API', () => {
     it('searchDateRangeEndUndefined', () => {
         const startDt = new Date(Date.now());
         const endDt = new Date(Date.now() + 100000);
-        service.searchDateRange(startDt, undefined!).subscribe(
-            data => {
+        service.searchDateRange(startDt, undefined!).subscribe({
+            next: data => {
                 if (data!.item1) {
                     expect(new Date(data!.item1)).toEqual(startDt); //strict mode happy
                 } else {
@@ -930,11 +930,11 @@ describe('DateTypes API', () => {
                 expect(data!.item2 == null).toBeTruthy();
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
@@ -943,8 +943,8 @@ describe('DateTypes API', () => {
     it('searchDateRangeStartUndefined', () => {
         const startDt = new Date(Date.now());
         const endDt = new Date(Date.now() + 100000);
-        service.searchDateRange(undefined!, endDt).subscribe(
-            data => {
+        service.searchDateRange(undefined!, endDt).subscribe({
+            next: data => {
                 // throw new Error('The API should return http 400 error.'); in .net core 2.0, the service return status 400. Apparently this was a bug which was fixed in 2.1
                 //expect(data!.item1).toBeUndefined(); // NewtonSoft.Json give undefined, while System.Text.Json gives null
                 expect(data!.item1 == null).toBeTruthy();
@@ -955,7 +955,7 @@ describe('DateTypes API', () => {
                 }
 
             },
-            error => {
+            error: error => {
                 const errorText = errorResponseToString(error);
                 if (errorText.indexOf('400') < 0) {
                     throw new Error(errorText);
@@ -963,7 +963,7 @@ describe('DateTypes API', () => {
                 expect(true).toBeTruthy();
 
             }
-        );
+        });
 
     }
     );
@@ -972,19 +972,19 @@ describe('DateTypes API', () => {
     it('searchDateRangeBothNull', () => {
         const startDt = new Date(Date.now());
         const endDt = new Date(Date.now() + 100000);
-        service.searchDateRange(null, undefined!).subscribe(
-            data => {
+        service.searchDateRange(null, undefined!).subscribe({
+            next: data => {
                 //expect(data!.item1).toBeUndefined();
                 //expect(data!.item2).toBeUndefined();
                 expect(data!.item1 == null).toBeTruthy();
                 expect(data!.item2 == null).toBeTruthy();
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
@@ -1013,158 +1013,158 @@ describe('SuperDemo API', () => {
     });
 
     it('getBool', () => {
-        service.getBool().subscribe(
-            data => {
+        service.getBool().subscribe({
+            next: data => {
                 expect(data).toBeTruthy();
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getFloatZero', () => {
-        service.getFloatZero().subscribe(
-            data => {
+        service.getFloatZero().subscribe({
+            next: data => {
                 expect(data).toBeLessThan(0.000001);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getDoubleZero', () => {
-        service.getDoubleZero().subscribe(
-            data => {
+        service.getDoubleZero().subscribe({
+            next: data => {
                 expect(data).not.toBe(0);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getDecimalZero', () => {
-        service.getDecimalZero().subscribe(
-            data => {
+        service.getDecimalZero().subscribe({
+            next: data => {
                 expect(data).toBe(0);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getIntSquare', () => {
-        service.getIntSquare(100).subscribe(
-            data => {
+        service.getIntSquare(100).subscribe({
+            next: data => {
                 expect(data).toBe(10000);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getDecimalSquare', () => {
-        service.getDecimalSquare(100).subscribe(
-            data => {
+        service.getDecimalSquare(100).subscribe({
+            next: data => {
                 expect(data).toBe(10000);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getNullableDecimal', () => {
-        service.getNullableDecimal(true).subscribe(
-            data => {
+        service.getNullableDecimal(true).subscribe({
+            next: data => {
                 expect(data).toBeGreaterThan(10);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getNullableDecimalNull', () => {
-        service.getNullableDecimal(false).subscribe(
-            data => {
+        service.getNullableDecimal(false).subscribe({
+            next: data => {
                 expect(data).toBeNull();
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getNullPerson', () => {
-        service.getNullPerson().subscribe(
-            data => {
+        service.getNullPerson().subscribe({
+            next: data => {
                 expect(data).toBeNull();
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getByteArray', () => {
-        service.getByteArray().subscribe(
-            data => {
+        service.getByteArray().subscribe({
+            next: data => {
                 expect(data!.length).toBeGreaterThan(0);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getTextStream', () => {
-        service.getTextStream().subscribe(
-            data => {
+        service.getTextStream().subscribe({
+            next: data => {
                 expect(data.body!.size).toBe(7);
 
                 const reader = new FileReader();
@@ -1175,11 +1175,11 @@ describe('SuperDemo API', () => {
 
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
@@ -1188,15 +1188,15 @@ describe('SuperDemo API', () => {
      * Returned is blob
      */
     it('getBadRequest', () => {
-        service.getBadRequest().subscribe(
-            data => {
+        service.getBadRequest().subscribe({
+            next: data => {
                 throw new Error('Should never be OK');
 
             },
-            error => {
+            error: error => {
                 expect(JSON.stringify(error)).contains('Bad Request');
             }
-        );
+        });
 
     }
     );
@@ -1205,79 +1205,79 @@ describe('SuperDemo API', () => {
      * Returned is text
      */
     it('getBadRequest2', () => {
-        service.getBadRequest2().subscribe(
-            data => {
+        service.getBadRequest2().subscribe({
+            next: data => {
                 throw new Error('Should never be OK');
 
             },
-            error => {
+            error: error => {
                 expect(error.error).toBe('{"DemoKey":["Some description"]}');
 
             }
-        );
+        });
 
     }
     );
 
     it('getActionResult', () => {
-        service.getActionResult().subscribe(
-            data => {
+        service.getActionResult().subscribe({
+            next: data => {
                 expect(data.status).toBe(200);
                 expect(data.body).toBe('abcdefg');
 
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getbyte', () => {
-        service.getbyte().subscribe(
-            data => {
+        service.getbyte().subscribe({
+            next: data => {
                 expect(data).toEqual(255);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getActionStringResult', () => {
-        service.getActionStringResult().subscribe(
-            data => {
+        service.getActionStringResult().subscribe({
+            next: data => {
                 expect(data).toContain('abcdefg');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
 
     it('getChar', () => {
-        service.getChar().subscribe(
-            data => {
+        service.getChar().subscribe({
+            next: data => {
                 expect(data).toBe('A');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
@@ -1286,49 +1286,49 @@ describe('SuperDemo API', () => {
      * Response is  79228162514264337593543950335.0
      */
     it('getDecimal', () => {
-        service.getDecimal().subscribe(
-            data => {
+        service.getDecimal().subscribe({
+            next: data => {
                 expect(data).toBe(79228162514264337593543950335);
                 expect(data.toString()).not.toBe('79228162514264337593543950335'); // otherwise, Expected '7.922816251426434e+28' to be '79228162514264337593543950335'.
                 expect(BigInt(data).toString()).toBe('79228162514264337593543950336'); // dirty JavaScript
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
 
     it('getdouble', () => {
-        service.getdouble().subscribe(
-            data => {
+        service.getdouble().subscribe({
+            next: data => {
                 expect(data).toBe(-1.7976931348623e308);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getUint', () => {
-        service.getUint().subscribe(
-            data => {
+        service.getUint().subscribe({
+            next: data => {
                 expect(data).toBe(4294967295);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
@@ -1337,19 +1337,19 @@ describe('SuperDemo API', () => {
      * ASP.NET Core  up to 10 System.Text.Json cannot handle this. NewtonSoft.Json is OK with DemoCoreWeb
      */
     it('getInt2D', () => {
-        service.getInt2D().subscribe(
-            data => {
+        service.getInt2D().subscribe({
+            next: data => {
                 expect(data![0][0]).toBe(1);
                 expect(data![0][3]).toBe(4);
                 expect(data![1][0]).toBe(5);
                 expect(data![1][3]).toBe(8);
 
             },
-            error => {
+            error: error => {
                // throw new Error(errorResponseToString(error));
                 expect(errorResponseToString(error)).contain('Serialization and deserialization of '); // with DemoTextJsonWeb
             }
-        );
+        });
 
     }
     );
@@ -1379,19 +1379,19 @@ fail: Microsoft.AspNetCore.Server.Kestrel[13]
 
 
     it('getInt2DJagged', () => {
-        service.getInt2DJagged().subscribe(
-            data => {
+        service.getInt2DJagged().subscribe({
+            next: data => {
                 expect(data![0][0]).toBe(1);
                 expect(data![0][3]).toBe(4);
                 expect(data![1][0]).toBe(5);
                 expect(data![1][3]).toBe(8);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
@@ -1400,144 +1400,144 @@ fail: Microsoft.AspNetCore.Server.Kestrel[13]
      * ASP.NET Core up to 10 with System.Text.Json could not handle this. With NewtonSoft.Json is OK.
      */
     it('postInt2D', () => {
-        service.postInt2D([[1, 2, 3, 4], [5, 6, 7, 8]]).subscribe(
-            data => {
+        service.postInt2D([[1, 2, 3, 4], [5, 6, 7, 8]]).subscribe({
+            next: data => {
                 expect(data).toBeTruthy();
 
             },
-            error => {
+            error: error => {
                 //throw new Error(errorResponseToString(error));
                 expect(errorResponseToString(error)).contain('Serialization and deserialization of ');
             }
-        );
+        });
 
     }
     );
 
     it('postIntArray', () => {
-        service.postIntArray([1, 2, 3, 4, 5, 6, 7, 8]).subscribe(
-            data => {
+        service.postIntArray([1, 2, 3, 4, 5, 6, 7, 8]).subscribe({
+            next: data => {
                 expect(data).toBeTruthy();
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getIntArrayQ', () => {
-        service.getIntArrayQ([3, 4, 5]).subscribe(
-            data => {
+        service.getIntArrayQ([3, 4, 5]).subscribe({
+            next: data => {
                 expect(data!.length).toBe(3);
                 expect(data![2]).toBe(5);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getIntArrayQ2', () => {
-        service.getIntArrayQ2(['3', '4', '5']).subscribe(
-            data => {
+        service.getIntArrayQ2(['3', '4', '5']).subscribe({
+            next: data => {
                 expect(data!.length).toBe(3);
                 expect(data![2].toString()).toBe('5'); // response is [3, 4, 5]
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getStringArrayQ', () => {
-        service.getStringArrayQ(['abc', 'EFG', 'hi']).subscribe(
-            data => {
+        service.getStringArrayQ(['abc', 'EFG', 'hi']).subscribe({
+            next: data => {
                 expect(data!.length).toBe(3);
                 expect(data![2]).toBe('hi');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getStringArrayQ2', () => {
-        service.getStringArrayQ2(['abc', 'EFG', 'hi']).subscribe(
-            data => {
+        service.getStringArrayQ2(['abc', 'EFG', 'hi']).subscribe({
+            next: data => {
                 expect(data!.length).toBe(3);
                 expect(data![2]).toBe('hi');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
 
     it('getEnumArrayQ2', () => {
-        service.getEnumArrayQ2([3, 4, 5]).subscribe(
-            data => {
+        service.getEnumArrayQ2([3, 4, 5]).subscribe({
+            next: data => {
                 expect(data!.length).toBe(3);
                 expect(data![2]).toBe(5);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getEnumArrayDaysWithInt', () => {
-        service.getEnumArrayDays([3, 4, 5]).subscribe(
-            data => {
+        service.getEnumArrayDays([3, 4, 5]).subscribe({
+            next: data => {
                 expect(data!.length).toBe(3);
                 expect(data![2]).toBe(5);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getEnumArrayDaysWithEnum', () => {
-        service.getEnumArrayDays([DemoWebApi_DemoData_Client.Days.Mon, DemoWebApi_DemoData_Client.Days.Sat, DemoWebApi_DemoData_Client.Days.Wed]).subscribe(
-            data => {
+        service.getEnumArrayDays([DemoWebApi_DemoData_Client.Days.Mon, DemoWebApi_DemoData_Client.Days.Sat, DemoWebApi_DemoData_Client.Days.Wed]).subscribe({
+            next: data => {
                 expect(data!.length).toBe(3);
                 expect(data![2]).toBe(DemoWebApi_DemoData_Client.Days.Wed);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
@@ -1545,88 +1545,88 @@ fail: Microsoft.AspNetCore.Server.Kestrel[13]
 
 
     it('postWithQueryButEmptyBody', () => {
-        service.postWithQueryButEmptyBody('abc', 123).subscribe(
-            data => {
+        service.postWithQueryButEmptyBody('abc', 123).subscribe({
+            next: data => {
                 expect(data!.item1).toBe('abc');
                 expect(data!.item2).toBe(123);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('postDay', () => {
-        service.postDay(DemoWebApi_DemoData_Client.Days.Fri, DemoWebApi_DemoData_Client.Days.Mon).subscribe(
-            data => {
+        service.postDay(DemoWebApi_DemoData_Client.Days.Fri, DemoWebApi_DemoData_Client.Days.Mon).subscribe({
+            next: data => {
                 expect(data!.length).toBe(2);
                 expect(data![1]).toBe(DemoWebApi_DemoData_Client.Days.Mon);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('postDay2', () => {
-        service.postDay(3, 5).subscribe(
-            data => {
+        service.postDay(3, 5).subscribe({
+            next: data => {
                 expect(data!.length).toBe(2);
                 expect(data![1]).toBe(5);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getDay', () => {
-        service.getDay(3).subscribe(
-            data => {
+        service.getDay(3).subscribe({
+            next: data => {
                 expect(data).toBe(3);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
 
     it('postGuids', () => {
-        service.postGuids(['08d7be8b-4805-459e-849a-fcd5c64a33ee', '08d7be8b-47fb-44a5-86a8-a6f4fe928fa9']).subscribe(
-            data => {
+        service.postGuids(['08d7be8b-4805-459e-849a-fcd5c64a33ee', '08d7be8b-47fb-44a5-86a8-a6f4fe928fa9']).subscribe({
+            next: data => {
                 expect(data!.length).toBe(2);
                 expect(data![0]).toBe('08d7be8b-4805-459e-849a-fcd5c64a33ee');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getDictionaryOfPeople', () => {
-        service.getDictionaryOfPeople().subscribe(
-            data => {
+        service.getDictionaryOfPeople().subscribe({
+            next: data => {
                 let p = data!['spider Man']; // ASP.NET Web API with NewtonSoftJson made it camcel;
                 if (!p) {
                     p = data!['Spider Man']; // .NET Core is OK
@@ -1635,11 +1635,11 @@ fail: Microsoft.AspNetCore.Server.Kestrel[13]
                 expect(p.addresses![0].city).toBe('New York');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
@@ -1673,47 +1673,47 @@ fail: Microsoft.AspNetCore.Server.Kestrel[13]
                     }
                 ]
             }
-        }).subscribe(
-            data => {
+        }).subscribe({
+            next: data => {
                 expect(data).toBe(2);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getKeyhValuePair', () => {
-        service.getKeyhValuePair().subscribe(
-            data => {
+        service.getKeyhValuePair().subscribe({
+            next: data => {
                 expect(data!.key).toBe('Spider Man');
                 expect(data!.value.addresses![0].city).toBe('New York');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('getBool', () => {
-        service.getBool().subscribe(
-            data => {
+        service.getBool().subscribe({
+            next: data => {
                 expect(data).toBeTruthy();
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
@@ -1746,104 +1746,104 @@ describe('Tuple API', () => {
     });
 
     it('getTuple2', () => {
-        service.getTuple2().subscribe(
-            data => {
+        service.getTuple2().subscribe({
+            next: data => {
                 expect(data!.item1).toBe('Two');
                 expect(data!.item2).toBe(2);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('postTuple2', () => {
-        service.postTuple2({ item1: 'One', item2: 2 }).subscribe(
-            data => {
+        service.postTuple2({ item1: 'One', item2: 2 }).subscribe({
+            next: data => {
                 expect(data).toBe('One');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('getTuple7', () => {
-        service.getTuple7().subscribe(
-            data => {
+        service.getTuple7().subscribe({
+            next: data => {
                 expect(data!.item1).toBe('Seven');
                 expect(data!.item7).toBe(7);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('getTuple2', () => {
-        service.getTuple2().subscribe(
-            data => {
+        service.getTuple2().subscribe({
+            next: data => {
                 expect(data!.item1).toBe('Two');
                 expect(data!.item2).toBe(2);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('postTuple7', () => {
-        service.postTuple7({ item1: 'One', item2: '', item3: '', item4: '', item5: '', item6: '33333', item7: 9 }).subscribe(
-            data => {
+        service.postTuple7({ item1: 'One', item2: '', item3: '', item4: '', item5: '', item6: '33333', item7: 9 }).subscribe({
+            next: data => {
                 expect(data).toBe('One');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('getTuple8', () => {
-        service.getTuple8().subscribe(
-            data => {
+        service.getTuple8().subscribe({
+            next: data => {
                 expect(data!.item1).toBe('Nested');
                 expect(data!.rest.item1).toBe('nine');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('postTuple8', () => {
-        service.postTuple8({ item1: 'One', item2: '', item3: '', item4: '', item5: '', item6: '', item7: '', rest: { item1: 'a', item2: 'b', item3: 'c' } }).subscribe(
-            data => {
+        service.postTuple8({ item1: 'One', item2: '', item3: '', item4: '', item5: '', item6: '', item7: '', rest: { item1: 'a', item2: 'b', item3: 'c' } }).subscribe({
+            next: data => {
                 expect(data).toBe('a');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
@@ -1859,16 +1859,16 @@ describe('Tuple API', () => {
                 name: 'Super',
                 addresses: [{ city: 'New York', street1: 'Somewhere st' }]
             }
-        }).subscribe(
-            data => {
+        }).subscribe({
+            next: data => {
                 expect(data!.name).toBe('someone');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
@@ -1903,142 +1903,142 @@ describe('StringData API', () => {
     });
 
     it('TestAthletheSearch', () => {
-        service.athletheSearch(32, 0, undefined, undefined, undefined!).subscribe(
-            data => {
+        service.athletheSearch(32, 0, undefined, undefined, undefined!).subscribe({
+            next: data => {
                 expect(data).toBe('"320"');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('TestAthletheSearch2', () => {
-        service.athletheSearch(32, 0, null!, undefined!, 'Search').subscribe(
-            data => {
+        service.athletheSearch(32, 0, null!, undefined!, 'Search').subscribe({
+            next: data => {
                 expect(data).toBe('"320Search"');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('TestAthletheSearch3', () => {
-        service.athletheSearch(32, 0, null!, 'Sort', 'Search').subscribe( //generally string not available should be undefined.
-            data => {
+        service.athletheSearch(32, 0, null!, 'Sort', 'Search').subscribe({ //generally string not available should be undefined.
+            next: data => {
                 expect(data).toBe('"320SortSearch"');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('TestAthletheSearch4', () => {
-        service.athletheSearch(32, 0, 'Order', 'Sort', 'Search').subscribe(
-            data => {
+        service.athletheSearch(32, 0, 'Order', 'Sort', 'Search').subscribe({
+            next: data => {
                 expect(data).toBe('"320OrderSortSearch"');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('TestAthletheSearch5', () => {
-        service.athletheSearch(32, 0, 'Order', null!, 'Search').subscribe(
-            data => {
+        service.athletheSearch(32, 0, 'Order', null!, 'Search').subscribe({
+            next: data => {
                 expect(data).toBe('"320OrderSearch"');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('TestAthletheSearch6', () => {
-        service.athletheSearch(32, 0, 'Order', '', 'Search').subscribe(
-            data => {
+        service.athletheSearch(32, 0, 'Order', '', 'Search').subscribe({
+            next: data => {
                 expect(data).toBe('"320OrderSearch"');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('TestAthletheSearchWithNullInt', () => {
-        service.athletheSearch(null, null!, 'Order', '', 'Search').subscribe(
-            data => {
+        service.athletheSearch(null, null!, 'Order', '', 'Search').subscribe({
+            next: data => {
                 throw new Error('validation');
 
             },
-            error => {
+            error: error => {
                 expect(errorResponseToString(error)).toContain('is not valid');
 
             }
-        );
+        });
     }
     );
 
     it('TestAthletheSearchWithUndefinedInt', () => {
-        service.athletheSearch(null, undefined!, 'Order', '', 'Search').subscribe(
-            data => {
+        service.athletheSearch(null, undefined!, 'Order', '', 'Search').subscribe({
+            next: data => {
                 throw new Error('validation')
 
             },
-            error => {
+            error: error => {
                 expect(errorResponseToString(error)).toContain('is not valid');
 
             }
-        );
+        });
     }
     );
 
     it('getABCDE', () => {
-        service.getABCDE().subscribe(
-            data => {
+        service.getABCDE().subscribe({
+            next: data => {
                 expect(data).toBe('"ABCDE"');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('getEmptyString', () => {
-        service.getEmptyString().subscribe(
-            data => {
+        service.getEmptyString().subscribe({
+            next: data => {
                 expect(data).toBe('""');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
@@ -2046,16 +2046,16 @@ describe('StringData API', () => {
      * Angular HttpClient could identify null value.
      */
     it('getNullString', () => {
-        service.getNullString().subscribe(
-            data => {
+        service.getNullString().subscribe({
+            next: data => {
                 expect(data).toBe(null);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 });
@@ -2086,58 +2086,58 @@ describe('TextData API', () => {
     });
 
     it('TestAthletheSearch', () => {
-        service.athletheSearch(32, 0, null!, undefined!, null!).subscribe(
-            data => {
+        service.athletheSearch(32, 0, null!, undefined!, null!).subscribe({
+            next: data => {
                 expect(data).toBe('320');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('TestAthletheSearch2', () => {
-        service.athletheSearch(32, 0, null!, null!, 'Search').subscribe(
-            data => {
+        service.athletheSearch(32, 0, null!, null!, 'Search').subscribe({
+            next: data => {
                 expect(data).toBe('320Search');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('getABCDE', () => {
-        service.getABCDE().subscribe(
-            data => {
+        service.getABCDE().subscribe({
+            next: data => {
                 expect(data).toBe('ABCDE');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('getEmptyString', () => {
-        service.getEmptyString().subscribe(
-            data => {
+        service.getEmptyString().subscribe({
+            next: data => {
                 expect(data).toBe('');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
@@ -2145,16 +2145,16 @@ describe('TextData API', () => {
      * Angular HttpClient could identify null value.
      */
     it('getNullString', () => {
-        service.getNullString().subscribe(
-            data => {
+        service.getNullString().subscribe({
+            next: data => {
                 expect(data).toBe(null);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
@@ -2211,8 +2211,8 @@ describe('Numbers API', () => {
         }
         
          */
-        service.postBigNumbers(d).subscribe(
-            r => {
+        service.postBigNumbers(d).subscribe({
+            next: r => {
                 expect(BigInt(r.unsigned64!)).toBe(BigInt('18446744073709551615'));
 
                 expect(BigInt(r.signed64!)).toBe(BigInt('9223372036854775807'));
@@ -2225,41 +2225,41 @@ describe('Numbers API', () => {
 
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
 
     it('postIntegralEntity', () => {
-        service.postIntegralEntity({  byte: 255, uShort: 65535 }).subscribe(
-            r => {
+        service.postIntegralEntity({  byte: 255, uShort: 65535 }).subscribe({
+            next: r => {
                 expect(r.byte).toBe(255);
                 expect(r.uShort).toBe(65535);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('postIntegralEntityInvalid', () => {
-        service.postIntegralEntity({  byte: 260, uShort: 65540 }).subscribe(
-            r => {
+        service.postIntegralEntity({  byte: 260, uShort: 65540 }).subscribe({
+            next: r => {
                 throw new Error('validation');
 
             },
-            error => {
+            error: error => {
                 expect(error.status).toEqual(400);
 
             }
-        );
+        });
     }
     );
 
@@ -2267,32 +2267,32 @@ describe('Numbers API', () => {
      * Backend checks if the data is null, likely due to invalid properties. And throw error.
      */
     it('postIntegralEntityInvalidButBackendCheckNull', () => {
-        service.postIntegralEntityMustBeValid({byte: 260, uShort: 65540 }).subscribe(
-            r => {
+        service.postIntegralEntityMustBeValid({byte: 260, uShort: 65540 }).subscribe({
+            next: r => {
                 throw new Error('backend should throw 500')
 
             },
-            error => {
+            error: error => {
                 console.error(errorResponseToString(error));
                 expect(true).toBe(true);
 
             }
-        );
+        });
     }
     );
 
 
     it('postUShort', () => {
-        service.postByDOfUInt16(65535).subscribe(
-            r => {
+        service.postByDOfUInt16(65535).subscribe({
+            next: r => {
                 expect(r).toBe(65535);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
@@ -2300,30 +2300,30 @@ describe('Numbers API', () => {
      * ASP.NET Web API just give 0 back
      */
     it('postUShortInvalid', () => {
-        service.postByDOfUInt16(65540).subscribe(
-            r => {
+        service.postByDOfUInt16(65540).subscribe({
+            next: r => {
                 throw new Error('validation');
 
             },
-            error => {
+            error: error => {
                 expect(error.status).toEqual(400);//.toContain('Error converting value 65540 to type');
 
             }
-        );
+        });
     }
     );
 
     it('postByte', () => {
-        service.postByDOfByte(255).subscribe(
-            r => {
+        service.postByDOfByte(255).subscribe({
+            next: r => {
                 expect(r).toBe(255);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
@@ -2331,160 +2331,160 @@ describe('Numbers API', () => {
      * ASP.NET Web API check ModelState and throw
      */
     it('postByteInvalid', () => {
-        service.postByDOfByte(258).subscribe(
-            r => {
+        service.postByDOfByte(258).subscribe({
+            next: r => {
                 throw new Error("backend should throw");
 
             },
-            error => {
+            error: error => {
                 console.error(errorResponseToString(error));
                 expect(error.status).toEqual(400)
 
             }
-        );
+        });
     }
     );
 
     it('getByte', () => {
-        service.getByte(255).subscribe(
-            r => {
+        service.getByte(255).subscribe({
+            next: r => {
                 expect(r).toBe(255);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('getByteInvalid', () => {
-        service.getByte(258).subscribe(
-            r => {
+        service.getByte(258).subscribe({
+            next: r => {
                 throw new Error('validation');
 
             },
-            error => {
+            error: error => {
                 expect(error.status).toEqual(400);
 
             }
-        );
+        });
     }
     );
 
     it('postByteWithNegativeInvalid', () => {
-        service.postByDOfByte(-10).subscribe(
-            r => {
+        service.postByDOfByte(-10).subscribe({
+            next: r => {
                 throw new Error("backend throws")
 
             },
-            error => {
+            error: error => {
                 console.error(errorResponseToString(error));
                 expect(true).toBe(true);
 
             }
-        );
+        });
     }
     );
 
     it('postSByte', () => {
-        service.postByDOfSByte(127).subscribe(
-            r => {
+        service.postByDOfSByte(127).subscribe({
+            next: r => {
                 expect(r).toBe(127);
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('postSByteInvalid', () => {
-        service.postByDOfSByte(130).subscribe(
-            r => {
+        service.postByDOfSByte(130).subscribe({
+            next: r => {
                 throw new Error('validation')
 
             },
-            error => {
+            error: error => {
                 expect(error.status).toEqual(400);
 
             }
-        );
+        });
     }
     );
 
     it('postInt64', () => {
-        service.postInt64('9223372036854775807').subscribe(
-            r => {
+        service.postInt64('9223372036854775807').subscribe({
+            next: r => {
                 expect(BigInt(r)).toBe(BigInt('9223372036854775807'));
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('postUInt64', () => {
-        service.postUint64('18446744073709551615').subscribe(
-            r => {
+        service.postUint64('18446744073709551615').subscribe({
+            next: r => {
                 expect(BigInt(r)).toBe(BigInt('18446744073709551615'));
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('postInt64Smaller', () => {
-        service.postInt64('9223372036854775123').subscribe(
-            r => {
+        service.postInt64('9223372036854775123').subscribe({
+            next: r => {
                 expect(BigInt(r)).toBe(BigInt('9223372036854775123'));
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('postLongAsBigInt', () => {
         // request: "9223372036854775807"
         // response: "9223372036854775807"
-        service.postBigInteger('9223372036854775807').subscribe(
-            r => {
+        service.postBigInteger('9223372036854775807').subscribe({
+            next: r => {
                 expect(BigInt(r)).toBe(BigInt('9223372036854775807'));
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('postLongAsBigIntWithSmallNumber', () => {
-        service.postBigInteger('123').subscribe(
-            r => {
+        service.postBigInteger('123').subscribe({
+            next: r => {
                 expect(BigInt(r)).toBe(BigInt(123n));
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
@@ -2492,89 +2492,89 @@ describe('Numbers API', () => {
     it('postReallyBigInt192bits', () => {
         // request: "6277101735386680762814942322444851025767571854389858533375"
         // response: "6277101735386680762814942322444851025767571854389858533375"
-        service.postBigInteger('6277101735386680762814942322444851025767571854389858533375').subscribe(
-            r => {
+        service.postBigInteger('6277101735386680762814942322444851025767571854389858533375').subscribe({
+            next: r => {
                 expect(BigInt(r)).toBe(BigInt(6277101735386680762814942322444851025767571854389858533375n));
                 expect(BigInt(r).valueOf()).toBe(BigInt('6277101735386680762814942322444851025767571854389858533375'));
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('postReallyBigInt80bits', () => {
-        service.postBigInteger('604462909807314587353087').subscribe(
-            r => {
+        service.postBigInteger('604462909807314587353087').subscribe({
+            next: r => {
                 expect(BigInt(r).valueOf()).toBe(604462909807314587353087n);
                 expect(BigInt(r).valueOf()).toBe(BigInt('604462909807314587353087'));
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('postReallyBigInt128bits', () => {
-        service.postBigInteger('340282366920938463463374607431768211455').subscribe(
-            r => {
+        service.postBigInteger('340282366920938463463374607431768211455').subscribe({
+            next: r => {
                 expect(BigInt(r).valueOf()).toBe(340282366920938463463374607431768211455n);
                 expect(BigInt(r).valueOf()).toBe(BigInt('340282366920938463463374607431768211455'));
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('getNullableNumberWith0', () => {
-        service.getNullableNumber(0).subscribe(
-            r => {
+        service.getNullableNumber(0).subscribe({
+            next: r => {
                 expect(r).toBe(0);
  
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('getNullableNumberWithNull', () => {
-        service.getNullableNumber(null).subscribe(
-            r => {
+        service.getNullableNumber(null).subscribe({
+            next: r => {
                 expect(r).toBeNull();
  
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('getNullableNumberWith1', () => {
-        service.getNullableNumber(1).subscribe(
-            r => {
+        service.getNullableNumber(1).subscribe({
+            next: r => {
                 expect(r).toBe(1);
  
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
@@ -2584,17 +2584,17 @@ describe('Numbers API', () => {
      * Response: "170141183460469231731687303715884105727" , Content-Type: application/json; charset=utf-8
      */
     it('postInt128', () => {
-        service.postInt128('170141183460469231731687303715884105727').subscribe(
-            r => {
+        service.postInt128('170141183460469231731687303715884105727').subscribe({
+            next: r => {
                 expect(BigInt(r)).toBe(BigInt('170141183460469231731687303715884105727'));
                 expect(BigInt(r)).toBe(BigInt(170141183460469231731687303715884105727n));
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
@@ -2604,19 +2604,19 @@ describe('Numbers API', () => {
      * Response: "340282366920938463463374607431768211455" , Content-Type: application/json; charset=utf-8
      */
     it('postUInt128', () => {
-        service.postUint128('340282366920938463463374607431768211455').subscribe(
-            r => {
+        service.postUint128('340282366920938463463374607431768211455').subscribe({
+            next: r => {
                 expect(BigInt(r)).toBe(BigInt('340282366920938463463374607431768211455'));
                 expect(BigInt(r)).toBe(BigInt(340282366920938463463374607431768211455n));
                 expect(BigInt(r).valueOf()).toBe(BigInt('340282366920938463463374607431768211455'));
                 expect(BigInt(r).valueOf()).toBe(BigInt(340282366920938463463374607431768211455n));
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
@@ -2686,8 +2686,8 @@ describe('Numbers API without customized serialization', () => {
         }
         
          */
-        service.postBigNumbers(d).subscribe(
-            r => {
+        service.postBigNumbers(d).subscribe({
+            next: r => {
                 //expect(BigInt(r.unsigned64!)).not.toBe(BigInt('18446744073709551615')); // BigInt can not handle the conversion from json number form correctly. This was OK in .NET 9
                 expect(BigInt(r.unsigned64!)).toEqual(BigInt('18446744073709551615')); // actually incorrect during deserialization. 
 
@@ -2700,11 +2700,11 @@ describe('Numbers API without customized serialization', () => {
 
                 expect(BigInt(r.bigInt!)).toEqual(BigInt(6277101735386680762814942322444851025767571854389858533375n));
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
@@ -2714,32 +2714,32 @@ describe('Numbers API without customized serialization', () => {
      * And the Web API has received actually 0. Not sure if the Web API binding had turned the request payload into 0 if the client is a Web browser.
      */
     it('postInt64ButIncorrect', () => {
-        service.postInt64('9223372036854775807').subscribe(
-            r => {
+        service.postInt64('9223372036854775807').subscribe({
+            next: r => {
                 expect(BigInt(9223372036854775807n).toString()).toBe('9223372036854775807');
                 expect(BigInt(r)).toBe(BigInt('9223372036854775807')); //OK now
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('postUInt64ButIncorrect', () => {
-        service.postUint64('18446744073709551615').subscribe(
-            r => {
+        service.postUint64('18446744073709551615').subscribe({
+            next: r => {
                 expect(BigInt(18446744073709551615n).toString()).toBe('18446744073709551615');
                 expect(BigInt(r)).toBe(BigInt('18446744073709551615')); //ok now
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
@@ -2749,84 +2749,84 @@ describe('Numbers API without customized serialization', () => {
         }
      */
     it('postBigIntegralAsStringForJs', () => {
-        service.postBigIntegralAsStringForJs('9223372036854775807').subscribe(
-            r => {
+        service.postBigIntegralAsStringForJs('9223372036854775807').subscribe({
+            next: r => {
                 expect(BigInt(9223372036854775807n).toString()).toBe('9223372036854775807');
                 expect(BigInt('9223372036854775807').toString()).toBe('9223372036854775807');
                 expect(BigInt(r)).toBe(BigInt('9223372036854775807'));
                 expect(BigInt(r)).toBe(BigInt(9223372036854775807n));
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('postBigIntegralAsStringForJs2', () => {
-        service.postBigIntegralAsStringForJs('6277101735386680762814942322444851025767571854389858533375').subscribe(
-            r => {
+        service.postBigIntegralAsStringForJs('6277101735386680762814942322444851025767571854389858533375').subscribe({
+            next: r => {
                 expect(BigInt(6277101735386680762814942322444851025767571854389858533375n).toString()).toBe('6277101735386680762814942322444851025767571854389858533375');
                 expect(BigInt('6277101735386680762814942322444851025767571854389858533375').toString()).toBe('6277101735386680762814942322444851025767571854389858533375');
                 expect(BigInt(r)).toBe(BigInt('6277101735386680762814942322444851025767571854389858533375'));
                 expect(BigInt(r)).toBe(BigInt(6277101735386680762814942322444851025767571854389858533375n));
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('postInt64SmallerInCorrect', () => {
-        service.postInt64('9223372036854775123').subscribe(
-            r => {
+        service.postInt64('9223372036854775123').subscribe({
+            next: r => {
                 expect(BigInt(r)).toBe(BigInt('9223372036854775123')); //ok now
                 //expect(BigInt(r)).toBe(BigInt('9223372036854774784')); // many digits wrong
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('postLongAsBigIntButIncorrect', () => {
         // request: "9223372036854775807"
         // response: 9223372036854775807
-        service.postBigInteger('9223372036854775807').subscribe(
-            r => {
+        service.postBigInteger('9223372036854775807').subscribe({
+            next: r => {
                 expect(BigInt(9223372036854775807n).toString()).toBe('9223372036854775807');
                 expect(BigInt(r)).toBe(BigInt('9223372036854775807')); //ok now
                 expect(r.toString()).toBe('9223372036854775807'); //good now
                 expect(BigInt(r).toString()).toBe('9223372036854775807');
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('postLongAsBigIntWithSmallNumber', () => {
-        service.postBigInteger('123').subscribe(
-            r => {
+        service.postBigInteger('123').subscribe({
+            next: r => {
                 expect(BigInt(r)).toBe(BigInt(123n));
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
 
     }
     );
@@ -2834,53 +2834,53 @@ describe('Numbers API without customized serialization', () => {
     it('postReallyBigInt192bitsButIncorrect', () => {
         // request: "6277101735386680762814942322444851025767571854389858533375"
         // response: 6277101735386680762814942322444851025767571854389858533375
-        service.postBigInteger('6277101735386680762814942322444851025767571854389858533375').subscribe(
-            r => {
+        service.postBigInteger('6277101735386680762814942322444851025767571854389858533375').subscribe({
+            next: r => {
                 expect(BigInt(r)).toBe(BigInt(6277101735386680762814942322444851025767571854389858533375n)); //this time, it is correct, but...
                 expect(BigInt(r).valueOf()).toBe(6277101735386680762814942322444851025767571854389858533375n); // ok now
                 expect(BigInt(r).valueOf()).toBe(BigInt('6277101735386680762814942322444851025767571854389858533375')); // not really, because what returned is lack of n
                 expect(BigInt(r)).toBe(6277101735386680762814942322444851025767571854389858533375n); // good now
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('postReallyBigInt80bitsButIncorect', () => {
-        service.postBigInteger('604462909807314587353087').subscribe(
-            r => {
+        service.postBigInteger('604462909807314587353087').subscribe({
+            next: r => {
                 expect(BigInt(r)).toBe(BigInt(604462909807314587353087n)); //this time, it is correct, but...
                 expect(BigInt(r).valueOf()).toBe(604462909807314587353087n); // not really,
                 expect(BigInt(r).valueOf()).toBe(BigInt('604462909807314587353087')); // not really, because what returned is lack of n
                 expect(BigInt(r).valueOf()).toBe(604462909807314587353087n); // ok now
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
     it('postReallyBigInt128bitsButIncorect', () => {
-        service.postBigInteger('340282366920938463463374607431768211455').subscribe(
-            r => {
+        service.postBigInteger('340282366920938463463374607431768211455').subscribe({
+            next: r => {
                 expect(BigInt(r)).toBe(BigInt(340282366920938463463374607431768211455n)); //this time, it is correct, but...
                 expect(BigInt(r).valueOf()).toBe(340282366920938463463374607431768211455n); // ok now
                 expect(BigInt(r).valueOf()).toBe(BigInt('340282366920938463463374607431768211455')); // not really, because what returned is lack of n
                 expect(BigInt(r)).toBe(340282366920938463463374607431768211455n); // last digit wrong,
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
@@ -2890,17 +2890,17 @@ describe('Numbers API without customized serialization', () => {
      * Response: "170141183460469231731687303715884105727" , Content-Type: application/json; charset=utf-8
      */
     it('postInt128', () => {
-        service.postInt128('170141183460469231731687303715884105727').subscribe(
-            r => {
+        service.postInt128('170141183460469231731687303715884105727').subscribe({
+            next: r => {
                 expect(BigInt(r)).toBe(BigInt('170141183460469231731687303715884105727'));
                 expect(BigInt(r)).toBe(BigInt(170141183460469231731687303715884105727n));
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 
@@ -2910,19 +2910,19 @@ describe('Numbers API without customized serialization', () => {
      * Response: "340282366920938463463374607431768211455" , Content-Type: application/json; charset=utf-8
      */
     it('postUInt128', () => {
-        service.postUint128('340282366920938463463374607431768211455').subscribe(
-            r => {
+        service.postUint128('340282366920938463463374607431768211455').subscribe({
+            next: r => {
                 expect(BigInt(r)).toBe(BigInt('340282366920938463463374607431768211455'));
                 expect(BigInt(r)).toBe(BigInt(340282366920938463463374607431768211455n));
                 expect(BigInt(r).valueOf()).toBe(BigInt('340282366920938463463374607431768211455'));
                 expect(BigInt(r).valueOf()).toBe(BigInt(340282366920938463463374607431768211455n));
 
             },
-            error => {
+            error: error => {
                 throw new Error(errorResponseToString(error));
 
             }
-        );
+        });
     }
     );
 

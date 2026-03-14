@@ -1,11 +1,10 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, provideHttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { DemoWebApi_DemoData_Client, DemoWebApi_Controllers_Client } from './WebApiCoreNg2ClientAuto';
-import { apiUri } from '../../testsStartupSettings';
+import { APIConfigConstants } from './testSettings';
 
-//const apiBaseUri = 'http://fonlow.org/'; // for DemoCoreWeb hosted in server of different timezone.
-const apiBaseUri = apiUri; // for DemoCoreWeb
-
+const apiBaseUri = APIConfigConstants.apiBaseUri;
+console.info('Back apiBaseUri: ' + apiBaseUri);
 
 export function valuesClientFactory(http: HttpClient) {
     return new DemoWebApi_Controllers_Client.Values(apiBaseUri, http);
@@ -84,8 +83,6 @@ describe('Values API', () => {
     let service: DemoWebApi_Controllers_Client.Values;
 
     beforeEach(()=>{
-		//TestBed.initTestEnvironment(BrowserTestingModule, platformBrowserTesting());
-
         TestBed.configureTestingModule({
             imports: [],
             providers: [

@@ -9,5 +9,5 @@ module.exports = {
       babel: true,
       tsconfig: 'tsconfig.json',
     }]
-  },
+  }
 }

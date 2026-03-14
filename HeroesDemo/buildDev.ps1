@@ -1,2 +1,1 @@
-﻿Set-Location $PSScriptRoot
-ng build --configuration=dev
+﻿./buildParams.ps1

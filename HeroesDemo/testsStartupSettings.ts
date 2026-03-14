@@ -1,0 +1,1 @@
+export const apiUri = 'http://localhost:5000/';

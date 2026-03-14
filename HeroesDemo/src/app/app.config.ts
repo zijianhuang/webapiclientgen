@@ -1,14 +1,14 @@
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import * as namespaces from '../clientapi/WebApiCoreNG2FormGroupClientAuto';
-import { SiteConfigConstants } from '../environments/environment';
+import { AppConfigConstants } from '../environments/environment.common';
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 
 export function clientFactory(http: HttpClient) {
-    if (SiteConfigConstants.apiBaseuri) {
-        console.debug('apiBaseuri:' + SiteConfigConstants.apiBaseuri)
-        return new namespaces.DemoWebApi_Controllers_Client.Heroes(SiteConfigConstants.apiBaseuri, http);
+    if (AppConfigConstants.apiBaseUri) {
+        console.debug('apiBaseUri:' + AppConfigConstants.apiBaseUri)
+        return new namespaces.DemoWebApi_Controllers_Client.Heroes(AppConfigConstants.apiBaseUri, http);
     }
 
     const _baseUri = window.location.origin + '/';

@@ -1,9 +1,10 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, provideHttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { DemoWebApi_DemoData_Client, DemoWebApi_Controllers_Client } from './WebApiCoreNg2ClientAuto';
+import { apiUri } from '../../testsStartupSettings';
 
 //const apiBaseUri = 'http://fonlow.org/'; // for DemoCoreWeb hosted in server of different timezone.
-const apiBaseUri = 'http://localhost:5000/'; // for DemoCoreWeb
+const apiBaseUri = apiUri; // for DemoCoreWeb
 
 
 export function valuesClientFactory(http: HttpClient) {
@@ -2625,16 +2626,17 @@ describe('Numbers API', () => {
 
 /**
  * Test when Web API has no customized serialization for 64-bit and BigInteger.
- * Marked as xdescribe then.
- * 
+ *  
  * Test the behavior of JavaScript when dealing with integral numbers larger than 53-bit.
  * Tested with ASP.NET 8, Chrome Version 121.0.6167.185 (Official Build) (64-bit), Firefox 122.0.1 (64-bit)
- * The lession is, when dealing with integral number larger than 53-bit or 64-bit, there are 3 options for client server agreement, as of year Feb 2024:
- * 1. In both ends, use string Content-Type: text/plain or application/json, for single big number parameter and return, probably for JS specific calls, since C# client can handle these integral types comfortablly.
- * Otherwise, the developer experience of backend developer is poor, loosing the enjoyment of strongly types of integral. For big integral inside an object, this may mean you have to declare a JS specific class as well.
+ * The lesson is, when dealing with integral number larger than 53-bit or 64-bit, there are 3 options for client server agreement, as of year Feb 2024:
+ * 1. In both ends, use string Content-Type: text/plain or application/json, for single big number parameter and return, probably for JS specific calls, 
+ * since C# client can handle these integral types comfortably.
+ * Otherwise, the developer experience of backend developer is poor, loosing the enjoyment of strongly types of integral. For big integral inside an object, 
+ * this may mean you have to declare a JS specific class as well.
  * 2. In the JS client end, use string object for 54-bit and greater.
  * 3. Use signed128 or unsigned128 if the number is not larger than 128-bit since ASP.NET 8 serializes it as string object.
- * 4. Alter the serilization of ASP.NET Web API for 64-bit and BigInteger, make it similar to what for 128-bit. https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/converters-how-to
+ * 4. Alter the serialization of ASP.NET Web API for 64-bit and BigInteger, make it similar to what for 128-bit. https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/converters-how-to
  *
  * JavaScript has difficulty in deal with number larger than 53-bit as JSON object.
  */

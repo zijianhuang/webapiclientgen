@@ -1,0 +1,1 @@
+﻿./buildParams.ps1 "https://heroes.fonlow.net/webapi/" "production" "DemoCoreWeb/angular"

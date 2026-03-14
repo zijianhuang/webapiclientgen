@@ -23,14 +23,13 @@ h2 {
 }
 
 a {
-  background-color: #3f525c;
   border-radius: 2px;
   padding: 1rem;
   font-size: 1.2rem;
   text-decoration: none;
   display: inline-block;
-  color: #fff;
-  text-align: center;
+
+   text-align: center;
   width: 100%;
   min-width: 70px;
   margin: .5rem auto;
@@ -47,8 +46,4 @@ a {
     width: 18%;
     box-sizing: content-box;
   }
-}
-
-a:hover {
-  background-color: black;
 }

@@ -1,2 +1,1 @@
-﻿Set-Location $PSScriptRoot
-ng build --configuration=production
+﻿./buildParams.ps1 "https://heroes.fonlow.net/webapi/" "production"

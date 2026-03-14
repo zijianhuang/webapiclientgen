@@ -33,12 +33,6 @@ li {
   padding: .5rem;
   box-sizing: border-box;
   text-decoration: none;
-  color: black;
-}
-
-.search-result li a:hover {
-  background-color: #435A60;
-  color: white;
 }
 
 ul.search-result {

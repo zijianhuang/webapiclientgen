@@ -5,7 +5,7 @@ import {
   BrowserTestingModule,
   platformBrowserTesting,
 } from '@angular/platform-browser/testing';
-import { APIConfigConstants } from 'src/clientapi/testSettings';
+import { APIConfigConstants } from './src/clientapi/testSettings';
 
 const settingsPath = './apiConfigConstantsRemote.js';
 console.info('settingsPath: '+ settingsPath);

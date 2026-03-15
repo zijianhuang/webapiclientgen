@@ -515,8 +515,7 @@ namespace Fonlow.Poco2Ts
 		CodeTypeReference TranslateGenericToTsTypeReference(Type type)
 		{
 			Type genericTypeDefinition = type.GetGenericTypeDefinition();
-
-			if (genericTypeDefinition == typeof(Nullable<>))
+			if (genericTypeDefinition == typeof(Nullable<>)) // nullable value type
 			{
 				CodeTypeReference[] genericTypeReferences = type.GenericTypeArguments.Select(d => TranslateToClientTypeReference(d)).ToArray();
 				Debug.Assert(genericTypeReferences.Length == 1);
@@ -528,7 +527,6 @@ namespace Fonlow.Poco2Ts
 			}
 
 			Type[] genericArguments = type.GetGenericArguments();
-
 			if (genericTypeDefinition == typeof(System.Threading.Tasks.Task<>))
 			{
 				return TranslateToClientTypeReference(genericArguments[0]);

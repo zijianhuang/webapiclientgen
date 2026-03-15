@@ -739,7 +739,8 @@ namespace Fonlow.Poco2Client
 				return new CodeTypeReference(anyGenericTypeName, genericParams);
 			}
 
-			if (genericTypeDefinition == typeof(Nullable<>) || TypeHelper.IsTuple(genericTypeDefinition) >= 0 ||
+			if (genericTypeDefinition == typeof(Nullable<>) || // nullable value type
+				TypeHelper.IsTuple(genericTypeDefinition) >= 0 ||
 				genericTypeDefinition == typeof(IDictionary<,>) || genericTypeDefinition == typeof(KeyValuePair<,>) || TypeHelper.IsIDictionaryType(type) ||
 				(TypeHelper.IsIEnumerableType(genericTypeDefinition) && !codeGenOutputsSettings.IEnumerableToArray))
 			{
@@ -845,7 +846,8 @@ namespace Fonlow.Poco2Client
 				return $"{anyGenericTypeName}{left}{genericParamsText}{right}";
 			}
 
-			if (genericTypeDefinition == typeof(Nullable<>) || TypeHelper.IsTuple(genericTypeDefinition) >= 0 ||
+			if (genericTypeDefinition == typeof(Nullable<>) || // nullable value type
+				TypeHelper.IsTuple(genericTypeDefinition) >= 0 ||
 				genericTypeDefinition == typeof(IDictionary<,>) || genericTypeDefinition == typeof(KeyValuePair<,>) || TypeHelper.IsIDictionaryType(type) ||
 				(TypeHelper.IsIEnumerableType(genericTypeDefinition) && !codeGenOutputsSettings.IEnumerableToArray))
 			{

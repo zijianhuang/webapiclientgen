@@ -1,4 +1,5 @@
-﻿using Fonlow.Reflection;
+﻿using Fonlow.Poco2Client;
+using Fonlow.Reflection;
 using Fonlow.Web.Meta;
 using System;
 
@@ -54,7 +55,7 @@ namespace Fonlow.CodeDom.Web
 
 					return replaced;
 				}
-				else if (IsNullablePrimitive(d.ParameterDescriptor.ParameterType))
+				else if (NullabilityInspector.IsNullableValueType(d.ParameterDescriptor.ParameterType))
 				{
 					string replaced = newUriText.Replace($"\"&{d.Name}={{{d.Name}}}", $"({d.Name}.HasValue?\"&{d.Name}=\"+{d.Name}.Value.ToString():String.Empty)+\"");
 					if (replaced == newUriText)
@@ -109,7 +110,7 @@ namespace Fonlow.CodeDom.Web
 
 					return replaced;
 				}
-				else if (IsNullablePrimitive(d.ParameterDescriptor.ParameterType))
+				else if (NullabilityInspector.IsNullableValueType(d.ParameterDescriptor.ParameterType))
 				{
 					string replaced = newUriText.Replace($"\"&{d.Name}={{{d.Name}}}", $"({d.Name}.HasValue?\"&{d.Name}=\"+{d.Name}.Value.ToString():String.Empty)+\"");
 					if (replaced == newUriText)
@@ -178,7 +179,7 @@ namespace Fonlow.CodeDom.Web
 
 					return replaced;
 				}
-				else if (IsNullablePrimitive(d.ParameterDescriptor.ParameterType))
+				else if (NullabilityInspector.IsNullableValueType(d.ParameterDescriptor.ParameterType))
 				{
 					if (IsNumericTypeIncludingNullable(d.ParameterDescriptor.ParameterType))
 					{
@@ -217,16 +218,6 @@ namespace Fonlow.CodeDom.Web
 			}
 
 		}
-		/// <summary>
-		/// DateTime is not primitive type. Decimal is primitive VB.net but not in C#.NET
-		/// https://stackoverflow.com/questions/13471941/why-is-decimal-not-a-primitive-type
-		/// </summary>
-		/// <param name="t"></param>
-		/// <returns></returns>
-		static bool IsNullablePrimitive(Type t)
-		{
-			return (t.IsGenericType && typeOfNullableDefinition.Equals(t.GetGenericTypeDefinition()) && (t.GetGenericArguments()[0].IsPrimitive || t.GetGenericArguments()[0].IsValueType));
-		}
 
 		static readonly Type typeOfString = typeof(string);
 
@@ -261,7 +252,5 @@ namespace Fonlow.CodeDom.Web
 			Type actualType = Nullable.GetUnderlyingType(type) ?? type;
 			return IsNumericType(actualType);
 		}
-
-
 	}
 }

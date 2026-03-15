@@ -152,7 +152,7 @@ namespace Fonlow.CodeDom.Web
 				{
 					string arrayQuery = $"{d.ParameterDescriptor.ParameterName}?.map(z => `{d.ParameterDescriptor.ParameterName}=${{encodeURIComponent(z)}}`).join('&')";
 					string placeHolder = $"{d.ParameterDescriptor.ParameterName}={{{d.ParameterDescriptor.ParameterName}}}";
-					return newUriText.Replace(placeHolder, "'+" + arrayQuery);
+					return newUriText.Replace(placeHolder, "' + " + arrayQuery);
 				}
 				else
 				{
@@ -186,7 +186,7 @@ namespace Fonlow.CodeDom.Web
 						string replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name} || {d.Name} == 0 ? '&{d.Name}=' + {d.Name}.toString() : '') + '");
 						if (replaced == newUriText)
 						{
-							replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"' + ({d.Name} || {d.Name} == 0  ? '{d.Name}=' + {d.Name}.toString() : '') + '");
+							replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"' + ({d.Name} || {d.Name} == 0 ? '{d.Name}=' + {d.Name}.toString() : '') + '");
 						}
 
 						return replaced;
@@ -209,7 +209,7 @@ namespace Fonlow.CodeDom.Web
 						$"{d.ParameterDescriptor.ParameterName}?.map(z => `{d.ParameterDescriptor.ParameterName}=${{z}}`).join('&')"
 						: $"{d.ParameterDescriptor.ParameterName}?.map(z => `{d.ParameterDescriptor.ParameterName}=${{encodeURIComponent(z)}}`).join('&')";
 					string placeHolder = $"{d.ParameterDescriptor.ParameterName}={{{d.ParameterDescriptor.ParameterName}}}";
-					return newUriText.Replace(placeHolder, "'+" + arrayQuery);
+					return newUriText.Replace(placeHolder, "' + " + arrayQuery);
 				}
 				else
 				{

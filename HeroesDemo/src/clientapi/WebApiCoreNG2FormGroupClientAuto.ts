@@ -580,7 +580,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/Numbers/NullableInt?num={num}
 		 */
 		getNullableNumber(num?: number | null, headersHandler?: () => HttpHeaders): Observable<number | null> {
-			return this.http.get<number | null>(this.baseUri + 'api/Numbers/NullableInt?' + (num || num == 0  ? 'num=' + num.toString() : ''), { headers: headersHandler ? headersHandler() : undefined });
+			return this.http.get<number | null>(this.baseUri + 'api/Numbers/NullableInt?' + (num || num == 0 ? 'num=' + num.toString() : ''), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
@@ -826,7 +826,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {string} order default null
 		 */
 		athletheSearch(take?: number | null, skip?: number | null, order?: string | null, sort?: string | null, search?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.get(this.baseUri + 'api/StringData/AthletheSearch?' + (take || take == 0  ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (!order ? '' : encodeURIComponent(order)) + '&sort=' + (!sort ? '' : encodeURIComponent(sort)) + '&search=' + (!search ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
+			return this.http.get(this.baseUri + 'api/StringData/AthletheSearch?' + (take || take == 0 ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (!order ? '' : encodeURIComponent(order)) + '&sort=' + (!sort ? '' : encodeURIComponent(sort)) + '&search=' + (!search ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
 		}
 
 		/**
@@ -955,7 +955,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/decimalArrayQ?a={a}
 		 */
 		getDecimalArrayQ(a?: Array<number> | null, headersHandler?: () => HttpHeaders): Observable<Array<number>> {
-			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/decimalArrayQ?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
+			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/decimalArrayQ?' + a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
@@ -979,22 +979,22 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/SuperDemo/StringStringDic
 		 */
-		getDictionary(headersHandler?: () => HttpHeaders): Observable<{[id: string]: string }> {
-			return this.http.get<{[id: string]: string }>(this.baseUri + 'api/SuperDemo/StringStringDic', { headers: headersHandler ? headersHandler() : undefined });
+		getDictionary(headersHandler?: () => HttpHeaders): Observable<{ [id: string]: string }> {
+			return this.http.get<{ [id: string]: string }>(this.baseUri + 'api/SuperDemo/StringStringDic', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/StringPersonDic
 		 */
-		getDictionaryOfPeople(headersHandler?: () => HttpHeaders): Observable<{[id: string]: DemoWebApi_DemoData_Client.Person }> {
-			return this.http.get<{[id: string]: DemoWebApi_DemoData_Client.Person }>(this.baseUri + 'api/SuperDemo/StringPersonDic', { headers: headersHandler ? headersHandler() : undefined });
+		getDictionaryOfPeople(headersHandler?: () => HttpHeaders): Observable<{ [id: string]: DemoWebApi_DemoData_Client.Person }> {
+			return this.http.get<{ [id: string]: DemoWebApi_DemoData_Client.Person }>(this.baseUri + 'api/SuperDemo/StringPersonDic', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/StringPersonDic2
 		 */
-		getDictionaryOfPeople2(headersHandler?: () => HttpHeaders): Observable<{[id: string]: DemoWebApi_DemoData_Client.Person }> {
-			return this.http.get<{[id: string]: DemoWebApi_DemoData_Client.Person }>(this.baseUri + 'api/SuperDemo/StringPersonDic2', { headers: headersHandler ? headersHandler() : undefined });
+		getDictionaryOfPeople2(headersHandler?: () => HttpHeaders): Observable<{ [id: string]: DemoWebApi_DemoData_Client.Person }> {
+			return this.http.get<{ [id: string]: DemoWebApi_DemoData_Client.Person }>(this.baseUri + 'api/SuperDemo/StringPersonDic2', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
@@ -1020,14 +1020,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/enumArrayDays?a={a}
 		 */
 		getEnumArrayDays(a?: Array<DemoWebApi_DemoData_Client.Days> | null, headersHandler?: () => HttpHeaders): Observable<Array<DemoWebApi_DemoData_Client.Days>> {
-			return this.http.get<Array<DemoWebApi_DemoData_Client.Days>>(this.baseUri + 'api/SuperDemo/enumArrayDays?'+a?.map(z => `a=${z}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
+			return this.http.get<Array<DemoWebApi_DemoData_Client.Days>>(this.baseUri + 'api/SuperDemo/enumArrayDays?' + a?.map(z => `a=${z}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/enumArrayQ2?a={a}
 		 */
 		getEnumArrayQ2(a?: Array<number> | null, headersHandler?: () => HttpHeaders): Observable<Array<number>> {
-			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/enumArrayQ2?'+a?.map(z => `a=${z}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
+			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/enumArrayQ2?' + a?.map(z => `a=${z}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
@@ -1079,7 +1079,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/intArrayQ?a={a}
 		 */
 		getIntArrayQ(a?: Array<number> | null, headersHandler?: () => HttpHeaders): Observable<Array<number>> {
-			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/intArrayQ?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
+			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/intArrayQ?' + a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
@@ -1087,7 +1087,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/intArrayQ2?a={a}
 		 */
 		getIntArrayQ2(a?: Array<string> | null, headersHandler?: () => HttpHeaders): Observable<Array<string>> {
-			return this.http.get<Array<string>>(this.baseUri + 'api/SuperDemo/intArrayQ2?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
+			return this.http.get<Array<string>>(this.baseUri + 'api/SuperDemo/intArrayQ2?' + a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
@@ -1116,8 +1116,8 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/SuperDemo/KeyValuePair
 		 */
-		getKeyhValuePair(headersHandler?: () => HttpHeaders): Observable<{key: string, value: DemoWebApi_DemoData_Client.Person }> {
-			return this.http.get<{key: string, value: DemoWebApi_DemoData_Client.Person }>(this.baseUri + 'api/SuperDemo/KeyValuePair', { headers: headersHandler ? headersHandler() : undefined });
+		getKeyhValuePair(headersHandler?: () => HttpHeaders): Observable<{ key: string, value: DemoWebApi_DemoData_Client.Person }> {
+			return this.http.get<{ key: string, value: DemoWebApi_DemoData_Client.Person }>(this.baseUri + 'api/SuperDemo/KeyValuePair', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
@@ -1154,7 +1154,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/DoubleNullable2?dd={dd}&de={de}
 		 */
 		getPrimitiveNullable2(dd?: number | null, de?: number | null, headersHandler?: () => HttpHeaders): Observable<{item1: number | null, item2: number | null}> {
-			return this.http.get<{item1: number | null, item2: number | null}>(this.baseUri + 'api/SuperDemo/DoubleNullable2?' + (dd || dd == 0  ? 'dd=' + dd.toString() : '') + (de || de == 0 ? '&de=' + de.toString() : ''), { headers: headersHandler ? headersHandler() : undefined });
+			return this.http.get<{item1: number | null, item2: number | null}>(this.baseUri + 'api/SuperDemo/DoubleNullable2?' + (dd || dd == 0 ? 'dd=' + dd.toString() : '') + (de || de == 0 ? '&de=' + de.toString() : ''), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
@@ -1178,7 +1178,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/stringArrayQ?a={a}
 		 */
 		getStringArrayQ(a?: Array<string> | null, headersHandler?: () => HttpHeaders): Observable<Array<string>> {
-			return this.http.get<Array<string>>(this.baseUri + 'api/SuperDemo/stringArrayQ?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
+			return this.http.get<Array<string>>(this.baseUri + 'api/SuperDemo/stringArrayQ?' + a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
@@ -1186,7 +1186,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/stringArrayQ2?a={a}
 		 */
 		getStringArrayQ2(a?: Array<string> | null, headersHandler?: () => HttpHeaders): Observable<Array<string>> {
-			return this.http.get<Array<string>>(this.baseUri + 'api/SuperDemo/stringArrayQ2?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
+			return this.http.get<Array<string>>(this.baseUri + 'api/SuperDemo/stringArrayQ2?' + a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
@@ -1263,7 +1263,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/StringPersonDic
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		postDictionary(dic?: {[id: string]: DemoWebApi_DemoData_Client.Person } | null, headersHandler?: () => HttpHeaders): Observable<number> {
+		postDictionary(dic?: { [id: string]: DemoWebApi_DemoData_Client.Person } | null, headersHandler?: () => HttpHeaders): Observable<number> {
 			return this.http.post<number>(this.baseUri + 'api/SuperDemo/StringPersonDic', JSON.stringify(dic), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
@@ -1367,7 +1367,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {number} skip Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		athletheSearch(take?: number | null, skip?: number | null, order?: string | null, sort?: string | null, search?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.get(this.baseUri + 'api/TextData/AthletheSearch?' + (take || take == 0  ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (!order ? '' : encodeURIComponent(order)) + '&sort=' + (!sort ? '' : encodeURIComponent(sort)) + '&search=' + (!search ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
+			return this.http.get(this.baseUri + 'api/TextData/AthletheSearch?' + (take || take == 0 ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (!order ? '' : encodeURIComponent(order)) + '&sort=' + (!sort ? '' : encodeURIComponent(sort)) + '&search=' + (!search ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
 		}
 
 		/**
@@ -2161,15 +2161,15 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 
 	export interface MyPeopleDic {
-		anotherDic?: {[id: string]: string };
-		dic?: {[id: string]: DemoWebApi_DemoData_Client.Person };
-		intDic?: {[id: number]: string };
+		anotherDic?: { [id: string]: string };
+		dic?: { [id: string]: DemoWebApi_DemoData_Client.Person };
+		intDic?: { [id: number]: string };
 	}
 	export function CreateMyPeopleDicFormGroup() {
 		return new FormGroup({
-			anotherDic: new FormControl<{[id: string]: string } | null | undefined>(undefined),
-			dic: new FormControl<{[id: string]: DemoWebApi_DemoData_Client.Person } | null | undefined>(undefined),
-			intDic: new FormControl<{[id: number]: string } | null | undefined>(undefined),
+			anotherDic: new FormControl<{ [id: string]: string } | null | undefined>(undefined),
+			dic: new FormControl<{ [id: string]: DemoWebApi_DemoData_Client.Person } | null | undefined>(undefined),
+			intDic: new FormControl<{ [id: number]: string } | null | undefined>(undefined),
 		});
 
 	}

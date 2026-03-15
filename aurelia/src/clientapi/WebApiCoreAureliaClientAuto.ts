@@ -530,7 +530,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/Numbers/NullableInt?num={num}
 		 */
 		getNullableNumber(num: number | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
-			return this.http.get('api/Numbers/NullableInt?' + (num || num == 0  ? 'num=' + num.toString() : ''), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.get('api/Numbers/NullableInt?' + (num || num == 0 ? 'num=' + num.toString() : ''), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -776,7 +776,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {string} order default null
 		 */
 		athletheSearch(take: number | null, skip: number | null, order: string | null, sort: string | null, search: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.get('api/StringData/AthletheSearch?' + (take || take == 0  ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (!order ? '' : encodeURIComponent(order)) + '&sort=' + (!sort ? '' : encodeURIComponent(sort)) + '&search=' + (!search ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
+			return this.http.get('api/StringData/AthletheSearch?' + (take || take == 0 ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (!order ? '' : encodeURIComponent(order)) + '&sort=' + (!sort ? '' : encodeURIComponent(sort)) + '&search=' + (!search ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
 		}
 
 		/**
@@ -905,7 +905,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/decimalArrayQ?a={a}
 		 */
 		getDecimalArrayQ(a: Array<number> | null, headersHandler?: () => { [header: string]: string }): Promise<Array<number>> {
-			return this.http.get('api/SuperDemo/decimalArrayQ?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.get('api/SuperDemo/decimalArrayQ?' + a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -929,21 +929,21 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/SuperDemo/StringStringDic
 		 */
-		getDictionary(headersHandler?: () => { [header: string]: string }): Promise<{[id: string]: string }> {
+		getDictionary(headersHandler?: () => { [header: string]: string }): Promise<{ [id: string]: string }> {
 			return this.http.get('api/SuperDemo/StringStringDic', { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * GET api/SuperDemo/StringPersonDic
 		 */
-		getDictionaryOfPeople(headersHandler?: () => { [header: string]: string }): Promise<{[id: string]: DemoWebApi_DemoData_Client.Person }> {
+		getDictionaryOfPeople(headersHandler?: () => { [header: string]: string }): Promise<{ [id: string]: DemoWebApi_DemoData_Client.Person }> {
 			return this.http.get('api/SuperDemo/StringPersonDic', { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * GET api/SuperDemo/StringPersonDic2
 		 */
-		getDictionaryOfPeople2(headersHandler?: () => { [header: string]: string }): Promise<{[id: string]: DemoWebApi_DemoData_Client.Person }> {
+		getDictionaryOfPeople2(headersHandler?: () => { [header: string]: string }): Promise<{ [id: string]: DemoWebApi_DemoData_Client.Person }> {
 			return this.http.get('api/SuperDemo/StringPersonDic2', { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
@@ -970,14 +970,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/enumArrayDays?a={a}
 		 */
 		getEnumArrayDays(a: Array<DemoWebApi_DemoData_Client.Days> | null, headersHandler?: () => { [header: string]: string }): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
-			return this.http.get('api/SuperDemo/enumArrayDays?'+a?.map(z => `a=${z}`).join('&'), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.get('api/SuperDemo/enumArrayDays?' + a?.map(z => `a=${z}`).join('&'), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * GET api/SuperDemo/enumArrayQ2?a={a}
 		 */
 		getEnumArrayQ2(a: Array<number> | null, headersHandler?: () => { [header: string]: string }): Promise<Array<number>> {
-			return this.http.get('api/SuperDemo/enumArrayQ2?'+a?.map(z => `a=${z}`).join('&'), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.get('api/SuperDemo/enumArrayQ2?' + a?.map(z => `a=${z}`).join('&'), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1029,7 +1029,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/intArrayQ?a={a}
 		 */
 		getIntArrayQ(a: Array<number> | null, headersHandler?: () => { [header: string]: string }): Promise<Array<number>> {
-			return this.http.get('api/SuperDemo/intArrayQ?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.get('api/SuperDemo/intArrayQ?' + a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1037,7 +1037,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/intArrayQ2?a={a}
 		 */
 		getIntArrayQ2(a: Array<string> | null, headersHandler?: () => { [header: string]: string }): Promise<Array<string>> {
-			return this.http.get('api/SuperDemo/intArrayQ2?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.get('api/SuperDemo/intArrayQ2?' + a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1066,7 +1066,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/SuperDemo/KeyValuePair
 		 */
-		getKeyhValuePair(headersHandler?: () => { [header: string]: string }): Promise<{key: string, value: DemoWebApi_DemoData_Client.Person }> {
+		getKeyhValuePair(headersHandler?: () => { [header: string]: string }): Promise<{ key: string, value: DemoWebApi_DemoData_Client.Person }> {
 			return this.http.get('api/SuperDemo/KeyValuePair', { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
@@ -1104,7 +1104,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/DoubleNullable2?dd={dd}&de={de}
 		 */
 		getPrimitiveNullable2(dd: number | null, de: number | null, headersHandler?: () => { [header: string]: string }): Promise<{item1: number, item2: number}> {
-			return this.http.get('api/SuperDemo/DoubleNullable2?' + (dd || dd == 0  ? 'dd=' + dd.toString() : '') + (de || de == 0 ? '&de=' + de.toString() : ''), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.get('api/SuperDemo/DoubleNullable2?' + (dd || dd == 0 ? 'dd=' + dd.toString() : '') + (de || de == 0 ? '&de=' + de.toString() : ''), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1128,7 +1128,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/stringArrayQ?a={a}
 		 */
 		getStringArrayQ(a: Array<string> | null, headersHandler?: () => { [header: string]: string }): Promise<Array<string>> {
-			return this.http.get('api/SuperDemo/stringArrayQ?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.get('api/SuperDemo/stringArrayQ?' + a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1136,7 +1136,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/stringArrayQ2?a={a}
 		 */
 		getStringArrayQ2(a: Array<string> | null, headersHandler?: () => { [header: string]: string }): Promise<Array<string>> {
-			return this.http.get('api/SuperDemo/stringArrayQ2?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.get('api/SuperDemo/stringArrayQ2?' + a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1213,7 +1213,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/StringPersonDic
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		postDictionary(dic: {[id: string]: DemoWebApi_DemoData_Client.Person } | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+		postDictionary(dic: { [id: string]: DemoWebApi_DemoData_Client.Person } | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
 			return this.http.post('api/SuperDemo/StringPersonDic', JSON.stringify(dic), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
@@ -1317,7 +1317,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {number} skip Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		athletheSearch(take: number | null, skip: number | null, order: string | null, sort: string | null, search: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.get('api/TextData/AthletheSearch?' + (take || take == 0  ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (!order ? '' : encodeURIComponent(order)) + '&sort=' + (!sort ? '' : encodeURIComponent(sort)) + '&search=' + (!search ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
+			return this.http.get('api/TextData/AthletheSearch?' + (take || take == 0 ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (!order ? '' : encodeURIComponent(order)) + '&sort=' + (!sort ? '' : encodeURIComponent(sort)) + '&search=' + (!search ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
 		}
 
 		/**
@@ -1965,9 +1965,9 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 
 	export interface MyPeopleDic {
-		anotherDic?: {[id: string]: string };
-		dic?: {[id: string]: DemoWebApi_DemoData_Client.Person };
-		intDic?: {[id: number]: string };
+		anotherDic?: { [id: string]: string };
+		dic?: { [id: string]: DemoWebApi_DemoData_Client.Person };
+		intDic?: { [id: number]: string };
 	}
 
 	export interface Person extends DemoWebApi_DemoData_Base_Client.Entity {

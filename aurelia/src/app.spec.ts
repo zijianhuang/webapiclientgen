@@ -1,9 +1,8 @@
 import { HttpClient } from 'aurelia-fetch-client';
 import { initialize } from 'aurelia-pal-browser';
-import * as moment from 'moment';
 import { DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client } from './clientapi/WebApiCoreAureliaClientAuto';
 import { describe, it, expect } from 'vitest';
-import 'reflect-metadata';
+import { APIConfigConstants } from './testSettings';
 
 export async function errorResponseToString(error: Response | any): Promise<string> {
   let errMsg: string;
@@ -42,8 +41,8 @@ describe('Basic', () => {
 
 });
 
-const forDotNetCore = true;
-const apiBaseUri = forDotNetCore ? 'http://localhost:5000/' : 'http://localhost:10965/';
+const apiBaseUri = APIConfigConstants.apiBaseUri;
+console.info('Back apiBaseUri: ' + apiBaseUri);
 const http = new HttpClient();
 http.baseUrl = apiBaseUri;
 
@@ -1701,7 +1700,7 @@ describe('Numbers API', () => {
   );
 
   it('postIntegralEntity', () => {
-    service.postIntegralEntity({ name: 'Some one', byte: 255, uShort: 65535 }).then(
+    service.postIntegralEntity({ byte: 255, uShort: 65535 }).then(
       r => {
         expect(r.byte).toBe(255);
         expect(r.uShort).toBe(65535);
@@ -1716,7 +1715,7 @@ describe('Numbers API', () => {
   );
 
   it('postIntegralEntityInvalid', () => {
-    service.postIntegralEntity({ name: 'Some one', byte: 260, uShort: 65540 }).then(
+    service.postIntegralEntity({ byte: 260, uShort: 65540 }).then(
       r => {
         throw new Error('validation');
 
@@ -1733,7 +1732,7 @@ describe('Numbers API', () => {
    * Backend checks if the data is null, likely due to invalid properties. And throw error.
    */
   it('postIntegralEntityInvalidButBackendCheckNull', () => {
-    service.postIntegralEntityMustBeValid({ name: 'Some one', byte: 260, uShort: 65540 }).then(
+    service.postIntegralEntityMustBeValid({ byte: 260, uShort: 65540 }).then(
       r => {
         throw new Error('backend should throw 500')
 

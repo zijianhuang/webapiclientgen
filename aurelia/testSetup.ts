@@ -1,1 +1,1 @@
-import 'reflect-metadata';
+import 'reflect-metadata'; // Tests with Aurelia needs this

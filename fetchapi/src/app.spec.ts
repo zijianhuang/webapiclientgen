@@ -1,6 +1,7 @@
 import { DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client, DemoWebApi_DemoData_Base_Client } from './clientapi/WebApiCoreFetchClientAuto';
 import { APIConfigConstants } from './testSettings';
 import { describe, it, expect } from 'vitest'
+
 export async function errorResponseToString(error: Response | any): Promise<string> {
 	let errMsg: string;
 	if (error instanceof Response) {

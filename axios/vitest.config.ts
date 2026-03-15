@@ -1,0 +1,15 @@
+import { defineConfig } from "vitest/config";
+
+export default defineConfig(
+	({ mode } : {mode: string}) => ({
+		test: {
+			setupFiles: mode === 'remote'
+				? ['./vitestSetupRemote.ts']
+				: ['./vitestSetup.ts'],
+
+		globals: true,
+		environment: "jsdom",
+		include: ["src/**/*.spec.ts"],
+		}
+	})
+);

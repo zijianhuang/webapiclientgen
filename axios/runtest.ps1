@@ -1,2 +1,2 @@
 ﻿Set-Location $PSScriptRoot
-npx jest
+npx vitest --run

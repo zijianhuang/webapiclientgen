@@ -27,8 +27,8 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override void AddBasicReferences()
 		{
-			TargetUnit.ReferencedAssemblies.Add("import {HttpClient} from 'aurelia-fetch-client';");
-			TargetUnit.ReferencedAssemblies.Add("import {autoinject} from 'aurelia-framework';");
+			TargetUnit.ReferencedAssemblies.Add("import { HttpClient } from 'aurelia-fetch-client';");
+			TargetUnit.ReferencedAssemblies.Add("import { autoinject } from 'aurelia-framework';");
 		}
 
 		protected override void AddConstructor(CodeTypeDeclaration targetClass)

@@ -174,7 +174,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/DateTypes/ForDateTimeOffsetForO
 		 */
 		postDateTimeOffsetForO(d?: Date | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.post(this.baseUri + 'api/DateTypes/ForDateTimeOffsetForO', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
+			return this.http.post(this.baseUri + 'api/DateTypes/ForDateTimeOffsetForO', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), responseType: 'text' });
 		}
 
 		/**
@@ -389,7 +389,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * PATCH api/Entities/patchPerson
 		 */
 		patchPerson(person?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.patch(this.baseUri + 'api/Entities/patchPerson', JSON.stringify(person), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
+			return this.http.patch(this.baseUri + 'api/Entities/patchPerson', JSON.stringify(person), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), responseType: 'text' });
 		}
 
 		/**
@@ -410,7 +410,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * PUT api/Entities/updatePerson
 		 */
 		updatePerson(person?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.put(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
+			return this.http.put(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), responseType: 'text' });
 		}
 	}
 
@@ -610,7 +610,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Numbers/bigIntegralAsStringForJs
 		 */
 		postBigIntegralAsStringForJs(bigIntegral?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.post(this.baseUri + 'api/Numbers/bigIntegralAsStringForJs', JSON.stringify(bigIntegral), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
+			return this.http.post(this.baseUri + 'api/Numbers/bigIntegralAsStringForJs', JSON.stringify(bigIntegral), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), responseType: 'text' });
 		}
 
 		/**
@@ -1529,49 +1529,49 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Tuple/Tuple2
 		 */
 		postTuple2(tuple?: { item1: string, item2: number } | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.post(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
+			return this.http.post(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), responseType: 'text' });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple3
 		 */
 		postTuple3(tuple?: { item1: string, item2: string, item3: number } | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.post(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
+			return this.http.post(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), responseType: 'text' });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple4
 		 */
 		postTuple4(tuple?: { item1: string, item2: string, item3: string, item4: number } | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.post(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
+			return this.http.post(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), responseType: 'text' });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple5
 		 */
 		postTuple5(tuple?: { item1: string, item2: string, item3: string, item4: string, item5: number } | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.post(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
+			return this.http.post(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), responseType: 'text' });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple6
 		 */
 		postTuple6(tuple?: { item1: string, item2: string, item3: string, item4: string, item5: string, item6: number } | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.post(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
+			return this.http.post(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), responseType: 'text' });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple7
 		 */
 		postTuple7(tuple?: { item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number } | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.post(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
+			return this.http.post(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), responseType: 'text' });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple8
 		 */
 		postTuple8(tuple?: { item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: string, rest: { item1: string, item2: string, item3: string } } | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.post(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
+			return this.http.post(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), responseType: 'text' });
 		}
 	}
 
@@ -1634,7 +1634,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Values
 		 */
 		post(value?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.post(this.baseUri + 'api/Values', JSON.stringify(value), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
+			return this.http.post(this.baseUri + 'api/Values', JSON.stringify(value), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), responseType: 'text' });
 		}
 
 		/**

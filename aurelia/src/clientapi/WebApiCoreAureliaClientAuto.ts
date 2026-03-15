@@ -120,14 +120,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/DateTypes/IsDateTimeDate
 		 */
 		isDateTimeDate(dt: Date | null, headersHandler?: () => { [header: string]: string }): Promise<{item1: Date, item2: Date}> {
-			return this.http.post('api/DateTypes/IsDateTimeDate', JSON.stringify(dt), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/DateTypes/IsDateTimeDate', JSON.stringify(dt), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/DateTypes/IsDateTimeOffsetDate
 		 */
 		isDateTimeOffsetDate(dt: Date | null, headersHandler?: () => { [header: string]: string }): Promise<{item1: Date, item2: Date}> {
-			return this.http.post('api/DateTypes/IsDateTimeOffsetDate', JSON.stringify(dt), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/DateTypes/IsDateTimeOffsetDate', JSON.stringify(dt), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -136,28 +136,28 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {Date} Type: DateOnly
 		 */
 		postDateOnly(d: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Date> {
-			return this.http.post('api/DateTypes/ForDateOnly', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/DateTypes/ForDateOnly', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/DateTypes/DateOnlyNullable
 		 */
 		postDateOnlyNullable(d: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Date> {
-			return this.http.post('api/DateTypes/DateOnlyNullable', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/DateTypes/DateOnlyNullable', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/DateTypes/ForDateTime
 		 */
 		postDateTime(d: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Date> {
-			return this.http.post('api/DateTypes/ForDateTime', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/DateTypes/ForDateTime', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/DateTypes/DateTimeNullable
 		 */
 		postDateTimeNullable(d: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Date> {
-			return this.http.post('api/DateTypes/DateTimeNullable', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/DateTypes/DateTimeNullable', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -165,7 +165,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/DateTypes/ForDateTimeOffset
 		 */
 		postDateTimeOffset(d: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Date> {
-			return this.http.post('api/DateTypes/ForDateTimeOffset', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/DateTypes/ForDateTimeOffset', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -173,14 +173,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/DateTypes/ForDateTimeOffsetForO
 		 */
 		postDateTimeOffsetForO(d: Date | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/DateTypes/ForDateTimeOffsetForO', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
+			return this.http.post('api/DateTypes/ForDateTimeOffsetForO', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
 		}
 
 		/**
 		 * POST api/DateTypes/ForDateTimeOffsetForOffset
 		 */
 		postDateTimeOffsetForOffset(d: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
-			return this.http.post('api/DateTypes/ForDateTimeOffsetForOffset', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post('api/DateTypes/ForDateTimeOffsetForOffset', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
@@ -188,21 +188,21 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/DateTypes/DateTimeOffsetNullable
 		 */
 		postDateTimeOffsetNullable(d: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Date> {
-			return this.http.post('api/DateTypes/DateTimeOffsetNullable', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/DateTypes/DateTimeOffsetNullable', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/DateTypes/ForDateTimeOffsetStringForOffset
 		 */
 		postDateTimeOffsetStringForOffset(s: string | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
-			return this.http.post('api/DateTypes/ForDateTimeOffsetStringForOffset', JSON.stringify(s), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post('api/DateTypes/ForDateTimeOffsetStringForOffset', JSON.stringify(s), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * POST api/DateTypes/NextYear
 		 */
 		postNextYear(dt: Date | null, headersHandler?: () => { [header: string]: string }): Promise<Date> {
-			return this.http.post('api/DateTypes/NextYear', JSON.stringify(dt), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/DateTypes/NextYear', JSON.stringify(dt), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -245,7 +245,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Entities/createCompany
 		 */
 		createCompany(p: DemoWebApi_DemoData_Client.Company | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Company> {
-			return this.http.post('api/Entities/createCompany', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Entities/createCompany', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -253,21 +253,21 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {string} Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */
 		createPerson(p: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/Entities/createPerson', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Entities/createPerson', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/Entities/createPerson2
 		 */
 		createPerson2(p: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post('api/Entities/createPerson2', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Entities/createPerson2', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/Entities/createPerson3
 		 */
 		createPerson3(p: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post('api/Entities/createPerson3', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Entities/createPerson3', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -275,7 +275,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
 		 */
 		createPersonByAdmin(p: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post('api/Entities/createPersonByAdmin', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Entities/createPersonByAdmin', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -283,7 +283,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Status Codes: 404:NotFound, 204:NoContent, 200:OK : DemoWebApi.DemoData.Person
 		 */
 		createPersonWeak(p: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post('api/Entities/createPersonWeak', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Entities/createPersonWeak', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -291,7 +291,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Status Codes: 404:NotFound
 		 */
 		createPersonWithNotFound(p: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post('api/Entities/createPersonWithNotFound', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Entities/createPersonWithNotFound', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -299,7 +299,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
 		 */
 		createPersonWithStatuses(p: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post('api/Entities/createPersonWithStatuses', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Entities/createPersonWithStatuses', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -322,7 +322,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Entities/Mims
 		 */
 		getMims(p: DemoWebApi_DemoData_Client.MimsPackage | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.MimsResult<string>> {
-			return this.http.post('api/Entities/Mims', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Entities/Mims', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -330,7 +330,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Entities/MyGeneric
 		 */
 		getMyGeneric(s: DemoWebApi_DemoData_Client.MyGeneric<string, number, number> | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.MyGeneric<string, number, number>> {
-			return this.http.post('api/Entities/MyGeneric', JSON.stringify(s), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Entities/MyGeneric', JSON.stringify(s), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -338,7 +338,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Entities/MyGenericPerson
 		 */
 		getMyGenericPerson(s: DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>> {
-			return this.http.post('api/Entities/MyGenericPerson', JSON.stringify(s), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Entities/MyGenericPerson', JSON.stringify(s), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -380,7 +380,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {string} id Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */
 		linkPerson(id: string | null, relationship: string | null, person: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<boolean> {
-			return this.http.put('api/Entities/link?id=' + id + '&relationship=' + (!relationship ? '' : encodeURIComponent(relationship)), JSON.stringify(person), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.put('api/Entities/link?id=' + id + '&relationship=' + (!relationship ? '' : encodeURIComponent(relationship)), JSON.stringify(person), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -388,28 +388,28 @@ export namespace DemoWebApi_Controllers_Client {
 		 * PATCH api/Entities/patchPerson
 		 */
 		patchPerson(person: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.patch('api/Entities/patchPerson', JSON.stringify(person), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
+			return this.http.patch('api/Entities/patchPerson', JSON.stringify(person), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
 		}
 
 		/**
 		 * POST api/Entities/IdMap
 		 */
 		postIdMap(idMap: DemoWebApi_DemoData_Client.IdMap | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.IdMap> {
-			return this.http.post('api/Entities/IdMap', JSON.stringify(idMap), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Entities/IdMap', JSON.stringify(idMap), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/Entities/MixedDataEntity
 		 */
 		postMixedDataEntity(entity: DemoWebApi_DemoData_Client.MixedDataEntity | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.MixedDataEntity> {
-			return this.http.post('api/Entities/MixedDataEntity', JSON.stringify(entity), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Entities/MixedDataEntity', JSON.stringify(entity), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * PUT api/Entities/updatePerson
 		 */
 		updatePerson(person: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.put('api/Entities/updatePerson', JSON.stringify(person), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
+			return this.http.put('api/Entities/updatePerson', JSON.stringify(person), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
 		}
 	}
 
@@ -467,7 +467,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Heroes
 		 */
 		post(name: string | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_Controllers_Client.Hero> {
-			return this.http.post('api/Heroes', JSON.stringify(name), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Heroes', JSON.stringify(name), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -485,7 +485,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * PUT api/Heroes
 		 */
 		put(hero: DemoWebApi_Controllers_Client.Hero | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_Controllers_Client.Hero> {
-			return this.http.put('api/Heroes', JSON.stringify(hero), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.put('api/Heroes', JSON.stringify(hero), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -539,7 +539,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {number} Type: byte, 0 to 255
 		 */
 		postByDOfByte(d: number | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
-			return this.http.post('api/Numbers/byte', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Numbers/byte', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -548,7 +548,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {number} Type: sbyte, -128 to 127
 		 */
 		postByDOfSByte(d: number | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
-			return this.http.post('api/Numbers/sbyte', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Numbers/sbyte', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -557,7 +557,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {number} Type: short, -32,768 to 32,767
 		 */
 		postByDOfInt16(d: number | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
-			return this.http.post('api/Numbers/short', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Numbers/short', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -566,7 +566,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {number} Type: ushort, 0 to 65,535
 		 */
 		postByDOfUInt16(d: number | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
-			return this.http.post('api/Numbers/ushort', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Numbers/ushort', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -575,7 +575,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		postByDOfInt32(d: number | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
-			return this.http.post('api/Numbers/int', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Numbers/int', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -584,7 +584,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {string} Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */
 		postByDOfInt64(d: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/Numbers/long', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Numbers/long', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -593,7 +593,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {string} Type: ulong, 0 to 18,446,744,073,709,551,615
 		 */
 		postByDOfUInt64(d: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/Numbers/ulong', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Numbers/ulong', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -602,21 +602,21 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {string} Type: BigInteger
 		 */
 		postBigInteger(bigInteger: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/Numbers/bigInteger', JSON.stringify(bigInteger), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Numbers/bigInteger', JSON.stringify(bigInteger), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/Numbers/bigIntegralAsStringForJs
 		 */
 		postBigIntegralAsStringForJs(bigIntegral: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/Numbers/bigIntegralAsStringForJs', JSON.stringify(bigIntegral), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
+			return this.http.post('api/Numbers/bigIntegralAsStringForJs', JSON.stringify(bigIntegral), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
 		}
 
 		/**
 		 * POST api/Numbers/BigNumbers
 		 */
 		postBigNumbers(bigNumbers: DemoWebApi_DemoData_Client.BigNumbers | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.BigNumbers> {
-			return this.http.post('api/Numbers/BigNumbers', JSON.stringify(bigNumbers), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Numbers/BigNumbers', JSON.stringify(bigNumbers), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -625,7 +625,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {string} Type: Int128, -170141183460469231731687303715884105728 to 170141183460469231731687303715884105727
 		 */
 		postInt128(int128: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/Numbers/int128', JSON.stringify(int128), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Numbers/int128', JSON.stringify(int128), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -634,21 +634,21 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {string} Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */
 		postInt64(int64: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/Numbers/int64', JSON.stringify(int64), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Numbers/int64', JSON.stringify(int64), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/Numbers/IntegralEntity
 		 */
 		postIntegralEntity(integralEntity: DemoWebApi_DemoData_Client.IntegralEntity | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.IntegralEntity> {
-			return this.http.post('api/Numbers/IntegralEntity', JSON.stringify(integralEntity), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Numbers/IntegralEntity', JSON.stringify(integralEntity), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/Numbers/IntegralEntityMustBeValid
 		 */
 		postIntegralEntityMustBeValid(integralEntity: DemoWebApi_DemoData_Client.IntegralEntity | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.IntegralEntity> {
-			return this.http.post('api/Numbers/IntegralEntityMustBeValid', JSON.stringify(integralEntity), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Numbers/IntegralEntityMustBeValid', JSON.stringify(integralEntity), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -658,7 +658,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		postIntWithRange(d: number | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
-			return this.http.post('api/Numbers/intRange', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Numbers/intRange', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -669,7 +669,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {string} Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */
 		postLongWithRange(d: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/Numbers/longRange', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Numbers/longRange', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -678,7 +678,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {string} Type: UInt128, 0 to 340282366920938463463374607431768211455
 		 */
 		postUint128(uint128: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/Numbers/uint128', JSON.stringify(uint128), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Numbers/uint128', JSON.stringify(uint128), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -687,7 +687,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {string} Type: ulong, 0 to 18,446,744,073,709,551,615
 		 */
 		postUint64(uint64: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/Numbers/uint64', JSON.stringify(uint64), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Numbers/uint64', JSON.stringify(uint64), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 	}
 
@@ -755,7 +755,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		put(id: number | null, value: string | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
-			return this.http.put('api/ObsoleteValues/' + id, JSON.stringify(value), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.put('api/ObsoleteValues/' + id, JSON.stringify(value), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 	}
 
@@ -1182,14 +1182,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/PostActionResult2
 		 */
 		postActionResult2(s: string | null, headersHandler?: () => { [header: string]: string }): Promise<Blob> {
-			return this.http.post('api/SuperDemo/PostActionResult2', JSON.stringify(s), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.blob(); throw d; });
+			return this.http.post('api/SuperDemo/PostActionResult2', JSON.stringify(s), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.blob(); throw d; });
 		}
 
 		/**
 		 * POST api/SuperDemo/PostActionResult3
 		 */
 		postActionResult3(person: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/SuperDemo/PostActionResult3', JSON.stringify(person), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/SuperDemo/PostActionResult3', JSON.stringify(person), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1198,14 +1198,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		postCollection(list: Array<DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
-			return this.http.post('api/SuperDemo/Collection', JSON.stringify(list), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/SuperDemo/Collection', JSON.stringify(list), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/SuperDemo/enumPost?d={d}
 		 */
 		postDay(d: DemoWebApi_DemoData_Client.Days | null, d2: DemoWebApi_DemoData_Client.Days | null, headersHandler?: () => { [header: string]: string }): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
-			return this.http.post('api/SuperDemo/enumPost?d=' + d, JSON.stringify(d2), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/SuperDemo/enumPost?d=' + d, JSON.stringify(d2), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1214,14 +1214,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		postDictionary(dic: {[id: string]: DemoWebApi_DemoData_Client.Person } | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
-			return this.http.post('api/SuperDemo/StringPersonDic', JSON.stringify(dic), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/SuperDemo/StringPersonDic', JSON.stringify(dic), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/SuperDemo/Guids
 		 */
 		postGuids(guids: Array<string> | null, headersHandler?: () => { [header: string]: string }): Promise<Array<string>> {
-			return this.http.post('api/SuperDemo/Guids', JSON.stringify(guids), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/SuperDemo/Guids', JSON.stringify(guids), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1230,7 +1230,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		postICollection(list: Array<DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
-			return this.http.post('api/SuperDemo/ICollection', JSON.stringify(list), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/SuperDemo/ICollection', JSON.stringify(list), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1239,14 +1239,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		postIList(list: Array<DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
-			return this.http.post('api/SuperDemo/IList', JSON.stringify(list), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/SuperDemo/IList', JSON.stringify(list), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/SuperDemo/int2d
 		 */
 		postInt2D(a: number[][] | null, headersHandler?: () => { [header: string]: string }): Promise<boolean> {
-			return this.http.post('api/SuperDemo/int2d', JSON.stringify(a), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/SuperDemo/int2d', JSON.stringify(a), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1254,7 +1254,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/int2djagged
 		 */
 		postInt2DJagged(a: Array<Array<number>> | null, headersHandler?: () => { [header: string]: string }): Promise<boolean> {
-			return this.http.post('api/SuperDemo/int2djagged', JSON.stringify(a), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/SuperDemo/int2djagged', JSON.stringify(a), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1264,7 +1264,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 *     Max length: 10
 		 */
 		postIntArray(a: Array<number> | null, headersHandler?: () => { [header: string]: string }): Promise<boolean> {
-			return this.http.post('api/SuperDemo/intArray', JSON.stringify(a), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/SuperDemo/intArray', JSON.stringify(a), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1273,7 +1273,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		postIReadOnlyCollection(list: Array<DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
-			return this.http.post('api/SuperDemo/IReadOnlyCollection', JSON.stringify(list), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/SuperDemo/IReadOnlyCollection', JSON.stringify(list), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1282,7 +1282,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		postIReadOnlyList(list: Array<DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
-			return this.http.post('api/SuperDemo/IReadOnlyList', JSON.stringify(list), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/SuperDemo/IReadOnlyList', JSON.stringify(list), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1291,7 +1291,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		postList(list: Array<DemoWebApi_DemoData_Client.Person> | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
-			return this.http.post('api/SuperDemo/List', JSON.stringify(list), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/SuperDemo/List', JSON.stringify(list), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1299,7 +1299,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {number} i Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		postWithQueryButEmptyBody(s: string | null, i: number | null, headersHandler?: () => { [header: string]: string }): Promise<{item1: string, item2: number}> {
-			return this.http.post('api/SuperDemo/PostEmpty/' + i, JSON.stringify(s), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/SuperDemo/PostEmpty/' + i, JSON.stringify(s), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 	}
 
@@ -1366,7 +1366,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * PUT api/Tuple/A1TupleArray
 		 */
 		a1TupleArray(idAndOrderArray: Array<{item1: string, item2: number}> | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
-			return this.http.put('api/Tuple/A1TupleArray', JSON.stringify(idAndOrderArray), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.put('api/Tuple/A1TupleArray', JSON.stringify(idAndOrderArray), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
@@ -1374,7 +1374,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * PUT api/Tuple/A2TupleArray
 		 */
 		a2TupleIEnumerable(idAndOrderArray: Array<{item1: string, item2: number}> | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
-			return this.http.put('api/Tuple/A2TupleArray', JSON.stringify(idAndOrderArray), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.put('api/Tuple/A2TupleArray', JSON.stringify(idAndOrderArray), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
@@ -1382,7 +1382,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Tuple/ChangeName
 		 */
 		changeName(d: {item1: string, item2: DemoWebApi_DemoData_Client.Person} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post('api/Tuple/ChangeName', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Tuple/ChangeName', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1462,35 +1462,35 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Tuple/PeopleCompany2
 		 */
 		linkPeopleCompany2(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post('api/Tuple/PeopleCompany2', JSON.stringify(peopleAndCompany), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Tuple/PeopleCompany2', JSON.stringify(peopleAndCompany), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany3
 		 */
 		linkPeopleCompany3(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post('api/Tuple/PeopleCompany3', JSON.stringify(peopleAndCompany), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Tuple/PeopleCompany3', JSON.stringify(peopleAndCompany), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany4
 		 */
 		linkPeopleCompany4(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post('api/Tuple/PeopleCompany4', JSON.stringify(peopleAndCompany), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Tuple/PeopleCompany4', JSON.stringify(peopleAndCompany), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany5
 		 */
 		linkPeopleCompany5(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post('api/Tuple/PeopleCompany5', JSON.stringify(peopleAndCompany), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Tuple/PeopleCompany5', JSON.stringify(peopleAndCompany), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany6
 		 */
 		linkPeopleCompany6(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post('api/Tuple/PeopleCompany6', JSON.stringify(peopleAndCompany), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Tuple/PeopleCompany6', JSON.stringify(peopleAndCompany), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1498,21 +1498,21 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Tuple/PeopleCompany7
 		 */
 		linkPeopleCompany7(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Person, item7: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post('api/Tuple/PeopleCompany7', JSON.stringify(peopleAndCompany), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Tuple/PeopleCompany7', JSON.stringify(peopleAndCompany), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany8
 		 */
 		linkPeopleCompany8(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Person, item7: DemoWebApi_DemoData_Client.Person, rest: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post('api/Tuple/PeopleCompany8', JSON.stringify(peopleAndCompany), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Tuple/PeopleCompany8', JSON.stringify(peopleAndCompany), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/PersonCompany1
 		 */
 		linkPersonCompany1(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post('api/Tuple/PersonCompany1', JSON.stringify(peopleAndCompany), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Tuple/PersonCompany1', JSON.stringify(peopleAndCompany), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1520,7 +1520,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		postTuple1(tuple: {item1: number} | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
-			return this.http.post('api/Tuple/Tuple1', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Tuple/Tuple1', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1528,49 +1528,49 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Tuple/Tuple2
 		 */
 		postTuple2(tuple: {item1: string, item2: number} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/Tuple/Tuple2', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
+			return this.http.post('api/Tuple/Tuple2', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple3
 		 */
 		postTuple3(tuple: {item1: string, item2: string, item3: number} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/Tuple/Tuple3', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
+			return this.http.post('api/Tuple/Tuple3', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple4
 		 */
 		postTuple4(tuple: {item1: string, item2: string, item3: string, item4: number} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/Tuple/Tuple4', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
+			return this.http.post('api/Tuple/Tuple4', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple5
 		 */
 		postTuple5(tuple: {item1: string, item2: string, item3: string, item4: string, item5: number} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/Tuple/Tuple5', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
+			return this.http.post('api/Tuple/Tuple5', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple6
 		 */
 		postTuple6(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: number} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/Tuple/Tuple6', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
+			return this.http.post('api/Tuple/Tuple6', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple7
 		 */
 		postTuple7(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/Tuple/Tuple7', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
+			return this.http.post('api/Tuple/Tuple7', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple8
 		 */
 		postTuple8(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: string, rest: {item1: string, item2: string, item3: string}} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/Tuple/Tuple8', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
+			return this.http.post('api/Tuple/Tuple8', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
 		}
 	}
 
@@ -1633,7 +1633,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Values
 		 */
 		post(value: string | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/Values', JSON.stringify(value), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
+			return this.http.post('api/Values', JSON.stringify(value), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.text(); throw d; });
 		}
 
 		/**
@@ -1642,7 +1642,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		put(id: number | null, value: string | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
-			return this.http.put('api/Values/' + id, JSON.stringify(value), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.put('api/Values/' + id, JSON.stringify(value), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 	}
 
@@ -2142,7 +2142,7 @@ export namespace DemoCoreWeb_Controllers_Client {
 		 * POST api/SpecialTypes/AnonymousObject
 		 */
 		postAnonymousObject(obj: any, headersHandler?: () => { [header: string]: string }): Promise<Response> {
-			return this.http.post('api/SpecialTypes/AnonymousObject', JSON.stringify(obj), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post('api/SpecialTypes/AnonymousObject', JSON.stringify(obj), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
@@ -2150,7 +2150,7 @@ export namespace DemoCoreWeb_Controllers_Client {
 		 * POST api/SpecialTypes/AnonymousObject2
 		 */
 		postAnonymousObject2(obj: any, headersHandler?: () => { [header: string]: string }): Promise<Response> {
-			return this.http.post('api/SpecialTypes/AnonymousObject2', JSON.stringify(obj), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post('api/SpecialTypes/AnonymousObject2', JSON.stringify(obj), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
@@ -2158,7 +2158,7 @@ export namespace DemoCoreWeb_Controllers_Client {
 		 * POST api/SpecialTypes/VeryComplexGeneric
 		 */
 		postVeryComplexGeneric(body: DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.Company>> | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Base_Client.Entity>, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.MimsResult<DemoWebApi_DemoDataEx_Client.TextJsonPerson>>> {
-			return this.http.post('api/SpecialTypes/VeryComplexGeneric', JSON.stringify(body), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/SpecialTypes/VeryComplexGeneric', JSON.stringify(body), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 	}
 

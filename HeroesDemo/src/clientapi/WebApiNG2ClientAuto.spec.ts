@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, provideHttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { DemoWebApi_DemoData_Client, DemoWebApi_Controllers_Client } from './WebApiCoreNg2ClientAuto';
+import { DemoWebApi_DemoData_Client, DemoWebApi_Controllers_Client } from './WebApiNG2FormGroupClientAuto';
 import { APIConfigConstants } from './testSettings';
 
 const apiBaseUri = APIConfigConstants.apiBaseUri;

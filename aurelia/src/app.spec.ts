@@ -1,6 +1,6 @@
 import { HttpClient } from 'aurelia-fetch-client';
 import { initialize } from 'aurelia-pal-browser';
-import { DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client } from './clientapi/WebApiCoreAureliaClientAuto';
+import { DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client } from './clientapi/WebApiAureliaClientAuto';
 import { describe, it, expect } from 'vitest';
 import { APIConfigConstants } from './testSettings';
 

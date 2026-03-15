@@ -47,7 +47,7 @@
 			{
 				"AssemblyName": "Fonlow.WebApiClientGenCore.jQuery",
 				"TargetDir": "TsScripts/src/ClientApi",
-				"TSFile": "WebApiCoreJQClientAuto.ts",
+				"TSFile": "WebApiJQClientAuto.ts",
 				"AsModule": false,
 				"DataAnnotationsToComments": true,
 				"ContentType": "application/json;charset=UTF-8"
@@ -56,7 +56,7 @@
 			{
 				"AssemblyName": "Fonlow.WebApiClientGenCore.NG2",
 				"TargetDir": "../HeroesDemo/src/ClientApi",
-				"TSFile": "WebApiCoreNG2ClientAuto.ts",
+				"TSFile": "WebApiNG2ClientAuto.ts",
 				"AsModule": true,
 				"ContentType": "application/json;charset=UTF-8",
 				"ClientNamespaceSuffix": ".Client",
@@ -68,7 +68,7 @@
 			{
 				"AssemblyName": "Fonlow.WebApiClientGenCore.NG2FormGroup",
 				"TargetDir": "../HeroesDemo/src/ClientApi",
-				"TSFile": "WebApiCoreNG2FormGroupClientAuto.ts",
+				"TSFile": "WebApiNG2FormGroupClientAuto.ts",
 				"AsModule": true,
 				"ContentType": "application/json;charset=UTF-8",
 				"ClientNamespaceSuffix": ".Client",
@@ -82,7 +82,7 @@
 			{
 				"AssemblyName": "Fonlow.WebApiClientGenCore.Axios",
 				"TargetDir": "../axios/src/clientapi",
-				"TSFile": "WebApiCoreAxiosClientAuto.ts",
+				"TSFile": "WebApiAxiosClientAuto.ts",
 				"AsModule": true,
 				"DataAnnotationsToComments": true,
 				"ContentType": "application/json;charset=UTF-8",
@@ -92,7 +92,7 @@
 			{
 				"AssemblyName": "Fonlow.WebApiClientGenCore.Aurelia",
 				"TargetDir": "../aurelia/src/clientapi",
-				"TSFile": "WebApiCoreAureliaClientAuto.ts",
+				"TSFile": "WebApiAureliaClientAuto.ts",
 				"AsModule": true,
 				"DataAnnotationsToComments": true,
 				"ContentType": "application/json;charset=UTF-8"
@@ -101,7 +101,7 @@
 			{
 				"AssemblyName": "Fonlow.WebApiClientGenCore.Fetch",
 				"TargetDir": "../fetchapi/src/clientapi",
-				"TSFile": "WebApiCoreFetchClientAuto.ts",
+				"TSFile": "WebApiFetchClientAuto.ts",
 				"AsModule": true,
 				"ContentType": "application/json;charset=UTF-8",
 				"DataAnnotationsToComments": true,

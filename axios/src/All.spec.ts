@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { DemoWebApi_DemoData_Client, DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Base_Client } from './clientapi/WebApiCoreAxiosClientAuto';
+import { DemoWebApi_DemoData_Client, DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Base_Client } from './clientapi/WebApiAxiosClientAuto';
 import { APIConfigConstants } from './testSettings';
 import { describe, it, expect } from 'vitest'
 

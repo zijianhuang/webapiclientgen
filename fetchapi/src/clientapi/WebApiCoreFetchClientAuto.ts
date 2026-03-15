@@ -116,14 +116,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Client should send DateTime.Date
 		 * POST api/DateTypes/IsDateTimeDate
 		 */
-		isDateTimeDate(dt?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<{item1: Date, item2: Date}> {
+		isDateTimeDate(dt?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<{ item1: Date, item2: Date }> {
 			return fetch(this.baseUri + 'api/DateTypes/IsDateTimeDate', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(dt) }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/DateTypes/IsDateTimeOffsetDate
 		 */
-		isDateTimeOffsetDate(dt?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<{item1: Date, item2: Date}> {
+		isDateTimeOffsetDate(dt?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<{ item1: Date, item2: Date }> {
 			return fetch(this.baseUri + 'api/DateTypes/IsDateTimeOffsetDate', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(dt) }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
@@ -223,7 +223,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {Date | null} startDate DateTime? startDate = null
 		 * @param {Date | null} endDate DateTime? endDate = null
 		 */
-		searchDateRange(startDate?: Date | null, endDate?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<{item1: Date | null, item2: Date | null}> {
+		searchDateRange(startDate?: Date | null, endDate?: Date | null, headersHandler?: () => { [header: string]: string }): Promise<{ item1: Date | null, item2: Date | null }> {
 			return fetch(this.baseUri + 'api/DateTypes/SearchDateRange?' + (startDate ? 'startDate=' + startDate?.toISOString() : '') + (endDate ? '&endDate=' + endDate?.toISOString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 	}
@@ -1087,14 +1087,14 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/SuperDemo/DoubleNullable?location={location}&dd={dd}&de={de}
 		 */
-		getPrimitiveNullable(location?: string | null, dd?: number | null, de?: number | null, headersHandler?: () => { [header: string]: string }): Promise<{item1: string, item2: number | null, item3: number | null}> {
+		getPrimitiveNullable(location?: string | null, dd?: number | null, de?: number | null, headersHandler?: () => { [header: string]: string }): Promise<{ item1: string, item2: number | null, item3: number | null }> {
 			return fetch(this.baseUri + 'api/SuperDemo/DoubleNullable?location=' + (!location ? '' : encodeURIComponent(location)) + (dd || dd == 0 ? '&dd=' + dd.toString() : '') + (de || de == 0 ? '&de=' + de.toString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * GET api/SuperDemo/DoubleNullable2?dd={dd}&de={de}
 		 */
-		getPrimitiveNullable2(dd?: number | null, de?: number | null, headersHandler?: () => { [header: string]: string }): Promise<{item1: number | null, item2: number | null}> {
+		getPrimitiveNullable2(dd?: number | null, de?: number | null, headersHandler?: () => { [header: string]: string }): Promise<{ item1: number | null, item2: number | null }> {
 			return fetch(this.baseUri + 'api/SuperDemo/DoubleNullable2?' + (dd || dd == 0 ? 'dd=' + dd.toString() : '') + (de || de == 0 ? '&de=' + de.toString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
@@ -1289,7 +1289,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/PostEmpty/{i}
 		 * @param {number} i Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		postWithQueryButEmptyBody(s?: string | null, i?: number | null, headersHandler?: () => { [header: string]: string }): Promise<{item1: string, item2: number}> {
+		postWithQueryButEmptyBody(s?: string | null, i?: number | null, headersHandler?: () => { [header: string]: string }): Promise<{ item1: string, item2: number }> {
 			return fetch(this.baseUri + 'api/SuperDemo/PostEmpty/' + i, { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(s) }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 	}
@@ -1354,7 +1354,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Update in a transaction
 		 * PUT api/Tuple/A1TupleArray
 		 */
-		a1TupleArray(idAndOrderArray?: Array<{item1: string, item2: number}> | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
+		a1TupleArray(idAndOrderArray?: Array<{ item1: string, item2: number }> | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
 			return fetch(this.baseUri + 'api/Tuple/A1TupleArray', { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(idAndOrderArray) });
 		}
 
@@ -1362,7 +1362,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Update IEnumerable Tuple in a transaction
 		 * PUT api/Tuple/A2TupleArray
 		 */
-		a2TupleIEnumerable(idAndOrderArray?: Array<{item1: string, item2: number}> | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
+		a2TupleIEnumerable(idAndOrderArray?: Array<{ item1: string, item2: number }> | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
 			return fetch(this.baseUri + 'api/Tuple/A2TupleArray', { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(idAndOrderArray) });
 		}
 
@@ -1370,7 +1370,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Post tuple
 		 * POST api/Tuple/ChangeName
 		 */
-		changeName(d?: {item1: string, item2: DemoWebApi_DemoData_Client.Person} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+		changeName(d?: { item1: string, item2: DemoWebApi_DemoData_Client.Person } | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
 			return fetch(this.baseUri + 'api/Tuple/ChangeName', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
@@ -1378,7 +1378,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Get Tuple in return. MaybeNull
 		 * GET api/Tuple/PeopleCompany4
 		 */
-		getPeopleCompany4(headersHandler?: () => { [header: string]: string }): Promise<{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company} | null> {
+		getPeopleCompany4(headersHandler?: () => { [header: string]: string }): Promise<{ item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company } | null> {
 			return fetch(this.baseUri + 'api/Tuple/PeopleCompany4', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.json(); throw d; });
 		}
 
@@ -1386,56 +1386,56 @@ export namespace DemoWebApi_Controllers_Client {
 		 * MaybeNull
 		 * GET api/Tuple/PeopleCompany5
 		 */
-		getPeopleCompany5(headersHandler?: () => { [header: string]: string }): Promise<{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Company} | null> {
+		getPeopleCompany5(headersHandler?: () => { [header: string]: string }): Promise<{ item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Company } | null> {
 			return fetch(this.baseUri + 'api/Tuple/PeopleCompany5', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.status == 204 ? null : d.json(); throw d; });
 		}
 
 		/**
 		 * GET api/Tuple/Tuple1
 		 */
-		getTuple1(headersHandler?: () => { [header: string]: string }): Promise<{item1: number}> {
+		getTuple1(headersHandler?: () => { [header: string]: string }): Promise<{ item1: number }> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple1', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * GET api/Tuple/Tuple2
 		 */
-		getTuple2(headersHandler?: () => { [header: string]: string }): Promise<{item1: string, item2: number}> {
+		getTuple2(headersHandler?: () => { [header: string]: string }): Promise<{ item1: string, item2: number }> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple2', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * GET api/Tuple/Tuple3
 		 */
-		getTuple3(headersHandler?: () => { [header: string]: string }): Promise<{item1: string, item2: string, item3: number}> {
+		getTuple3(headersHandler?: () => { [header: string]: string }): Promise<{ item1: string, item2: string, item3: number }> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple3', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * GET api/Tuple/Tuple4
 		 */
-		getTuple4(headersHandler?: () => { [header: string]: string }): Promise<{item1: string, item2: string, item3: string, item4: number}> {
+		getTuple4(headersHandler?: () => { [header: string]: string }): Promise<{ item1: string, item2: string, item3: string, item4: number }> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple4', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * GET api/Tuple/Tuple5
 		 */
-		getTuple5(headersHandler?: () => { [header: string]: string }): Promise<{item1: string, item2: string, item3: string, item4: string, item5: number}> {
+		getTuple5(headersHandler?: () => { [header: string]: string }): Promise<{ item1: string, item2: string, item3: string, item4: string, item5: number }> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple5', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * GET api/Tuple/Tuple6
 		 */
-		getTuple6(headersHandler?: () => { [header: string]: string }): Promise<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: number}> {
+		getTuple6(headersHandler?: () => { [header: string]: string }): Promise<{ item1: string, item2: string, item3: string, item4: string, item5: string, item6: number }> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple6', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * GET api/Tuple/Tuple7
 		 */
-		getTuple7(headersHandler?: () => { [header: string]: string }): Promise<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number}> {
+		getTuple7(headersHandler?: () => { [header: string]: string }): Promise<{ item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number }> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple7', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
@@ -1443,42 +1443,42 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Post nested tuple
 		 * GET api/Tuple/Tuple8
 		 */
-		getTuple8(headersHandler?: () => { [header: string]: string }): Promise<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number, rest: {item1: string, item2: string, item3: string}}> {
+		getTuple8(headersHandler?: () => { [header: string]: string }): Promise<{ item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number, rest: { item1: string, item2: string, item3: string } }> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple8', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany2
 		 */
-		linkPeopleCompany2(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+		linkPeopleCompany2(peopleAndCompany?: { item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Company } | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
 			return fetch(this.baseUri + 'api/Tuple/PeopleCompany2', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany3
 		 */
-		linkPeopleCompany3(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+		linkPeopleCompany3(peopleAndCompany?: { item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Company } | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
 			return fetch(this.baseUri + 'api/Tuple/PeopleCompany3', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany4
 		 */
-		linkPeopleCompany4(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+		linkPeopleCompany4(peopleAndCompany?: { item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company } | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
 			return fetch(this.baseUri + 'api/Tuple/PeopleCompany4', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany5
 		 */
-		linkPeopleCompany5(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+		linkPeopleCompany5(peopleAndCompany?: { item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Company } | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
 			return fetch(this.baseUri + 'api/Tuple/PeopleCompany5', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany6
 		 */
-		linkPeopleCompany6(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+		linkPeopleCompany6(peopleAndCompany?: { item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Company } | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
 			return fetch(this.baseUri + 'api/Tuple/PeopleCompany6', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
@@ -1486,21 +1486,21 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Post long tuple
 		 * POST api/Tuple/PeopleCompany7
 		 */
-		linkPeopleCompany7(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Person, item7: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+		linkPeopleCompany7(peopleAndCompany?: { item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Person, item7: DemoWebApi_DemoData_Client.Company } | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
 			return fetch(this.baseUri + 'api/Tuple/PeopleCompany7', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany8
 		 */
-		linkPeopleCompany8(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Person, item7: DemoWebApi_DemoData_Client.Person, rest: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+		linkPeopleCompany8(peopleAndCompany?: { item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Person, item7: DemoWebApi_DemoData_Client.Person, rest: DemoWebApi_DemoData_Client.Company } | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
 			return fetch(this.baseUri + 'api/Tuple/PeopleCompany8', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/PersonCompany1
 		 */
-		linkPersonCompany1(peopleAndCompany?: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Company} | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
+		linkPersonCompany1(peopleAndCompany?: { item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Company } | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_DemoData_Client.Person> {
 			return fetch(this.baseUri + 'api/Tuple/PersonCompany1', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(peopleAndCompany) }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
@@ -1508,7 +1508,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Tuple/Tuple1
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
-		postTuple1(tuple?: {item1: number} | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
+		postTuple1(tuple?: { item1: number } | null, headersHandler?: () => { [header: string]: string }): Promise<number> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple1', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(tuple) }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
@@ -1516,49 +1516,49 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Post tuple string int
 		 * POST api/Tuple/Tuple2
 		 */
-		postTuple2(tuple?: {item1: string, item2: number} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
+		postTuple2(tuple?: { item1: string, item2: number } | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple2', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(tuple) }).then(d => { if (d.status <= 204) return d.text(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple3
 		 */
-		postTuple3(tuple?: {item1: string, item2: string, item3: number} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
+		postTuple3(tuple?: { item1: string, item2: string, item3: number } | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple3', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(tuple) }).then(d => { if (d.status <= 204) return d.text(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple4
 		 */
-		postTuple4(tuple?: {item1: string, item2: string, item3: string, item4: number} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
+		postTuple4(tuple?: { item1: string, item2: string, item3: string, item4: number } | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple4', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(tuple) }).then(d => { if (d.status <= 204) return d.text(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple5
 		 */
-		postTuple5(tuple?: {item1: string, item2: string, item3: string, item4: string, item5: number} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
+		postTuple5(tuple?: { item1: string, item2: string, item3: string, item4: string, item5: number } | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple5', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(tuple) }).then(d => { if (d.status <= 204) return d.text(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple6
 		 */
-		postTuple6(tuple?: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: number} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
+		postTuple6(tuple?: { item1: string, item2: string, item3: string, item4: string, item5: string, item6: number } | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple6', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(tuple) }).then(d => { if (d.status <= 204) return d.text(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple7
 		 */
-		postTuple7(tuple?: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
+		postTuple7(tuple?: { item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number } | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple7', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(tuple) }).then(d => { if (d.status <= 204) return d.text(); throw d; });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple8
 		 */
-		postTuple8(tuple?: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: string, rest: {item1: string, item2: string, item3: string}} | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
+		postTuple8(tuple?: { item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: string, rest: { item1: string, item2: string, item3: string } } | null, headersHandler?: () => { [header: string]: string }): Promise<string> {
 			return fetch(this.baseUri + 'api/Tuple/Tuple8', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }) : { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(tuple) }).then(d => { if (d.status <= 204) return d.text(); throw d; });
 		}
 	}

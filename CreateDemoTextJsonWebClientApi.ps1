@@ -36,10 +36,7 @@ else {
     return
 }
 
-
-
-#Step 3: Format and build the .NET lib to verify
-dotnet format whitespace ./DemoCoreWeb.ClientApiTextJson/DemoCoreWeb.ClientApiTextJson.csproj
+#Step 3: Build the .NET lib to verify
 dotnet build ./DemoCoreWeb.ClientApiTextJson/DemoCoreWeb.ClientApiTextJson.csproj
 
 Stop-Process $process

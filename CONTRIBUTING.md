@@ -29,11 +29,12 @@ Once you check out the repository, you should be able to:
 
 * All tests should pass before each commit.
 * GitHub Actions include only tests for .NET in release mode.
-* Tests for each plugin for TypeScript are done through launching `runtest.ps1 in the following folders:
+* Tests for each plugin for TypeScript are done through launching `runtest.ps1` or `runtestRemote.ps1` in the following folders:
     * aurelia
     * axios
     * fetchapi
     * HeroesDemo
+* For the jQuery plugin, check [README.md of DemoCoreWeb](./DemoCoreWeb/README.md) for testing.
 
 ## AI Generated Code
 

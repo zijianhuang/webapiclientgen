@@ -68,6 +68,7 @@ Then you will get client codes like:
 1. Generated doc comments based on .NET validation attributes.
 1. Generated doc comments based on numeric types, DateOnly and GUID for TypeScript codes.
 1. Generated TypeScript codes conform to the [TypeScript strict mode](https://www.typescriptlang.org/tsconfig#strict), and the generated Angular 2+ codes conform to the [Angular strict mode](https://angular.io/guide/strict-mode).
+1. The format of generated TypeScript codes conform to the default of Visual Studio Code.
 
 
 ## Examples

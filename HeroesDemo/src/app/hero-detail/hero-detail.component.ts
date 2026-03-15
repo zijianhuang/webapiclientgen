@@ -2,7 +2,7 @@ import { CommonModule, Location } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client, InnerOfFormGroup } from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
+import { DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client, InnerOfFormGroup } from '../../clientapi/WebApiNG2FormGroupClientAuto';
 import { NGMDModule } from '../ngmd.module';
 
 type HeroFormProperties = InnerOfFormGroup<ReturnType<typeof DemoWebApi_Controllers_Client.CreateHeroFormGroup>>;

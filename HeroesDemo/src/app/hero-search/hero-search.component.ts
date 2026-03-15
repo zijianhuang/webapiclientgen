@@ -3,7 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Subject } from 'rxjs';
 import { debounceTime, switchMap, distinctUntilChanged } from 'rxjs/operators';
-import { DemoWebApi_Controllers_Client } from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
+import { DemoWebApi_Controllers_Client } from '../../clientapi/WebApiNG2FormGroupClientAuto';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NGMDModule } from '../ngmd.module';

@@ -1,5 +1,5 @@
 import { HttpClient, provideHttpClient } from '@angular/common/http';
-import * as namespaces from '../clientapi/WebApiCoreNG2FormGroupClientAuto';
+import * as namespaces from '../clientapi/WebApiNG2FormGroupClientAuto';
 import { AppConfigConstants } from '../environments/environment.common';
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';

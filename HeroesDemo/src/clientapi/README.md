@@ -68,7 +68,7 @@ But if you import only what you need:
 
 ```ts
 import { NeededType } from './generated';
-import {DemoWebApi_Controllers_Client} from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
+import {DemoWebApi_Controllers_Client} from '../../clientapi/WebApiNG2FormGroupClientAuto';
 
 ```
 

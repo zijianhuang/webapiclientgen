@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import * as namespaces from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
+import * as namespaces from '../../clientapi/WebApiNG2FormGroupClientAuto';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NGMDModule } from '../ngmd.module';

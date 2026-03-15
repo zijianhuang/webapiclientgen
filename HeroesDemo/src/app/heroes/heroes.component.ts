@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import {DemoWebApi_Controllers_Client} from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
+import {DemoWebApi_Controllers_Client} from '../../clientapi/WebApiNG2FormGroupClientAuto';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NGMDModule } from '../ngmd.module';

@@ -1,5 +1,4 @@
 import { APIConfigConstants } from './src/testSettings';
-import 'reflect-metadata';
 
 const settingsPath = './apiConfigConstantsRemote.js';
 console.info('settingsPath: '+ settingsPath);

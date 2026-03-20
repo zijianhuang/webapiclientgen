@@ -1,5 +1,4 @@
 import { APIConfigConstants } from './src/testSettings';
-import 'reflect-metadata'; //needed by Aurelia
 
 const settingsPath = './apiConfigConstants.js';
 console.info('settingsPath: '+ settingsPath);

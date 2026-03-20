@@ -1,5 +1,4 @@
-import { HttpClient } from 'aurelia-fetch-client';
-import { autoinject } from 'aurelia-framework';
+import { HttpClient } from '@aurelia/fetch-client';
 export namespace DemoWebApi_Controllers_Client {
 
 	/**
@@ -55,7 +54,6 @@ export namespace DemoWebApi_Controllers_Client {
 	/**
 	 * For testing different commbinations of parameters and returns
 	 */
-	@autoinject()
 	export class DateTypes {
 		constructor(private http: HttpClient) {
 		}
@@ -236,7 +234,6 @@ export namespace DemoWebApi_Controllers_Client {
 	 * Entities, Person and Company
 	 * Some with AuthorizeAttribute
 	 */
-	@autoinject()
 	export class Entities {
 		constructor(private http: HttpClient) {
 		}
@@ -307,7 +304,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {string} id Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */
 		delete(id?: string | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
-			return this.http.delete('api/Entities/' + id, { headers: headersHandler ? headersHandler() : undefined });
+			return this.http.delete('api/Entities/' + id, undefined, { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
@@ -417,7 +414,6 @@ export namespace DemoWebApi_Controllers_Client {
 	/**
 	 * Heroes operations. Decorated by nullable directive.
 	 */
-	@autoinject()
 	export class Heroes {
 		constructor(private http: HttpClient) {
 		}
@@ -427,7 +423,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {string} id Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */
 		delete(id?: string | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
-			return this.http.delete('api/Heroes/' + id, { headers: headersHandler ? headersHandler() : undefined });
+			return this.http.delete('api/Heroes/' + id, undefined, { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
@@ -477,7 +473,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {DemoWebApi_Controllers_Client.Hero} Always object.
 		 */
 		postWithQuery(name?: string | null, headersHandler?: () => { [header: string]: string }): Promise<DemoWebApi_Controllers_Client.Hero> {
-			return this.http.post('api/Heroes/q?name=' + (!name ? '' : encodeURIComponent(name)), null, { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/Heroes/q?name=' + (!name ? '' : encodeURIComponent(name)), undefined, { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -503,7 +499,6 @@ export namespace DemoWebApi_Controllers_Client {
 	/**
 	 * For testing different commbinations of parameters and returns
 	 */
-	@autoinject()
 	export class Numbers {
 		constructor(private http: HttpClient) {
 		}
@@ -693,7 +688,6 @@ export namespace DemoWebApi_Controllers_Client {
 
 
 	/** @deprecated This controller is obsolete, use ValuesController instead. */
-	@autoinject()
 	export class ObsoleteValues {
 		constructor(private http: HttpClient) {
 		}
@@ -703,7 +697,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		delete(id?: number | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
-			return this.http.delete('api/ObsoleteValues/' + id, { headers: headersHandler ? headersHandler() : undefined });
+			return this.http.delete('api/ObsoleteValues/' + id, undefined, { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
@@ -763,7 +757,6 @@ export namespace DemoWebApi_Controllers_Client {
 	/**
 	 * For testing posting and getting string data. Returned string is JSON object.
 	 */
-	@autoinject()
 	export class StringData {
 		constructor(private http: HttpClient) {
 		}
@@ -807,7 +800,6 @@ export namespace DemoWebApi_Controllers_Client {
 	/**
 	 * For testing different commbinations of parameters and returns
 	 */
-	@autoinject()
 	export class SuperDemo {
 		constructor(private http: HttpClient) {
 		}
@@ -1175,7 +1167,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/ActionResult
 		 */
 		postActionResult(headersHandler?: () => { [header: string]: string }): Promise<string> {
-			return this.http.post('api/SuperDemo/ActionResult', null, { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
+			return this.http.post('api/SuperDemo/ActionResult', undefined, { headers: headersHandler ? headersHandler() : undefined }).then(d => { if (d.status <= 204) return d.json(); throw d; });
 		}
 
 		/**
@@ -1307,7 +1299,6 @@ export namespace DemoWebApi_Controllers_Client {
 	/**
 	 * For testing posting and getting string data. String returned is text/plain by default
 	 */
-	@autoinject()
 	export class TextData {
 		constructor(private http: HttpClient) {
 		}
@@ -1356,7 +1347,6 @@ export namespace DemoWebApi_Controllers_Client {
 	/**
 	 * https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md#3.3.3
 	 */
-	@autoinject()
 	export class Tuple {
 		constructor(private http: HttpClient) {
 		}
@@ -1574,7 +1564,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
-	@autoinject()
 	export class Values {
 		constructor(private http: HttpClient) {
 		}
@@ -1584,7 +1573,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		delete(id?: number | null, headersHandler?: () => { [header: string]: string }): Promise<Response> {
-			return this.http.delete('api/Values/' + id, { headers: headersHandler ? headersHandler() : undefined });
+			return this.http.delete('api/Values/' + id, undefined, { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
@@ -2101,7 +2090,6 @@ export namespace DemoWebApi_Models_Client {
 }
 
 export namespace DemoCoreWeb_Controllers_Client {
-	@autoinject()
 	export class SpecialTypes {
 		constructor(private http: HttpClient) {
 		}

@@ -1,14 +1,12 @@
 {
   "dependencies": {
-    "aurelia-bootstrapper": "^2.4.1",
-    "aurelia-fetch-client": "^1.8.2",
+    "@aurelia/fetch-client": "^2.0.0-beta.25",
+    "@aurelia/kernel": "^2.0.0-beta.25",
     "moment": "^2.30.1",
     "typescript": "5.9.3"
   },
   "devDependencies": {
-    "aurelia-testing": "^1.1.0",
     "jsdom": "^28.1.0",
-    "reflect-metadata": "^0.2.2",
     "typescript": "5.9.3",
     "vitest": "^4.1.0"
   }

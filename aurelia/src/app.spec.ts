@@ -1,5 +1,5 @@
-import { HttpClient } from 'aurelia-fetch-client';
-import { initialize } from 'aurelia-pal-browser';
+import { HttpClient } from '@aurelia/fetch-client';
+import { DI } from '@aurelia/kernel';
 import { DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client } from './clientapi/WebApiAureliaClientAuto';
 import { describe, it, expect } from 'vitest';
 import { APIConfigConstants } from './testSettings';
@@ -25,8 +25,6 @@ export async function errorResponseToString(error: Response | any): Promise<stri
   }
 }
 
-initialize(); // as described at https://discourse.aurelia.io/t/problem-with-unit-testing-and-mocking-api-call/2405
-
 describe('Basic', () => {
   it('simple 1', done => {
     expect(true).toBeTruthy();
@@ -41,9 +39,9 @@ describe('Basic', () => {
 
 });
 
-const apiBaseUri = APIConfigConstants.apiBaseUri;
+const apiBaseUri = APIConfigConstants.apiBaseUri ?? '';
 console.info('Back apiBaseUri: ' + apiBaseUri);
-const http = new HttpClient();
+const http = DI.createContainer().get(HttpClient);
 http.baseUrl = apiBaseUri;
 
 describe('Values', () => {
@@ -1558,7 +1556,7 @@ describe('SuperDemo API', () => {
           p = data['Spider Man']; //.NET Core is OK
         }
         expect(p.name).toBe('Peter Parker');
-        expect(p.addresses[0].city).toBe('New York');
+        expect(p.addresses?.[0]?.city).toBe('New York');
 
       },
       error => {
@@ -1614,7 +1612,7 @@ describe('SuperDemo API', () => {
     service.getKeyhValuePair().then(
       data => {
         expect(data.key).toBe('Spider Man');
-        expect(data.value.addresses[0].city).toBe('New York');
+        expect(data.value.addresses?.[0]?.city).toBe('New York');
 
       },
       error => {
@@ -1715,13 +1713,14 @@ describe('Numbers API', () => {
   );
 
   it('postIntegralEntityInvalid', () => {
-    service.postIntegralEntity({ byte: 260, uShort: 65540 }).then(
+    return service.postIntegralEntity({ byte: 260, uShort: 65540 }).then(
       r => {
         throw new Error('validation');
 
       },
       async error => {
-        expect(await error.text()).toContain('Error converting value 65540 to type');
+        expect(error.status).toBe(400);
+        expect(await error.text()).toMatch(/Error converting value 65540 to type|validation errors occurred|is not valid/i);
 
       }
     );
@@ -1762,13 +1761,14 @@ describe('Numbers API', () => {
   );
 
   it('postUShortInvalid', () => {
-    service.postByDOfUInt16(65540).then(
+    return service.postByDOfUInt16(65540).then(
       r => {
         throw new Error('validation');
 
       },
       async error => {
-        expect(await error.text()).toContain('Error converting value 65540 to type');
+        expect(error.status).toBe(400);
+        expect(await error.text()).toMatch(/Error converting value 65540 to type|validation errors occurred|is not valid/i);
 
       }
     );
@@ -1870,13 +1870,14 @@ describe('Numbers API', () => {
   );
 
   it('postSByteInvalid', () => {
-    service.postByDOfSByte(130).then(
+    return service.postByDOfSByte(130).then(
       r => {
         throw new Error('validation')
 
       },
       async error => {
-        expect(await error.text()).toContain('Error converting value 130 to type ');
+        expect(error.status).toBe(400);
+        expect(await error.text()).toMatch(/Error converting value 130 to type|validation errors occurred|is not valid/i);
 
       }
     );

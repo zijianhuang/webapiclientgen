@@ -95,7 +95,8 @@
 				"TSFile": "WebApiAureliaClientAuto.ts",
 				"AsModule": true,
 				"DataAnnotationsToComments": true,
-				"ContentType": "application/json;charset=UTF-8"
+				"ContentType": "application/json;charset=UTF-8",
+				"HelpStrictMode": true
 			},
 
 			{

@@ -123,18 +123,18 @@ namespace Fonlow.CodeDom.Web.Ts
 			if (ReturnType != null && TypeHelper.IsStringType(ReturnType))
 			{
 				var s = ReturnTypeIsNullable ? returnTextOrNull : returnText;
-				if (HttpMethodName == "get" || HttpMethodName == "delete")
+				if (HttpMethodName == "get")
 				{
 					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}{OptionsForString}).then(d => {s});")); //todo: type cast is not really needed.
 					return;
 				}
 
-				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
+				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch" || HttpMethodName == "delete")
 				{
 					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, null{OptionsForString}).then(d => {s});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, undefined{OptionsForString}).then(d => {s});"));
 					}
 					else
 					{
@@ -146,18 +146,18 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else if (returnTypeText == AureliatHttpBlobResponse)//translated from blobresponse to this
 			{
-				if (HttpMethodName == "get" || HttpMethodName == "delete")
+				if (HttpMethodName == "get")
 				{
 					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}{OptionsForString}).then(d => {{ if (d.status <= 204) return d.blob(); throw d; }});")); //todo: type cast is not really needed.
 					return;
 				}
 
-				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
+				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch" || HttpMethodName == "delete")
 				{
 					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, null{OptionsForString}).then(d => {{ if (d.status <= 204) return d.blob(); throw d; }});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, undefined{OptionsForString}).then(d => {{ if (d.status <= 204) return d.blob(); throw d; }});"));
 					}
 					else
 					{
@@ -169,18 +169,18 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else if (returnTypeText == AureliaHttpResponse) // client should care about only status
 			{
-				if (HttpMethodName == "get" || HttpMethodName == "delete")
+				if (HttpMethodName == "get")
 				{
 					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}{Options});"));
 					return;
 				}
 
-				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
+				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch" || HttpMethodName == "delete")
 				{
 					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, null{Options});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, undefined{Options});"));
 					}
 					else
 					{
@@ -193,18 +193,18 @@ namespace Fonlow.CodeDom.Web.Ts
 			else if (returnTypeText == AureliaHttpStringResponse)//translated from response to this
 			{
 				var s = ReturnTypeIsNullable ? returnJsonOrNull : returnJson;
-				if (HttpMethodName == "get" || HttpMethodName == "delete")
+				if (HttpMethodName == "get")
 				{
 					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}{OptionsForResponse}).then(d => {s});"));
 					return;
 				}
 
-				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
+				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch" || HttpMethodName == "delete")
 				{
 					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, null{OptionsForResponse}).then(d => {s});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, undefined{OptionsForResponse}).then(d => {s});"));
 					}
 					else
 					{
@@ -218,7 +218,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			else
 			{
 				var s = ReturnTypeIsNullable ? returnJsonOrNull : returnJson;
-				if (HttpMethodName == "get" || HttpMethodName == "delete")
+				if (HttpMethodName == "get")
 				{
 					if (returnTypeText == null)
 					{
@@ -229,14 +229,14 @@ namespace Fonlow.CodeDom.Web.Ts
 						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}{Options}).then(d => {s});"));
 					}
 				}
-				else if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
+				else if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch" || HttpMethodName == "delete")
 				{
 					string dataToPost = GetDataToPost();
 					if (returnTypeText == null)//http response
 					{
 						if (dataToPost == "null")//no content body
 						{
-							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, null{OptionsForResponse});"));
+							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, undefined{OptionsForResponse});"));
 						}
 						else
 						{
@@ -247,7 +247,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					{
 						if (dataToPost == "null") // no body
 						{
-							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, null{Options}).then(d => {s});"));
+							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, undefined{Options}).then(d => {s});"));
 						}
 						else
 						{

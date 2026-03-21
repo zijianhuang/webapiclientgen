@@ -119,13 +119,13 @@ namespace Fonlow.CodeDom.Web.Ts
 			if (ReturnType != null && TypeHelper.IsStringType(ReturnType))
 			{
 				var s = ReturnTypeIsNullable ? returnTextOrNull : returnText;
-				if (HttpMethodName == "get" || HttpMethodName == "delete")
+				if (HttpMethodName == "get")
 				{
 					Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForString}).then(d => {s});"));
 					return;
 				}
 
-				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
+				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch" || HttpMethodName == "delete")
 				{
 					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
@@ -144,13 +144,13 @@ namespace Fonlow.CodeDom.Web.Ts
 			else if (returnTypeText == FetchtHttpBlobResponse)//translated from blobresponse to this
 			{
 				var s = ReturnTypeIsNullable ? returnBlobOrNull : returnBlob;
-				if (HttpMethodName == "get" || HttpMethodName == "delete")
+				if (HttpMethodName == "get")
 				{
 					Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForString}).then(d => {s});")); //todo: type cast is not really needed.
 					return;
 				}
 
-				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
+				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch" || HttpMethodName == "delete")
 				{
 					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
@@ -169,13 +169,13 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else if (returnTypeText == FetchHttpResponse) // client should care about only status
 			{
-				if (HttpMethodName == "get" || HttpMethodName == "delete")
+				if (HttpMethodName == "get")
 				{
 					Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {Options});"));
 					return;
 				}
 
-				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
+				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch" || HttpMethodName == "delete")
 				{
 					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
@@ -194,7 +194,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			else
 			{
 				var s = ReturnTypeIsNullable ? returnJsonOrNull : returnJson;
-				if (HttpMethodName == "get" || HttpMethodName == "delete")
+				if (HttpMethodName == "get")
 				{
 					if (returnTypeText == null)
 					{
@@ -205,7 +205,7 @@ namespace Fonlow.CodeDom.Web.Ts
 						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {Options}).then(d => {s});"));
 					}
 				}
-				else if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
+				else if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch" || HttpMethodName == "delete")
 				{
 					string dataToPost = GetDataToPost();
 					if (returnTypeText == null)//http response

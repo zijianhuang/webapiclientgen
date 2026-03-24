@@ -1,9 +1,8 @@
 import { ThemeLoaderSettings, ThemesDic } from "./themeDef"
 
 interface Site_Config {
-	apiBaseUri?: string;
+	apiBaseUri?: string,
 	themesDic?: ThemesDic,
-
 	themeLoaderSettings?: ThemeLoaderSettings
 }
 

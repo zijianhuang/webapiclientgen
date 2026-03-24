@@ -1,3 +1,12 @@
 body {
 	background-color: whitesmoke;
 }
+
+button.delete:hover {
+  background-color: #525252;
+  color: white;
+}
+
+.heroes .badge {
+  background-color: #405061;
+}

@@ -4,6 +4,8 @@ using System.Xml.Serialization;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Fonlow.DocComment
 {
@@ -23,23 +25,39 @@ namespace Fonlow.DocComment
 
 		bool Load(string filePath)
 		{
+			XmlDoc = LoadFileToDoc(filePath);
+			return XmlDoc != null;
+		}
+
+		static doc LoadFileToDoc(string filePath)
+		{
 			XmlSerializer serializer = new XmlSerializer(typeof(doc));
 			try
 			{
 				using (FileStream fs = new System.IO.FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
 				{
 #pragma warning disable CA5369 // Use XmlReader for 'XmlSerializer.Deserialize()'
-					XmlDoc = serializer.Deserialize(fs) as doc;
+					return serializer.Deserialize(fs) as doc;
 #pragma warning restore CA5369 // Use XmlReader for 'XmlSerializer.Deserialize()'
-					return XmlDoc != null;
+					//return XmlDoc != null;
 				}
 
 			}
 			catch (Exception ex) when (ex is ArgumentException || ex is System.IO.IOException || ex is System.Security.SecurityException)
 			{
-				Trace.TraceWarning("Cannot locate the doc xml of the assembly: "+ ex.ToString());
-				return false;
+				Trace.TraceWarning("Cannot locate the doc xml of the assembly: " + ex.ToString());
+				return null;
 			}
+		}
+
+		bool Load(doc xmlDoc)
+		{
+			if (xmlDoc != null)
+			{
+				XmlDoc = xmlDoc;
+				return true;
+			}
+			return false;
 		}
 
 		/// <summary>
@@ -61,6 +79,39 @@ namespace Fonlow.DocComment
 		{
 			DocCommentLookup lookup = new DocCommentLookup();
 			bool r = lookup.Load(filePath);
+			if (r)
+			{
+				return lookup;
+			}
+
+			return null;
+		}
+
+		public static DocCommentLookup CreateAndMerge(string[] filePaths)
+		{
+			if (filePaths.Length == 1)
+			{
+				return Create(filePaths[0]);
+			}
+
+			List<docMember> members = new List<docMember>();
+			foreach (var filePath in filePaths)
+			{
+				var d = LoadFileToDoc(filePath);
+				if (d != null)
+				{
+					members.AddRange(d.members);
+				}
+			}
+
+			doc xmlDoc = new doc
+			{
+				assembly = new docAssembly { name = "MergedApiDocComment" },
+				members = members.ToArray()
+			};
+
+			DocCommentLookup lookup = new DocCommentLookup();
+			bool r = lookup.Load(xmlDoc);
 			if (r)
 			{
 				return lookup;

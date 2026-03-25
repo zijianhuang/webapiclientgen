@@ -1,6 +1,5 @@
 
 using Fonlow.IntegralExtensions;
-using WebApp.Utilities;
 
 System.Reflection.Assembly appAssembly = System.Reflection.Assembly.GetExecutingAssembly();
 string dirOfAppAssembly = System.IO.Path.GetDirectoryName(appAssembly.Location);

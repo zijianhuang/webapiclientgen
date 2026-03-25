@@ -28,22 +28,20 @@ namespace Fonlow.CodeDom.Web
 				}
 			}
 
-			ApiDescription first = list.FirstOrDefault(d =>
+			// Just in case the Web API consist of more than 1 asemblies that contained strongly typed controller.
+			var xmlFilePaths = list.Where(d =>
 			{
 				Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor controllerActionDescriptor = d.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
-				if (controllerActionDescriptor == null)
-				{
-					return false;
-				}
-
-				return true;
-			});
-
-			if (first != null)
-			{
+				return controllerActionDescriptor != null;
+			}).Select(first=> {
 				Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor firstControllerActionDescriptor = first.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
 				string xmlFilePath = DocComment.DocCommentLookup.GetXmlPath(firstControllerActionDescriptor.MethodInfo.DeclaringType.Assembly);
-				DocComment.DocCommentLookup docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlFilePath);
+				return xmlFilePath;
+			}).Distinct().ToArray();
+			
+			if (xmlFilePaths.Length>0){
+				DocComment.DocCommentLookup docLookup = Fonlow.DocComment.DocCommentLookup.CreateAndMerge(xmlFilePaths);
+				WebApiDocSingleton.InitOnce(docLookup);
 				WebApiDocSingleton.InitOnce(docLookup);
 			}
 

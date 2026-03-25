@@ -9105,6 +9105,10 @@ namespace DemoWebApi.DemoData.Client
 		public System.Collections.Generic.IEnumerable<string> Lines { get; set; }
 	}
 	
+	public class Constants : object
+	{
+	}
+	
 	public enum Days
 	{
 		
@@ -9349,6 +9353,10 @@ namespace DemoWebApi.DemoData.Client
 		
 		Fax,
 	}
+	
+	public class TypeDiscontinued : object
+	{
+	}
 }
 namespace DemoWebApi.DemoDataEx.Client
 {
@@ -9472,6 +9480,28 @@ namespace DemoWebApi.Models.Client
 		public string OldPassword { get; set; }
 	}
 	
+	public class ExternalLoginViewModel : object
+	{
+		
+		public string Name { get; set; }
+		
+		public string State { get; set; }
+		
+		public string Url { get; set; }
+	}
+	
+	public class ManageInfoViewModel : object
+	{
+		
+		public string Email { get; set; }
+		
+		public System.Collections.Generic.IEnumerable<DemoWebApi.Models.Client.ExternalLoginViewModel> ExternalLoginProviders { get; set; }
+		
+		public string LocalLoginProvider { get; set; }
+		
+		public System.Collections.Generic.IEnumerable<DemoWebApi.Models.Client.UserLoginInfoViewModel> Logins { get; set; }
+	}
+	
 	public class RegisterBindingModel : object
 	{
 		
@@ -9561,6 +9591,120 @@ namespace DemoWebApi.Models.Client
 		public string TokenType { get; set; }
 		
 		public string Username { get; set; }
+	}
+	
+	public class UserInfoViewModel : object
+	{
+		
+		public string Email { get; set; }
+		
+		public bool HasRegistered { get; set; }
+		
+		public string LoginProvider { get; set; }
+		
+		public string Dummy1 { get; set; }
+		
+		public string Dumy2 { get; set; }
+	}
+	
+	public class UserLoginInfoViewModel : object
+	{
+		
+		public string LoginProvider { get; set; }
+		
+		public string ProviderKey { get; set; }
+	}
+}
+namespace WebApplication1.Client
+{
+	
+	
+	public class WeatherForecast : object
+	{
+		
+		public System.DateOnly Date { get; set; }
+		
+		public string Summary { get; set; }
+		
+		public int TemperatureC { get; set; }
+		
+		public int TemperatureF { get; set; }
+	}
+}
+namespace Core3WebApi.Controllers.Client
+{
+	using System;
+	using System.Linq;
+	using System.Collections.Generic;
+	using System.Threading.Tasks;
+	using System.Net.Http;
+	using System.Text.Json;
+	using System.Text.Json.Serialization;
+	using Fonlow.Net.Http;
+	
+	
+	public partial class Statistics
+	{
+		
+		private System.Net.Http.HttpClient client;
+		
+		private JsonSerializerOptions jsonSerializerSettings;
+		
+		public Statistics(System.Net.Http.HttpClient client, JsonSerializerOptions jsonSerializerSettings=null)
+		{
+			if (client == null)
+				throw new ArgumentNullException(nameof(client), "Null HttpClient.");
+
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException(nameof(client), "HttpClient has no BaseAddress");
+
+			this.client = client;
+			this.jsonSerializerSettings = jsonSerializerSettings;
+		}
+		
+		/// <summary>
+		/// GET api/Statistics/distribution
+		/// </summary>
+		public async Task<System.Text.Json.Nodes.JsonObject> GetDistributionAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Statistics/distribution";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				return JsonSerializer.Deserialize<System.Text.Json.Nodes.JsonObject>(stream, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Statistics/distribution
+		/// </summary>
+		public System.Text.Json.Nodes.JsonObject GetDistribution(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Statistics/distribution";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = responseMessage.Content.ReadAsStream();
+				return JsonSerializer.Deserialize<System.Text.Json.Nodes.JsonObject>(stream, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
 	}
 }
 namespace DemoCoreWeb.Controllers.Client
@@ -9919,6 +10063,80 @@ namespace DemoCoreWeb.Controllers.Client
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStream();
 				return JsonSerializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<DemoWebApi.DemoData.Client.MyGeneric<double, DemoWebApi.DemoData.Client.MyGenericInt, DemoWebApi.DemoData.Base.Client.Entity>, DemoWebApi.DemoDataEx.Client.ZListCheck, DemoWebApi.DemoData.Client.MimsResult<DemoWebApi.DemoDataEx.Client.TextJsonPerson>>>(stream, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+	}
+}
+namespace WebApplication1.Controllers.Client
+{
+	using System;
+	using System.Linq;
+	using System.Collections.Generic;
+	using System.Threading.Tasks;
+	using System.Net.Http;
+	using System.Text.Json;
+	using System.Text.Json.Serialization;
+	using Fonlow.Net.Http;
+	
+	
+	public partial class WeatherForecast
+	{
+		
+		private System.Net.Http.HttpClient client;
+		
+		private JsonSerializerOptions jsonSerializerSettings;
+		
+		public WeatherForecast(System.Net.Http.HttpClient client, JsonSerializerOptions jsonSerializerSettings=null)
+		{
+			if (client == null)
+				throw new ArgumentNullException(nameof(client), "Null HttpClient.");
+
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException(nameof(client), "HttpClient has no BaseAddress");
+
+			this.client = client;
+			this.jsonSerializerSettings = jsonSerializerSettings;
+		}
+		
+		/// <summary>
+		/// GET WeatherForecast
+		/// </summary>
+		public async Task<System.Collections.Generic.IEnumerable<WebApplication1.Client.WeatherForecast>> GetAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "WeatherForecast";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				return JsonSerializer.Deserialize<System.Collections.Generic.IEnumerable<WebApplication1.Client.WeatherForecast>>(stream, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET WeatherForecast
+		/// </summary>
+		public System.Collections.Generic.IEnumerable<WebApplication1.Client.WeatherForecast> Get(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "WeatherForecast";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStream();
+				return JsonSerializer.Deserialize<System.Collections.Generic.IEnumerable<WebApplication1.Client.WeatherForecast>>(stream, jsonSerializerSettings);
 			}
 			finally
 			{

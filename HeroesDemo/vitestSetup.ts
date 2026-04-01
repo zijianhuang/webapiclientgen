@@ -7,7 +7,7 @@ import {
 } from '@angular/platform-browser/testing';
 import { APIConfigConstants } from './src/clientapi/testSettings';
 
-const settingsPath = './apiConfigConstants.js';
+const settingsPath = process.env['VITEST_MODE'] === "remote" ? './apiConfigConstantsRemote.js' : './apiConfigConstants.js';
 console.info('settingsPath: '+ settingsPath);
 const settings = await import(settingsPath);
 console.info("settings: " + JSON.stringify(settings));

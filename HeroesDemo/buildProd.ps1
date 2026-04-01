@@ -1,1 +1,1 @@
-﻿./buildParams.ps1 "https://heroes.fonlow.net/webapi/" "production"
+﻿./buildParams.ps1 -apiBaseUri "https://heroes.fonlow.net/webapi/" "production" -outputPath "../ngdist/prod/"

@@ -7,7 +7,7 @@ const SITE_CONFIG = {
 		"assets/themes/cyan-orange.css": { display: "Cyan & Orange", dark: true }
 	},
 	themeLoaderSettings: {
-		storageKey: 'app.theme',
+		storageKey: 'AngularHeroesTour.theme',
 		themeLinkId: 'theme',
 		appColorsDir: 'conf/',
 		appColorsLinkId: 'app-colors',

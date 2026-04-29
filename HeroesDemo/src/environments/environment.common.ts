@@ -1,9 +1,5 @@
-import { ThemeLoaderSettings, ThemesDic } from "./themeDef"
-
 interface Site_Config {
 	apiBaseUri?: string,
-	themesDic?: ThemesDic,
-	themeLoaderSettings?: ThemeLoaderSettings
 }
 
 interface AppConfigConstantsType extends Site_Config {

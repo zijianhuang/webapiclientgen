@@ -400,6 +400,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/Entities/NullPerson
+		 */
+		getNullPerson(headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person | null> {
+			return this.http.get<DemoWebApi_DemoData_Client.Person | null>(this.baseUri + 'api/Entities/NullPerson', { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
 		 * Get a person
 		 * so to know the person
 		 * GET api/Entities/getPerson/{id}
@@ -1202,7 +1209,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/ulong
 		 * @return {string} Type: ulong, 0 to 18,446,744,073,709,551,615
 		 */
-		getulong(headersHandler?: () => HttpHeaders): Observable<string> {
+		getUlong(headersHandler?: () => HttpHeaders): Observable<string> {
 			return this.http.get<string>(this.baseUri + 'api/SuperDemo/ulong', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
@@ -2370,47 +2377,6 @@ export namespace DemoWebApi_Models_Client {
 
 }
 
-export namespace WebApplication1_Client {
-	export interface WeatherForecast {
-
-		/** Type: DateOnly */
-		date?: Date | null;
-		summary?: string | null;
-
-		/** Type: int, -2,147,483,648 to 2,147,483,647 */
-		temperatureC?: number | null;
-
-		/** Type: int, -2,147,483,648 to 2,147,483,647 */
-		temperatureF?: number | null;
-	}
-	export function CreateWeatherForecastFormGroup() {
-		return new FormGroup({
-			date: CreateDateOnlyFormControl(),
-			summary: new FormControl<string | null | undefined>(undefined),
-			temperatureC: new FormControl<number | null | undefined>(undefined),
-			temperatureF: new FormControl<number | null | undefined>(undefined),
-		});
-
-	}
-
-}
-
-export namespace Core3WebApi_Controllers_Client {
-	@Injectable({ providedIn: 'root' })
-	export class Statistics {
-		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
-		}
-
-		/**
-		 * GET api/Statistics/distribution
-		 */
-		getDistribution(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
-			return this.http.get(this.baseUri + 'api/Statistics/distribution', { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
-		}
-	}
-
-}
-
 export namespace DemoCoreWeb_Controllers_Client {
 	@Injectable({ providedIn: 'root' })
 	export class SpecialTypes {
@@ -2470,22 +2436,6 @@ export namespace DemoCoreWeb_Controllers_Client {
 		 */
 		postVeryComplexGeneric(body?: DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.Company>> | null, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Base_Client.Entity>, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.MimsResult<DemoWebApi_DemoDataEx_Client.TextJsonPerson>>> {
 			return this.http.post<DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Base_Client.Entity>, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.MimsResult<DemoWebApi_DemoDataEx_Client.TextJsonPerson>>>(this.baseUri + 'api/SpecialTypes/VeryComplexGeneric', JSON.stringify(body), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
-		}
-	}
-
-}
-
-export namespace WebApplication1_Controllers_Client {
-	@Injectable({ providedIn: 'root' })
-	export class WeatherForecast {
-		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
-		}
-
-		/**
-		 * GET WeatherForecast
-		 */
-		get(headersHandler?: () => HttpHeaders): Observable<Array<WebApplication1_Client.WeatherForecast>> {
-			return this.http.get<Array<WebApplication1_Client.WeatherForecast>>(this.baseUri + 'WeatherForecast', { headers: headersHandler ? headersHandler() : undefined });
 		}
 	}
 

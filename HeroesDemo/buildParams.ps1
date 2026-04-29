@@ -1,5 +1,4 @@
-﻿
-<#
+﻿<#
 .SYNOPSIS
     Default build script for development. And this can be used for the other build profiles with parameters, and different deployment targets.
 
@@ -30,7 +29,7 @@ param(
 Set-Location $PSScriptRoot
 $baseHrefText = ($baseHref -eq "/" ? "/" : "/$baseHref/")
 Write-Output "Ready to output to $outputPath with base-href $baseHrefText ..."
-ng build --configuration=$buildConfig --output-path=$outputPath --base-href=$baseHrefText
+ng build --configuration=$buildConfig --output-path="$outputPath" --base-href=$baseHrefText
 
 $confPath = [System.IO.Path]::Combine($outputPath, "browser/conf")
 copy-item "./src/conf/" -Destination $confPath -Force -Recurse

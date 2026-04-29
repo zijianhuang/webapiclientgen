@@ -6,11 +6,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ThemeDef } from '../environments/themeDef';
 import { MatFormField, MatLabel, MatOption, MatSelect, MatSelectChange } from '@angular/material/select';
-import { ThemeLoader } from './themeLoader';
-import { AppConfigConstants } from '../environments/environment.common';
 import { RouterModule } from '@angular/router';
+import { ThemeConfigConstants, ThemeDef, ThemeLoader } from 'theme-loader-api';
 
 /**
  * Use material select to pick a theme.
@@ -24,7 +22,7 @@ import { RouterModule } from '@angular/router';
 		MatTooltipModule, MatMenuModule
 	]
 })
-export class ThemeSelect  {
+export class ThemeSelect {
 	themes?: ThemeDef[];
 
 	get currentTheme() {
@@ -32,8 +30,8 @@ export class ThemeSelect  {
 	}
 
 	constructor() {
-		this.themes = AppConfigConstants.themesDic ? Object.keys(AppConfigConstants.themesDic).map(k => {
-			const c = AppConfigConstants.themesDic![k];
+		this.themes = ThemeConfigConstants.themesDic ? Object.keys(ThemeConfigConstants.themesDic).map(k => {
+			const c = ThemeConfigConstants.themesDic![k];
 			const obj: ThemeDef = {
 				display: c.display,
 				filePath: k,

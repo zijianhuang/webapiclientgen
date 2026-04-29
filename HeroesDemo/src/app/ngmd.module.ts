@@ -1,7 +1,6 @@
 import { LayoutModule } from '@angular/cdk/layout';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgModule } from '@angular/core';
-import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import {
 	MatAutocompleteModule
 } from '@angular/material/autocomplete';
@@ -101,6 +100,7 @@ import {
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { MAT_LUXON_DATE_ADAPTER_OPTIONS, MAT_LUXON_DATE_FORMATS, LuxonDateAdapter } from '@angular/material-luxon-adapter';
 
 @NgModule({
 
@@ -148,10 +148,10 @@ import { OverlayModule } from '@angular/cdk/overlay';
 	],
 	providers: [
 		{ provide: MAT_TABS_CONFIG, useValue: { animationDuration: '0ms' }},
-		{ provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
-		{ provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
-		{ provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false, strict: true } },
-		{ provide: MAT_LIST_CONFIG, useValue: { hideSingleSelectionIndicator : true} }
+		{ provide: MAT_LIST_CONFIG, useValue: { hideSingleSelectionIndicator : true} },
+				{ provide: DateAdapter, useClass: LuxonDateAdapter, deps: [MAT_DATE_LOCALE, MAT_LUXON_DATE_ADAPTER_OPTIONS] },
+		{ provide: MAT_DATE_FORMATS, useValue: MAT_LUXON_DATE_FORMATS },
+		{ provide: MAT_LUXON_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
 	]
 })
 export class NGMDModule { }

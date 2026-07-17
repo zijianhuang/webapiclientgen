@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NGMDModule } from '../ngmd.module';
 import { DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client } from '../../clientapi/WebApiNG2FormGroupClientAuto';
@@ -11,6 +11,7 @@ import { DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client } from '../..
 		ReactiveFormsModule,
 		NGMDModule,],
 	templateUrl: './data-detail.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: './data-detail.component.css',
 })
 export class DataDetailComponent {

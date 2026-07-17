@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NGMDModule } from './ngmd.module';
 import { RouterModule } from '@angular/router';
@@ -11,6 +11,7 @@ import { ThemeSelect } from './theme-select.component';
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.css'],
 	standalone: true,
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [
 		RouterModule,
 		FormsModule,

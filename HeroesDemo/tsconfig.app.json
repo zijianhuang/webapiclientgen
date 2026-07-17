@@ -25,5 +25,13 @@
     "src/**/*.6.ts",
     "src/**/*.7.ts",
     "src/**/testing"
-  ]
+  ],
+  "angularCompilerOptions": {
+    "extendedDiagnostics": {
+      "checks": {
+        "nullishCoalescingNotNullable": "suppress",
+        "optionalChainNotNullable": "suppress"
+      }
+    }
+  }
 }

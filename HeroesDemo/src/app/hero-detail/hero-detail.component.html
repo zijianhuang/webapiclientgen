@@ -36,28 +36,28 @@
           <mat-label>Street</mat-label>
           <input matInput formControlName="street1" />
           @if (heroForm.controls.address?.controls?.street1?.errors) {
-            <mat-error>{{getErrorsText(heroForm.controls.address?.controls?.street1?.errors)}}</mat-error>
+            <mat-error>{{getErrorsText($safeNavigationMigration(heroForm.controls.address?.controls?.street1?.errors))}}</mat-error>
           }
         </mat-form-field>
         <mat-form-field>
           <mat-label>City</mat-label>
           <input matInput formControlName="city" />
           @if (heroForm.controls.address?.controls?.city?.errors) {
-            <mat-error>{{getErrorsText(heroForm.controls.address?.controls?.city?.errors)}}</mat-error>
+            <mat-error>{{getErrorsText($safeNavigationMigration(heroForm.controls.address?.controls?.city?.errors))}}</mat-error>
           }
         </mat-form-field>
         <mat-form-field>
           <mat-label>State</mat-label>
           <input matInput formControlName="state" />
           @if (heroForm.controls.address?.controls?.state?.errors) {
-            <mat-error>{{getErrorsText(heroForm.controls.address?.controls?.state?.errors)}}</mat-error>
+            <mat-error>{{getErrorsText($safeNavigationMigration(heroForm.controls.address?.controls?.state?.errors))}}</mat-error>
           }
         </mat-form-field>
         <mat-form-field>
           <mat-label>Country</mat-label>
           <input matInput formControlName="country" />
           @if (heroForm.controls.address?.controls?.country?.errors) {
-            <mat-error>{{getErrorsText(heroForm.controls.address?.controls?.country?.errors)}}</mat-error>
+            <mat-error>{{getErrorsText($safeNavigationMigration(heroForm.controls.address?.controls?.country?.errors))}}</mat-error>
           }
         </mat-form-field>
       </div>

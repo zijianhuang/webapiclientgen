@@ -1,4 +1,4 @@
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withXhr } from '@angular/common/http';
 import * as namespaces from '../clientapi/WebApiNG2FormGroupClientAuto';
 import { AppConfigConstants } from '../environments/environment.common';
 import { ApplicationConfig } from '@angular/core';
@@ -20,7 +20,7 @@ export function clientFactory(http: HttpClient) {
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideHttpClient(),
+        provideHttpClient(withXhr()),
 
         provideRouter(routes),
         {

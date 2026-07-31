@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DotNetHostCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EntitiesApiIntegration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FileUploadIntegration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GlobalAssemblyAttributes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HeroesApiIntegration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NumbersApiIntegration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StringDataFixture.cs" />

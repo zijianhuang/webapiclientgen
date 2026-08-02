@@ -14,17 +14,17 @@ namespace IntegrationTests
 		}
 
 		readonly DemoWebApi.Controllers.Client.DateTypes api;
-		[Fact]
-		public void Test1()
-		{
-			Thread.Sleep(3000);
-		}
+		//[Fact]
+		//public void Test1()
+		//{
+		//	Thread.Sleep(3000);
+		//}
 
-		[Fact]
-		public void Test2()
-		{
-			Thread.Sleep(5000);
-		}
+		//[Fact]
+		//public void Test2()
+		//{
+		//	Thread.Sleep(5000);
+		//}
 		[Fact]
 		public async Task TestGetDateTime()
 		{

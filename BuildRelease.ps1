@@ -1,2 +1,2 @@
 ﻿Set-Location $PSScriptRoot
-dotnet build webapiclientgen.sln  --configuration Release --no-incremental
+dotnet build webapiclientgen.slnx  --configuration Release --no-incremental

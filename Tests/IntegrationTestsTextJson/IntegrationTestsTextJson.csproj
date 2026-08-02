@@ -14,11 +14,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="testconfig.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-	  </Content>
 	  <Content Include="appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
@@ -31,8 +26,12 @@
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Fonlow.Testing.Integration" Version="1.2.6" />
+		<PackageReference Include="Fonlow.Testing.Integration" Version="1.2.7" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="4.0.0-pre.5">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="xunit.v3" Version="4.0.0-pre.154-dev" />
 		<PackageReference Include="xunit.v3.runner.console" Version="4.0.0-pre.154-dev">
 		  <PrivateAssets>all</PrivateAssets>

@@ -1,0 +1,60 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="ARM" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Demo/">
+    <Project Path="DemoCoreWeb/DemoCoreWeb.csproj" />
+    <Project Path="DemoCoreWebControllers/DemoCoreWebControllers.csproj" />
+    <Project Path="DemoGodAssemblyWeb/DemoGodAssemblyWeb.csproj" />
+    <Project Path="DemoTextJsonWeb/DemoTextJsonWeb.csproj" />
+    <Project Path="DemoWebApi.DemoDataCore/DemoWebApi.DemoDataCore.csproj" />
+    <Project Path="DemoWebApiDemoDataEx/DemoWebApiDemoDataEx.csproj" />
+    <Project Path="_DebugWeb.Data/DebugWeb.Data.csproj" />
+    <Project Path="_DebugWeb/DebugWeb.csproj" />
+  </Folder>
+  <Folder Name="/Demo/ClientApi/">
+    <Project Path="DemoCoreWeb.ClientApi/DemoCoreWeb.ClientApi.csproj" />
+    <Project Path="DemoCoreWeb.ClientApiTextJson/DemoCoreWeb.ClientApiTextJson.csproj" />
+    <Project Path="_DebugWebClientApi/DebugWebClientApi.csproj" />
+  </Folder>
+  <Folder Name="/JsonConverters/">
+    <Project Path="Fonlow.Auth.PayloadConverters/Fonlow.Auth.PayloadConverters.csproj" />
+    <Project Path="Fonlow.DateOnlyExtensions/Fonlow.DateOnlyExtensions.csproj" />
+    <Project Path="Fonlow.DateOnlyExtensionsNet/Fonlow.DateOnlyExtensionsTextJson.csproj" />
+    <Project Path="Fonlow.IntegralExtension/Fonlow.IntegralExtensions.csproj" />
+    <Project Path="Fonlow.IntegralExtensionsTextJson/Fonlow.IntegralExtensionsTextJson.csproj" />
+  </Folder>
+  <Folder Name="/Plugins/">
+    <Project Path="WebApiClientGenCore.Aurelia/WebApiClientGenCore.Aurelia.csproj" />
+    <Project Path="WebApiClientGenCore.Axios/WebApiClientGenCore.Axios.csproj" />
+    <Project Path="WebApiClientGenCore.Fetch/WebApiClientGenCore.Fetch.csproj" />
+    <Project Path="WebApiClientGenCore.jQuery/WebApiClientGenCore.jQuery.csproj" />
+    <Project Path="WebApiClientGenCore.NG2/WebApiClientGenCore.NG2.csproj" />
+    <Project Path="WebApiClientGenCore.NG2FormGroup/WebApiClientGenCore.NG2FormGroup.csproj" />
+  </Folder>
+  <Folder Name="/Poco2Ts/">
+    <Project Path="Fonlow.Poco2TsCore/Fonlow.Poco2TsCore.csproj" />
+    <Project Path="Poco2TsCore/Poco2TsCore.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="BuildRelease.ps1" />
+    <File Path="DotNetPack.ps1" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <File Path="Tests/README.md" />
+    <Project Path="Tests/DateOnlyExtensionsTextJsonTests/DateOnlyExtensionsTextJsonTests.csproj" />
+    <Project Path="Tests/IntegrationTestsCore/IntegrationTestsCore.csproj" />
+    <Project Path="Tests/IntegrationTestShared/IntegrationTestShared.shproj" />
+    <Project Path="Tests/IntegrationTestsTextJson/IntegrationTestsTextJson.csproj" />
+    <Project Path="Tests/Poco2NgFormTests/Poco2NgFormTests.csproj" />
+    <Project Path="Tests/Poco2TsTestsCore/Poco2TsTestsCore.csproj" />
+  </Folder>
+  <Project Path="Fonlow.DocCommentCore/Fonlow.DocCommentCore.csproj" />
+  <Project Path="WebApiClientGenCore.Abstract/WebApiClientGenCore.Abstract.csproj" />
+  <Project Path="WebApiClientGenCore/WebApiClientGenCore.csproj" />
+</Solution>

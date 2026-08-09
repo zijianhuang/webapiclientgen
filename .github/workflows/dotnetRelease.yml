@@ -8,9 +8,6 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-defaults:
-  run:
-    shell: pwsh
 jobs:
   build:
 
@@ -28,8 +25,8 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: ./BuildRelease.ps1
+      run: dotnet build --no-restore --configuration Release
     - name: Test
-      run: ./TestReleaseAll.ps1
+      run: dotnet test --verbosity normal --configuration Release --no-build --solution WebApiClientGen.slnx
 
       

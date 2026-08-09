@@ -15,15 +15,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="xunit.runner.visualstudio" Version="4.0.0-pre.5">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="xunit.v3" Version="4.0.0-pre.154-dev" />
-		<PackageReference Include="xunit.v3.runner.console" Version="4.0.0-pre.154-dev">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
+		<PackageReference Include="xunit.v3" Version="4.0.0-pre.154" />
 	</ItemGroup>
 
 	<ItemGroup>

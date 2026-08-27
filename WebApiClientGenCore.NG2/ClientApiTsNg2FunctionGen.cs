@@ -131,7 +131,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForString});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, {dataToPost}, {ContentOptionsForString});"));
 					}
 
 					return;
@@ -155,7 +155,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, JSON.stringify({dataToPost}), {OptionsForBlob});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, {dataToPost}, {OptionsForBlob});"));
 					}
 
 					return;
@@ -179,7 +179,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForResponse});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, {dataToPost}, {ContentOptionsForResponse});"));
 					}
 
 					return;
@@ -215,7 +215,7 @@ namespace Fonlow.CodeDom.Web.Ts
 						}
 						else
 						{
-							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForResponse});"));
+							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, {dataToPost}, {ContentOptionsForResponse});"));
 						}
 					}
 					else // type is returned
@@ -226,7 +226,7 @@ namespace Fonlow.CodeDom.Web.Ts
 						}
 						else
 						{
-							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}{returnTypeCast}({uriText}, JSON.stringify({dataToPost}), {OptionsWithContent});"));
+							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}{returnTypeCast}({uriText}, {dataToPost}, {OptionsWithContent});"));
 						}
 					}
 

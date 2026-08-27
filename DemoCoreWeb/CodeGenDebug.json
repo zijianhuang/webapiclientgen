@@ -24,7 +24,6 @@
 		"ClientLibraryProjectFolderName": "..\\..\\DemoCoreWeb.ClientApi",
 		"GenerateBothAsyncAndSync": true,
 		"DIFriendly": true,
-		"StringAsString": true,
 		"CamelCase": true,
 		"CSClientNamespaceSuffix": ".Client",
 		"UseEnsureSuccessStatusCodeEx": true,

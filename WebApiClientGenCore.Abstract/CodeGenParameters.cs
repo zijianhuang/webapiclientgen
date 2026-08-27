@@ -256,11 +256,6 @@ namespace Fonlow.CodeDom.Web
 		public bool GenerateBothAsyncAndSync { get; set; }
 
 		/// <summary>
-		/// Whether the Web API return string as string, rather than JSON object which is a double quoted string. Default true.
-		/// </summary>
-		public bool StringAsString { get; set; } = true;
-
-		/// <summary>
 		/// Whether to conform to the camel casing convention of javascript and JSON.
 		/// If not defined, WebApiClientGen will check if GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver is Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver;
 		/// If CamelCasePropertyNamesContractResolver is presented, camelCasing will be used. If not, no camelCasing transformation will be used.
@@ -407,8 +402,6 @@ namespace Fonlow.CodeDom.Web
 		/// HTTP content type used in POST of HTTP of NG2. so text/plain could be used to avoid preflight in CORS.
 		/// </summary>
 		public string ContentType { get; set; }
-
-		public bool StringAsString { get; set; }
 
 		public string ClientNamespaceSuffix { get; set; } = ".Client";
 

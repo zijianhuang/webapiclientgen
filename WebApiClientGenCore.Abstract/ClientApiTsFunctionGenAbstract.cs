@@ -69,6 +69,11 @@ namespace Fonlow.CodeDom.Web.Ts
 			this.jsOutput = jsOutput;
 			this.StrictMode = jsOutput.HelpStrictMode;
 
+			if (string.IsNullOrEmpty(Description.HttpMethod))
+			{
+				throw new CodeGenException($"API function {description.ActionDescriptor.MethodFullName} has no HttpMethod declared when generating TypeScript client code.");
+			}
+
 			HttpMethodName = Description.HttpMethod.ToLower(CultureInfo.CurrentCulture); //Method is always uppercase. 
 			MethodName = TsCodeGenerationOptions.Instance.CamelCase ? Fonlow.Text.StringExtensions.ToCamelCase(description.ActionDescriptor.ActionName) : description.ActionDescriptor.ActionName;
 			if (MethodName.EndsWith("Async", StringComparison.Ordinal))

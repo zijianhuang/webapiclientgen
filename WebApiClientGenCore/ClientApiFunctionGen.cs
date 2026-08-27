@@ -135,6 +135,11 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// created.</returns>
 		CodeMemberMethod CreateApiFunction()
 		{
+			if (string.IsNullOrEmpty(description.HttpMethod))
+			{
+				throw new CodeGenException($"API function {description.ActionDescriptor.MethodFullName} has no HttpMethod declared when generating C# client code.");
+			}
+
 			AddCustomPocoTypeForCs(returnType);
 			//create method
 			clientMethod = forAsync ? CreateMethodBasicForAsync() : CreateMethodBasic();

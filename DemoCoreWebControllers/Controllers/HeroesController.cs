@@ -86,9 +86,9 @@ namespace DemoWebApi.Controllers
 			hero.PhoneNumbers.Add(new DemoData.PhoneNumber { FullNumber = "0898sdf43434", PhoneType = DemoData.PhoneType.Mobile });
 			hero.Address = new DemoData.Address
 			{
-				City="Brisbane",
-				State="Queensland",
-				Country="Australia"
+				City = "Brisbane",
+				State = "Queensland",
+				Country = "Australia"
 			};
 
 			_ = HeroesData.Instance.Dic.TryAdd(max + 1, hero);
@@ -128,6 +128,11 @@ namespace DemoWebApi.Controllers
 				yield return item;
 			}
 		}
+
+		//public Hero DemoError(long id) //for testing #124
+		//{
+		//	return null;
+		//}
 
 	}
 
@@ -176,9 +181,9 @@ namespace DemoWebApi.Controllers
 	}
 
 	[DataContract(Namespace = DemoWebApi.DemoData.Constants.DataNamespace)]
-	public class SuperHero: Hero
+	public class SuperHero : Hero
 	{
-		public SuperHero(long id, string name, bool super):base(id, name)
+		public SuperHero(long id, string name, bool super) : base(id, name)
 		{
 			Id = id;
 			Name = name;

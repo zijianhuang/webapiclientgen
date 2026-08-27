@@ -20,7 +20,7 @@ export function clientFactory(http: HttpClient) {
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideHttpClient(withXhr()),
+        provideHttpClient(), //in NG 22+, Fetch API.
 
         provideRouter(routes),
         {

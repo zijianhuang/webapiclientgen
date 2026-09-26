@@ -1341,6 +1341,14 @@ namespace DemoWebApi_Controllers_Client {
 		getNullString(callback: (data : string) => any, headersHandler?: () => { [header: string]: string }) {
 			this.httpClient.get(this.baseUri + 'api/TextData/NullString', callback, this.error, this.statusCode, headersHandler);
 		}
+
+		/**
+		 * Text as text
+		 * POST api/TextData/Text
+		 */
+		postText(text: string | null, callback: (data : string) => any, headersHandler?: () => { [header: string]: string }) {
+			this.httpClient.post(this.baseUri + 'api/TextData/Text', text, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
 	}
 
 

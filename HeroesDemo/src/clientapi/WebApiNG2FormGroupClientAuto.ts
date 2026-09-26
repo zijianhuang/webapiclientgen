@@ -1400,6 +1400,14 @@ export namespace DemoWebApi_Controllers_Client {
 		getNullString(headersHandler?: () => HttpHeaders): Observable<string | null> {
 			return this.http.get(this.baseUri + 'api/TextData/NullString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
 		}
+
+		/**
+		 * Text as text
+		 * POST api/TextData/Text
+		 */
+		postText(text?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.post(this.baseUri + 'api/TextData/Text', text, { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), responseType: 'text' });
+		}
 	}
 
 

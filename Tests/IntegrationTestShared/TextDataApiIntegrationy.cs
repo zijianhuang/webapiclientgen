@@ -74,5 +74,12 @@ namespace IntegrationTests
 		}
 
 
+		[Fact]
+		public void TestPostABCDE()
+		{
+			Assert.Equal("ABCDE", api.PostText("ABCDE"));
+		}
+
+
 	}
 }

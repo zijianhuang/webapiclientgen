@@ -1,57 +1,265 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 export namespace DemoWebApi_Controllers_Client {
-
-	/**
-	 * This class is used to carry the result of various file uploads.
-	 */
-	export interface FileResult {
-
-		/**
-		 * Gets or sets the local path of the file saved on the server.
-		 */
-		fileNames?: Array<string>;
-
-		/**
-		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
-		 */
-		submitter?: string | null;
-	}
-
-
-	/**
-	 * Complex hero type
-	 */
 	export interface Hero {
-		address?: DemoWebApi_DemoData_Client.Address;
+		address?: any;
 		death?: Date | null;
-
-		/** Type: DateOnly */
 		dob?: Date | null;
 		emailAddress?: string | null;
-
-		/** Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
 		id?: string | null;
-
-		/**
-		 * Required. Null or empty is invalid.
-		 * String length: inclusive between 2 and 120
-		 */
-		name?: string | null;
-		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
-
-		/**
-		 * Min length: 6
-		 * Regex pattern: ^(https?:\\/\\/)?[da-z.-]+.[a-z.]\{2,6\}([\/\w .-]\*)\*\\/?$
-		 */
+		name: string;
+		phoneNumbers?: Array<any>;
 		webAddress?: string | null;
+	}
+	export function CreateHeroFormGroup() {
+		return new FormGroup({
+			address: new FormControl<any | null | undefined>(undefined),
+			death: new FormControl<Date | null | undefined>(undefined),
+			dob: new FormControl<Date | null | undefined>(undefined),
+			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
+			id: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^-?\d{0,19}$/)]),
+			name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2), Validators.maxLength(120)]),
+			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6)]),
+		});
+
 	}
 
 	export interface SuperHero extends DemoWebApi_Controllers_Client.Hero {
 		super?: boolean | null;
 	}
+	export function CreateSuperHeroFormGroup() {
+		return new FormGroup({
+			super: new FormControl<boolean | null | undefined>(undefined),
+		});
 
+	}
+
+	export interface FileResult {
+		fileNames?: Array<string>;
+		submitter?: string | null;
+	}
+	export function CreateFileResultFormGroup() {
+		return new FormGroup({
+			submitter: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+}
+
+export namespace DemoWebApi_DemoData_Base_Client {
+	export interface Entity {
+		addresses?: Array<any>;
+		emailAddress?: string | null;
+		id?: string | null;
+		name: string;
+		phoneNumbers?: Array<any>;
+		web?: string | null;
+	}
+	export function CreateEntityFormGroup() {
+		return new FormGroup({
+			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
+			id: new FormControl<string | null | undefined>(undefined),
+			name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
+			web: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+}
+
+export namespace DemoCoreWeb_Controllers_Client {
+	@Injectable({ providedIn: 'root' })
+	export class SpecialTypes {
+		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
+		}
+
+		/**
+		 * Anonymous Dynamic of C#
+		 * GET api/SpecialTypes/AnonymousDynamic
+		 * @return {any} dyanmic things
+		 */
+		getAnonymousDynamic(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
+		}
+
+		/**
+		 * Async function returing dynamic
+		 * GET api/SpecialTypes/AnonymousDynamic2
+		 */
+		getAnonymousDynamic2(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic2', { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
+		}
+
+		/**
+		 * GET api/SpecialTypes/AnonymousObject
+		 */
+		getAnonymousObject(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousObject', { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
+		}
+
+		/**
+		 * Async function returning object
+		 * GET api/SpecialTypes/AnonymousObject2
+		 */
+		getAnonymousObject2(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousObject2', { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
+		}
+
+		/**
+		 * POST api/SpecialTypes/AnonymousObject
+		 */
+		postAnonymousObject(obj?: any, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.post(this.baseUri + 'api/SpecialTypes/AnonymousObject', obj, { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
+		}
+
+		/**
+		 * Async returning object, Post dynamic
+		 * POST api/SpecialTypes/AnonymousObject2
+		 */
+		postAnonymousObject2(obj?: any, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.post(this.baseUri + 'api/SpecialTypes/AnonymousObject2', obj, { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
+		}
+	}
+
+}
+
+export namespace DemoWebApi_DemoData_Client {
+	export interface Person extends DemoWebApi_DemoData_Base_Client.Entity {
+		baptised?: Date | null;
+		dob?: Date | null;
+		givenName?: string | null;
+		surname?: string | null;
+	}
+	export function CreatePersonFormGroup() {
+		return new FormGroup({
+			baptised: new FormControl<Date | null | undefined>(undefined),
+			dob: new FormControl<Date | null | undefined>(undefined),
+			givenName: new FormControl<string | null | undefined>(undefined),
+			surname: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Company extends DemoWebApi_DemoData_Base_Client.Entity {
+		businessNumber?: string | null;
+		businessNumberType?: string | null;
+		foundDate?: Date | null;
+		registerDate?: Date | null;
+		textMatrix?: Array<Array<string>>;
+		int2D?: number[][];
+		int2DJagged?: Array<Array<number>>;
+		lines?: Array<string>;
+	}
+	export function CreateCompanyFormGroup() {
+		return new FormGroup({
+			businessNumber: new FormControl<string | null | undefined>(undefined),
+			businessNumberType: new FormControl<string | null | undefined>(undefined),
+			foundDate: new FormControl<Date | null | undefined>(undefined),
+			registerDate: new FormControl<Date | null | undefined>(undefined),
+		});
+
+	}
+
+	export enum Days { Sat = 1, Sun = 2, Mon = 3, Tue = 4, Wed = 5, Thu = 6, Fri = 7 }
+
+	export interface MimsResult<T> {
+		generatedAt?: Date | null;
+		message?: string | null;
+		result?: T;
+		success?: boolean | null;
+	}
+
+	export interface MyGeneric<T, K, U> {
+		myK?: K;
+		myT?: T;
+		myU?: U;
+		status?: string | null;
+	}
+
+	export interface BigNumbers {
+		bigInt?: string | null;
+		signed128?: string | null;
+		signed64?: string | null;
+		unsigned128?: string | null;
+		unsigned64?: string | null;
+	}
+	export function CreateBigNumbersFormGroup() {
+		return new FormGroup({
+			bigInt: new FormControl<string | null | undefined>(undefined, [Validators.pattern(/^-?\d*$/)]),
+			signed128: new FormControl<string | null | undefined>(undefined),
+			signed64: new FormControl<string | null | undefined>(undefined),
+			unsigned128: new FormControl<string | null | undefined>(undefined),
+			unsigned64: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface IdMap {
+		id?: string | null;
+		idNotEmitDefaultValue?: string | null;
+		nullableId?: string | null;
+		requiredName: string;
+		text?: string | null;
+	}
+	export function CreateIdMapFormGroup() {
+		return new FormGroup({
+			id: new FormControl<string | null | undefined>(undefined),
+			idNotEmitDefaultValue: new FormControl<string | null | undefined>(undefined),
+			nullableId: new FormControl<string | null | undefined>(undefined),
+			requiredName: new FormControl<string | null>(null, [Validators.required]),
+			text: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface IntegralEntity {
+		byte?: number | null;
+		int?: number | null;
+		itemCount?: number | null;
+		sByte?: number | null;
+		short?: number | null;
+		uInt?: number | null;
+		uShort?: number | null;
+	}
+	export function CreateIntegralEntityFormGroup() {
+		return new FormGroup({
+			byte: new FormControl<number | null | undefined>(undefined),
+			int: new FormControl<number | null | undefined>(undefined),
+			itemCount: new FormControl<number | null | undefined>(undefined, [Validators.min(-1000), Validators.max(1000000)]),
+			sByte: new FormControl<number | null | undefined>(undefined),
+			short: new FormControl<number | null | undefined>(undefined),
+			uInt: new FormControl<number | null | undefined>(undefined),
+			uShort: new FormControl<number | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface MimsPackage {
+		kk?: number | null;
+		kK2?: number | null;
+		optionalEnum?: number | null;
+		optionalInt?: number | null;
+		result?: DemoWebApi_DemoData_Client.MimsResult<number>;
+		tag?: string | null;
+	}
+	export function CreateMimsPackageFormGroup() {
+		return new FormGroup({
+			kk: new FormControl<number | null | undefined>(undefined, [Validators.min(10), Validators.max(100)]),
+			kK2: new FormControl<number | null | undefined>(undefined),
+			optionalEnum: new FormControl<number | null | undefined>(undefined),
+			optionalInt: new FormControl<number | null | undefined>(undefined),
+			result: new FormControl<DemoWebApi_DemoData_Client.MimsResult<number> | null | undefined>(undefined),
+			tag: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+}
+
+export namespace DemoWebApi_Controllers_Client {
 
 	/**
 	 * For testing different commbinations of parameters and returns
@@ -351,13 +559,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * GET api/Entities/NullPerson
-		 */
-		getNullPerson(headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person | null> {
-			return this.http.get<DemoWebApi_DemoData_Client.Person | null>(this.baseUri + 'api/Entities/NullPerson', { headers: headersHandler ? headersHandler() : undefined });
-		}
-
-		/**
 		 * Get a person
 		 * so to know the person
 		 * GET api/Entities/getPerson/{id}
@@ -397,13 +598,6 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		postIdMap(idMap?: DemoWebApi_DemoData_Client.IdMap | null, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.IdMap> {
 			return this.http.post<DemoWebApi_DemoData_Client.IdMap>(this.baseUri + 'api/Entities/IdMap', idMap, { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
-		}
-
-		/**
-		 * POST api/Entities/MixedDataEntity
-		 */
-		postMixedDataEntity(entity?: DemoWebApi_DemoData_Client.MixedDataEntity | null, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.MixedDataEntity> {
-			return this.http.post<DemoWebApi_DemoData_Client.MixedDataEntity>(this.baseUri + 'api/Entities/MixedDataEntity', entity, { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
@@ -525,13 +719,6 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		getByteWithRange(d?: number | null, headersHandler?: () => HttpHeaders): Observable<number> {
 			return this.http.get<number>(this.baseUri + 'api/Numbers/byteWithRange?d=' + d, { headers: headersHandler ? headersHandler() : undefined });
-		}
-
-		/**
-		 * GET api/Numbers/NullableInt?num={num}
-		 */
-		getNullableNumber(num?: number | null, headersHandler?: () => HttpHeaders): Observable<number | null> {
-			return this.http.get<number | null>(this.baseUri + 'api/Numbers/NullableInt?' + (num || num == 0 ? 'num=' + num.toString() : ''), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
@@ -689,74 +876,6 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		postUint64(uint64?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
 			return this.http.post<string>(this.baseUri + 'api/Numbers/uint64', uint64, { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
-		}
-	}
-
-
-	/** @deprecated This controller is obsolete, use ValuesController instead. */
-	@Injectable({ providedIn: 'root' })
-	export class ObsoleteValues {
-		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
-		}
-
-		/**
-		 * DELETE api/ObsoleteValues/{id}
-		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
-		 */
-		delete(id?: number | null, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
-			return this.http.delete(this.baseUri + 'api/ObsoleteValues/' + id, { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
-		}
-
-		/**
-		 * Get a list of value
-		 * GET api/ObsoleteValues
-		 */
-		get(headersHandler?: () => HttpHeaders): Observable<Array<string>> {
-			return this.http.get<Array<string>>(this.baseUri + 'api/ObsoleteValues', { headers: headersHandler ? headersHandler() : undefined });
-		}
-
-		/**
-		 * Get by both Id and name
-		 * GET api/ObsoleteValues/Name/{id}?name={name}
-		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
-		 */
-		getByIdOfInt32AndNameOfString(id?: number | null, name?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.get(this.baseUri + 'api/ObsoleteValues/Name/' + id + '?name=' + (!name ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
-		}
-
-		/**
-		 * Get by name
-		 * GET api/ObsoleteValues?name={name}
-		 * @deprecated This method is obsolete, use ValuesController.Get instead.
-		 */
-		getByNameOfString(name?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.get(this.baseUri + 'api/ObsoleteValues?name=' + (!name ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
-		}
-
-		/**
-		 * Get by Id
-		 * GET api/ObsoleteValues/{id}
-		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
-		 */
-		getByIdOfInt32(id?: number | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.get(this.baseUri + 'api/ObsoleteValues/' + id, { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
-		}
-
-		/**
-		 * Get a list of value async, it is get2
-		 * GET api/ObsoleteValues/Get2
-		 */
-		get2(headersHandler?: () => HttpHeaders): Observable<Array<string>> {
-			return this.http.get<Array<string>>(this.baseUri + 'api/ObsoleteValues/Get2', { headers: headersHandler ? headersHandler() : undefined });
-		}
-
-		/**
-		 * Update with valjue
-		 * PUT api/ObsoleteValues/{id}
-		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
-		 */
-		put(id?: number | null, value?: string | null, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
-			return this.http.put(this.baseUri + 'api/ObsoleteValues/' + id, value, { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
 		}
 	}
 
@@ -921,7 +1040,6 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/SuperDemo/DecimalZero
 		 * @return {number} Type: decimal
-		 * @deprecated Just for test
 		 */
 		getDecimalZero(headersHandler?: () => HttpHeaders): Observable<number> {
 			return this.http.get<number>(this.baseUri + 'api/SuperDemo/DecimalZero', { headers: headersHandler ? headersHandler() : undefined });
@@ -960,7 +1078,6 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Result of 0.1d + 0.2d - 0.3d
 		 * GET api/SuperDemo/DoubleZero
 		 * @return {number} Type: double
-		 * @deprecated for testing
 		 */
 		getDoubleZero(headersHandler?: () => HttpHeaders): Observable<number> {
 			return this.http.get<number>(this.baseUri + 'api/SuperDemo/DoubleZero', { headers: headersHandler ? headersHandler() : undefined });
@@ -984,7 +1101,6 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/SuperDemo/FloatZero
 		 * @return {number} Type: float
-		 * @deprecated 
 		 */
 		getFloatZero(headersHandler?: () => HttpHeaders): Observable<number> {
 			return this.http.get<number>(this.baseUri + 'api/SuperDemo/FloatZero', { headers: headersHandler ? headersHandler() : undefined });
@@ -1351,14 +1467,6 @@ export namespace DemoWebApi_Controllers_Client {
 		getNullString(headersHandler?: () => HttpHeaders): Observable<string | null> {
 			return this.http.get(this.baseUri + 'api/TextData/NullString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
 		}
-
-		/**
-		 * Text as text
-		 * POST api/TextData/Text
-		 */
-		postText(text?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.post(this.baseUri + 'api/TextData/Text', text, { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), responseType: 'text' });
-		}
 	}
 
 
@@ -1652,522 +1760,6 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		put(id?: number | null, value?: string | null, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
 			return this.http.put(this.baseUri + 'api/Values/' + id, value, { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
-		}
-	}
-
-}
-
-export namespace DemoWebApi_DemoDataEx_Client {
-	export interface AAMyGenericNested extends DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.Company>> {
-		special?: DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Base_Client.Entity>, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.MimsResult<DemoWebApi_DemoDataEx_Client.TextJsonPerson>>;
-	}
-
-	export interface DotNetJsonType {
-		description?: string | null;
-
-		/**
-		 * Required. Null or empty is invalid.
-		 * Description: mostly about UI / content concerning users
-		 * JSON Required. Null or empty may be fine.
-		 */
-		double_required: string | null;
-
-		/**
-		 * Required means the property is required and cannot be null or empty string.
-		 * Required. Null or empty is invalid.
-		 */
-		location: string;
-
-		/**
-		 * JsonRequired means the property is required in JSON, but it can be null or empty string.
-		 * JSON Required. Null or empty may be fine.
-		 */
-		name: string | null;
-	}
-
-	export interface TextJsonPerson {
-		givenName?: string | null;
-		surname?: string | null;
-	}
-
-	export interface Trust extends DemoWebApi_DemoData_Client.BizEntity {
-		trustee?: string | null;
-	}
-
-	export interface ZListCheck {
-		bizEntities?: Array<DemoWebApi_DemoData_Client.BizEntity>;
-		bytesHashSet?: Array<number>;
-		companies?: Array<DemoWebApi_DemoData_Client.Company>;
-		decimals?: Array<number>;
-		entities?: Array<DemoWebApi_DemoData_Base_Client.Entity>;
-		numbers?: Array<number>;
-		people?: Array<DemoWebApi_DemoData_Client.Person>;
-		people2?: Array<DemoWebApi_DemoDataEx_Client.TextJsonPerson>;
-		strings?: Array<string>;
-		trusts?: Array<DemoWebApi_DemoDataEx_Client.Trust>;
-	}
-
-}
-
-export namespace DemoWebApi_DemoData_Another_Client {
-
-	/**
-	 * 2D position
-	 * with X and Y
-	 * for Demo
-	 */
-	export interface MyPoint {
-
-		/**
-		 * X
-		 * Type: double
-		 */
-		x?: number | null;
-
-		/**
-		 * Y
-		 * Type: double
-		 */
-		y?: number | null;
-	}
-
-}
-
-export namespace DemoWebApi_DemoData_Base_Client {
-
-	/**
-	 * Base class of company and person
-	 */
-	export interface Entity {
-
-		/**
-		 * Multiple addresses
-		 */
-		addresses?: Array<DemoWebApi_DemoData_Client.Address>;
-
-		/** Max length: 255 */
-		emailAddress?: string | null;
-		id?: string | null;
-
-		/**
-		 * Name of the entity.
-		 * Required. Null or empty is invalid.
-		 * Min length: 2
-		 * Max length: 255
-		 */
-		name: string;
-		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
-
-		/**
-		 * Type: Uri
-		 * Regex pattern: ^(https?:\\/\\/)?[da-z.-]+.[a-z.]\{2,6\}([\/\w .-]\*)\*\\/?$
-		 */
-		web?: string | null;
-	}
-
-}
-
-export namespace DemoWebApi_DemoData_Client {
-	export interface Address {
-
-		/** String length: inclusive between 2 and 50 */
-		city?: string | null;
-
-		/** String length: inclusive between 2 and 30 */
-		country?: string | null;
-
-		/** Type: GUID */
-		id?: string | null;
-
-		/** String length: inclusive between 2 and 10 */
-		postalCode?: string | null;
-
-		/** String length: inclusive between 2 and 30 */
-		state?: string | null;
-
-		/** String length: inclusive between 2 and 100 */
-		street1?: string | null;
-
-		/** Length min: 2, max: 100 */
-		street2?: string | null;
-		type?: DemoWebApi_DemoData_Client.AddressType | null;
-
-		/**
-		 * It is a field
-		 */
-		location?: DemoWebApi_DemoData_Another_Client.MyPoint;
-	}
-
-	export enum AddressType { Postal, Residential }
-
-
-	/**  */
-	export interface BigNumbers {
-
-		/** Type: BigInteger */
-		bigInt?: string | null;
-
-		/** Type: Int128, -170141183460469231731687303715884105728 to 170141183460469231731687303715884105727 */
-		signed128?: string | null;
-
-		/** Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
-		signed64?: string | null;
-
-		/** Type: UInt128, 0 to 340282366920938463463374607431768211455 */
-		unsigned128?: string | null;
-
-		/** Type: ulong, 0 to 18,446,744,073,709,551,615 */
-		unsigned64?: string | null;
-	}
-
-	export interface BizEntity extends DemoWebApi_DemoData_Base_Client.Entity {
-
-		/** Data type: Date */
-		foundDate?: Date | null;
-
-		/** Type: DateOnly */
-		registerDate?: Date | null;
-	}
-
-	export interface Company extends DemoWebApi_DemoData_Client.BizEntity {
-
-		/**
-		 * BusinessNumber to be serialized as BusinessNum
-		 */
-		business_no?: string | null;
-		businessNumberType?: string | null;
-
-		/** @deprecated */
-		textMatrix?: Array<Array<string>>;
-		int2D?: number[][];
-		int2DJagged?: Array<Array<number>>;
-		lines?: Array<string>;
-	}
-
-	export enum Days {
-		Sat = 1,
-		Sun = 2,
-		Mon = 3,
-		Tue = 4,
-		Wed = 5,
-
-		/**
-		 * Thursday
-		 */
-		Thu = 6,
-		Fri = 7
-	}
-
-
-	/**
-	 * To test different serializations against Guid
-	 */
-	export interface IdMap {
-
-		/** Type: GUID */
-		id?: string | null;
-
-		/** Type: GUID */
-		idNotEmitDefaultValue?: string | null;
-		nullableId?: string | null;
-
-		/** Required. Null or empty is invalid. */
-		requiredName: string;
-		text?: string | null;
-	}
-
-	export interface IntegralEntity {
-
-		/** Type: byte, 0 to 255 */
-		byte?: number | null;
-
-		/** Type: int, -2,147,483,648 to 2,147,483,647 */
-		int?: number | null;
-
-		/**
-		 * Type: int
-		 * Range: inclusive between -1000 and 1000000
-		 */
-		itemCount?: number | null;
-
-		/** Type: sbyte, -128 to 127 */
-		sByte?: number | null;
-
-		/** Type: short, -32,768 to 32,767 */
-		short?: number | null;
-
-		/** Type: uint, 0 to 4,294,967,295 */
-		uInt?: number | null;
-
-		/** Type: ushort, 0 to 65,535 */
-		uShort?: number | null;
-	}
-
-	export enum MedicalContraindiationResponseTypeReason { M = "Mm", S = "Ss", P = "Pp", I = "I", A = "A" }
-
-	export enum MedicalContraindiationResponseTypeTypeCode { P = "P", T = "Tt" }
-
-
-	/** @deprecated Type with properties deprecated for testing */
-	export interface MimsPackage {
-
-		/**
-		 * Type: int
-		 * Range: inclusive between 10 and 100
-		 */
-		kk?: number | null;
-
-		/**
-		 * Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
-		 * and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
-		 * Type: int, -2,147,483,648 to 2,147,483,647
-		 */
-		kK2?: number | null;
-		optionalEnum?: DemoWebApi_DemoData_Client.MyEnumType | null;
-		optionalInt?: number | null;
-		result?: DemoWebApi_DemoData_Client.MimsResult<number>;
-		tag?: string | null;
-
-		/** @deprecated Just for testing */
-		tagForTest2?: string | null;
-	}
-
-	export interface MimsResult<T> {
-		generatedAt?: Date | null;
-		message?: string | null;
-		result?: T;
-		success?: boolean | null;
-	}
-
-	export interface MixedDataEntity extends DemoWebApi_DemoData_Client.IntegralEntity {
-
-		/** Type: DateOnly */
-		dob?: Date | null;
-
-		/** Max length: 255 */
-		emailAddress?: string | null;
-
-		/**
-		 * Required. Null or empty is invalid.
-		 * Min length: 2
-		 * Max length: 255
-		 */
-		name: string;
-
-		/**
-		 * Type: Uri
-		 * Regex pattern: ^(https?:\\/\\/)?[da-z.-]+.[a-z.]\{2,6\}([\/\w .-]\*)\*\\/?$
-		 */
-		web?: string | null;
-	}
-
-	export enum MyEnumType { First = 1, Two = 2 }
-
-	export interface MyGeneric<T, K, U> {
-		myK?: K;
-		myT?: T;
-		myU?: U;
-		status?: string | null;
-	}
-
-	export interface MyGenericInt extends DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Base_Client.Entity, Date> {
-	}
-
-	export interface MyPeopleDic {
-		anotherDic?: { [id: string]: string };
-		dic?: { [id: string]: DemoWebApi_DemoData_Client.Person };
-		intDic?: { [id: number]: string };
-	}
-
-	export interface Person extends DemoWebApi_DemoData_Base_Client.Entity {
-
-		/** Data type: Date */
-		baptised?: Date | null;
-
-		/**
-		 * Date of Birth.
-		 * This is optional.
-		 */
-		dob?: Date | null;
-		givenName?: string | null;
-		surname?: string | null;
-	}
-
-	export interface PhoneNumber {
-
-		/** Max length: 120 */
-		fullNumber?: string | null;
-		phoneType?: DemoWebApi_DemoData_Client.PhoneType | null;
-	}
-
-
-	/**
-	 * Phone type
-	 * Tel, Mobile, Skyp and Fax
-	 */
-	export enum PhoneType {
-
-		/**
-		 * Land line
-		 */
-		Tel,
-
-		/**
-		 * Mobile phone
-		 */
-		Mobile,
-		Skype,
-		Fax
-	}
-
-}
-
-export namespace DemoWebApi_Models_Client {
-	export interface AddExternalLoginBindingModel {
-
-		/** Required. Null or empty is invalid. */
-		externalAccessToken: string;
-	}
-
-	export interface ChangePasswordBindingModel {
-
-		/** Data type: Password */
-		confirmPassword?: string | null;
-
-		/**
-		 * Required. Null or empty is invalid.
-		 * String length: inclusive between 6 and 100
-		 * Data type: Password
-		 */
-		newPassword: string;
-
-		/**
-		 * JSON Required. Null or empty may be fine.
-		 * Data type: Password
-		 */
-		OldPwd: string | null;
-	}
-
-	export interface RegisterBindingModel {
-
-		/** Data type: Password */
-		confirmPassword?: string | null;
-
-		/** Required. Null or empty is invalid. */
-		email: string;
-
-		/**
-		 * Required. Null or empty is invalid.
-		 * String length: inclusive between 6 and 100
-		 * Data type: Password
-		 */
-		password: string;
-	}
-
-	export interface RegisterExternalBindingModel {
-
-		/** Required. Null or empty is invalid. */
-		email: string;
-	}
-
-	export interface RemoveLoginBindingModel {
-
-		/** Required. Null or empty is invalid. */
-		loginProvider: string;
-
-		/** Required. Null or empty is invalid. */
-		providerKey: string;
-	}
-
-	export interface SetPasswordBindingModel {
-
-		/** Data type: Password */
-		confirmPassword?: string | null;
-
-		/**
-		 * Required. Null or empty is invalid.
-		 * String length: inclusive between 6 and 100
-		 * Data type: Password
-		 */
-		newPassword: string;
-	}
-
-
-	/**
-	 * Auth token
-	 */
-	export interface TokenResponseModel {
-		access_token?: string | null;
-		expires?: string | null;
-
-		/** Type: int, -2,147,483,648 to 2,147,483,647 */
-		expires_in?: number | null;
-		issued?: string | null;
-		token_type?: string | null;
-		username?: string | null;
-	}
-
-}
-
-export namespace DemoCoreWeb_Controllers_Client {
-	@Injectable({ providedIn: 'root' })
-	export class SpecialTypes {
-		constructor(@Inject('baseUri') private baseUri: string = window.location.origin + '/', private http: HttpClient) {
-		}
-
-		/**
-		 * Anonymous Dynamic of C#
-		 * GET api/SpecialTypes/AnonymousDynamic
-		 * @return {any} dyanmic things
-		 */
-		getAnonymousDynamic(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
-			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
-		}
-
-		/**
-		 * Async function returing dynamic
-		 * GET api/SpecialTypes/AnonymousDynamic2
-		 */
-		getAnonymousDynamic2(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
-			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic2', { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
-		}
-
-		/**
-		 * GET api/SpecialTypes/AnonymousObject
-		 */
-		getAnonymousObject(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
-			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousObject', { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
-		}
-
-		/**
-		 * Async function returning object
-		 * GET api/SpecialTypes/AnonymousObject2
-		 */
-		getAnonymousObject2(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
-			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousObject2', { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
-		}
-
-		/**
-		 * POST api/SpecialTypes/AnonymousObject
-		 */
-		postAnonymousObject(obj?: any, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
-			return this.http.post(this.baseUri + 'api/SpecialTypes/AnonymousObject', obj, { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
-		}
-
-		/**
-		 * Async returning object, Post dynamic
-		 * POST api/SpecialTypes/AnonymousObject2
-		 */
-		postAnonymousObject2(obj?: any, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
-			return this.http.post(this.baseUri + 'api/SpecialTypes/AnonymousObject2', obj, { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
-		}
-
-		/**
-		 * Very complex generic
-		 * POST api/SpecialTypes/VeryComplexGeneric
-		 */
-		postVeryComplexGeneric(body?: DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.Company>> | null, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Base_Client.Entity>, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.MimsResult<DemoWebApi_DemoDataEx_Client.TextJsonPerson>>> {
-			return this.http.post<DemoWebApi_DemoData_Client.MyGeneric<DemoWebApi_DemoData_Client.MyGeneric<number, DemoWebApi_DemoData_Client.MyGenericInt, DemoWebApi_DemoData_Base_Client.Entity>, DemoWebApi_DemoDataEx_Client.ZListCheck, DemoWebApi_DemoData_Client.MimsResult<DemoWebApi_DemoDataEx_Client.TextJsonPerson>>>(this.baseUri + 'api/SpecialTypes/VeryComplexGeneric', body, { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 	}
 

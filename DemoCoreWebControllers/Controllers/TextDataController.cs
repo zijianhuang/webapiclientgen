@@ -65,5 +65,18 @@ namespace DemoWebApi.Controllers
 		{
 			return String.Empty;
 		}
+
+		/// <summary>
+		/// Text as text
+		/// </summary>
+		/// <param name="text"></param>
+		/// <returns></returns>
+		[HttpPost("Text")]
+		public string PostText([FromBody] string text)
+		{
+			return text;
+		}
+
+
 	}
 }
